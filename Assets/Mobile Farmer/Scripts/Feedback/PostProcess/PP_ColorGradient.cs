@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-[CreateAssetMenu(menuName ="GAME/Feedback/PP_ColorGradient")]
+[CreateAssetMenu(menuName ="GAME/Feedback/PostProcess/PP_ColorGradient")]
 public class PP_ColorGradient : FB_PostProcess
 {
     [SerializeField] Color gradientColor;

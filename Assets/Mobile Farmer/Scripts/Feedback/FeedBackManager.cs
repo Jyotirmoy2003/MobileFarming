@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -5,46 +6,83 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-
+[SaveDuringPlay]
 public class FeedBackManager : MonoBehaviour
 {
+    [Header("Ref")]
+    [HideInInspector] public CinemachineVirtualCamera camRef;
+    [HideInInspector] public Transform targetTramform;
+
+    [Space]
+    [Header("Settings")]
     [SerializeField] bool isSequencialFlow=true;
-    [SerializeField] CinemachineVirtualCamera camRef;
     [SerializeField] int startIndex=0;
-    [SerializeField] List<FeedbackBase> feedbackList=new List<FeedbackBase>();
+
+    [Space]
+    [Header("Feedbacks")]
+    public List<FeedbackBase> feedbackList=new List<FeedbackBase>();
+
+
+
+    private int playingFeedbackIndexForSeq=-1;
+    private bool isAlreadyPlayingFeedback=false;
+    public Action CompletePlayingFeedback;
+    private List<Component> compList=new List<Component>();
+    
    
     void Start()
     {
-        
+        if(camRef) compList.Add(camRef);
+        if(targetTramform) compList.Add(targetTramform);
     }
 
     
-    void Update()
+   
+
+    public void PlayFeedback()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(isSequencialFlow)
         {
-            if(isSequencialFlow)
-            {
-                
-            }else
-                InitiateFeedback();
-        }
+            playingFeedbackIndexForSeq=startIndex;
+            InitiateFeedbackseq();
+        }else
+            InitiateFeedback();
     }
+
+
 
     void InitiateFeedback()
     {
         
         for(int i=startIndex;i<feedbackList.Count;i++)
         {
-            feedbackList[i].PushNeededComponent(camRef);
+            feedbackList[i].PushNeededComponent(compList);
             feedbackList[i].OnFeedbackActiavte();
         }
 
-        
+        CompletePlayingFeedback?.Invoke();
     }
 
     void InitiateFeedbackseq()
     {
+        if(isAlreadyPlayingFeedback) return;
 
+
+
+        if(playingFeedbackIndexForSeq!=startIndex)
+            feedbackList[playingFeedbackIndexForSeq].feedbackFinishedExe-=InitiateFeedbackseq;
+        playingFeedbackIndexForSeq++;
+
+        if(playingFeedbackIndexForSeq>feedbackList.Count)
+        {
+            playingFeedbackIndexForSeq=-1;
+            isAlreadyPlayingFeedback=false;
+            //raise event on Complete
+            CompletePlayingFeedback?.Invoke();
+            return;
+        }
+        feedbackList[playingFeedbackIndexForSeq].PushNeededComponent(compList);
+        feedbackList[playingFeedbackIndexForSeq].OnFeedbackActiavte();
+        feedbackList[playingFeedbackIndexForSeq].feedbackFinishedExe+=InitiateFeedbackseq;
     }
 }

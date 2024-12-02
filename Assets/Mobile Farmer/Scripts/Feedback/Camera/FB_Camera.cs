@@ -31,14 +31,14 @@ public class FB_Camera : FeedbackBase
         evaluteAction-=PerformeEffect;
     }
 
-    public override void PushNeededComponent(Component comp)
+    public override void PushNeededComponent(List<Component> comp)
     {
         if(cinemachineVirtualCamera) return;
 
         //when cam ref is not set get it from manager
-        if(comp is CinemachineVirtualCamera)
-        {
-            cinemachineVirtualCamera=(CinemachineVirtualCamera)comp;
-        }
+        foreach(Component item in comp)
+            if(item is CinemachineVirtualCamera)
+                cinemachineVirtualCamera=(CinemachineVirtualCamera)item;
+            
     }
 }

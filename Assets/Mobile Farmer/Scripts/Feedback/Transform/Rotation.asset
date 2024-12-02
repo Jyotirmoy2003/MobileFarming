@@ -9,10 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d179e2f1dbdb54b949bde6ee649c2d, type: 3}
-  m_Name: Zoom
+  m_Script: {fileID: 11500000, guid: 4836c47d670c4ca4598314b571259b8f, type: 3}
+  m_Name: Rotation
   m_EditorClassIdentifier: 
   intensityCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 1
+  targetTranform: {fileID: 0}
+  effectX: 1
+  effectY: 0
+  effectZ: 0
+  curveX:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -45,6 +56,19 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 0.5
-  cinemachineVirtualCamera: {fileID: 0}
-  zoomedFieldofView: 20
+  curveY:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  curveZ:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reampCurveZero: 0
+  reampCurveOne: 90
+  effectLocal: 0
+  evalutedVector: {x: 0, y: 0, z: 0}

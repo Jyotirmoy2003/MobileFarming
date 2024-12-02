@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(menuName ="GAME/Feedback/CM_Zoom")]
+[CreateAssetMenu(menuName ="GAME/Feedback/Camera/CM_Zoom")]
 public class CM_Zoom : FB_Camera
 {
-
+   
     private float defaultFieldofView=60f;
     [SerializeField] float zoomedFieldofView=20f;
     public override void OnFeedbackActiavte()

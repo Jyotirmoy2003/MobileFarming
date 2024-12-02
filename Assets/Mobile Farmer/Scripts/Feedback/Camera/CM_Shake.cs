@@ -5,7 +5,7 @@ using Cinemachine;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName ="GAME/Feedback/CM_Shake")]
+[CreateAssetMenu(menuName ="GAME/Feedback/Camera/CM_Shake")]
 public class CM_Shake : FB_Camera
 {
     [SerializeField] float senetivity=1f;

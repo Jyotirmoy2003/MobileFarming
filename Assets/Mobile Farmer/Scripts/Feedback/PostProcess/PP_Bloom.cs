@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-[CreateAssetMenu(menuName ="GAME/Feedback/PP_Bloom")]
+[CreateAssetMenu(menuName ="GAME/Feedback/PostProcess/PP_Bloom")]
 public class PP_Bloom : FB_PostProcess
 {
     private Bloom bloom;

@@ -9,13 +9,15 @@ using System;
 
 public class FeedbackBase : ScriptableObject
 {
+    
+    [Header("CurveSettings")]
     public  AnimationCurve intensityCurve;
     public float duration=1f;
     public Action<float> evaluteAction;
 
     public Action feedbackFinishedExe;
     
-    public virtual void PushNeededComponent(Component comp)
+    public virtual void PushNeededComponent(List<Component> comp)
     {
 
     }
@@ -26,7 +28,7 @@ public class FeedbackBase : ScriptableObject
 
    }
 
-   public  void  EvaluateTimeline()
+   public virtual  void  EvaluateTimeline()
    {
         Sequence s= DOTween.Sequence();
         
