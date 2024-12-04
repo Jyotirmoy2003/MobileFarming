@@ -54,5 +54,11 @@ public class PlayerAnimator : MonoBehaviour
         //     s.Append(DOVirtual.Float(1, 0f, 1f, v => animator.SetLayerWeight(1,v)));
     }
 
+    public void PlayeWaterAnimation(bool water)
+    {
+        if(water) animator.SetLayerWeight(2,1);
+        else animator.SetLayerWeight(2,0);
+    }
+
 
 }

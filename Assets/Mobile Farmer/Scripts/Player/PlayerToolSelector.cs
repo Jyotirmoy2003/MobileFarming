@@ -13,6 +13,7 @@ public class PlayerToolSelector : MonoBehaviour
     private E_Tool activeTool;
     [Header("Elements")]
     [SerializeField] Image[] toolImage;
+    [SerializeField] GameEvent OnPlayerChangeTool;
 
 
 
@@ -29,8 +30,12 @@ public class PlayerToolSelector : MonoBehaviour
 
     public void SelectTool(int toolIndex)
     {
+        //set up & Cache new Tool
         activeTool = (E_Tool)toolIndex;
 
+        //when tool changed let other scripts know
+        OnPlayerChangeTool.Raise(this,toolIndex);
+        
         for(int i=0;i<toolImage.Length;i++)
             toolImage[i].color = (i==toolIndex)? selectedColor : Color.white;
     }

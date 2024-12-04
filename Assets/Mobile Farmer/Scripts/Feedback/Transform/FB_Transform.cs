@@ -7,7 +7,7 @@ using System;
 
 public class FB_Transform : FeedbackBase
 {
-    //[HideInInspector]
+    [HideInInspector]
     public Transform targetTranform;
 
     public bool effectX,effectY,effectZ;

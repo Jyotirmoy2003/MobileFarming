@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using jy_util;
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAnimator))]
-public class PlayerSowAbility : MonoBehaviour
+public class PlayerWaterAbility : MonoBehaviour
 {
+    
     private PlayerAnimator playerAnimator;
     private PlayerToolSelector playerToolSelector;
 
@@ -19,25 +19,25 @@ public class PlayerSowAbility : MonoBehaviour
         playerAnimator = GetComponent<PlayerAnimator>();
         playerToolSelector=GetComponent<PlayerToolSelector>();
         //suncribe to event
-        SeedParticle.onSeedCollided+=SeedCollidedCallback;
-        CropField.onFullySown+=CropFieldFullySownCallback;
+        WaterParticle.onWaterCollided+=WaterCollidedCallBack;
+        //CropField.onFullySown+=CropFieldFullySownCallback;
     }
     void OnDestroy()
     {
         //unsubscribe to events
-        SeedParticle.onSeedCollided -=SeedCollidedCallback;
-        CropField.onFullySown-=CropFieldFullySownCallback;
+        WaterParticle.onWaterCollided -=WaterCollidedCallBack;
+        //CropField.onFullySown-=CropFieldFullySownCallback;
     }
 
 
 
 
-    private void SeedCollidedCallback(Vector3[] seedPos)
+    private void WaterCollidedCallBack(Vector3[] waterPos)
     {
         if(currentCropField == null)
             return;
         
-        currentCropField.SeedCollidedCallback(seedPos);
+        currentCropField.WaterCollidedCallBack(waterPos);
     }
 
 
@@ -46,7 +46,7 @@ public class PlayerSowAbility : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("CropField") && other.GetComponent<CropField>().IsEmpty())
+        if(other.CompareTag("CropField") && other.GetComponent<CropField>().IsSown())
         {
             currentCropField=other.GetComponent<CropField>();
             EnterCropfield(currentCropField);
@@ -61,33 +61,30 @@ public class PlayerSowAbility : MonoBehaviour
     {
         if(other.CompareTag("CropField"))
         {
-            playerAnimator.PlaySowAnimation(false);
+            playerAnimator.PlayeWaterAnimation(false);
             currentCropField =null;
         }
     }
 
 
-    private void CropFieldFullySownCallback(CropField cropField)
+    private void CropFieldFullyWateredCallback(CropField cropField)
     {
         if(cropField ==  currentCropField)
-            playerAnimator.PlaySowAnimation(false);
+            playerAnimator.PlayeWaterAnimation(false);
     }
 
     private void EnterCropfield(CropField cropField)
     {
 
-        if(playerToolSelector.CanSow() && cropField.IsEmpty())
-            playerAnimator.PlaySowAnimation(true);
+        if(playerToolSelector.CanWater() && cropField.IsSown())
+            playerAnimator.PlayeWaterAnimation(true);
         
     }
 
    public void ListenToPlayerChangeTool(Component sender,object data)
    {
         E_Tool selectedTool=(E_Tool)data;
-
-        // if(!playerToolSelector.CanSow())
-        //     playerAnimator.PlaySowAnimation(false);
-        playerAnimator.PlaySowAnimation(playerToolSelector.CanSow());
+        playerAnimator.PlayeWaterAnimation(playerToolSelector.CanWater());
    }
 
 }
