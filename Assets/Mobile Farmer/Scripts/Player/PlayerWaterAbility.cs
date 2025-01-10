@@ -16,17 +16,17 @@ public class PlayerWaterAbility : MonoBehaviour
 
     void Start()
     {
-        playerAnimator = GetComponent<PlayerAnimator>();
-        playerToolSelector=GetComponent<PlayerToolSelector>();
+        playerAnimator = _GameAssets.Instance.playerAnimator;
+        playerToolSelector=_GameAssets.Instance.playerToolSelector;
         //suncribe to event
         WaterParticle.onWaterCollided+=WaterCollidedCallBack;
-        //CropField.onFullySown+=CropFieldFullySownCallback;
+        CropField.onFullyWatered+=CropFieldFullyWateredCallback;
     }
     void OnDestroy()
     {
         //unsubscribe to events
         WaterParticle.onWaterCollided -=WaterCollidedCallBack;
-        //CropField.onFullySown-=CropFieldFullySownCallback;
+        CropField.onFullyWatered-=CropFieldFullyWateredCallback;
     }
 
 
@@ -46,7 +46,7 @@ public class PlayerWaterAbility : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("CropField") && other.GetComponent<CropField>().IsSown())
+        if(other.CompareTag("CropField") )
         {
             currentCropField=other.GetComponent<CropField>();
             EnterCropfield(currentCropField);
@@ -84,7 +84,9 @@ public class PlayerWaterAbility : MonoBehaviour
    public void ListenToPlayerChangeTool(Component sender,object data)
    {
         E_Tool selectedTool=(E_Tool)data;
-        playerAnimator.PlayeWaterAnimation(playerToolSelector.CanWater());
+
+        if(currentCropField==null) return;
+            playerAnimator.PlayeWaterAnimation((playerToolSelector.CanWater() && currentCropField.IsSown()));
    }
 
 }

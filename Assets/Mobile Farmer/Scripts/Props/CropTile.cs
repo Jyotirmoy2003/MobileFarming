@@ -8,7 +8,9 @@ public class CropTile : MonoBehaviour
     [SerializeField] //fot teset now its shown in inspector
     private E_Crop_State state;
     [SerializeField] Transform cropParent;
-
+    [SerializeField] MeshRenderer tileMeshrenderer;
+    
+    private Crop crop;
 
 
 
@@ -25,10 +27,22 @@ public class CropTile : MonoBehaviour
     {
         return state==E_Crop_State.Empty;
     }
+    public bool IsSown()
+    {
+        return state==E_Crop_State.Sown;
+    }
 
     public void Sow(CropData cropData)
     {
         state=E_Crop_State.Sown;
-        Crop crop=Instantiate(cropData.cropPrefab,transform.position,Quaternion.identity,cropParent);
+        crop=Instantiate(cropData.cropPrefab,transform.position,Quaternion.identity,cropParent);
+    }
+    public void Water(CropData cropData)
+    {
+        state=E_Crop_State.Watered;
+        tileMeshrenderer.material=_GameAssets.Instance.wateredCropTileMat;
+
+        //Let  the crop grow
+        crop.ScaleUp();
     }
 }

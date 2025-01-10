@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using jy_util;
-using UnityEditor.ShortcutManagement;
+
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAnimator))]
@@ -16,8 +16,8 @@ public class PlayerSowAbility : MonoBehaviour
 
     void Start()
     {
-        playerAnimator = GetComponent<PlayerAnimator>();
-        playerToolSelector=GetComponent<PlayerToolSelector>();
+        playerAnimator = _GameAssets.Instance.playerAnimator;
+        playerToolSelector=_GameAssets.Instance.playerToolSelector;
         //suncribe to event
         SeedParticle.onSeedCollided+=SeedCollidedCallback;
         CropField.onFullySown+=CropFieldFullySownCallback;
@@ -87,7 +87,8 @@ public class PlayerSowAbility : MonoBehaviour
 
         // if(!playerToolSelector.CanSow())
         //     playerAnimator.PlaySowAnimation(false);
-        playerAnimator.PlaySowAnimation(playerToolSelector.CanSow());
+        if(currentCropField==null) return;
+        playerAnimator.PlaySowAnimation(playerToolSelector.CanSow() && currentCropField.IsEmpty());
    }
 
 }

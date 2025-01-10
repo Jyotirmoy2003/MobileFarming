@@ -4,6 +4,7 @@ using jy_util;
 using UnityEngine;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.Rendering;
 
 public class CropField : MonoBehaviour
 {
@@ -14,11 +15,11 @@ public class CropField : MonoBehaviour
     [Header("Settings")]
     [SerializeField] CropData cropData;
 
-    private int tileSown=0;
+    private int tileSown=0,tileWatered=0;
     private E_Crop_State state;
 
     [Header("Action")]
-    public static Action<CropField> onFullySown;
+    public static Action<CropField> onFullySown,onFullyWatered;
 
 
     void Start()
@@ -34,10 +35,10 @@ public class CropField : MonoBehaviour
             cropTiles.Add(tilesParent.GetChild(i).GetComponent<CropTile>());
     }
    
-
+    #region Particel Callbacks
     public void SeedCollidedCallback(Vector3[] seedPos)
     {
-        //go throuw all collided particel and sow seed in collided crop tile
+        //go through all collided particel and sow seed in collided crop tile
         for(int i=0;i<seedPos.Length;i++)
         {
             
@@ -58,9 +59,27 @@ public class CropField : MonoBehaviour
     }
     public void WaterCollidedCallBack(Vector3[] waterPos)
     {
+        //go through all collided particel and water particel in collided crop tile
+        for(int i=0;i<waterPos.Length;i++)
+        {
+            
+            CropTile closestCropTile=GetClosestCropTile(waterPos[i]);
+            if(closestCropTile==null)
+                continue;
 
+            if(!closestCropTile.IsSown())
+                continue;
+
+            closestCropTile.Water(cropData);
+            tileWatered++;
+
+            if(tileWatered>=cropTiles.Count)
+                FieldFullyWatered();
+            
+        }
     }
-    private CropTile GetClosestCropTile(Vector3 seedPos)
+    #endregion
+    private CropTile GetClosestCropTile(Vector3 particelPos)
     {
         float minDistance=5000f;
         int closesCroptileIndex=-1;
@@ -68,7 +87,7 @@ public class CropField : MonoBehaviour
         for(int i=0;i<cropTiles.Count;i++)
         {
             CropTile temp_holding_cropTile=cropTiles[i];
-            float disanceTileSeed=Vector3.Distance(temp_holding_cropTile.transform.position,seedPos);
+            float disanceTileSeed=Vector3.Distance(temp_holding_cropTile.transform.position,particelPos);
             if(disanceTileSeed < minDistance)
             {
                 minDistance=disanceTileSeed;
@@ -83,17 +102,29 @@ public class CropField : MonoBehaviour
     }
 
 
+    #region Operation on TILEs
     private void Sow(CropTile cropTile)
     {
-        //cropTile.Sow();
+        cropTile.Sow(cropData);
     }
-
+    private void Water(CropTile cropTile)
+    {
+        cropTile.Water(cropData);
+    }
+    #endregion
+    #region Operation on FIELD
     private  void FieldFullySown()
     {
         state= E_Crop_State.Sown;
         onFullySown?.Invoke(this);
     }
 
+    private void FieldFullyWatered()
+    {
+        state = E_Crop_State.Watered;
+        onFullyWatered?.Invoke(this);
+    }
+    #endregion
     public bool IsEmpty()
     {
         return state==E_Crop_State.Empty;

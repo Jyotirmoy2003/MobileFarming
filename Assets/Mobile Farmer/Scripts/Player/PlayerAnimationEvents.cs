@@ -7,6 +7,7 @@ public class PlayerAnimationEvents : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] ParticleSystem seedParticle;
+    [SerializeField] ParticleSystem waterParticle;
 
 
     void Start()
@@ -19,5 +20,9 @@ public class PlayerAnimationEvents : MonoBehaviour
         seedParticle.Play();
     }
 
+    private void PlayWaterAnimation()
+    {
+        waterParticle.Play();
+    }
   
 }

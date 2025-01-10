@@ -56,8 +56,17 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PlayeWaterAnimation(bool water)
     {
-        if(water) animator.SetLayerWeight(2,1);
-        else animator.SetLayerWeight(2,0);
+        //show watering can mesh
+        _GameAssets.Instance.wateringCan.SetActive(water);
+        
+        if(water)
+        {
+            animator.SetLayerWeight(2,1);
+        } 
+        else{
+            animator.SetLayerWeight(2,0);
+            _GameAssets.Instance.waterParticel.Stop();
+        }
     }
 
 
