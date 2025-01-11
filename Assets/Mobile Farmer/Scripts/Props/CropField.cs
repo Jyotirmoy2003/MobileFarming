@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using jy_util;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
-using UnityEngine.Rendering;
+
 
 public class CropField : MonoBehaviour
 {
@@ -138,6 +137,24 @@ public class CropField : MonoBehaviour
     {
         return state==E_Crop_State.Watered;
     }
+    
 
+    #region UTILITY INSPECTIOR BUTTONS
+    [NaughtyAttributes.Button]
+    private void InstantlySowTile()
+    {
+        for(int i=0;i<cropTiles.Count;i++)
+            cropTiles[i].Sow(cropData);
+        FieldFullySown();
+    }
+    [NaughtyAttributes.Button]
+    private void InstantlyWaterTile()
+    {
+        for(int i=0;i<cropTiles.Count;i++)
+            cropTiles[i].Water(cropData);
+        FieldFullyWatered();
+    }
+    #endregion
+  
 
 }

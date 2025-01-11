@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Crop : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] GameObject cropRendererObject;
+    private CropData myCropData;
     void Start()
     {
         
@@ -12,6 +13,11 @@ public class Crop : MonoBehaviour
 
     public void ScaleUp()
     {
-        
+        cropRendererObject.LeanScale(Vector3.one,myCropData.growDuration).setEase(LeanTweenType.easeOutBack);
+    }
+
+    public void PushData(CropData cropData)
+    {
+        myCropData = cropData;
     }
 }

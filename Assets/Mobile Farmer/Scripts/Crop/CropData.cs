@@ -8,4 +8,5 @@ public class CropData : ScriptableObject
 {
    [Header("Setttings")]
    public Crop cropPrefab;
+   public float growDuration=3f;
 }

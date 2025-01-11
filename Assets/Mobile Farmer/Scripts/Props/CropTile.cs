@@ -32,17 +32,24 @@ public class CropTile : MonoBehaviour
         return state==E_Crop_State.Sown;
     }
 
+    
+
     public void Sow(CropData cropData)
     {
         state=E_Crop_State.Sown;
+
+        //set up new Crop in tile
         crop=Instantiate(cropData.cropPrefab,transform.position,Quaternion.identity,cropParent);
+        crop.PushData(cropData);
     }
+
+
     public void Water(CropData cropData)
     {
         state=E_Crop_State.Watered;
-        tileMeshrenderer.material=_GameAssets.Instance.wateredCropTileMat;
-
+        tileMeshrenderer.gameObject.LeanColor(Color.white * .3f, 1f);
         //Let  the crop grow
-        crop.ScaleUp();
+
+        crop?.ScaleUp();
     }
 }
