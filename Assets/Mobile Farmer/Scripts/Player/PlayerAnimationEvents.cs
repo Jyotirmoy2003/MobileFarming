@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class PlayerAnimationEvents : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] ParticleSystem seedParticle;
     [SerializeField] ParticleSystem waterParticle;
+
+    [SerializeField] UnityEvent startHarvestCallBackEvent, endHarvestCallBackEvent;
 
 
     void Start()
@@ -23,6 +26,16 @@ public class PlayerAnimationEvents : MonoBehaviour
     private void PlayWaterAnimation()
     {
         waterParticle.Play();
+    }
+
+    private void StartHarvestingCallback()
+    {
+        startHarvestCallBackEvent?.Invoke();
+    }
+
+    private void StopHervestingCallback()
+    {
+        endHarvestCallBackEvent?.Invoke();
     }
   
 }

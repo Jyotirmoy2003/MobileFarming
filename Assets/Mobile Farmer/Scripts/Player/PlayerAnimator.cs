@@ -69,5 +69,18 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 
+    public void PlayerHarvestAnimation(bool harvest)
+    {
+        //show Scythe mesh
+        _GameAssets.Instance.harvestScythe.SetActive(harvest);
+
+        if(harvest)
+        {
+            animator.SetLayerWeight(3,1);
+        }else{
+            animator.SetLayerWeight(3,0);
+        }
+    }
+
 
 }

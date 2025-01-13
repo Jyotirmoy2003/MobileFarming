@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using jy_util;
@@ -9,7 +10,7 @@ public class CropTile : MonoBehaviour
     private E_Crop_State state;
     [SerializeField] Transform cropParent;
     [SerializeField] MeshRenderer tileMeshrenderer;
-    
+    public static Action<CropData>  OnCropHervestedEvent;
     private Crop crop;
 
 
@@ -51,5 +52,15 @@ public class CropTile : MonoBehaviour
         //Let  the crop grow
 
         crop?.ScaleUp();
+    }
+
+    public void Harvest(CropData cropData)
+    {
+        state = E_Crop_State.Empty;
+        crop.ScaleDown();
+        tileMeshrenderer.gameObject.LeanColor(Color.white , 1f);
+
+        //Event fire
+        OnCropHervestedEvent?.Invoke(cropData);
     }
 }

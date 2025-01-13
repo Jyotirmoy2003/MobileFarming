@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using jy_util;
 
-using UnityEngine;
-
 [RequireComponent(typeof(PlayerAnimator))]
-public class PlayerSowAbility : MonoBehaviour
+public class PlayerHarvestAbility : MonoBehaviour
 {
-    private PlayerAnimator playerAnimator;
+   private PlayerAnimator playerAnimator;
     private PlayerToolSelector playerToolSelector;
+    [SerializeField] Transform harvestSphere;
 
 
     private CropField currentCropField;
@@ -19,26 +19,18 @@ public class PlayerSowAbility : MonoBehaviour
         playerAnimator = _GameAssets.Instance.playerAnimator;
         playerToolSelector=_GameAssets.Instance.playerToolSelector;
         //suncribe to event
-        SeedParticle.onSeedCollided+=SeedCollidedCallback;
-        CropField.onFullySown+=CropFieldFullySownCallback;
+        CropField.OnFullyHarvested+=CropFieldFullyHarvested;
     }
     void OnDestroy()
     {
         //unsubscribe to events
-        SeedParticle.onSeedCollided -=SeedCollidedCallback;
-        CropField.onFullySown-=CropFieldFullySownCallback;
+        CropField.OnFullyHarvested-=CropFieldFullyHarvested;
     }
 
 
 
 
-    private void SeedCollidedCallback(Vector3[] seedPos)
-    {
-        if(currentCropField == null)
-            return;
-        
-        currentCropField.SeedCollidedCallback(seedPos);
-    }
+  
 
 
 
@@ -52,32 +44,29 @@ public class PlayerSowAbility : MonoBehaviour
             EnterCropfield(currentCropField);
         }
     }
-    // private void OnTriggerStay(Collider other)
-    // {
-    //     if(other.CompareTag("CropField"))
-    //         EnterCropfield(other.GetComponent<CropField>());
-    // }
+  
     private void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("CropField"))
         {
-            playerAnimator.PlaySowAnimation(false);
+            playerAnimator.PlayerHarvestAnimation(false);
             currentCropField =null;
         }
     }
 
 
-    private void CropFieldFullySownCallback(CropField cropField)
+    private void CropFieldFullyHarvested(CropField cropField)
     {
+        Debug.Log("Crop Field Fully Harvested");
         if(cropField ==  currentCropField)
-            playerAnimator.PlaySowAnimation(false);
+            playerAnimator.PlayerHarvestAnimation(false);
     }
 
     private void EnterCropfield(CropField cropField)
     {
 
-        if(playerToolSelector.CanSow() && cropField.IsEmpty())
-            playerAnimator.PlaySowAnimation(true);
+        if(playerToolSelector.CanHarvest() && cropField.IsWatered())
+            playerAnimator.PlayerHarvestAnimation(true);
         
     }
 
@@ -85,9 +74,28 @@ public class PlayerSowAbility : MonoBehaviour
    {
         E_Tool selectedTool=(E_Tool)data;
 
-       
         if(currentCropField==null) return;
-        playerAnimator.PlaySowAnimation(playerToolSelector.CanSow() && currentCropField.IsEmpty());
+            playerAnimator.PlayerHarvestAnimation((playerToolSelector.CanHarvest() && currentCropField.IsWatered()));
+   }
+
+
+
+
+
+
+
+
+
+
+   public void ListenToStartHarvest()
+   {
+        if(currentCropField!=null & currentCropField.IsWatered())
+        currentCropField.Harvest(harvestSphere);
+   }
+
+   public void ListenToStopHarvest()
+   {
+
    }
 
 }

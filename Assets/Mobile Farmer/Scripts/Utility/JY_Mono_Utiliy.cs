@@ -48,18 +48,21 @@ public void NullFun()
 
 public delegate void NoArgumentFun();
 
-public enum E_Crop_State
-    {
+public enum E_Crop_State{
         Empty,
         Sown,
         Watered
-    }
-    public enum E_Tool{
-        None,
-        Sow,
-        Water,
-        Harvest,
-    }
-
+}
+public enum E_Tool{
+    None,
+    Sow,
+    Water,
+    Harvest,
+}
+public enum E_Crop_Type{
+    Corn,
+    Tomato,
+    Carrot
+}
 
 }

@@ -14,6 +14,7 @@ public class _GameAssets : MonoSingleton<_GameAssets>
 
     [Header("3D object Ref")]
     public GameObject wateringCan;
+    public GameObject harvestScythe;
 
     [Header("Material Ref")]
     public Material defaultCropTileMat;

@@ -14,11 +14,11 @@ public class CropField : MonoBehaviour
     [Header("Settings")]
     [SerializeField] CropData cropData;
 
-    private int tileSown=0,tileWatered=0;
+    private int tileSown=0,tileWatered=0,tileHarvested=0;
     private E_Crop_State state;
 
     [Header("Action")]
-    public static Action<CropField> onFullySown,onFullyWatered;
+    public static Action<CropField> onFullySown,onFullyWatered,OnFullyHarvested;
 
 
     void Start()
@@ -110,6 +110,16 @@ public class CropField : MonoBehaviour
     {
         cropTile.Water(cropData);
     }
+    private void Harvest(CropTile cropTile)
+    {
+        cropTile.Harvest(cropData);
+
+        tileHarvested++;
+
+        if(tileHarvested>=cropTiles.Count)
+            FieldFullyHarvested();
+        
+    }
     #endregion
     #region Operation on FIELD
     private  void FieldFullySown()
@@ -122,6 +132,32 @@ public class CropField : MonoBehaviour
     {
         state = E_Crop_State.Watered;
         onFullyWatered?.Invoke(this);
+    }
+
+    private void FieldFullyHarvested()
+    {
+        state =  E_Crop_State.Empty;
+        OnFullyHarvested?.Invoke(this);
+
+        tileSown = 0;
+        tileWatered = 0;
+        tileHarvested = 0;
+        
+    }
+
+    public void Harvest(Transform harvestSphere)
+    {
+        float radius=harvestSphere.localScale.x;
+
+        for(int i=0;i<cropTiles.Count;i++)
+        {
+            if(cropTiles[i].IsEmpty()) //already harvested
+                continue;
+
+            float distanceCropSphere = Vector3.Distance(cropTiles[i].transform.position,harvestSphere.position);
+            if(distanceCropSphere < radius)
+                Harvest(cropTiles[i]);
+        }
     }
     #endregion
     public bool IsEmpty()
@@ -137,6 +173,7 @@ public class CropField : MonoBehaviour
     {
         return state==E_Crop_State.Watered;
     }
+   
     
 
     #region UTILITY INSPECTIOR BUTTONS
