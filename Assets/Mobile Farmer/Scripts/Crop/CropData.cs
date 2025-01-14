@@ -12,4 +12,5 @@ public class CropData : ScriptableObject
    public E_Crop_Type cropType;
    public float growDuration=3f;
    public int amountinSingleCrop=3;
+   public Sprite uiIconSprite;
 }

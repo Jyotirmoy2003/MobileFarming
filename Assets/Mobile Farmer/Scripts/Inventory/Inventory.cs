@@ -36,4 +36,14 @@ public class Inventory
             Debug.Log("We have "+item.amount+" items in our "+item.crop_Type+"list");
         }
     }
+
+    public InventoryItem[] GetInventoryItems()
+    {
+        return items.ToArray();
+    }
+
+    public void ClearInventory()
+    {
+        items.Clear();
+    }
 }

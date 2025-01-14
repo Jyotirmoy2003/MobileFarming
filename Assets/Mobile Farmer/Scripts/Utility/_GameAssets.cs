@@ -19,4 +19,7 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     [Header("Material Ref")]
     public Material defaultCropTileMat;
     public Material wateredCropTileMat;
+
+    [Header("CropData")]
+    public List<CropData> cropDatas=new List<CropData>();
 }

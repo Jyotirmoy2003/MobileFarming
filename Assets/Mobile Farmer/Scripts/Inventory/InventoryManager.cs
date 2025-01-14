@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using jy_util;
 using UnityEngine;
 
+[RequireComponent(typeof(InventoryDisplay))]
 public class InventoryManager : MonoBehaviour
 {
    private Inventory inventory;
+   private InventoryDisplay inventoryDisplay;
    private string dataPath="";
     void Start()
     {
         dataPath = Application.dataPath + "/inventoryData.txt";
         LoadInventory();
+        ConfigureInventoryDisplay();
+
         SubcribeEvent(true);
     }
     private void OnDestroy()
@@ -29,17 +32,33 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-
+    private void ConfigureInventoryDisplay()
+    {
+        inventoryDisplay = GetComponent<InventoryDisplay>();
+        inventoryDisplay.Configure(inventory);
+    }
 
     private void OnCropHervestedCallback(CropData cropData)
     {
+        //Update inventory data
         inventory.OnCropHervestedCallback(cropData);
+        inventoryDisplay.UpdateDisplay(inventory);
+
         SaveInventory();
     }
 
-    [NaughtyAttributes.Button]
-    public void DebugInventory()=>inventory.DebugInventory();
+    
 
+    // [NaughtyAttributes.Button]
+    // public void DebugInventory()=>inventory.DebugInventory();
+    [NaughtyAttributes.Button]
+    private void ClearInventory()
+    {
+        inventory.ClearInventory();
+        inventoryDisplay.UpdateDisplay(inventory);
+
+        SaveInventory();
+    }
    
 
    private void LoadInventory()
