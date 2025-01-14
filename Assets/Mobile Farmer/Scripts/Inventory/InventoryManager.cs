@@ -32,6 +32,11 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
+
     private void ConfigureInventoryDisplay()
     {
         inventoryDisplay = GetComponent<InventoryDisplay>();
@@ -52,7 +57,7 @@ public class InventoryManager : MonoBehaviour
     // [NaughtyAttributes.Button]
     // public void DebugInventory()=>inventory.DebugInventory();
     [NaughtyAttributes.Button]
-    private void ClearInventory()
+    public void ClearInventory()
     {
         inventory.ClearInventory();
         inventoryDisplay.UpdateDisplay(inventory);

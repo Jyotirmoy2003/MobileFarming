@@ -8,18 +8,26 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     public ParticleSystem seedParticel;
     public ParticleSystem waterParticel;
 
+    [Space]
     [Header("Player Components")]
     public PlayerAnimator playerAnimator;
     public PlayerToolSelector playerToolSelector;
 
+    [Space]
+    [Header("Managers")]
+    public InventoryManager inventoryManager;
+
+    [Space]
     [Header("3D object Ref")]
     public GameObject wateringCan;
     public GameObject harvestScythe;
 
+    [Space]
     [Header("Material Ref")]
     public Material defaultCropTileMat;
     public Material wateredCropTileMat;
 
+    [Space]
     [Header("CropData")]
     public List<CropData> cropDatas=new List<CropData>();
 }

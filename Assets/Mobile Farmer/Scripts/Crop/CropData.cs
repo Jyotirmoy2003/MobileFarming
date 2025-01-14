@@ -11,6 +11,8 @@ public class CropData : ScriptableObject
    public Crop cropPrefab;
    public E_Crop_Type cropType;
    public float growDuration=3f;
+   [Range(1,5)]
    public int amountinSingleCrop=3;
    public Sprite uiIconSprite;
+   public int pricePerPice=1;
 }
