@@ -11,9 +11,9 @@ public class TF_Transform_Scale : FB_Transform
     public override void OnFeedbackActiavte()
     {
         base.OnFeedbackActiavte();
-        if(targetTranform)
+        if(currentFeedbackManager.targetTramform)
         {
-            evalutedVector=targetTranform.localScale;
+            evalutedVector=currentFeedbackManager.targetTramform.localScale;
            EvaluateTimeline();
         }
     }
@@ -26,17 +26,19 @@ public class TF_Transform_Scale : FB_Transform
 
     public override void EffectLocal()
     {
-       targetTranform.localScale=evalutedVector;
+       currentFeedbackManager.targetTramform.localScale=evalutedVector;
         
     }
 
 
     public override void EffectGlobal()
     {
-        targetTranform.localScale=evalutedVector;
+        currentFeedbackManager.targetTramform.localScale=evalutedVector;
     }
 
 
 }
+
+
 
 

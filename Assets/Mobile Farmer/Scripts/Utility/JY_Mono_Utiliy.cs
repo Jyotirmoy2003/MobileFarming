@@ -65,4 +65,14 @@ public enum E_Crop_Type{
     Carrot
 }
 
+
+public class WorldData
+{
+    public List<int> chunkPrices;
+    public WorldData()
+    {
+        chunkPrices = new List<int>();
+    }
+}
+
 }

@@ -9,7 +9,7 @@ public class Inventory
 
    public void OnCropHervestedCallback(CropData cropData)
    {
-        Debug.Log("Crop is added to Inventory :"+cropData.ToString());
+        
         bool cropFound=false;
 
         foreach(InventoryItem item in items)

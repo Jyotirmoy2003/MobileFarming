@@ -7,8 +7,8 @@ using System;
 
 public class FB_Transform : FeedbackBase
 {
-    [HideInInspector]
-    public Transform targetTranform;
+    //[HideInInspector]
+//    public Transform targetTranform;
 
     public bool effectX,effectY,effectZ;
     public AnimationCurve curveX,curveY,curveZ;
@@ -19,6 +19,7 @@ public class FB_Transform : FeedbackBase
     public bool effectLocal=false;
     [HideInInspector]
     public  Vector3 evalutedVector;
+    protected FeedBackManager currentFeedbackManager;
 
 
 
@@ -76,14 +77,14 @@ public class FB_Transform : FeedbackBase
 
     public virtual void EffectLocal()
     {
-       targetTranform.localScale=evalutedVector;
+       currentFeedbackManager.targetTramform.localScale=evalutedVector;
         
     }
 
 
     public virtual void EffectGlobal()
     {
-        targetTranform.localScale=evalutedVector;
+        currentFeedbackManager.targetTramform.localScale=evalutedVector;
     }
 
     public virtual void PerformEffectX(float val)
@@ -158,15 +159,14 @@ public class FB_Transform : FeedbackBase
 
     public override void PushNeededComponent(List<Component> comp)
     {
-        if(targetTranform) return;
+        
 
         //when target ref is not set get it from manager
         foreach(Component item in comp)
-            if(item is Transform)
-                targetTranform=(Transform)item;
+            if(item is FeedBackManager)
+                currentFeedbackManager=(FeedBackManager)item;
             
     }
     #endregion
 }
-
 

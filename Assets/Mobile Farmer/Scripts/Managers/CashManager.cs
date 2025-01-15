@@ -6,46 +6,52 @@ using UnityEngine;
 
 public class CashManager : MonoSingleton<CashManager>
 {
-    private int coins;
-    [SerializeField] TMP_Text coinsAmount_text;
+     private int coins;
+     [SerializeField] TMP_Text coinsAmount_text;
 
 
-    void Start()
-    {
-        LoadCoins();
-        coinsAmount_text.text = coins.ToString();;
-    }
-   public void CreditCoins(int amount)
-   {
-        coins+=amount;
-        SaveCoins();
+     void Start()
+     {
+          LoadCoins();
+          coinsAmount_text.text = coins.ToString();;
+     }
+     public void CreditCoins(int amount)
+     {
+          coins+=amount;
+          SaveCoins();
 
-        Debug.Log("We now have :"+coins +" coins");
-        coinsAmount_text.text = coins.ToString();
-   }
+          Debug.Log("We now have :"+coins +" coins");
+          coinsAmount_text.text = coins.ToString();
+     }
 
-   public bool DebitCoin(int amount)
-   {
-        if(coins>=amount)
-        {
-            coins-=amount;
-            SaveCoins();
-            coinsAmount_text.text = coins.ToString();;
-            return true;  
-        }else{
-            return false;
-        }
-   }
+     public bool DebitCoin(int amount)
+     {
+          if(coins>=amount)
+          {
+               coins-=amount;
+               SaveCoins();
+               coinsAmount_text.text = coins.ToString();;
+               return true;  
+          }else{
+               return false;
+          }
+     }
 
 
 
-   private void SaveCoins()
-   {
-        PlayerPrefs.SetInt("Coins",coins);
-   }
+     private void SaveCoins()
+     {
+          PlayerPrefs.SetInt("Coins",coins);
+     }
 
-   private void LoadCoins()
-   {
-        coins = PlayerPrefs.GetInt("Coins",0);
-   }
+     private void LoadCoins()
+     {
+          coins = PlayerPrefs.GetInt("Coins",0);
+     }
+
+     [NaughtyAttributes.Button]
+     private void Add500Coin()
+     {
+          CreditCoins(500);
+     }
 }

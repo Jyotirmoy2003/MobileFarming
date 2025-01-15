@@ -72,11 +72,13 @@ public class InventoryManager : MonoBehaviour
         string data;
         if(File.Exists(dataPath))
         {
+            
             data = File.ReadAllText(dataPath);
             inventory = JsonUtility.FromJson<Inventory>(data);
             if(inventory == null)
                 inventory = new Inventory();
         }else{
+            
             File.Create(dataPath);
             inventory = new Inventory();
         }

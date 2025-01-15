@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
+//using UnityEngine.Rendering.Universal;
 
 [SaveDuringPlay]
 public class FeedBackManager : MonoBehaviour
@@ -34,6 +34,8 @@ public class FeedBackManager : MonoBehaviour
     {
         if(camRef) compList.Add(camRef);
         if(targetTramform) compList.Add(targetTramform);
+        else compList.Add(transform);
+        compList.Add(this);
     }
 
     
@@ -41,6 +43,10 @@ public class FeedBackManager : MonoBehaviour
 
     public void PlayFeedback()
     {
+        if(feedbackList.Count<=0){
+            Debug.Log("No feedback to play");
+            return;
+        }
         if(isSequencialFlow)
         {
             playingFeedbackIndexForSeq=startIndex;
@@ -71,9 +77,10 @@ public class FeedBackManager : MonoBehaviour
 
         if(playingFeedbackIndexForSeq!=startIndex)
             feedbackList[playingFeedbackIndexForSeq].feedbackFinishedExe-=InitiateFeedbackseq;
-        playingFeedbackIndexForSeq++;
 
-        if(playingFeedbackIndexForSeq>feedbackList.Count)
+
+        //when its the last feedback
+        if(feedbackList[playingFeedbackIndexForSeq]==null)
         {
             playingFeedbackIndexForSeq=-1;
             isAlreadyPlayingFeedback=false;
@@ -81,8 +88,11 @@ public class FeedBackManager : MonoBehaviour
             CompletePlayingFeedback?.Invoke();
             return;
         }
+
+       
         feedbackList[playingFeedbackIndexForSeq].PushNeededComponent(compList);
         feedbackList[playingFeedbackIndexForSeq].OnFeedbackActiavte();
         feedbackList[playingFeedbackIndexForSeq].feedbackFinishedExe+=InitiateFeedbackseq;
+        playingFeedbackIndexForSeq++;
     }
 }

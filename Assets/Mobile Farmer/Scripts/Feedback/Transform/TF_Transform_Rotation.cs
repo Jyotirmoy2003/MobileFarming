@@ -11,9 +11,9 @@ public class TF_Transform_Rotation : FB_Transform
    public override void OnFeedbackActiavte()
     {
         base.OnFeedbackActiavte();
-        if(targetTranform)
+        if(currentFeedbackManager)
         {
-            evalutedVector=targetTranform.localEulerAngles;
+            evalutedVector=currentFeedbackManager.targetTramform.localEulerAngles;
            EvaluateTimeline();
         }
     }
@@ -22,13 +22,13 @@ public class TF_Transform_Rotation : FB_Transform
 
     public override void EffectLocal()
     {
-       targetTranform.localEulerAngles=evalutedVector;
+       currentFeedbackManager.targetTramform.localEulerAngles=evalutedVector;
         
     }
 
 
     public override void EffectGlobal()
     {
-        targetTranform.eulerAngles=evalutedVector;
+        currentFeedbackManager.targetTramform.eulerAngles=evalutedVector;
     }
 }
