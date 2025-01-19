@@ -16,6 +16,12 @@ public class FeedbackBase : ScriptableObject
     public Action<float> evaluteAction;
 
     public Action feedbackFinishedExe;
+
+    public FeedbackBase(FeedbackBase feedbackBase)
+    {
+        intensityCurve= feedbackBase.intensityCurve;
+        duration  = feedbackBase.duration;        
+    }
     
     public virtual void PushNeededComponent(List<Component> comp)
     {
@@ -46,5 +52,10 @@ public class FeedbackBase : ScriptableObject
    }
    public virtual void OnFeedbackDeactivate(){
 
+   }
+
+   public virtual FeedbackBase CloneMe()
+   {
+        return new FeedbackBase(this);
    }
 }

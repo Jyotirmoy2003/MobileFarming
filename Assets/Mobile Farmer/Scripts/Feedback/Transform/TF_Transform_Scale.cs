@@ -7,7 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="GAME/Feedback/Tranform/TF_Scale")]
 public class TF_Transform_Scale : FB_Transform
 {
-    
+    public TF_Transform_Scale(FB_Transform fb_TranformBase) : base(fb_TranformBase)
+    {
+    }
+
+
     public override void OnFeedbackActiavte()
     {
         base.OnFeedbackActiavte();
@@ -38,7 +42,5 @@ public class TF_Transform_Scale : FB_Transform
 
 
 }
-
-
 
 

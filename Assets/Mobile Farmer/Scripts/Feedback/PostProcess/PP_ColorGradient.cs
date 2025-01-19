@@ -6,11 +6,14 @@ using UnityEngine.Rendering.Universal;
 [CreateAssetMenu(menuName ="GAME/Feedback/PostProcess/PP_ColorGradient")]
 public class PP_ColorGradient : FB_PostProcess
 {
-    [SerializeField] Color gradientColor;
+    public Color gradientColor;
     private Color currentColor;
     private ColorAdjustments colorAdjustments;
 
-
+    public PP_ColorGradient(PP_ColorGradient postProcess) : base(postProcess)
+    {
+        gradientColor = postProcess.gradientColor;
+    }
 
     public override void OnFeedbackActiavte()
     {
@@ -25,5 +28,10 @@ public class PP_ColorGradient : FB_PostProcess
     {
         
         colorAdjustments.colorFilter.value = Color.Lerp(currentColor,gradientColor,val);
+    }
+
+    public override FeedbackBase CloneMe()
+    {
+        return new PP_ColorGradient(this);
     }
 }

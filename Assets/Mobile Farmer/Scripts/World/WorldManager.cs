@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using jy_util;
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class WorldManager : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] Transform world;
+    Chunk[,] grid;
+
+    [Header("Settings")]
+    [SerializeField] int gridSize=20;
+    [SerializeField] int gridSale=5;
 
     [Header("Data")]
     private WorldData worldData;
     string dataPath ;
 
-
+    private bool shouldsave=false;
 
 
     void Start()
@@ -23,15 +28,95 @@ public class WorldManager : MonoBehaviour
         dataPath = Application.dataPath + "/WorldData.txt";
         LoadWorld();
         Initialize();
+
+        //Try to save after every 2s
+        InvokeRepeating(nameof(TryToSave),2,2);
+
     }
 
 
     void Initialize()
     {
+        
         for(int i=0;i<world.childCount;i++)
         {
             world.GetChild(i).GetComponent<Chunk>().Initialize(worldData.chunkPrices[i]);
+        
         }
+        
+        InitializeGrid();
+        UpdateGridWall();
+    }
+
+    void DebugGrid()
+    {
+        for(int j=0; j<gridSize; j++)
+        {
+            for(int i=0;i<gridSize;i++)
+            {
+                if(grid[j,i]!=null)
+                Debug.Log(grid[j,i].name);
+            }
+        }
+    }
+
+    private void InitializeGrid()
+    {
+        grid = new Chunk [gridSize,gridSize];
+
+        for(int i=0 ;i< world.childCount;i++)
+        {
+            Chunk chunk = world.GetChild(i).GetComponent<Chunk>();
+            Vector2Int chunkGridPosition = new Vector2Int((int)chunk.transform.position.x/gridSale, (int)chunk.transform.position.z/gridSale);
+
+            chunkGridPosition +=new Vector2Int(gridSize/2,gridSize/2);
+
+            grid[chunkGridPosition.x,chunkGridPosition.y] = chunk;
+        }
+    }
+
+    private void UpdateGridWall()
+    {
+        Chunk chunk=null,frontChunk=null,rightChunk=null,leftChunk=null,backChunk=null;
+        for(int j=0; j<grid.GetLength(0); j++)
+        {
+            for(int i=0;i<grid.GetLength(1);i++)
+            {
+                chunk = grid[j,i];
+
+                if(chunk==null) continue;
+
+                if(IsValidGridPosition(j,i+1))frontChunk = grid[j,i+1];
+                if(IsValidGridPosition(j+1,i))rightChunk = grid[j+1,i];
+                if(IsValidGridPosition(j,i-1))backChunk = grid[j,i-1];
+                if(IsValidGridPosition(j-1,i))leftChunk = grid[j-1,i];
+
+                int configuration = 0;
+
+                if(frontChunk!= null && frontChunk.IsUnclocked())
+                    configuration = configuration +1;
+                if(rightChunk!=null && rightChunk.IsUnclocked())
+                    configuration = configuration +2;
+                if(backChunk!=null && backChunk.IsUnclocked())
+                    configuration = configuration +4;
+                if(leftChunk!=null && leftChunk.IsUnclocked())
+                    configuration = configuration +8;
+
+
+                //we know the chunk wall configuration
+                chunk.UpdateWall(configuration);
+
+                //reset all chunks for next iteration
+                frontChunk=rightChunk=leftChunk=backChunk=null;
+            }
+        }
+    }
+
+    private bool IsValidGridPosition(int x,int y)
+    {
+        if(x<0 || x>=gridSize || y<0 || y>=gridSize)
+            return false;
+        return true;
     }
 
 
@@ -58,11 +143,33 @@ public class WorldManager : MonoBehaviour
         }else{
             data = File.ReadAllText(dataPath);
             worldData = JsonUtility.FromJson<WorldData>(data);
+
+            if(worldData.chunkPrices.Count < world.childCount )
+                UpdateData();
         }
+    }
+
+    private void UpdateData()
+    {
+        //calculate how many chunks are missing
+        int missingData = world.childCount - worldData.chunkPrices.Count;
+       
+        for(int i=0; i<missingData;i++)
+        {
+            int chunkIndex = world.childCount - missingData + i;
+            int chunkPrice = world.GetChild(chunkIndex).GetComponent<Chunk>().GetInitialPrice();
+            worldData.chunkPrices.Add(chunkPrice);
+        }
+    }
+
+    private void TryToSave()
+    {
+        if(shouldsave) SaveData();
     }
 
     private void SaveData()
     {
+        shouldsave =false;
         if(worldData.chunkPrices.Count != world.childCount)
             worldData = new WorldData();
         
@@ -87,8 +194,10 @@ public class WorldManager : MonoBehaviour
     {
         if(data is bool)
         {
-            if((bool)data) //Save worl data
+            if((bool)data) //Save world data called when new chunk unlocks
             {
+                //Update walls and save new data
+                UpdateGridWall();
                 SaveData();
             }
         }

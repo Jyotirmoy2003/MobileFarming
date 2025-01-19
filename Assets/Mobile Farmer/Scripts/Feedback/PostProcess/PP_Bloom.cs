@@ -7,6 +7,12 @@ using UnityEngine.Rendering.Universal;
 public class PP_Bloom : FB_PostProcess
 {
     private Bloom bloom;
+
+    public PP_Bloom(PP_Bloom postProcess) : base(postProcess)
+    {
+
+    }
+
     public override void OnFeedbackActiavte()
     {
         base.OnFeedbackActiavte();
@@ -26,5 +32,9 @@ public class PP_Bloom : FB_PostProcess
         base.OnFeedbackDeactivate();
 
         
+    }
+    public override FeedbackBase CloneMe()
+    {
+        return new PP_Bloom(this);
     }
 }

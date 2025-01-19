@@ -18,8 +18,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 1
-  targetTranform: {fileID: 0}
+  duration: 10
   effectX: 1
   effectY: 1
   effectZ: 1
@@ -152,4 +151,4 @@ MonoBehaviour:
   reampCurveZero: 0
   reampCurveOne: 1
   effectLocal: 1
-  evalutedVector: {x: 1, y: 1, z: 1}
+  evalutedVector: {x: 0.8486238, y: 0.8486238, z: 0.8486238}

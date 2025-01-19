@@ -7,7 +7,13 @@ public class CM_Zoom : FB_Camera
 {
    
     private float defaultFieldofView=60f;
-    [SerializeField] float zoomedFieldofView=20f;
+    public float zoomedFieldofView=20f;
+
+    public CM_Zoom(CM_Zoom camera) : base(camera)
+    {
+        zoomedFieldofView = camera.zoomedFieldofView;
+    }
+
     public override void OnFeedbackActiavte()
     {
         base.OnFeedbackActiavte();
@@ -23,5 +29,8 @@ public class CM_Zoom : FB_Camera
         cinemachineVirtualCamera.m_Lens.FieldOfView=value;
     }
 
-   
+    public override FeedbackBase CloneMe()
+    {
+        return new CM_Zoom(this);
+    }
 }

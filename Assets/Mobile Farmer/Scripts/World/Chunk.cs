@@ -10,6 +10,7 @@ public class Chunk : MonoBehaviour
     [SerializeField] GameObject lockedElements;
     [SerializeField] TextMeshPro priceText;
     [SerializeField] GameEvent SaveWorldDataEvent;
+    [SerializeField] ChunkWalls chunkWalls;
 
     [Header("Settings")]
     [SerializeField] int initialPrice=25;
@@ -75,5 +76,15 @@ public class Chunk : MonoBehaviour
     public int GetCurrentPrice()
     {
         return currentPrice;
+    }
+
+    public bool IsUnclocked()
+    {
+        return (currentPrice<=0);
+    }
+
+    public void UpdateWall(int configuration=0000)
+    {
+        chunkWalls.Configur(configuration);
     }
 }

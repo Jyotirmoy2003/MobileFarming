@@ -15,12 +15,11 @@ public class FB_PostProcess : FeedbackBase
     }
     public E_PP_Effect_Type effectType;
 
-
-
-
-
-
-
+    public FB_PostProcess(FB_PostProcess postProcess) : base(postProcess)
+    {
+        effectType = postProcess.effectType;
+        globalVolume = postProcess.globalVolume;
+    }
 
     public override void OnFeedbackActiavte()
     {

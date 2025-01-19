@@ -11,15 +11,10 @@ public class CM_Shake : FB_Camera
     [SerializeField] float senetivity=1f;
     private CinemachineBasicMultiChannelPerlin perlinNoise;
 
-
-
-
-
-
-
-
-
-
+    public CM_Shake(CM_Shake camera) : base(camera)
+    {
+        senetivity = camera.senetivity;
+    }
 
     public override void OnFeedbackActiavte()
     {
@@ -47,5 +42,10 @@ public class CM_Shake : FB_Camera
             perlinNoise.m_AmplitudeGain=amplitudeGain;
             perlinNoise.m_FrequencyGain=frquencyGain;
         }
+    }
+
+    public override FeedbackBase CloneMe()
+    {
+        return new CM_Shake(this);
     }
 }

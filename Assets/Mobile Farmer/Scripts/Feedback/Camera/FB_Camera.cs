@@ -9,6 +9,11 @@ public class FB_Camera : FeedbackBase
     [HideInInspector]
     public CinemachineVirtualCamera cinemachineVirtualCamera;
 
+    public FB_Camera(FB_Camera camera) : base(camera)
+    {
+        cinemachineVirtualCamera = camera.cinemachineVirtualCamera;
+    }
+
     public override void OnFeedbackActiavte()
     {
         base.OnFeedbackActiavte();

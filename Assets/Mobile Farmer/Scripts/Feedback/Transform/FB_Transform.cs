@@ -21,9 +21,25 @@ public class FB_Transform : FeedbackBase
     public  Vector3 evalutedVector;
     protected FeedBackManager currentFeedbackManager;
 
+    public FB_Transform(FB_Transform fb_TranformBase) : base(fb_TranformBase)
+    {
+        duration = fb_TranformBase.duration;
+       
+        effectX = fb_TranformBase.effectX;
+        effectY = fb_TranformBase.effectY;
+        effectZ = fb_TranformBase.effectZ;
 
+        curveX = fb_TranformBase.curveX;
+        curveY = fb_TranformBase.curveY;
+        curveZ = fb_TranformBase.curveZ;
 
-   
+        reampCurveOne = fb_TranformBase.reampCurveOne;
+        reampCurveZero = fb_TranformBase.reampCurveZero;
+
+        effectLocal = fb_TranformBase.effectLocal;
+
+    }
+
 
     void EvaluteCurveX()
     {
@@ -169,4 +185,5 @@ public class FB_Transform : FeedbackBase
     }
     #endregion
 }
+
 
