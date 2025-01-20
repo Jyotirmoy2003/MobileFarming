@@ -25,7 +25,8 @@ public class Chunk : MonoBehaviour
     {
         if(!feedBackManager) feedBackManager=GetComponent<FeedBackManager>();
         currentPrice = initialPrice;
-        priceText.text = currentPrice.ToString();    
+        priceText.text = currentPrice.ToString();
+
     }
 
     public void Initialize(int price)
@@ -38,7 +39,7 @@ public class Chunk : MonoBehaviour
             unlocedElements.SetActive(true);
             currentPrice =0;
         }else{
-            lockedElements.SetActive(true);
+            //lockedElements.SetActive(true);
             unlocedElements.SetActive(false);
             //show left price
             currentPrice = price;
@@ -86,5 +87,21 @@ public class Chunk : MonoBehaviour
     public void UpdateWall(int configuration=0000)
     {
         chunkWalls.Configur(configuration);
+    }
+
+    public void DisplayLockedElements()
+    {
+        lockedElements.SetActive(true);
+    }
+
+    private void OnDrawGizmos()
+    {
+
+        Gizmos. color = Color. red;
+        Gizmos.DrawWireCube(transform.position, Vector3.one * 5);
+        Gizmos.color =new Color(0, 0, 0, 0);
+
+        Gizmos.DrawCube(transform.position, Vector3.one * 5) ;
+
     }
 }

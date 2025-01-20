@@ -34,7 +34,8 @@ public class PlayerBuyerInteractor : MonoBehaviour
             coinsEarned += itemPrice*item.amount;
         }
 
-        CashManager.Instance.CreditCoins(coinsEarned);
+        TransactionEffectManager.Instance.PlayeCoinParticel(coinsEarned);
+        //CashManager.Instance.CreditCoins(coinsEarned);
         //clear inventory
         _GameAssets.Instance.inventoryManager.ClearInventory();;
     }

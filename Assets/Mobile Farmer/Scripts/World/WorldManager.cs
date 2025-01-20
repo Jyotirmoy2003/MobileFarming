@@ -22,6 +22,9 @@ public class WorldManager : MonoBehaviour
 
     private bool shouldsave=false;
 
+    [Header(" Chunk Meshes " )]
+    [SerializeField] private Mesh[] chunkShapes;
+
 
     void Start()
     {
@@ -44,21 +47,12 @@ public class WorldManager : MonoBehaviour
         
         }
         
-        InitializeGrid();
-        UpdateGridWall();
+        InitializeGrid(); //creates grid
+        UpdateGridWall(); //set up walls
+        UpdateGridRenderer(); //set up chunk visibility
     }
 
-    void DebugGrid()
-    {
-        for(int j=0; j<gridSize; j++)
-        {
-            for(int i=0;i<gridSize;i++)
-            {
-                if(grid[j,i]!=null)
-                Debug.Log(grid[j,i].name);
-            }
-        }
-    }
+
 
     private void InitializeGrid()
     {
@@ -109,6 +103,32 @@ public class WorldManager : MonoBehaviour
                 //reset all chunks for next iteration
                 frontChunk=rightChunk=leftChunk=backChunk=null;
             }
+        }
+    }
+
+    private void UpdateGridRenderer()
+    {
+        
+        for(int j=0; j<grid.GetLength(0); j++)
+        {
+            for(int i=0;i<grid.GetLength(1);i++)
+            {
+                Chunk chunk = grid[j,i];
+                if(chunk==null) continue;
+
+                if(chunk.IsUnclocked()) continue; //when chunk is already unlock skip
+
+                Chunk frontChunk = (IsValidGridPosition(j,i+1))? grid[j,i+1]:null;
+                Chunk rightChunk = (IsValidGridPosition(j+1,i))? grid[j+1,i]:null;
+                Chunk backChunk = (IsValidGridPosition(j,i-1))? grid[j,i-1]:null;
+                Chunk leftChunk = (IsValidGridPosition(j-1,i))? grid[j-1,i]:null;
+
+                //if any of the neigoubring chunk is unlocked then show it
+                if((frontChunk!=null && frontChunk.IsUnclocked() || (rightChunk!=null && rightChunk.IsUnclocked()) || 
+                (leftChunk!=null && leftChunk.IsUnclocked()) || (backChunk!=null && backChunk.IsUnclocked())))
+                    chunk.DisplayLockedElements(); 
+            }
+
         }
     }
 
@@ -198,6 +218,7 @@ public class WorldManager : MonoBehaviour
             {
                 //Update walls and save new data
                 UpdateGridWall();
+                UpdateGridRenderer();
                 SaveData();
             }
         }
