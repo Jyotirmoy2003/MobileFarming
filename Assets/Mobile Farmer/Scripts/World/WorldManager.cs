@@ -33,7 +33,7 @@ public class WorldManager : MonoBehaviour
         Initialize();
 
         //Try to save after every 2s
-        InvokeRepeating(nameof(TryToSave),2,2);
+        InvokeRepeating(nameof(TryToSave),2,5);
 
     }
 
@@ -206,7 +206,7 @@ public class WorldManager : MonoBehaviour
         string data = JsonUtility.ToJson(worldData,true);
 
         File.WriteAllText(dataPath, data);
-        Debug.Log("World data Saved!!");
+        
     }
     
 
