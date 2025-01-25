@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -5,8 +6,12 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] GameObject gamePanel;
+    [SerializeField] GameObject treeModePanel;
     [SerializeField] GameObject treeButton;
     [SerializeField] GameObject toolContainer;
+
+    
 
     void Awake()
     {
@@ -20,7 +25,8 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
-        
+        treeButton.SetActive(false);
+        treeModePanel.SetActive(false);
     }
 
 
@@ -37,5 +43,17 @@ public class UIManager : MonoBehaviour
         toolContainer.SetActive(true);
     }
 
+    public void SetViewMode(bool isTree)
+    {
+        gamePanel.SetActive(!isTree);
+        treeModePanel.SetActive(isTree);
+        
+    }
+
+
+    public void ListenToTreeModeStartEvent(Component sender,object data)
+    {
+        SetViewMode((bool)data);
+    }
     
 }

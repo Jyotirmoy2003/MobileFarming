@@ -47,11 +47,6 @@ public class PlayerAnimator : MonoBehaviour
     {
         if(sow) animator.SetLayerWeight(1,1);
         else animator.SetLayerWeight(1,0);
-        // Sequence s = DOTween.Sequence();
-        // if(sow)
-        //     s.Append(DOVirtual.Float(0, 1f, 1f, v => animator.SetLayerWeight(1,v)));
-        // else
-        //     s.Append(DOVirtual.Float(1, 0f, 1f, v => animator.SetLayerWeight(1,v)));
     }
 
     public void PlayeWaterAnimation(bool water)
@@ -79,6 +74,17 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetLayerWeight(3,1);
         }else{
             animator.SetLayerWeight(3,0);
+        }
+    }
+
+    public void PlayerShakeTreeAnimation(bool play)
+    {
+        if(play)
+        {
+            animator.SetLayerWeight(4,1);
+            animator.Play("Shake Tree");
+        }else{
+            animator.SetLayerWeight(4,0);
         }
     }
 
