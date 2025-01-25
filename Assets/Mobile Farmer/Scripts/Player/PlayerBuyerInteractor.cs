@@ -5,11 +5,7 @@ using UnityEngine;
 
 public class PlayerBuyerInteractor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   [SerializeField] GameEvent SellCropsEvent;
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -35,7 +31,7 @@ public class PlayerBuyerInteractor : MonoBehaviour
         }
 
         TransactionEffectManager.Instance.PlayeCoinParticel(coinsEarned);
-        //CashManager.Instance.CreditCoins(coinsEarned);
+        SellCropsEvent?.Raise(this,coinsEarned);
         //clear inventory
         _GameAssets.Instance.inventoryManager.ClearInventory();;
     }

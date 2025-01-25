@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class _GameAssets : MonoSingleton<_GameAssets>
 {
+    [Header("Events")]
+    public GameEvent OnHervestedEvent;
     [Header("Particel System")]
     public ParticleSystem seedParticel;
     public ParticleSystem waterParticel;

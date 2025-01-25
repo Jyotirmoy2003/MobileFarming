@@ -10,7 +10,6 @@ public class CropTile : MonoBehaviour
     private E_Crop_State state;
     [SerializeField] Transform cropParent;
     [SerializeField] MeshRenderer tileMeshrenderer;
-    public static Action<CropData>  OnCropHervestedEvent;
     private Crop crop;
 
 
@@ -61,6 +60,6 @@ public class CropTile : MonoBehaviour
         tileMeshrenderer.gameObject.LeanColor(Color.white , 1f);
 
         //Event fire
-        OnCropHervestedEvent?.Invoke(cropData);
+        _GameAssets.Instance.OnHervestedEvent.Raise(this,cropData);
     }
 }

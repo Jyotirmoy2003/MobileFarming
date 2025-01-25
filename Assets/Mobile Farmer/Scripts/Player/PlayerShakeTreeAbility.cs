@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAnimator))]
@@ -34,6 +34,13 @@ public class PlayerShakeTreeAbility : MonoBehaviour
             currentTree = (AppleTree)sender;
             MoveTowardsTree();
             isAbilityActive = true;
+        }else{
+            //stop shake mode
+            currentTree = null;
+            isAbilityActive = false;
+            isShaking = false;
+            //little delay so that it not get overriden in some devicies
+            LeanTween.delayedCall(.1f,()=>playerAnimator.PlayerShakeTreeAnimation(false));
         }
     }
 

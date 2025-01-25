@@ -28,10 +28,10 @@ public class PlayerController : MonoBehaviour
         moveVector=moveVector *moveSpeed *Time.deltaTime / Screen.width;
         moveVector.z=moveVector.y;
         moveVector.y=0;
-        
-        characterController?.Move(moveVector);
         //setup animation
         playerAnimator.ManageAnimation(moveVector);
+        moveVector.y=-1;
+        characterController?.Move(moveVector);
     }
 
 

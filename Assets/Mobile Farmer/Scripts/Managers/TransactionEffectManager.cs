@@ -47,10 +47,11 @@ public class TransactionEffectManager : MonoSingleton<TransactionEffectManager>
 
         //calculate the path
         Vector3 direction = ( cointRectTransform.position-cameraMain.transform.position).normalized;
-        Vector3 targetPosition = cameraMain.transform.position + direction * (Vector3.Distance(cameraMain.transform.position,cointParticel.transform.position));
         
         while(cointParticel.isPlaying)
         {
+            //calculate target in every frame so that when player moves it still finds its position
+            Vector3 targetPosition = cameraMain.transform.position + direction * (Vector3.Distance(cameraMain.transform.position,cointParticel.transform.position));
             cointParticel.GetParticles(particles);
             for (int i =0; i < particles. Length; i++)
             {

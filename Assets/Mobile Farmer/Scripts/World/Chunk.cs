@@ -9,7 +9,7 @@ public class Chunk : MonoBehaviour
     [SerializeField] GameObject unlocedElements;
     [SerializeField] GameObject lockedElements;
     [SerializeField] TextMeshPro priceText;
-    [SerializeField] GameEvent SaveWorldDataEvent;
+    [SerializeField] GameEvent SaveWorldDataEvent,chunkUnlockedEvent;
     [SerializeField] ChunkWalls chunkWalls;
 
     [Header("Settings")]
@@ -68,6 +68,7 @@ public class Chunk : MonoBehaviour
         //save data
         currentPrice=0;
         SaveWorldDataEvent.Raise(this,true);
+        chunkUnlockedEvent.Raise(this,true);
     }
     public int GetInitialPrice()
     {

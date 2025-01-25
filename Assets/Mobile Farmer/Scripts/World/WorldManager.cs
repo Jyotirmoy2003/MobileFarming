@@ -15,8 +15,10 @@ public class WorldManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] int gridSize=20;
     [SerializeField] int gridSale=5;
+    [SerializeField] bool isTutorial=false;
 
     [Header("Data")]
+    [SerializeField] string fileName = "/WorldData.txt";
     private WorldData worldData;
     string dataPath ;
 
@@ -28,7 +30,7 @@ public class WorldManager : MonoBehaviour
 
     void Start()
     {
-        dataPath = Application.dataPath + "/WorldData.txt";
+        dataPath = Application.dataPath + fileName;
         LoadWorld();
         Initialize();
 
@@ -49,6 +51,7 @@ public class WorldManager : MonoBehaviour
         
         InitializeGrid(); //creates grid
         UpdateGridWall(); //set up walls
+        if(!isTutorial)
         UpdateGridRenderer(); //set up chunk visibility
     }
 
@@ -142,6 +145,8 @@ public class WorldManager : MonoBehaviour
 
     private void LoadWorld()
     {
+       
+
         string data= "";
 
         if(!File.Exists(dataPath))

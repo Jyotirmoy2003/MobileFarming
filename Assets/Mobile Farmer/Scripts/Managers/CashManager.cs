@@ -19,8 +19,6 @@ public class CashManager : MonoSingleton<CashManager>
      {
           coins+=amount;
           SaveCoins();
-
-          Debug.Log("We now have :"+coins +" coins");
           coinsAmount_text.text = coins.ToString();
      }
 
@@ -53,5 +51,10 @@ public class CashManager : MonoSingleton<CashManager>
      private void Add500Coin()
      {
           CreditCoins(500);
+     }
+     [NaughtyAttributes.Button]
+     private void ClearCoin()
+     {
+          DebitCoin(coins);
      }
 }

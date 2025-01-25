@@ -15,22 +15,10 @@ public class InventoryManager : MonoBehaviour
         LoadInventory();
         ConfigureInventoryDisplay();
 
-        SubcribeEvent(true);
     }
-    private void OnDestroy()
-    {
-        SubcribeEvent(false);
-    }
+  
 
-    void SubcribeEvent(bool suncribe)
-    {
-        if(suncribe)
-        {
-            CropTile.OnCropHervestedEvent+=OnCropHervestedCallback;
-        }else{
-            CropTile.OnCropHervestedEvent-=OnCropHervestedCallback;
-        }
-    }
+   
 
     public Inventory GetInventory()
     {
@@ -90,4 +78,12 @@ public class InventoryManager : MonoBehaviour
         string data = JsonUtility.ToJson(inventory,true);
         File.WriteAllText(dataPath,data);
    }
+
+
+    public void ListenToOnHervested(Component sender,object data)
+    {
+        if(data is CropData)
+            OnCropHervestedCallback((CropData)data);
+    }
+
 }

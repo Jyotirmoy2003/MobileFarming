@@ -42,6 +42,7 @@ public class AppleTreeManager : MonoBehaviour
 
     public void AppleTreeButtonCallback()
     {
+        if(!lastTree.IsReady()) return;
         lastTree?.Initialize(this);
         
         //Set slider back to 0 again
@@ -64,5 +65,10 @@ public class AppleTreeManager : MonoBehaviour
     public void UpdateShakeSlider(float value)
     {
         shakeSlider.value = value;
+    }
+
+    internal void EndTreeMode()
+    {
+        onTreeModeStarted.Raise(lastTree, false);
     }
 }

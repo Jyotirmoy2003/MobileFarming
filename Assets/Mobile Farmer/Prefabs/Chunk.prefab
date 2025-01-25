@@ -70,7 +70,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739457821947931420}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -210,7 +210,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2842081680473021200}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -508,7 +508,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5111142574368072968}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -854,7 +854,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5762842330366745670}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1025,6 +1025,7 @@ MonoBehaviour:
   lockedElements: {fileID: 3207088597130116233}
   priceText: {fileID: 5109404204313300187}
   SaveWorldDataEvent: {fileID: 11400000, guid: 1c2ae60dbcce6dd47b4ae71a47a9a23c, type: 2}
+  chunkUnlockedEvent: {fileID: 11400000, guid: 58b512ba814f99a4d8c5c339ecf047e1, type: 2}
   chunkWalls: {fileID: 4252669739192364271}
   initialPrice: 50
   feedBackManager: {fileID: 4030869937230357246}

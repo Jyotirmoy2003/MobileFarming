@@ -62,9 +62,15 @@ public enum E_Tool{
 public enum E_Crop_Type{
     Corn,
     Tomato,
-    Carrot
+    Carrot,
+    Apple,
+    Lemon,
 }
 
+public enum E_Crop_Progess{
+    Ready,
+    Growing,
+}
 
 public class WorldData
 {
