@@ -86,4 +86,13 @@ public class InventoryManager : MonoBehaviour
             OnCropHervestedCallback((CropData)data);
     }
 
+    public void ListenToSoldCrop(Component sender,object data)
+    {
+        if(sender is CropBuyer)
+        {
+            inventoryDisplay.UpdateDisplay(inventory);
+            SaveInventory();
+        }
+    }
+
 }

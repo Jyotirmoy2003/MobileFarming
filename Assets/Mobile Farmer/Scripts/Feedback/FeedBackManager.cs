@@ -83,8 +83,6 @@ public class FeedBackManager : MonoBehaviour
         if(playingFeedbackIndexForSeq!=startIndex)
             tempInsteanceOfFeedback[playingFeedbackIndexForSeq-1].feedbackFinishedExe-=InitiateFeedbackseq;
 
-        Debug.Log("New sequeence valid: "+(tempInsteanceOfFeedback.Count<=playingFeedbackIndexForSeq));
-        Debug.Log("Feedback Playing :"+playingFeedbackIndexForSeq);
         //when its the last feedback
         if(tempInsteanceOfFeedback.Count<=playingFeedbackIndexForSeq)
         {

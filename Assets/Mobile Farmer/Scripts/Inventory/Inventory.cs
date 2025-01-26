@@ -29,13 +29,7 @@ public class Inventory
 
    }
     
-    public void DebugInventory()
-    {
-        foreach(InventoryItem item in items)
-        {
-            Debug.Log("We have "+item.amount+" items in our "+item.crop_Type+"list");
-        }
-    }
+   
 
     public InventoryItem[] GetInventoryItems()
     {
@@ -45,5 +39,10 @@ public class Inventory
     public void ClearInventory()
     {
         items.Clear();
+    }
+
+    public void RemoveItem(InventoryItem item)
+    {
+        items.Remove(item);
     }
 }

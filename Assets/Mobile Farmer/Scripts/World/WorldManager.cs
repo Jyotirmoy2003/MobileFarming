@@ -31,7 +31,9 @@ public class WorldManager : MonoBehaviour
     void Start()
     {
         dataPath = Application.dataPath + fileName;
-        LoadWorld();
+        if(!isTutorial)LoadWorld();
+        else LoadTutroalWord();
+        
         Initialize();
 
         //Try to save after every 2s
@@ -51,7 +53,6 @@ public class WorldManager : MonoBehaviour
         
         InitializeGrid(); //creates grid
         UpdateGridWall(); //set up walls
-        if(!isTutorial)
         UpdateGridRenderer(); //set up chunk visibility
     }
 
@@ -171,6 +172,16 @@ public class WorldManager : MonoBehaviour
 
             if(worldData.chunkPrices.Count < world.childCount )
                 UpdateData();
+        }
+    }
+
+    private void LoadTutroalWord()
+    {
+        worldData = new WorldData();
+
+        for(int i=0;i<world.childCount;i++)
+        {
+            worldData.chunkPrices.Add(world.GetChild(i).GetComponent<Chunk>().GetInitialPrice());
         }
     }
 

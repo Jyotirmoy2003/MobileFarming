@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 public class TutorialManager : MonoBehaviour
 {
     Sequence moveSeq;
-    [SerializeField] RectTransform handImageRect,arrowIcon;
+    [SerializeField] MissionWaypoint missionWaypoint;
+    [SerializeField] RectTransform handImageRect,arrowIcon,arrowContainer;
     [SerializeField] ParticleSystem sucessFullParticel;
     [SerializeField] GameObject cropFieldLocked,shopLocked,cropFieldTutorialImage;
     private float requireMovementamount=10f;
@@ -21,7 +22,9 @@ public class TutorialManager : MonoBehaviour
         //if(PlayerPrefs.GetInt("Tutorial",0)==1) SceneManager.LoadScene("Main");
         StartNextTutorial();
         arrowIcon.gameObject.SetActive(false);
+        arrowContainer.gameObject.SetActive(false);
     }
+    #region  TUTORIAL
     void MoveMentTutorial()
     {
         moveSeq = DOTween.Sequence();
@@ -36,16 +39,24 @@ public class TutorialManager : MonoBehaviour
 
     void UnlockChunkTutorial()
     {
-        cropFieldLocked.SetActive(true);
+        //cropFieldLocked.SetActive(true);
         arrowIcon.gameObject.SetActive(true);
 
-        moveSeq.Append(arrowIcon.DOAnchorPos(new Vector2(360,-250),1f))
-        .Append(arrowIcon.DOAnchorPos(new Vector2(360,-200),0.7f));
+        //show arrow
+        missionWaypoint.InitiateWaypoint(cropFieldLocked.transform);
 
-        moveSeq.Play().SetLoops(-1,LoopType.Restart);
+        // moveSeq.Append(arrowIcon.DOAnchorPos(new Vector2(360,-250),1f))
+        // .Append(arrowIcon.DOAnchorPos(new Vector2(360,-200),0.7f));
+       
+        moveSeq = DOTween.Sequence();
+        moveSeq.Append(arrowIcon.DOSizeDelta(new Vector2(235,150),1,true)).Append(arrowIcon.DOSizeDelta(new Vector2(235,235),1,true));
+
+        moveSeq.Play().SetLoops(5,LoopType.Restart);
 
         CashManager.Instance.CreditCoins(200);
     }
+
+    
 
     void CropFieldTutorial()
     {
@@ -54,13 +65,13 @@ public class TutorialManager : MonoBehaviour
         moveSeq.Kill();
         cropFieldTutorialImage.SetActive(true);
     }
+    #endregion
 
     void Done()
     {
         sucessFullParticel.Play();
         tutotialIndex++;
         LeanTween.delayedCall(1f,()=>StartNextTutorial());
-       
     }
 
     void StartNextTutorial()
@@ -75,11 +86,12 @@ public class TutorialManager : MonoBehaviour
                 UnlockChunkTutorial();
                 break;
             case 2:
-                LeanTween.delayedCall(1f,()=>CropFieldTutorial());
+                LeanTween.delayedCall(3f,()=>CropFieldTutorial());
                 break;
         }
     }
 
+    #region  EVENT LISTENER
     public void ListenTOMovement(Component sender,object data)
     {
         if(tutotialIndex !=0) return;
@@ -96,7 +108,7 @@ public class TutorialManager : MonoBehaviour
     {
         if(tutotialIndex != 1) return;
         moveSeq.Kill();
-        arrowIcon.gameObject.SetActive(false);
+        missionWaypoint.StopWaypoint();
 
         Done();
     } 
@@ -114,10 +126,13 @@ public class TutorialManager : MonoBehaviour
         cropFieldTutorialImage.SetActive(false);
         Done();
     } 
+    #endregion
 
     private void SwitchToMainScene()
     {
         PlayerPrefs.SetInt("Tutorial",1);
-        SceneManager.LoadScene("Main");
+        AsyncLoadManager.Instance.LoadSceneAsync("Main");
     }
+
+    
 }

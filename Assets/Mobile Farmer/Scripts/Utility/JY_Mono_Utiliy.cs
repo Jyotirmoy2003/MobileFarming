@@ -45,7 +45,10 @@ public void NullFun()
 
 }
 }
-
+[System.Serializable]
+public class ButtonInfo{
+    public Sprite sprite;
+}
 public delegate void NoArgumentFun();
 
 public enum E_Crop_State{

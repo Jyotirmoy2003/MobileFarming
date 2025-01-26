@@ -25,11 +25,12 @@ public class PlayerAnimator : MonoBehaviour
         if(moveVector.magnitude > 0)
         {
             animator.SetFloat("moveSpeed",moveVector.magnitude * moveSpeedMultiplier);
-            PlayRunAnimation();
+            //PlayRunAnimation();
 
             rendererTransform.forward=moveVector.normalized;
         }else{
-            PlayIdleAnimation();
+            animator.SetFloat("moveSpeed",0);
+            //PlayIdleAnimation();
         }
     }
 

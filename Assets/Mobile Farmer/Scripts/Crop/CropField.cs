@@ -5,17 +5,20 @@ using UnityEngine;
 using System;
 
 
-public class CropField : MonoBehaviour
+public class CropField : MonoBehaviour,IInteractable
 {
     [Header("Elements")]
     [SerializeField] Transform tilesParent;
     private List<CropTile> cropTiles= new List<CropTile>();
+    [SerializeField] ButtonInfo interactButtonData_Sow,interactButtonData_Water,interactButtonData_Hervest;
 
     [Header("Settings")]
     [SerializeField] CropData cropData;
 
     private int tileSown=0,tileWatered=0,tileHarvested=0;
     private E_Crop_State state;
+    private GameObject interactingObject;
+    private PlayerAnimator interactingAnimator;
 
     [Header("Action")]
     public static Action<CropField> onFullySown,onFullyWatered,OnFullyHarvested;
@@ -192,6 +195,92 @@ public class CropField : MonoBehaviour
         FieldFullyWatered();
     }
     #endregion
-  
+    #region Interface
+    public void Interact(GameObject interactingObject)
+    {
+        this.interactingObject = interactingObject;
+        interactingAnimator = interactingObject.GetComponent<PlayerAnimator>();
+        UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,false);
+
+        switch(state)
+        {
+            case E_Crop_State.Empty:
+                PlayerSowField(interactingAnimator);
+                break;
+            case E_Crop_State.Sown:
+                PlayerWaterField(interactingAnimator);
+                break;
+            case E_Crop_State.Watered:
+                PlayerWaterField(interactingAnimator);
+                break;
+        }
+    }
+
+    public void InIntreactZone()
+    {
+        switch(state)
+        {
+            case E_Crop_State.Empty:
+                UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,true);
+                break;
+            case E_Crop_State.Sown:
+                UIManager.Instance.SetupIntreactButton(interactButtonData_Water,true);
+                break;
+            case E_Crop_State.Watered:
+                UIManager.Instance.SetupIntreactButton(interactButtonData_Hervest,true);
+                break;
+        }
+    }
+
+    public void OutIntreactZone()
+    {
+        UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,false);
+        switch(state)
+        {
+            case E_Crop_State.Empty:
+                interactingAnimator.PlaySowAnimation(false);
+                break;
+            case E_Crop_State.Sown:
+                interactingAnimator.PlayeWaterAnimation(false);
+                break;
+            case E_Crop_State.Watered:
+                interactingAnimator.PlayerHarvestAnimation(false);
+                break;
+        }
+    }
+    #region Player ANIMATIONS
+    void PlayerSowField(PlayerAnimator animator)
+    {
+        if(animator == null)
+        {
+            Debug.LogError("Null Playeranimator faild to sow");
+            return;
+        }
+        animator.PlaySowAnimation(true);
+    }
+
+    void PlayerWaterField(PlayerAnimator animator)
+    {
+        if(animator == null)
+        {
+            Debug.LogError("Null Playeranimator faild to water");
+            return;
+        }
+        animator.PlayeWaterAnimation(true);
+    }
+
+    void PlayerHervest(PlayerAnimator animator)
+    {
+        if(animator == null)
+        {
+            Debug.LogError("Null Playeranimator faild to Hervest");
+            return;
+        }
+        animator.PlayerHarvestAnimation(true);
+    }
+    #endregion
+    
+    #endregion
+
 
 }
