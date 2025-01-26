@@ -20,6 +20,7 @@ public class CashManager : MonoSingleton<CashManager>
           coins+=amount;
           SaveCoins();
           coinsAmount_text.text = coins.ToString();
+          AudioManager.instance.PlaySound("Coin");
      }
 
      public bool DebitCoin(int amount)
@@ -28,7 +29,8 @@ public class CashManager : MonoSingleton<CashManager>
           {
                coins-=amount;
                SaveCoins();
-               coinsAmount_text.text = coins.ToString();;
+               coinsAmount_text.text = coins.ToString();
+               AudioManager.instance.PlaySound("Coin_Debit");
                return true;  
           }else{
                return false;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Chunk : MonoBehaviour
@@ -60,7 +61,7 @@ public class Chunk : MonoBehaviour
             Unlock();
     }
 
-    private void Unlock()
+    public virtual void Unlock()
     {
         lockedElements.SetActive(false);
         unlocedElements.SetActive(true);
@@ -69,6 +70,9 @@ public class Chunk : MonoBehaviour
         currentPrice=0;
         SaveWorldDataEvent.Raise(this,true);
         chunkUnlockedEvent.Raise(this,true);
+
+        //
+        AudioManager.instance.PlaySound("Chunk_Unlocked");
     }
     public int GetInitialPrice()
     {

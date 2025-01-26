@@ -10,16 +10,15 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
 
     [Header("Settings")]
-    [SerializeField] float moveSpeed=5f;
+    [SerializeField] float normalMovespeed=50f;
+    [SerializeField] float interactMovespeed=40f;
+    private float moveSpeed;
     void Start()
     {
+        moveSpeed = normalMovespeed;
         characterController=GetComponent<CharacterController>();
     }
 
-    void Update()
-    {
-        
-    }
 
     
 
@@ -41,6 +40,16 @@ public class PlayerController : MonoBehaviour
         {
             
             ManageMovement((Vector3)data);
+        }
+    }
+
+    public void ListenToPlayerInteracting(Component sender, object data)
+    {
+        if((bool)data)
+        {
+            moveSpeed = interactMovespeed;
+        }else{
+            moveSpeed = normalMovespeed;
         }
     }
 }

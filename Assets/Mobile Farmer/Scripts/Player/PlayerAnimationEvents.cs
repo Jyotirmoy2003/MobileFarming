@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using System;
 
 public class PlayerAnimationEvents : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerAnimationEvents : MonoBehaviour
     [SerializeField] ParticleSystem seedParticle;
     [SerializeField] ParticleSystem waterParticle;
 
-    [SerializeField] UnityEvent startHarvestCallBackEvent, endHarvestCallBackEvent;
+    public static Action startHarvestCallBackEvent, endHarvestCallBackEvent;
 
 
     void Start()

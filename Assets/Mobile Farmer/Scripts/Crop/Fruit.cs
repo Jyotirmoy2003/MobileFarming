@@ -4,7 +4,7 @@ using jy_util;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Apple : MonoBehaviour
+public class Fruit : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] Renderer appleRenderer;

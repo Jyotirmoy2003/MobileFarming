@@ -5,7 +5,9 @@ using UnityEngine;
 public class _GameAssets : MonoSingleton<_GameAssets>
 {
     [Header("Events")]
+    public GameEvent OnPlayerInteractStatusChangeEvent;
     public GameEvent OnHervestedEvent;
+    public GameEvent OnViewChangeEvent;
     [Header("Particel System")]
     public ParticleSystem seedParticel;
     public ParticleSystem waterParticel;
@@ -32,4 +34,5 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     [Space]
     [Header("CropData")]
     public List<CropData> cropDatas=new List<CropData>();
+    
 }

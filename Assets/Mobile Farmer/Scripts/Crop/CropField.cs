@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using jy_util;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 
 public class CropField : MonoBehaviour,IInteractable
@@ -18,7 +19,7 @@ public class CropField : MonoBehaviour,IInteractable
     private int tileSown=0,tileWatered=0,tileHarvested=0;
     private E_Crop_State state;
     private GameObject interactingObject;
-    private PlayerAnimator interactingAnimator;
+    private PlayerDataHolder playerDataHolder;
 
     [Header("Action")]
     public static Action<CropField> onFullySown,onFullyWatered,OnFullyHarvested;
@@ -128,18 +129,21 @@ public class CropField : MonoBehaviour,IInteractable
     private  void FieldFullySown()
     {
         state= E_Crop_State.Sown;
+        OnCompleteOnStep();
         onFullySown?.Invoke(this);
     }
 
     private void FieldFullyWatered()
     {
         state = E_Crop_State.Watered;
+        OnCompleteOnStep();
         onFullyWatered?.Invoke(this);
     }
 
     private void FieldFullyHarvested()
     {
         state =  E_Crop_State.Empty;
+        OnCompleteOnStep();
         OnFullyHarvested?.Invoke(this);
 
         tileSown = 0;
@@ -199,21 +203,28 @@ public class CropField : MonoBehaviour,IInteractable
     public void Interact(GameObject interactingObject)
     {
         this.interactingObject = interactingObject;
-        interactingAnimator = interactingObject.GetComponent<PlayerAnimator>();
+        playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
         UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,false);
 
         switch(state)
         {
             case E_Crop_State.Empty:
-                PlayerSowField(interactingAnimator);
+                SeedParticle.onSeedCollided += SeedCollidedCallback;
+                PlayerSowField(playerDataHolder.playerAnimator);
                 break;
             case E_Crop_State.Sown:
-                PlayerWaterField(interactingAnimator);
+                WaterParticle.onWaterCollided += WaterCollidedCallBack;
+                PlayerWaterField(playerDataHolder.playerAnimator);
                 break;
             case E_Crop_State.Watered:
-                PlayerWaterField(interactingAnimator);
+                PlayerAnimationEvents.startHarvestCallBackEvent += StartHervest;
+                PlayerHervestField(playerDataHolder.playerAnimator);
+                
                 break;
         }
+
+        if(interactingObject.CompareTag("Player"))
+            _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,true);
     }
 
     public void InIntreactZone()
@@ -235,16 +246,26 @@ public class CropField : MonoBehaviour,IInteractable
     public void OutIntreactZone()
     {
         UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,false);
+        if(interactingObject == null) return;
+
+        
+        if(interactingObject.CompareTag("Player"))
+            _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
+        interactingObject = null;
+
         switch(state)
         {
             case E_Crop_State.Empty:
-                interactingAnimator.PlaySowAnimation(false);
+                playerDataHolder?.playerAnimator.PlaySowAnimation(false);
+                SeedParticle.onSeedCollided -= SeedCollidedCallback;
                 break;
             case E_Crop_State.Sown:
-                interactingAnimator.PlayeWaterAnimation(false);
+                playerDataHolder.playerAnimator.PlayeWaterAnimation(false);
+                WaterParticle.onWaterCollided -= WaterCollidedCallBack;
                 break;
             case E_Crop_State.Watered:
-                interactingAnimator.PlayerHarvestAnimation(false);
+                playerDataHolder.playerAnimator.PlayerHarvestAnimation(false);
+                PlayerAnimationEvents.startHarvestCallBackEvent -= StartHervest;
                 break;
         }
     }
@@ -269,7 +290,7 @@ public class CropField : MonoBehaviour,IInteractable
         animator.PlayeWaterAnimation(true);
     }
 
-    void PlayerHervest(PlayerAnimator animator)
+    void PlayerHervestField(PlayerAnimator animator)
     {
         if(animator == null)
         {
@@ -280,6 +301,20 @@ public class CropField : MonoBehaviour,IInteractable
     }
     #endregion
     
+    private void StartHervest()
+    {
+        Harvest(playerDataHolder.hervestSphere);
+    }
+
+    
+    void OnCompleteOnStep()
+    {
+        if(interactingObject == null) return;
+        InIntreactZone();
+        if(interactingObject.CompareTag("Player"))
+            _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
+        playerDataHolder.playerAnimator.StopAllLayeredAnimation();
+    }
     #endregion
 
 

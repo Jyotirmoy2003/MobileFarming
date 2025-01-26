@@ -7,8 +7,9 @@ using UnityEngine;
 public class PlayerShakeTreeAbility : MonoBehaviour
 {
     [Header("Elemesnts")]
-    private AppleTree currentTree;
+    private IShakeable shakeable;
     private PlayerAnimator playerAnimator;
+    private GameObject shakebleGameobject;
     [Header("Settings")]
     [SerializeField] float distanceToTree=1f;
     [Range(0f,0.5f)]
@@ -29,14 +30,15 @@ public class PlayerShakeTreeAbility : MonoBehaviour
 
     public void ListenToTreeModeStartEvent(Component sender,object data)
     {
-        if((bool)data && sender is AppleTree)
+        if((bool)data && sender is IShakeable)
         {
-            currentTree = (AppleTree)sender;
-            MoveTowardsTree();
+            shakeable = (IShakeable)sender;
+            shakebleGameobject = shakeable.IntiateShake(this.gameObject);
+            MoveTowardsTarget();
             isAbilityActive = true;
         }else{
             //stop shake mode
-            currentTree = null;
+            shakeable = null;
             isAbilityActive = false;
             isShaking = false;
             //little delay so that it not get overriden in some devicies
@@ -44,9 +46,9 @@ public class PlayerShakeTreeAbility : MonoBehaviour
         }
     }
 
-    private void MoveTowardsTree()
+    private void MoveTowardsTarget()
     {
-        Vector3 treePos = currentTree.transform.position;
+        Vector3 treePos = shakebleGameobject.transform.position;
         Vector3 dir = transform.position - treePos;
 
         Vector3 faltDir = dir;
@@ -54,13 +56,17 @@ public class PlayerShakeTreeAbility : MonoBehaviour
 
         Vector3 targetPos = treePos + faltDir.normalized * distanceToTree;
 
-
         playerAnimator.ManageAnimation(-faltDir);
-        LeanTween.move(gameObject,targetPos, 0.5f).setOnComplete(ReachedtoTree);
+        LeanTween.move(gameObject,targetPos, 0.5f).setOnComplete(ReachedtoTarget);
 
     }
 
-    void ReachedtoTree()=>playerAnimator.ManageAnimation(Vector3.zero);
+    void ReachedtoTarget(){
+        playerAnimator.ManageAnimation(Vector3.zero);
+        playerAnimator.PlayerReadyToShake();
+    }
+        
+    
 
 
 
@@ -68,7 +74,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
     {
         if(!Input.GetMouseButton(0))
         {
-            currentTree.StopShake();
+            shakeable.StopShaking();
             return;
         }
            
@@ -79,7 +85,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
         {
             Shake();
         }else{
-            currentTree.StopShake();
+            shakeable.StopShaking();
         }
 
 
@@ -97,7 +103,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
     {
         isShaking = true;
         playerAnimator.PlayerShakeTreeAnimation(true);
-        currentTree.ShakeTree();
+        shakeable.Shake();
         // reset is shaking bool after .5s
         LeanTween.delayedCall(.1f,()=> isShaking = false);
     }

@@ -590,6 +590,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilesParent: {fileID: 7396913313784466372}
+  interactButtonData_Sow:
+    sprite: {fileID: 21300000, guid: 5feedd03a6f2e4f47b542ca8e9600cb9, type: 3}
+  interactButtonData_Water:
+    sprite: {fileID: 21300000, guid: f09a83fa528f20f4b96bf5a3e96e6a47, type: 3}
+  interactButtonData_Hervest:
+    sprite: {fileID: 21300000, guid: 7e3ee32095c774f439b27e5f905c8f77, type: 3}
   cropData: {fileID: 11400000, guid: dc890f597c76c2e408be10b4b8bcd2e5, type: 2}
 --- !u!65 &6008233342211284657
 BoxCollider:

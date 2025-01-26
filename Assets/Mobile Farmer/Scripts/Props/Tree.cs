@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using jy_util;
 using UnityEngine;
 
-public class AppleTree : MonoBehaviour
+public class Tree : MonoBehaviour,IInteractable,IShakeable
 {
     [Header("Elements")]
     [SerializeField] GameObject treeCam;
     [SerializeField] Renderer treeRendere;
     [SerializeField] Transform fruitParent;
     [SerializeField] CropData cropData;
-    private AppleTreeManager treeManager;
+    [SerializeField] ButtonInfo treeButtonInfo;
+    //private AppleTreeManager treeManager;
 
     [Header("Settings")]
     [SerializeField] float maxShakeMagnitude = 0.005f;
@@ -18,20 +20,19 @@ public class AppleTree : MonoBehaviour
     private float shakeSliderValue = 0f;
     private float shakeMagnitude = 0;
     private bool IsShaking = false;
-    private List<Apple> fruitsInTree = new List<Apple>();
+    private List<Fruit> fruitsInTree = new List<Fruit>();
 
     void Start()
     {
         for(int i=0 ;i<fruitParent.childCount;i++)
-            fruitsInTree.Add(fruitParent.GetChild(i).GetComponent<Apple>());
+            fruitsInTree.Add(fruitParent.GetChild(i).GetComponent<Fruit>());
         
     }
 
-    public void Initialize(AppleTreeManager treeManager)
+    public void Initialize()
     {
         SetTreeCamActivation(true);
         shakeSliderValue = 0;
-        this.treeManager = treeManager;
     }
 
 
@@ -41,14 +42,14 @@ public class AppleTree : MonoBehaviour
         treeCam.SetActive(isActive);
     }
 
-    public void ShakeTree()
+    private void ShakeTree()
     {
         IsShaking = true;
         TweenShake(maxShakeMagnitude);
         UpdateShakeSlider();
     }
 
-    public void StopShake()
+    private void StopShake()
     {
         if(!IsShaking) return;
 
@@ -66,7 +67,7 @@ public class AppleTree : MonoBehaviour
     {
         shakeMagnitude = magnitude;
         treeRendere.material.SetFloat("_Magnitude",shakeMagnitude);
-        foreach(Apple fruit in fruitsInTree)
+        foreach(Fruit fruit in fruitsInTree)
         {
             //dont shake if apple is on the groudn
             if(fruit.IsFree())
@@ -78,16 +79,16 @@ public class AppleTree : MonoBehaviour
     private void UpdateShakeSlider()
     {
         shakeSliderValue += shakeIncreament;
-        treeManager.UpdateShakeSlider(shakeSliderValue);
+        UIManager.Instance.UpdateShakeSlider(shakeSliderValue);
 
         
         for(int i=0 ;i < fruitParent.childCount; i++)
         {
             float appleParcent = (float)i/fruitParent.childCount;
 
-            Apple currentApple = fruitsInTree[i];
-            if(shakeSliderValue >  appleParcent && !currentApple.IsFree())
-                ReleaseApple(currentApple);
+            Fruit currentFruit = fruitsInTree[i];
+            if(shakeSliderValue >  appleParcent && !currentFruit.IsFree())
+                ReleaseApple(currentFruit);
         }
 
         if(shakeSliderValue >=1)
@@ -96,7 +97,7 @@ public class AppleTree : MonoBehaviour
         
     }
 
-    private void ReleaseApple(Apple fruit)
+    private void ReleaseApple(Fruit fruit)
     {
         fruit.Release();
         _GameAssets.Instance.OnHervestedEvent.Raise(this,cropData);
@@ -107,7 +108,7 @@ public class AppleTree : MonoBehaviour
 
     private void ExitTree()
     {
-        treeManager.EndTreeMode();
+        _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
         SetTreeCamActivation(false);
         TweenShake(0);
 
@@ -126,4 +127,42 @@ public class AppleTree : MonoBehaviour
         if(!fruit.IsReady()) return false;
         return true;
     }
+
+    #region INTERFACE
+    public void Interact(GameObject interactingObject)
+    {
+        if(!IsReady()) return;
+        UIManager.Instance.UpdateShakeSlider(0);
+        _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
+        IntiateShake(interactingObject);
+    }
+
+    public void InIntreactZone()
+    {
+        if(!IsReady()) return;
+        UIManager.Instance.SetupIntreactButton(treeButtonInfo,true);
+    }
+
+    public void OutIntreactZone()
+    {
+        UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
+    }
+
+    public void Shake()
+    {
+        ShakeTree();
+    }
+
+    public GameObject IntiateShake(GameObject gameObject)
+    {
+        Initialize();
+        return this.gameObject;
+    }
+
+    public void StopShaking()
+    {
+        UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
+        StopShake();
+    }
+    #endregion
 }

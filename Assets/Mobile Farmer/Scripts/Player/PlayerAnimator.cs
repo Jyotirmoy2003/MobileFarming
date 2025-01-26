@@ -34,20 +34,22 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 
-    void PlayRunAnimation()
-    {
-        animator.Play("Run");
-    }
-
-    void PlayIdleAnimation()
-    {
-        animator.Play("Idle");
-    }
 
     public void PlaySowAnimation(bool sow)
     {
         if(sow) animator.SetLayerWeight(1,1);
         else animator.SetLayerWeight(1,0);
+    }
+    public void StopAllLayeredAnimation()
+    {
+        animator.SetLayerWeight(1,0);
+        animator.SetLayerWeight(2,0);
+        _GameAssets.Instance.waterParticel.Stop();
+        animator.SetLayerWeight(3,0);
+        animator.SetLayerWeight(4,0);
+
+        _GameAssets.Instance.wateringCan.SetActive(false);
+        _GameAssets.Instance.harvestScythe.SetActive(false);
     }
 
     public void PlayeWaterAnimation(bool water)
@@ -87,6 +89,11 @@ public class PlayerAnimator : MonoBehaviour
         }else{
             animator.SetLayerWeight(4,0);
         }
+    }
+
+    public void PlayerReadyToShake()
+    {
+        animator.SetLayerWeight(4,1);
     }
 
 

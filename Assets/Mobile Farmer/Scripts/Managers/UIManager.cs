@@ -8,54 +8,50 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] GameObject gamePanel;
-    [SerializeField] GameObject treeModePanel;
-    [SerializeField] GameObject treeButton;
+    [SerializeField] GameObject shakeModePanel;
     [SerializeField] GameObject toolContainer;
+    [Header("Interact Button")]
     [SerializeField] Button IntreactButton;
+    [SerializeField] Image interactButtonIcon;
+
+    [Header("Shake Silder")]
+    [SerializeField] Slider shakeSlider;
 
     
 
-    void Awake()
-    {
-        base.Awake();
-        PlayerDetector.OnEnterTreezone += EnteredAppleTreeCallback;
-        PlayerDetector.OnExitTreezone += ExitAppleTreeZoneCallback;
-    }
-    void OnDestroy()
-    {
-        base.OnDestroy();
-        PlayerDetector.OnEnterTreezone -= EnteredAppleTreeCallback;
-        PlayerDetector.OnExitTreezone -= ExitAppleTreeZoneCallback;
-    }
+    // void Awake()
+    // {
+    //     base.Awake();
+    //     PlayerDetector.OnEnterTreezone += EnteredAppleTreeCallback;
+    //     PlayerDetector.OnExitTreezone += ExitAppleTreeZoneCallback;
+    // }
+    // void OnDestroy()
+    // {
+    //     base.OnDestroy();
+    //     PlayerDetector.OnEnterTreezone -= EnteredAppleTreeCallback;
+    //     PlayerDetector.OnExitTreezone -= ExitAppleTreeZoneCallback;
+    // }
     void Start()
     {
-        treeButton.SetActive(false);
-        treeModePanel.SetActive(false);
+        shakeModePanel.SetActive(false);
+        IntreactButton.gameObject.SetActive(false);
     }
 
 
 
-    private void EnteredAppleTreeCallback(AppleTree appleTree)
-    {
-        treeButton.SetActive(true);
-        toolContainer.SetActive(false);
-    }
+    
 
-    private void ExitAppleTreeZoneCallback(AppleTree appleTree)
-    {
-        treeButton.SetActive(false);
-        toolContainer.SetActive(true);
-    }
+   
 
     public void SetViewMode(bool isTree)
     {
         gamePanel.SetActive(!isTree);
-        treeModePanel.SetActive(isTree);
+        shakeModePanel.SetActive(isTree);
         
     }
 
 
-    public void ListenToTreeModeStartEvent(Component sender,object data)
+    public void ListenToShakeModeStartEvent(Component sender,object data)
     {
         SetViewMode((bool)data);
     }
@@ -63,7 +59,13 @@ public class UIManager : MonoSingleton<UIManager>
     public void SetupIntreactButton(ButtonInfo buttonInfo,bool isActive)
     {
         IntreactButton.gameObject.SetActive(isActive);
-        IntreactButton.image.sprite = buttonInfo.sprite;
+        interactButtonIcon.sprite = buttonInfo.sprite;
+    }
+
+
+    public void UpdateShakeSlider(float value)
+    {
+        shakeSlider.value = value;
     }
     
 }

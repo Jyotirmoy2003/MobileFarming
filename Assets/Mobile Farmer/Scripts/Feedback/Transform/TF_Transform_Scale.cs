@@ -9,6 +9,7 @@ public class TF_Transform_Scale : FB_Transform
 {
     public TF_Transform_Scale(FB_Transform fb_TranformBase) : base(fb_TranformBase)
     {
+        
     }
 
 
@@ -23,10 +24,7 @@ public class TF_Transform_Scale : FB_Transform
     }
 
 
-    public override void PerformeEffect(float val)
-    {
-        
-    }
+   
 
     public override void EffectLocal()
     {
@@ -38,6 +36,11 @@ public class TF_Transform_Scale : FB_Transform
     public override void EffectGlobal()
     {
         currentFeedbackManager.targetTramform.localScale=evalutedVector;
+    }
+
+    public override FeedbackBase CloneMe()
+    {
+        return new TF_Transform_Scale(this);
     }
 
 

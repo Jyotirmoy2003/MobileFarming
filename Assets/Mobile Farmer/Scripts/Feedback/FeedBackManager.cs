@@ -10,11 +10,14 @@ using UnityEngine.Rendering;
 public class FeedBackManager : MonoBehaviour
 {
     [Header("Ref")]
-    [HideInInspector] public CinemachineVirtualCamera camRef;
-    [HideInInspector] public Transform targetTramform;
+    public CinemachineVirtualCamera camRef;
+    public Transform targetTramform;
 
     [Space]
     [Header("Settings")]
+    public bool overrideRemaps=false;
+    public float curveZeroRemap=0f;
+    public float curveOneRemap=0f;
     [SerializeField] bool isSequencialFlow=true;
     [SerializeField] int startIndex=0;
 
@@ -71,8 +74,8 @@ public class FeedBackManager : MonoBehaviour
         
         for(int i=startIndex;i<feedbackList.Count;i++)
         {
-            feedbackList[i].PushNeededComponent(compList);
-            feedbackList[i].OnFeedbackActiavte();
+            tempInsteanceOfFeedback[i].PushNeededComponent(compList);
+            tempInsteanceOfFeedback[i].OnFeedbackActiavte();
         }
 
         CompletePlayingFeedback?.Invoke();
@@ -83,10 +86,11 @@ public class FeedBackManager : MonoBehaviour
         if(playingFeedbackIndexForSeq!=startIndex)
             tempInsteanceOfFeedback[playingFeedbackIndexForSeq-1].feedbackFinishedExe-=InitiateFeedbackseq;
 
+       
         //when its the last feedback
         if(tempInsteanceOfFeedback.Count<=playingFeedbackIndexForSeq)
         {
-            Debug.Log("Feedback Comeplete");
+            Debug.Log("Feedback comeple");
             playingFeedbackIndexForSeq=-1;
             isAlreadyPlayingFeedback=false;
             //raise event on Complete
@@ -94,7 +98,7 @@ public class FeedBackManager : MonoBehaviour
             return;
         }
 
-        
+       
         tempInsteanceOfFeedback[playingFeedbackIndexForSeq].PushNeededComponent(compList);
         tempInsteanceOfFeedback[playingFeedbackIndexForSeq].OnFeedbackActiavte();
         tempInsteanceOfFeedback[playingFeedbackIndexForSeq].feedbackFinishedExe+=InitiateFeedbackseq;
