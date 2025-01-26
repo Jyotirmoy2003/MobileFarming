@@ -31,6 +31,7 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     private void StartHarvestingCallback()
     {
+        AudioManager.instance.PlaySound("Cut");
         startHarvestCallBackEvent?.Invoke();
     }
 

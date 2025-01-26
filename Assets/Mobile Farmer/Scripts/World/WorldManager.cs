@@ -30,7 +30,11 @@ public class WorldManager : MonoBehaviour
 
     void Start()
     {
+
+        dataPath = Application.persistentDataPath + fileName;
+        #if UNITY_EDITOR
         dataPath = Application.dataPath + fileName;
+        #endif
         if(!isTutorial)LoadWorld();
         else LoadTutroalWord();
         

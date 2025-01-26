@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Mobile Farmer/Scenes/LoadingScene.unity
+    guid: 3a591ef7c33babc44a027141b7717907
+  - enabled: 1
+    path: Assets/Mobile Farmer/Scenes/Tutorial.unity
+    guid: 969d87a52a01851438ce6883b2f0545b
+  - enabled: 1
     path: Assets/Mobile Farmer/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

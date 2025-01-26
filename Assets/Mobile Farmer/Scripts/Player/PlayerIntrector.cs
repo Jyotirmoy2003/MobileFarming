@@ -42,6 +42,7 @@ public class PlayerIntrector : MonoBehaviour
     public void Intreact()
     {
         currentInteractable?.Interact(this.gameObject);
+        AudioManager.instance.PlaySound("UI_Button");
     }
 
     void ExitInteractable(IInteractable interactable)

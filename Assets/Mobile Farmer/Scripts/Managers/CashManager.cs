@@ -55,7 +55,7 @@ public class CashManager : MonoSingleton<CashManager>
           CreditCoins(500);
      }
      [NaughtyAttributes.Button]
-     private void ClearCoin()
+     public void ClearCoin()
      {
           DebitCoin(coins);
      }

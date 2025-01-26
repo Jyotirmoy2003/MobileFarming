@@ -11,7 +11,11 @@ public class InventoryManager : MonoBehaviour
    private string dataPath="";
     void Start()
     {
+        dataPath = Application.persistentDataPath + "/inventoryData.txt";
+        #if UNITY_EDITOR
         dataPath = Application.dataPath + "/inventoryData.txt";
+        #endif
+        
         LoadInventory();
         ConfigureInventoryDisplay();
 

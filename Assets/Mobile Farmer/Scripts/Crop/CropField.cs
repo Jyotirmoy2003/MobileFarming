@@ -262,6 +262,7 @@ public class CropField : MonoBehaviour,IInteractable
             case E_Crop_State.Sown:
                 playerDataHolder.playerAnimator.PlayeWaterAnimation(false);
                 WaterParticle.onWaterCollided -= WaterCollidedCallBack;
+                AudioManager.instance.StopSound("Water");
                 break;
             case E_Crop_State.Watered:
                 playerDataHolder.playerAnimator.PlayerHarvestAnimation(false);
@@ -287,6 +288,7 @@ public class CropField : MonoBehaviour,IInteractable
             Debug.LogError("Null Playeranimator faild to water");
             return;
         }
+        AudioManager.instance.PlaySound("Water");
         animator.PlayeWaterAnimation(true);
     }
 
@@ -314,6 +316,7 @@ public class CropField : MonoBehaviour,IInteractable
         if(interactingObject.CompareTag("Player"))
             _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
         playerDataHolder.playerAnimator.StopAllLayeredAnimation();
+        AudioManager.instance.StopSound("Water");
     }
     #endregion
 
