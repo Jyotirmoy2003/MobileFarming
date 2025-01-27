@@ -11,8 +11,9 @@ public class CropTile : MonoBehaviour
     [SerializeField] Transform cropParent;
     [SerializeField] MeshRenderer tileMeshrenderer;
     private Crop crop;
+    public FeedBackManager feedBackManager;
 
-
+    
 
 
 

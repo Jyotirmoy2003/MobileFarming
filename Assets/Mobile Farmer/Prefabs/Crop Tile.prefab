@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5096704795731751478}
   - component: {fileID: 3102666473185057963}
+  - component: {fileID: 754337254340308115}
   m_Layer: 0
   m_Name: Crop Tile
   m_TagString: Untagged
@@ -49,6 +50,28 @@ MonoBehaviour:
   state: 0
   cropParent: {fileID: 3031364402861276146}
   tileMeshrenderer: {fileID: 4047024630847943399}
+  feedBackManager: {fileID: 754337254340308115}
+--- !u!114 &754337254340308115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3365299263939484509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfc4d53d81096948b34ce07860f324e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camRef: {fileID: 0}
+  targetTramform: {fileID: 2931280571207332740}
+  overrideRemaps: 0
+  curveZeroRemap: 0
+  curveOneRemap: 0
+  isSequencialFlow: 1
+  startIndex: 0
+  feedbackList:
+  - {fileID: 11400000, guid: 215560acece362345bb27630a27d15cf, type: 2}
 --- !u!1 &5627977579753679689
 GameObject:
   m_ObjectHideFlags: 0

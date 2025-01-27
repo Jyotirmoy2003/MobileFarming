@@ -17,7 +17,7 @@ public class CropField : MonoBehaviour,IInteractable
     [SerializeField] CropData cropData;
 
     private int tileSown=0,tileWatered=0,tileHarvested=0;
-    private E_Crop_State state;
+    public E_Crop_State state{get;private set;}
     private GameObject interactingObject;
     private PlayerDataHolder playerDataHolder;
 
@@ -32,8 +32,9 @@ public class CropField : MonoBehaviour,IInteractable
     }
 
 
-    void StoreTile()
+    public void StoreTile()
     {
+        cropTiles.Clear();
         for(int i=0;i<tilesParent.childCount;i++)
             cropTiles.Add(tilesParent.GetChild(i).GetComponent<CropTile>());
     }
@@ -181,19 +182,35 @@ public class CropField : MonoBehaviour,IInteractable
     {
         return state==E_Crop_State.Watered;
     }
-   
+    public CropData GetCropData()
+    {
+        return cropData;
+    }
+    
+    public void AnimateCropTileCallback()
+    {
+        StartCoroutine(CropTileFeedback());
+    }
+    IEnumerator CropTileFeedback()
+    {
+        foreach(CropTile item in cropTiles)
+        {
+            item.feedBackManager?.PlayFeedback();
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
     
 
     #region UTILITY INSPECTIOR BUTTONS
     [NaughtyAttributes.Button]
-    private void InstantlySowTile()
+    public void InstantlySowTile()
     {
         for(int i=0;i<cropTiles.Count;i++)
             cropTiles[i].Sow(cropData);
         FieldFullySown();
     }
     [NaughtyAttributes.Button]
-    private void InstantlyWaterTile()
+    public void InstantlyWaterTile()
     {
         for(int i=0;i<cropTiles.Count;i++)
             cropTiles[i].Water(cropData);

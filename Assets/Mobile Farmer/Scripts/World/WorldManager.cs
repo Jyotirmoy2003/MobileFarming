@@ -75,6 +75,49 @@ public class WorldManager : MonoBehaviour
 
             grid[chunkGridPosition.x,chunkGridPosition.y] = chunk;
         }
+
+        SetUpCropFieldDataHolder();
+    }
+
+    void SetUpCropFieldDataHolder()
+    {
+         for(int j=0; j<grid.GetLength(0); j++)
+        {
+            for(int i=0;i<grid.GetLength(1);i++)
+            {
+                if(grid[j,i] == null) continue;
+
+
+                CropFieldDataHolder dataHolder = grid[j,i].cropFieldDataHolder;
+                if(dataHolder == null) continue;
+
+                if(dataHolder.right == null)
+                {
+                    dataHolder.right = (IsValidGridPosition(j+1,i))? grid[j+1,i]?.cropFieldDataHolder : null;
+                    if(dataHolder.right)dataHolder.right.left = dataHolder;
+                }
+
+                if(dataHolder.left == null)
+                {
+                    dataHolder.left = (IsValidGridPosition(j-1,i))? grid[j-1,i]?.cropFieldDataHolder:null;
+                    if(dataHolder.left)dataHolder.left.right = dataHolder;
+                }
+
+                if(dataHolder.above == null)
+                {
+                    dataHolder.above = (IsValidGridPosition(j,i+1))? grid[j,i+1]?.cropFieldDataHolder:null;
+                    if(dataHolder.above)dataHolder.above.bottom = dataHolder;
+                }
+
+                if(dataHolder.bottom == null)
+                {
+                    dataHolder.bottom = (IsValidGridPosition(j,i-1))? grid[j,i-1]?.cropFieldDataHolder:null;
+                    if(dataHolder.bottom)dataHolder.bottom.above = dataHolder;
+                }
+
+            }
+
+        }
     }
 
     private void UpdateGridWall()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 //using UnityEngine.Rendering.Universal;
 
@@ -30,6 +31,7 @@ public class FeedBackManager : MonoBehaviour
     private int playingFeedbackIndexForSeq=-1;
     private bool isAlreadyPlayingFeedback=false;
     public Action CompletePlayingFeedback;
+    public UnityEvent UEvent_completePlayingFeedback;
     private List<Component> compList=new List<Component>();
     private List<FeedbackBase> tempInsteanceOfFeedback=new List<FeedbackBase>();
    
@@ -90,11 +92,12 @@ public class FeedBackManager : MonoBehaviour
         //when its the last feedback
         if(tempInsteanceOfFeedback.Count<=playingFeedbackIndexForSeq)
         {
-            Debug.Log("Feedback comeple");
+           
             playingFeedbackIndexForSeq=-1;
             isAlreadyPlayingFeedback=false;
             //raise event on Complete
             CompletePlayingFeedback?.Invoke();
+            UEvent_completePlayingFeedback?.Invoke();
             return;
         }
 

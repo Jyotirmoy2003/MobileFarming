@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,9 +13,11 @@ public class Chunk : MonoBehaviour
     [SerializeField] TextMeshPro priceText;
     [SerializeField] GameEvent SaveWorldDataEvent,chunkUnlockedEvent;
     [SerializeField] ChunkWalls chunkWalls;
+    public CropFieldDataHolder cropFieldDataHolder;
 
     [Header("Settings")]
     [SerializeField] int initialPrice=25;
+    public Action chunkUnlocked;
 
 
     private int currentPrice ;
@@ -71,6 +74,7 @@ public class Chunk : MonoBehaviour
         SaveWorldDataEvent.Raise(this,true);
         chunkUnlockedEvent.Raise(this,true);
 
+        chunkUnlocked?.Invoke();
         //
         AudioManager.instance.PlaySound("Chunk_Unlocked");
     }
