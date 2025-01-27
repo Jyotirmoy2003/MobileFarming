@@ -90,6 +90,7 @@ public class CropField : MonoBehaviour,IInteractable
         for(int i=0;i<cropTiles.Count;i++)
         {
             CropTile temp_holding_cropTile=cropTiles[i];
+            if(temp_holding_cropTile == null) continue; //Handel by any chanceh null ref
             float disanceTileSeed=Vector3.Distance(temp_holding_cropTile.transform.position,particelPos);
             if(disanceTileSeed < minDistance)
             {

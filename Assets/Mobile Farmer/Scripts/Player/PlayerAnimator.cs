@@ -25,15 +25,24 @@ public class PlayerAnimator : MonoBehaviour
         if(moveVector.magnitude > 0)
         {
             animator.SetFloat("moveSpeed",moveVector.magnitude * moveSpeedMultiplier);
-            //PlayRunAnimation();
+            PlayRunAnimation();
 
             rendererTransform.forward=moveVector.normalized;
         }else{
             animator.SetFloat("moveSpeed",0);
-            //PlayIdleAnimation();
+            PlayIdleAnimation();
         }
     }
 
+    void PlayRunAnimation()
+    {
+        animator.Play("Run");
+    }
+    
+    void PlayIdleAnimation()
+    {
+        animator.Play("Idle");
+    }
 
     public void PlaySowAnimation(bool sow)
     {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028417, g: 0.22571534, b: 0.30692172, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028463, g: 0.22571611, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -218,7 +218,7 @@ PrefabInstance:
     - target: {fileID: 1842643238616928800, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}
       propertyPath: initialPrice
-      value: 400
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6348383531720156231, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}
@@ -6690,7 +6690,7 @@ PrefabInstance:
     - target: {fileID: 1842643238616928800, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}
       propertyPath: initialPrice
-      value: 400
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6348383531720156231, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}
@@ -12703,7 +12703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 990670518}
   rendererTransform: {fileID: 990670516}
-  moveSpeedMultiplier: 30
+  moveSpeedMultiplier: 50
 --- !u!114 &913347757
 MonoBehaviour:
   m_ObjectHideFlags: 0
