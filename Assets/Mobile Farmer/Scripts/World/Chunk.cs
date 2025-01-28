@@ -1,8 +1,8 @@
 using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using TMPro;
-using Unity.IO.LowLevel.Unsafe;
+
 using UnityEngine;
 
 public class Chunk : MonoBehaviour
@@ -13,10 +13,13 @@ public class Chunk : MonoBehaviour
     [SerializeField] TextMeshPro priceText;
     [SerializeField] GameEvent SaveWorldDataEvent,chunkUnlockedEvent;
     [SerializeField] ChunkWalls chunkWalls;
+    [Tooltip("Put some transfomr ref where animals can move around")]
+    [SerializeField] List<Transform> animalPetrolPoints = new List<Transform>();
     public CropFieldDataHolder cropFieldDataHolder;
 
     [Header("Settings")]
     [SerializeField] int initialPrice=25;
+
     public Action chunkUnlocked;
 
 
@@ -101,6 +104,14 @@ public class Chunk : MonoBehaviour
     public void DisplayLockedElements()
     {
         lockedElements.SetActive(true);
+    }
+    public bool canAnimalCome()
+    {
+        return animalPetrolPoints.Count>0 && currentPrice <=0;
+    }
+    public Vector3 GetAnimalPoint()
+    {
+        return animalPetrolPoints[UnityEngine.Random.Range(0, animalPetrolPoints.Count)].position;
     }
 
     private void OnDrawGizmos()

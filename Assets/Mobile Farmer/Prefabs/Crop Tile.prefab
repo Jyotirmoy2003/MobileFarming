@@ -72,6 +72,9 @@ MonoBehaviour:
   startIndex: 0
   feedbackList:
   - {fileID: 11400000, guid: 215560acece362345bb27630a27d15cf, type: 2}
+  UEvent_completePlayingFeedback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5627977579753679689
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,8 +121,8 @@ GameObject:
   m_Name: Tile Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 5
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &2931280571207332740
 Transform:

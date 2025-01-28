@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using jy_util;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tree : MonoBehaviour,IInteractable,IShakeable
@@ -21,6 +22,9 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     private float shakeMagnitude = 0;
     private bool IsShaking = false;
     private List<Fruit> fruitsInTree = new List<Fruit>();
+    [SerializeField] E_ShakeType needToShake;
+
+    public E_ShakeType e_ShakeType { get { return needToShake;} set { needToShake = value;} }
 
     void Start()
     {
@@ -148,7 +152,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
     }
 
-    public void Shake()
+    public void Shake(float magnitude)
     {
         ShakeTree();
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
-
+using jy_util;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerAnimator))]
@@ -17,6 +18,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
 
     private Vector2 previousMousePosition;
     private bool isAbilityActive=false,isShaking=false;
+    private E_ShakeType neededShakeType;
 
 
     void Start()
@@ -34,6 +36,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
         {
             shakeable = (IShakeable)sender;
             shakebleGameobject = shakeable.IntiateShake(this.gameObject);
+            neededShakeType = shakeable.e_ShakeType;
             MoveTowardsTarget();
             isAbilityActive = true;
         }else{
@@ -72,6 +75,21 @@ public class PlayerShakeTreeAbility : MonoBehaviour
 
     private void ManagerShakeTree()
     {
+       switch(neededShakeType)
+       {
+            case E_ShakeType.Any:
+                ShakeAny();
+                break;
+            case E_ShakeType.Horizontal:
+                ShakeHorizontal();
+                break;
+            case E_ShakeType.Vertical:
+                ShakeVerticel();
+                break;
+       }
+    }
+    void ShakeAny()
+    {
         if(!Input.GetMouseButton(0))
         {
             shakeable.StopShaking();
@@ -83,7 +101,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
 
         if(ShouldShake(shakeMagnitude))
         {
-            Shake();
+            Shake(shakeMagnitude);
         }else{
             shakeable.StopShaking();
         }
@@ -92,6 +110,49 @@ public class PlayerShakeTreeAbility : MonoBehaviour
         previousMousePosition = Input.mousePosition;
     }
 
+    void ShakeHorizontal()
+    {
+        if(!Input.GetMouseButton(0))
+        {
+            shakeable.StopShaking();
+            return;
+        }
+           
+
+        float shakeMagnitude = MathF.Abs(Input.mousePosition.x - previousMousePosition.x);
+
+        if(ShouldShake(shakeMagnitude))
+        {
+            Shake(shakeMagnitude);
+        }else{
+            shakeable.StopShaking();
+        }
+
+
+        previousMousePosition = Input.mousePosition;
+    }
+    
+    void ShakeVerticel()
+    {
+        if(!Input.GetMouseButton(0))
+        {
+            shakeable.StopShaking();
+            return;
+        }
+           
+
+        float shakeMagnitude = MathF.Abs(Input.mousePosition.y - previousMousePosition.y);
+
+        if(ShouldShake(shakeMagnitude))
+        {
+            Shake(shakeMagnitude);
+        }else{
+            shakeable.StopShaking();
+        }
+
+
+        previousMousePosition = Input.mousePosition;
+    }
     private bool ShouldShake(float shakeMagnitude)
     {
         float screenParcent = shakeMagnitude/Screen.width;
@@ -99,11 +160,11 @@ public class PlayerShakeTreeAbility : MonoBehaviour
         return screenParcent >= shakeThresold;
     }
 
-    private void Shake()
+    private void Shake(float shakeMagnitude)
     {
         isShaking = true;
         playerAnimator.PlayerShakeTreeAnimation(true);
-        shakeable.Shake();
+        shakeable.Shake(shakeMagnitude);
         // reset is shaking bool after .5s
         LeanTween.delayedCall(.1f,()=> isShaking = false);
     }

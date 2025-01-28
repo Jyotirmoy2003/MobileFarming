@@ -75,6 +75,12 @@ public enum E_Crop_Progess{
     Growing,
 }
 
+public enum E_ShakeType{
+    Any,
+    Horizontal,
+    Vertical,
+}
+
 public class WorldData
 {
     public List<int> chunkPrices;
