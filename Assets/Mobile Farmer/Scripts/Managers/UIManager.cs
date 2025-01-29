@@ -9,28 +9,18 @@ public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] GameObject gamePanel;
     [SerializeField] GameObject shakeModePanel;
-    [SerializeField] GameObject toolContainer;
+    
     [Header("Interact Button")]
     [SerializeField] Button IntreactButton;
     [SerializeField] Image interactButtonIcon;
 
     [Header("Shake Silder")]
     [SerializeField] Slider shakeSlider;
+    [SerializeField] Button shakeExitButton;
+
+    public Action OnExitButtonPressed;
 
     
-
-    // void Awake()
-    // {
-    //     base.Awake();
-    //     PlayerDetector.OnEnterTreezone += EnteredAppleTreeCallback;
-    //     PlayerDetector.OnExitTreezone += ExitAppleTreeZoneCallback;
-    // }
-    // void OnDestroy()
-    // {
-    //     base.OnDestroy();
-    //     PlayerDetector.OnEnterTreezone -= EnteredAppleTreeCallback;
-    //     PlayerDetector.OnExitTreezone -= ExitAppleTreeZoneCallback;
-    // }
     void Start()
     {
         shakeModePanel.SetActive(false);
@@ -62,10 +52,19 @@ public class UIManager : MonoSingleton<UIManager>
         interactButtonIcon.sprite = buttonInfo.sprite;
     }
 
+    public void ShowShakeExit(bool val)
+    {
+        shakeExitButton.gameObject.SetActive(val);
+    }
+
 
     public void UpdateShakeSlider(float value)
     {
         shakeSlider.value = value;
     }
     
+    public void OnExitButtonPressedCallback()
+    {
+        OnExitButtonPressed?.Invoke();
+    }
 }

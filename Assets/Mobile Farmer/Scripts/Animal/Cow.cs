@@ -30,6 +30,14 @@ public class Cow : AnimalBase, IShakeable,IInteractable
     void SetCameraActivationStatus(bool isActive)
     {
         cameraObject.SetActive(isActive);
+
+        
+        if(isActive)
+        {
+            UIManager.Instance.OnExitButtonPressed += ExitAnimal;
+        }else{
+            UIManager.Instance.OnExitButtonPressed -= ExitAnimal;
+        }
     }
 
 

@@ -54,7 +54,7 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Player_Position: {r: 3.6758285, g: -0.05000004, b: 4.55, a: 0}
+    - _Player_Position: {r: 0.27741095, g: 0.079999894, b: 3.840239, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6339410629889865200
 MonoBehaviour:
