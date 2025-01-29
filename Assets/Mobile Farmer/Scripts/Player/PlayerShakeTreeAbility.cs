@@ -163,7 +163,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
     private void Shake(float shakeMagnitude)
     {
         isShaking = true;
-        playerAnimator.PlayerShakeTreeAnimation(true);
+        //playerAnimator.PlayerShakeTreeAnimation(true);
         shakeable.Shake(shakeMagnitude);
         // reset is shaking bool after .5s
         LeanTween.delayedCall(.1f,()=> isShaking = false);

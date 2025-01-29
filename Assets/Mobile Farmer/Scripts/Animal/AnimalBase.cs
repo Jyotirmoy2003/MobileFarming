@@ -12,6 +12,7 @@ public class AnimalBase : MonoBehaviour
     [SerializeField] float idelTimeMin=5f;
     [SerializeField] float idelTimeMAX=5f;
     private bool isMoveing=true;
+    protected bool shouldStartMovement = true;
 
 
     void Start()
@@ -27,20 +28,26 @@ public class AnimalBase : MonoBehaviour
 
    void OnReachToOneDest()
    {
-        Debug.Log("reached to dest called");
         if(!isMoveing) return;
-
-        Debug.Log("reached to dest");
         isMoveing = false;
         randomMovement.StopAndStartMovement(true);
         LeanTween.delayedCall(Random.Range(idelTimeMin,idelTimeMAX), ()=>StartMovemnt() );
    }
    void StartMovemnt()
    {
-        Debug.Log("Restaring movement");;
+        if(!shouldStartMovement) return; //dont start  movemnt if its not needed from child class
         randomMovement.StopAndStartMovement(false);
         isMoveing = true;
+        
    }
+
+   protected void StopMovement()
+   {
+        LeanTween.cancel(this.gameObject);
+        randomMovement.StopAndStartMovement(true);
+        shouldStartMovement = false;
+   }
+   
 
 
 

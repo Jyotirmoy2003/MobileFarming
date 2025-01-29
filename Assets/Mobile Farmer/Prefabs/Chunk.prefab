@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 2797463748973042492}
   - component: {fileID: 3502797661419664611}
   - component: {fileID: 3039833779573165365}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,7 +946,8 @@ GameObject:
   - component: {fileID: 1842643238616928800}
   - component: {fileID: 4030869937230357246}
   - component: {fileID: 4252669739192364271}
-  m_Layer: 0
+  - component: {fileID: 4521803024548429474}
+  m_Layer: 6
   m_Name: Chunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1034,6 +1035,27 @@ MonoBehaviour:
   rightWall: {fileID: 5762842330366745670}
   backWall: {fileID: 5111142574368072968}
   leftwall: {fileID: 1739457821947931420}
+--- !u!65 &4521803024548429474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6348383531720156231}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 1, z: 3}
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!1 &7391809694605235512
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,7 +46,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
         treeCam.SetActive(isActive);
     }
 
-    private void ShakeTree()
+    private void StartShakeTree()
     {
         IsShaking = true;
         TweenShake(maxShakeMagnitude);
@@ -85,7 +85,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
         shakeSliderValue += shakeIncreament;
         UIManager.Instance.UpdateShakeSlider(shakeSliderValue);
 
-        
+        //Make apple fall from tree
         for(int i=0 ;i < fruitParent.childCount; i++)
         {
             float appleParcent = (float)i/fruitParent.childCount;
@@ -95,6 +95,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
                 ReleaseApple(currentFruit);
         }
 
+        //stop when reached max
         if(shakeSliderValue >=1)
             ExitTree();
         
@@ -112,6 +113,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
 
     private void ExitTree()
     {
+        _GameAssets.Instance.playerAnimator.PlayerShakeTreeAnimation(false);
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
         SetTreeCamActivation(false);
         TweenShake(0);
@@ -154,7 +156,8 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
 
     public void Shake(float magnitude)
     {
-        ShakeTree();
+        _GameAssets.Instance.playerAnimator.PlayerShakeTreeAnimation(true);
+        StartShakeTree();
     }
 
     public GameObject IntiateShake(GameObject gameObject)
