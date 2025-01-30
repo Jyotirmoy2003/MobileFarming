@@ -1589,6 +1589,7 @@ MonoBehaviour:
   idelTimeMAX: 5
   cameraObject: {fileID: 1113049860}
   needToShake: 0
+  taskBeforeShake: 0
   shakeIncreament: 0.1
 --- !u!1 &490454697
 GameObject:
@@ -2321,6 +2322,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 44524533}
     m_Modifications:
+    - target: {fileID: 761320832889049733, guid: b9578076a5f90f045be148abe8a67fab,
+        type: 3}
+      propertyPath: taskBeforeShake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 761320832889049733, guid: b9578076a5f90f045be148abe8a67fab,
         type: 3}
       propertyPath: treeButtonInfo.sprite
@@ -13524,7 +13530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1225778016
 RectTransform:
   m_ObjectHideFlags: 0

@@ -80,7 +80,11 @@ public enum E_ShakeType{
     Horizontal,
     Vertical,
 }
-
+public enum E_NeedToperformTask_BeforeShake{
+    None,
+    MovetowardsTarget,
+    ReadyFishingRod,
+}
 public class WorldData
 {
     public List<int> chunkPrices;

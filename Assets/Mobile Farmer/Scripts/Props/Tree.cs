@@ -12,9 +12,11 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     [SerializeField] Transform fruitParent;
     [SerializeField] CropData cropData;
     [SerializeField] ButtonInfo treeButtonInfo;
-    //private AppleTreeManager treeManager;
+    public E_NeedToperformTask_BeforeShake e_NeedToperformTask_BeforeShake { get {return taskBeforeShake;} set {taskBeforeShake = value;}} 
 
     [Header("Settings")]
+    [SerializeField] E_ShakeType needToShake;
+    [SerializeField] E_NeedToperformTask_BeforeShake taskBeforeShake;
     [SerializeField] float maxShakeMagnitude = 0.005f;
     [SerializeField] float shakeIncreament = 0.2f;
     [SerializeField] float furitShakeMultiplayer;
@@ -22,7 +24,6 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     private float shakeMagnitude = 0;
     private bool IsShaking = false;
     private List<Fruit> fruitsInTree = new List<Fruit>();
-    [SerializeField] E_ShakeType needToShake;
 
     public E_ShakeType e_ShakeType { get { return needToShake;} set { needToShake = value;} }
 

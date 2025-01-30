@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using jy_util;
 using UnityEngine;
 
-public class MobileJoystick : MonoBehaviour
+public class MobileJoystick : MonoSingleton<MobileJoystick>
 {
     [Header("Events")]
     [SerializeField] GameEvent JoystickInputEvent;

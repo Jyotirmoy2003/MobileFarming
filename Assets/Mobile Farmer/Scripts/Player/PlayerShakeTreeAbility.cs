@@ -37,7 +37,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
             shakeable = (IShakeable)sender;
             shakebleGameobject = shakeable.IntiateShake(this.gameObject);
             neededShakeType = shakeable.e_ShakeType;
-            MoveTowardsTarget();
+            if(shakeable.e_NeedToperformTask_BeforeShake == E_NeedToperformTask_BeforeShake.MovetowardsTarget)MoveTowardsTarget();
             isAbilityActive = true;
         }else{
             //stop shake mode

@@ -11,8 +11,12 @@ public class Cow : AnimalBase, IShakeable,IInteractable
     [SerializeField] GameObject cameraObject;
     
     public E_ShakeType e_ShakeType { get { return needToShake;} set { needToShake = value;}}
+
+    public E_NeedToperformTask_BeforeShake e_NeedToperformTask_BeforeShake { get {return taskBeforeShake;} set {taskBeforeShake = value;}} 
+
     [Header("Settings")]
     [SerializeField] E_ShakeType needToShake;
+    [SerializeField] E_NeedToperformTask_BeforeShake taskBeforeShake;
     protected float shakeSliderValue = 0;
     private bool IsShaking = false;
     [SerializeField] float shakeIncreament;
@@ -20,7 +24,9 @@ public class Cow : AnimalBase, IShakeable,IInteractable
     void Initialize()
     {
         StopMovement();
+        MobileJoystick.Instance.SetControl(false); //turn off joystick
         SetCameraActivationStatus(true);
+        UIManager.Instance.ShowShakeExit(true);
         shakeSliderValue = 0;
     }
 
@@ -71,6 +77,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
     {
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
         SetCameraActivationStatus(false);
+        MobileJoystick.Instance.SetControl(true); //turn on joystick
         //TweenShake(0);
 
         //ResstFruits();
@@ -120,7 +127,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 
     public void Shake(float magnitude)
     {
-        
+        StartShake();
     }
 
     public void StopShaking()
