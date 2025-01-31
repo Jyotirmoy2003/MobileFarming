@@ -1,4 +1,6 @@
 [*.cs]
+dotnet_naming_conventions=true
+dotnet_style_qualification_for_field=true
 
 # CS0108: Member hides inherited member; missing new keyword
 

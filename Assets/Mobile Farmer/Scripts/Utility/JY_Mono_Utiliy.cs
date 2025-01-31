@@ -68,6 +68,7 @@ public enum E_Crop_Type{
     Carrot,
     Apple,
     Lemon,
+    Pumpkin,
 }
 
 public enum E_Crop_Progess{

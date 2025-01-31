@@ -14,7 +14,6 @@ public class AnimalBase : MonoBehaviour
     private bool isMoveing=true;
     protected bool shouldStartMovement = true;
 
-
     void Start()
     {
         randomMovement = GetComponent<RandomMovement>();
