@@ -9,7 +9,8 @@ public class AnimalBase : MonoBehaviour
     private RandomMovement randomMovement;
 
     [Header("Settings")]
-    [SerializeField] float idelTimeMin=5f;
+    [SerializeField] protected bool canInteract =false;
+    [SerializeField]float idelTimeMin=5f;
     [SerializeField] float idelTimeMAX=5f;
     private bool isMoveing=true;
     protected bool shouldStartMovement = true;

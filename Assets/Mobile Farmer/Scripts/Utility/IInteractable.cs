@@ -9,5 +9,7 @@ public interface IInteractable
     void Interact(GameObject interactingObject);
     void InIntreactZone();
     void OutIntreactZone();
+
+    void ShowInfo(bool val);
     
 }

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using jy_util;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
+
+
 
 
 public class CropField : MonoBehaviour,IInteractable
 {
     [Header("Elements")]
+    [SerializeField] CropFieldInfoUI infoUI;
+
     [SerializeField] Transform tilesParent;
     private List<CropTile> cropTiles= new List<CropTile>();
     [SerializeField] ButtonInfo interactButtonData_Sow,interactButtonData_Water,interactButtonData_Hervest;
@@ -28,6 +31,7 @@ public class CropField : MonoBehaviour,IInteractable
     void Start()
     {
         state=E_Crop_State.Empty;
+        infoUI.Initialize(cropData);
         StoreTile();
     }
 
@@ -247,6 +251,7 @@ public class CropField : MonoBehaviour,IInteractable
 
     public void InIntreactZone()
     {
+        infoUI.SetActivationStatus(false);
         switch(state)
         {
             case E_Crop_State.Empty:
@@ -323,6 +328,7 @@ public class CropField : MonoBehaviour,IInteractable
     
     private void StartHervest()
     {
+        if(playerDataHolder == null) playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
         Harvest(playerDataHolder.hervestSphere);
     }
 
@@ -335,6 +341,11 @@ public class CropField : MonoBehaviour,IInteractable
             _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
         playerDataHolder.playerAnimator.StopAllLayeredAnimation();
         AudioManager.instance.StopSound("Water");
+    }
+
+    public void ShowInfo(bool val)
+    {
+       infoUI.SetActivationStatus(val) ;
     }
     #endregion
 

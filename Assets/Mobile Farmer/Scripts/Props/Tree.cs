@@ -172,5 +172,10 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
         StopShake();
     }
+
+    public void ShowInfo(bool val)
+    {
+       
+    }
     #endregion
 }

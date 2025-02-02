@@ -93,7 +93,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 
     public void InIntreactZone()
     {
-        if(!IsReady()) return;
+        if(!IsReady() || !canInteract) return;
         UIManager.Instance.UpdateShakeSlider(0);
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
         IntiateShake(this.gameObject);
@@ -131,6 +131,11 @@ public class Cow : AnimalBase, IShakeable,IInteractable
     }
 
     public void StopShaking()
+    {
+        
+    }
+
+    public void ShowInfo(bool val)
     {
         
     }

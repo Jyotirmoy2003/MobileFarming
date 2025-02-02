@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using jy_util;
 using UnityEngine;
 
-public class CropBuyer : MonoBehaviour
+public class CropBuyer : MonoBehaviour,IInteractable
 {
     [Header("Ref")]
     [SerializeField] List<CropData> canBuyCrops = new List<CropData>();
     [SerializeField] GameEvent SoldCropEvent;
+    [SerializeField] InfoUI infoUI;
 
 
     private void OnTriggerEnter(Collider collider)
@@ -59,4 +60,26 @@ public class CropBuyer : MonoBehaviour
             if(item.cropType == e_Crop_Type) return true;
             return false;
     }
+
+    #region INTERFACE
+    public void Interact(GameObject interactingObject)
+    {
+        
+    }
+
+    public void InIntreactZone()
+    {
+        
+    }
+
+    public void OutIntreactZone()
+    {
+        
+    }
+
+    public void ShowInfo(bool val)
+    {
+        infoUI.SetActivationStatus(val);
+    }
+    #endregion
 }

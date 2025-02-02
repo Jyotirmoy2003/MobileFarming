@@ -166,7 +166,7 @@ public class WorldManager : MonoBehaviour
             {
                 Chunk chunk = grid[j,i];
                 if(chunk==null) continue;
-
+                //Debug.Log("Name: "+chunk.gameObject.name+"Lock status: "+chunk.IsUnclocked());
                 if(chunk.IsUnclocked()) continue; //when chunk is already unlock skip
 
                 Chunk frontChunk = (IsValidGridPosition(j,i+1))? grid[j,i+1]:null;
