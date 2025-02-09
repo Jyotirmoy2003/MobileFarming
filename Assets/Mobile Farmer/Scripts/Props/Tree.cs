@@ -144,13 +144,13 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
         IntiateShake(interactingObject);
     }
 
-    public void InIntreactZone()
+    public void InIntreactZone(GameObject interactingObject)
     {
         if(!IsReady()) return;
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,true);
     }
 
-    public void OutIntreactZone()
+    public void OutIntreactZone(GameObject interactingObject)
     {
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
     }

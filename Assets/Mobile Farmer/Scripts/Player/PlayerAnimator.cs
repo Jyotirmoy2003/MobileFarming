@@ -8,6 +8,8 @@ public class PlayerAnimator : MonoBehaviour
     [Header("Elements")]
     [SerializeField] Animator animator;
     [SerializeField] Transform rendererTransform;
+    [SerializeField] ParticleSystem waterParticel,seedParticel;
+    [SerializeField] GameObject wateringCan,harvestScythe;
 
 
     [Header("Settings")]
@@ -46,6 +48,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PlaySowAnimation(bool sow)
     {
+        seedParticel.Stop();
         if(sow) animator.SetLayerWeight(1,1);
         else animator.SetLayerWeight(1,0);
     }
@@ -53,18 +56,18 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetLayerWeight(1,0);
         animator.SetLayerWeight(2,0);
-        _GameAssets.Instance.waterParticel.Stop();
+        waterParticel.Stop();
         animator.SetLayerWeight(3,0);
         animator.SetLayerWeight(4,0);
 
-        _GameAssets.Instance.wateringCan.SetActive(false);
-        _GameAssets.Instance.harvestScythe.SetActive(false);
+        wateringCan.SetActive(false);
+        harvestScythe.SetActive(false);
     }
 
     public void PlayeWaterAnimation(bool water)
     {
         //show watering can mesh
-        _GameAssets.Instance.wateringCan.SetActive(water);
+        wateringCan.SetActive(water);
         
         if(water)
         {
@@ -72,14 +75,14 @@ public class PlayerAnimator : MonoBehaviour
         } 
         else{
             animator.SetLayerWeight(2,0);
-            _GameAssets.Instance.waterParticel.Stop();
+            waterParticel.Stop();
         }
     }
 
     public void PlayerHarvestAnimation(bool harvest)
     {
         //show Scythe mesh
-        _GameAssets.Instance.harvestScythe.SetActive(harvest);
+        harvestScythe.SetActive(harvest);
 
         if(harvest)
         {

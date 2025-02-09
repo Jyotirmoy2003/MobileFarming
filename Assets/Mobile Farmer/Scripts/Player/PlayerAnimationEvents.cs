@@ -11,7 +11,7 @@ public class PlayerAnimationEvents : MonoBehaviour
     [SerializeField] ParticleSystem seedParticle;
     [SerializeField] ParticleSystem waterParticle;
 
-    public static Action startHarvestCallBackEvent, endHarvestCallBackEvent;
+    public Action startHarvestCallBackEvent, endHarvestCallBackEvent;
 
 
     void Start()

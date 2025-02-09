@@ -7,7 +7,7 @@ using System;
 [RequireComponent(typeof(ParticleSystem))]
 public class WaterParticle : MonoBehaviour
 {
-   public static Action<Vector3[]> onWaterCollided;
+   public  Action<Vector3[]> onWaterCollided;
     ParticleSystem ps;
     void Start()
     {

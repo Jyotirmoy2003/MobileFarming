@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class SeedParticle : MonoBehaviour
 {
-    public static Action<Vector3[]> onSeedCollided;
+    public  Action<Vector3[]> onSeedCollided;
     ParticleSystem ps;
     void Start()
     {

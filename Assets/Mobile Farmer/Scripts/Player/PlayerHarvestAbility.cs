@@ -19,12 +19,12 @@ public class PlayerHarvestAbility : MonoBehaviour
         playerAnimator = _GameAssets.Instance.playerAnimator;
         playerToolSelector=_GameAssets.Instance.playerToolSelector;
         //suncribe to event
-        CropField.OnFullyHarvested+=CropFieldFullyHarvested;
+        //CropField.OnFullyHarvested+=CropFieldFullyHarvested;
     }
     void OnDestroy()
     {
         //unsubscribe to events
-        CropField.OnFullyHarvested-=CropFieldFullyHarvested;
+        //CropField.OnFullyHarvested-=CropFieldFullyHarvested;
     }
 
 

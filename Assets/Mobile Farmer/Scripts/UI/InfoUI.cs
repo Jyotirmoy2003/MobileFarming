@@ -11,6 +11,7 @@ public class InfoUI : MonoBehaviour
 
     private Billboard billboard;
     private CanvasGroup canvasGroup;
+    public bool canChangeStatus = true;
 
 
     void Start()
@@ -23,6 +24,8 @@ public class InfoUI : MonoBehaviour
     }
     public void SetActivationStatus(bool val)
     {
+        if(!canChangeStatus) return;
+
         
         SetGameObject(true);
         if(billboard == null) billboard = GetComponent<Billboard>();

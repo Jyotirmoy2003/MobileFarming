@@ -33,6 +33,13 @@ public class _GameAssets : MonoSingleton<_GameAssets>
 
     [Space]
     [Header("CropData")]
+    public CropField[] allFieldInGame ;
     public List<CropData> cropDatas=new List<CropData>();
+
+    public void ListnToOnGameCache(Component sender,object data)
+    {
+      allFieldInGame = FindObjectsOfType<CropField>();
+
+    }
     
 }

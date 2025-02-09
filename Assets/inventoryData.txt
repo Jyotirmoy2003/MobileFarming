@@ -5,16 +5,12 @@
             "amount": 9
         },
         {
-            "crop_Type": 0,
-            "amount": 72
+            "crop_Type": 2,
+            "amount": 18
         },
         {
             "crop_Type": 1,
-            "amount": 27
-        },
-        {
-            "crop_Type": 2,
-            "amount": 9
+            "amount": 195
         }
     ]
 }

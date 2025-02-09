@@ -67,12 +67,12 @@ public class CropBuyer : MonoBehaviour,IInteractable
         
     }
 
-    public void InIntreactZone()
+    public void InIntreactZone(GameObject interactingObject)
     {
         
     }
 
-    public void OutIntreactZone()
+    public void OutIntreactZone(GameObject interactingObject)
     {
         
     }

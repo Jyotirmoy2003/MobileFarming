@@ -35,7 +35,7 @@ public class PlayerIntrector : MonoBehaviour
     void EnterNewInteractbale(IInteractable interactable)
     {
         currentInteractable = interactable;
-        currentInteractable.InIntreactZone();
+        currentInteractable.InIntreactZone(this.gameObject);
 
     }
 
@@ -49,7 +49,7 @@ public class PlayerIntrector : MonoBehaviour
     {
         if(currentInteractable == interactable)
         {
-            currentInteractable.OutIntreactZone();
+            currentInteractable.OutIntreactZone(this.gameObject);
             currentInteractable = null;
         }
     }

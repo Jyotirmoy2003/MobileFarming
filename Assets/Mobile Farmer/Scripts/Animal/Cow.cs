@@ -96,7 +96,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 
     #region  INTERFACE
 
-    public void InIntreactZone()
+    public void InIntreactZone(GameObject interactingObject)
     {
         if(!IsReady() || !canInteract) return;
         UIManager.Instance.UpdateShakeSlider(0);
@@ -112,7 +112,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
     }
 
 
-    public void OutIntreactZone()
+    public void OutIntreactZone(GameObject interactingObject)
     {
         
     }

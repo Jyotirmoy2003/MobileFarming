@@ -7,8 +7,8 @@ public interface IInteractable
 {
     
     void Interact(GameObject interactingObject);
-    void InIntreactZone();
-    void OutIntreactZone();
+    void InIntreactZone(GameObject interactingObject);
+    void OutIntreactZone(GameObject interactingObject);
 
     void ShowInfo(bool val);
     
