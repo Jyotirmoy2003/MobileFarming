@@ -9,6 +9,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 {
     [Header("Elements")]
     [SerializeField] GameObject cameraObject;
+    [SerializeField] SkinnedMeshRenderer cowMesh;
     
     public E_ShakeType e_ShakeType { get { return needToShake;} set { needToShake = value;}}
 
@@ -55,6 +56,10 @@ public class Cow : AnimalBase, IShakeable,IInteractable
         UpdateShakeSlider();
     }
 
+    void TweenShake(float amount)
+    {
+        //cowMesh.SetBlendShapeWeight()
+    }
     private void UpdateShakeSlider()
     {
         shakeSliderValue += shakeIncreament;
