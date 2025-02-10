@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using jy_util;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class Worker : MonoBehaviour
 {
@@ -27,10 +28,12 @@ public class Worker : MonoBehaviour
 
     [Header("Elements")]
     public NavMeshAgent navMeshAgent;
+    [SerializeField] PlayerDataHolder playerDataHolder;
 
 
 
     private Action onDelayDone;
+    private int carringCrop = 0;
     void Start()
     {
         
@@ -59,6 +62,20 @@ public class Worker : MonoBehaviour
     }
 
     void Delay()=>onDelayDone?.Invoke();
+
+    public void ListenToonCropHervested(Component sender,object data)
+    {
+        if((sender as PlayerDataHolder)== playerDataHolder) //when this worker hervested the crop
+        {
+            carringCrop += (data as CropData).amountinSingleCrop;
+
+            if(carringCrop >= workerStat.maxLoadCapacity)
+            {
+                carringCrop = workerStat.maxLoadCapacity;
+                currentState.ListenToEvent(sender,data);
+            }
+        }
+    }
 
 }
 
@@ -199,11 +216,12 @@ public class SowField : WorkerBase
         SetNextDest();
         worker.assignedCropField.onFullySown += onCompleteSow;
         worker.assignedCropField.Interact(worker.gameObject);
+        worker.navMeshAgent.speed = worker.workerStat.moveSpeedWhileWorking;
     }
 
     public override void ExitState(Worker wk)
     {
-        
+        worker.navMeshAgent.speed = worker.workerStat.walkSpeed;
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)
@@ -236,6 +254,14 @@ public class SowField : WorkerBase
             worker.SwitchState(worker.performActionState);
         }
         index=(index+1)%dataHolder.cropField.cropTiles.Count;
+
+        //target next undone tile
+        int maxTryCount = 10; //to avoid infinte loop
+
+        while(dataHolder.cropField.cropTiles[index].IsSown() && (maxTryCount--  > 0))
+        {
+            index=(index+1)%dataHolder.cropField.cropTiles.Count;
+        }
         
         worker.navMeshAgent.SetDestination(dataHolder.cropField.cropTiles[index].transform.position);
     }
@@ -263,11 +289,12 @@ public class WaterField : WorkerBase
         SetNextDest();
         worker.assignedCropField.onFullyWatered += onCompleteWater;
         worker.assignedCropField.Interact(worker.gameObject);
+        worker.navMeshAgent.speed = worker.workerStat.moveSpeedWhileWorking;
     }
 
     public override void ExitState(Worker wk)
     {
-        
+        worker.navMeshAgent.speed = worker.workerStat.walkSpeed;
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)
@@ -300,6 +327,14 @@ public class WaterField : WorkerBase
             worker.SwitchState(worker.performActionState);
         }
         index=(index+1)%dataHolder.cropField.cropTiles.Count;
+
+        //target next undone tile
+        int maxTryCount = 10; //to avoid infinte loop
+
+        while(dataHolder.cropField.cropTiles[index].IsWatered() && (maxTryCount--  > 0))
+        {
+            index=(index+1)%dataHolder.cropField.cropTiles.Count;
+        }
         worker.navMeshAgent.SetDestination(dataHolder.cropField.cropTiles[index].transform.position);
     }
 
@@ -326,11 +361,12 @@ public class HarvestField : WorkerBase
         SetNextDest();
         worker.assignedCropField.OnFullyHarvested += onCompleteHervest;
         worker.assignedCropField.Interact(worker.gameObject);
+        worker.navMeshAgent.speed = worker.workerStat.walkSpeed+1;
     }
 
     public override void ExitState(Worker wk)
     {
-        
+        worker.navMeshAgent.speed = worker.workerStat.walkSpeed;
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)
@@ -363,6 +399,13 @@ public class HarvestField : WorkerBase
             worker.SwitchState(worker.performActionState);
         }
         index=(index+1)%dataHolder.cropField.cropTiles.Count;
+        //target next undone tile
+        int maxTryCount = 10; //to avoid infinte loop
+
+        while(dataHolder.cropField.cropTiles[index].IsEmpty() && (maxTryCount--  > 0))
+        {
+            index=(index+1)%dataHolder.cropField.cropTiles.Count;
+        }
         worker.navMeshAgent.SetDestination(dataHolder.cropField.cropTiles[index].transform.position);
     }
 

@@ -15,6 +15,7 @@ MonoBehaviour:
   cropPrefab: {fileID: 5665048368841028080, guid: 9359a2fdf2fed8a4aa75d80d1c0d9fb7,
     type: 3}
   cropType: 2
+  item_type: 2
   growDuration: 3
   amountinSingleCrop: 1
   uiIconSprite: {fileID: 21300000, guid: 95641d20f88b08d4db9763cbd68b0d97, type: 3}

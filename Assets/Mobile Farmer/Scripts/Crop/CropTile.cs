@@ -33,6 +33,10 @@ public class CropTile : MonoBehaviour
         return state==E_Crop_State.Sown;
     }
 
+    public bool IsWatered()
+    {
+        return state==E_Crop_State.Watered;
+    }
     
 
     public void Sow(CropData cropData)
@@ -54,13 +58,13 @@ public class CropTile : MonoBehaviour
         crop?.ScaleUp();
     }
 
-    public void Harvest(CropData cropData)
+    public void Harvest(Component hervestOwner,CropData cropData)
     {
         state = E_Crop_State.Empty;
         crop.ScaleDown();
         tileMeshrenderer.gameObject.LeanColor(Color.white , 1f);
 
         //Event fire
-        _GameAssets.Instance.OnHervestedEvent.Raise(this,cropData);
+        _GameAssets.Instance.OnHervestedEvent.Raise(hervestOwner,cropData);
     }
 }

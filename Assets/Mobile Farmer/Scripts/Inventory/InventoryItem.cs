@@ -6,12 +6,12 @@ using UnityEngine;
 [System.Serializable]
 public class InventoryItem 
 {
-    public  E_Crop_Type crop_Type;
+    public  E_Inventory_Item_Type item_type;
     public int amount;
 
-    public InventoryItem(E_Crop_Type crop_Type, int amount)
+    public InventoryItem(E_Inventory_Item_Type item_type, int amount)
     {
-        this.crop_Type = crop_Type;
+        this.item_type = item_type;
         this.amount = amount;
     }
 }

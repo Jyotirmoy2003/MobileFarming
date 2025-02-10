@@ -10,6 +10,8 @@ public class workerStat : ScriptableObject
     [Header("Settings")]
     [Range(2,10)]
     public float walkSpeed = 3f;
+    [Range(0.1f,3f)]
+    public float moveSpeedWhileWorking = 2f;
     public int maxLoadCapacity = 20;
 
     public CropData workableCorp;

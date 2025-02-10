@@ -30,11 +30,11 @@ public class CropBuyer : MonoBehaviour,IInteractable
         foreach(InventoryItem item in items)
         {
             
-            if(!CanBuy(item.crop_Type)) continue; //when current corp can not be sell to this seller
+            if(!CanBuy(item.item_type)) continue; //when current corp can not be sell to this seller
             //calculate Earning
-            itemPrice = GetCropPrice(item.crop_Type);
+            itemPrice = GetCropPrice(item.item_type);
             coinsEarned += itemPrice*item.amount;
-            inventory.RemoveItem(item);
+            inventory.RemoveAllItem(item);
         }
         //only fire the event if player actually sold something
         if(coinsEarned <=0) return;
@@ -42,10 +42,10 @@ public class CropBuyer : MonoBehaviour,IInteractable
         TransactionEffectManager.Instance.PlayeCoinParticel(coinsEarned);
     }
 
-    private int GetCropPrice(E_Crop_Type e_Crop_Type)
+    private int GetCropPrice(E_Inventory_Item_Type item_Type)
     {
         foreach(CropData item in _GameAssets.Instance.cropDatas)
-            if(item.cropType==e_Crop_Type)
+            if(item.item_type==item_Type)
                 return item.pricePerPice;
 
         
@@ -54,10 +54,10 @@ public class CropBuyer : MonoBehaviour,IInteractable
         
     }
 
-    private bool CanBuy(E_Crop_Type e_Crop_Type)
+    private bool CanBuy(E_Inventory_Item_Type item_Type)
     {
         foreach(CropData item in canBuyCrops)
-            if(item.cropType == e_Crop_Type) return true;
+            if(item.item_type == item_Type) return true;
             return false;
     }
 

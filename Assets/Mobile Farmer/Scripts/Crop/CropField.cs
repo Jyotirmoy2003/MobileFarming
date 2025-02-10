@@ -114,17 +114,9 @@ public class CropField : MonoBehaviour,IInteractable
 
 
     #region Operation on TILEs
-    private void Sow(CropTile cropTile)
-    {
-        cropTile.Sow(cropData);
-    }
-    private void Water(CropTile cropTile)
-    {
-        cropTile.Water(cropData);
-    }
     private void Harvest(CropTile cropTile)
     {
-        cropTile.Harvest(cropData);
+        cropTile.Harvest(playerDataHolder,cropData);
 
         tileHarvested++;
 

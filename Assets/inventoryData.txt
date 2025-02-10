@@ -1,16 +1,8 @@
 {
     "items": [
         {
-            "crop_Type": 5,
+            "item_type": 2,
             "amount": 9
-        },
-        {
-            "crop_Type": 2,
-            "amount": 18
-        },
-        {
-            "crop_Type": 1,
-            "amount": 195
         }
     ]
 }

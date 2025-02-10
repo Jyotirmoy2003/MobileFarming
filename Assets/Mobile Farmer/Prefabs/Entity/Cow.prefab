@@ -78,7 +78,7 @@ MonoBehaviour:
     m_Bits: 256
   isValidPosition: 0
   centrePoint: {fileID: 2071749112166860095}
-  beginFromStart: 1
+  beginFromStart: 0
 --- !u!65 &8994559490284905710
 BoxCollider:
   m_ObjectHideFlags: 0

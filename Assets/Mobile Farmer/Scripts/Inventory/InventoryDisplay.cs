@@ -8,10 +8,11 @@ public class InventoryDisplay : MonoBehaviour
    [Header("Elements")]
    [SerializeField] Transform cropContainerParent;
    [SerializeField] UICropContainer uICropContainerPrefab;
-    void Start()
-    {
-        
-    }
+  
+
+
+
+  
 
     public void Configure(Inventory inventory)
     {
@@ -21,15 +22,15 @@ public class InventoryDisplay : MonoBehaviour
         foreach (InventoryItem item in items)
         {
             UICropContainer cropContainerInstance = Instantiate(uICropContainerPrefab, cropContainerParent);
-            cropContainerInstance.Configure(GetCropIcon(item.crop_Type),item.amount);
+            cropContainerInstance.Configure(GetItemIcon(item.item_type),item.amount);
         }
     }
 
-    private Sprite GetCropIcon(E_Crop_Type e_Crop_Type)
+    private Sprite GetItemIcon(E_Inventory_Item_Type item_type)
     {
         foreach(CropData item in _GameAssets.Instance.cropDatas)
         {
-            if(item.cropType == e_Crop_Type)
+            if(item.item_type == item_type)
             {
                 return item.uiIconSprite;
 
@@ -53,12 +54,12 @@ public class InventoryDisplay : MonoBehaviour
                 uICropContainerInstance = cropContainerParent.GetChild(i).GetComponent<UICropContainer>();
                 uICropContainerInstance.gameObject.SetActive(true);
                 //Update just the amount text
-                uICropContainerInstance.Configure(GetCropIcon(items[i].crop_Type),items[i].amount);
+                uICropContainerInstance.Configure(GetItemIcon(items[i].item_type),items[i].amount);
 
             }else{
                 //when there is not enough container create new
                 uICropContainerInstance = Instantiate(uICropContainerPrefab, cropContainerParent);
-                uICropContainerInstance.Configure(GetCropIcon(items[i].crop_Type),items[i].amount);
+                uICropContainerInstance.Configure(GetItemIcon(items[i].item_type),items[i].amount);
             }
             
         }

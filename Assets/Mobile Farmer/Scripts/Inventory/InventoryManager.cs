@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using jy_util;
 using UnityEngine;
 
 [RequireComponent(typeof(InventoryDisplay))]
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoSingleton<InventoryManager>
 {
    private Inventory inventory;
    private InventoryDisplay inventoryDisplay;
@@ -86,7 +88,7 @@ public class InventoryManager : MonoBehaviour
 
     public void ListenToOnHervested(Component sender,object data)
     {
-        if(data is CropData)
+        if(sender is PlayerDataHolder && (sender as PlayerDataHolder).isPlayer) //event fired when its realy player not worker
             OnCropHervestedCallback((CropData)data);
     }
 
@@ -97,6 +99,15 @@ public class InventoryManager : MonoBehaviour
             inventoryDisplay.UpdateDisplay(inventory);
             SaveInventory();
         }
+    }
+
+    public void AddItemToInventory(E_Inventory_Item_Type item,int amount)
+    {
+        inventory.AddItemToInventory(item, amount);
+    }
+    public void AddInventoryToInventory(Inventory inventory)
+    {
+
     }
 
 }

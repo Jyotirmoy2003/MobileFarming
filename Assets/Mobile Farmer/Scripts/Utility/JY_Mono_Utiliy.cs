@@ -71,6 +71,17 @@ public enum E_Crop_Type{
     Pumpkin,
 }
 
+public enum E_Inventory_Item_Type{
+    Corn,
+    Tomato,
+    Carrot,
+    Apple,
+    Lemon,
+    Pumpkin,
+    Milk,
+    Fish,
+}
+
 public enum E_Crop_Progess{
     Ready,
     Growing,
@@ -85,6 +96,16 @@ public enum E_NeedToperformTask_BeforeShake{
     None,
     MovetowardsTarget,
     ReadyFishingRod,
+}
+
+public enum E_Worker_State{
+    Idle,
+    AssignField,
+    PerformAction,
+    SowField,
+    WaterField,
+    HervestField,
+    UnloadInBarn,
 }
 public class WorldData
 {
