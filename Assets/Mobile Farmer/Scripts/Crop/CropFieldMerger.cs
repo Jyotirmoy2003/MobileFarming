@@ -8,6 +8,8 @@ public class CropFieldMerger : MonoBehaviour
 {
     [SerializeField] CropFieldDataHolder myDataHolder;
     [SerializeField] List<CropFieldDataHolder> connectedFields = new List<CropFieldDataHolder>();
+    [Range(0.1f,5f)]
+    [SerializeField] float initateTime = 3f;
     public bool IsConnected = false;
     private bool calledByChunkUnlocking=false;
     private bool tryToConnect = true;
@@ -30,7 +32,8 @@ public class CropFieldMerger : MonoBehaviour
         if(myDataHolder.above?.cropField != null) connectedFields.Add(myDataHolder.above)  ;
         if(myDataHolder.bottom?.cropField != null) connectedFields.Add(myDataHolder.bottom)  ;
         
-        float delay = Random.Range(0,3f);
+        //float delay = Random.Range(0,3f);
+        float delay = initateTime;
         
         LeanTween.delayedCall(delay,()=>TryToMerge());
    }

@@ -219,7 +219,7 @@ public class CropField : MonoBehaviour,IInteractable
     #region Interface
     public void Interact(GameObject interactingObject)
     {
-        if(interactingObject.CompareTag("Player"));
+        if(interactingObject.CompareTag("Player"))
             UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,false);
         
         
@@ -246,8 +246,9 @@ public class CropField : MonoBehaviour,IInteractable
 
     public void InIntreactZone(GameObject interactingObject)
     {
-        if(IsOccupied) return; //when someone already working on this field
-        IsOccupied = true;
+        if(!(this.interactingObject !=null && interactingObject == this.interactingObject))
+            if(IsOccupied) return; //when someone already working on this field
+            IsOccupied = true;
         
         this.interactingObject = interactingObject;
         playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();

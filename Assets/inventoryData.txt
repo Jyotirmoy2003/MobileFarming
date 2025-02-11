@@ -3,6 +3,10 @@
         {
             "item_type": 2,
             "amount": 9
+        },
+        {
+            "item_type": 1,
+            "amount": 27
         }
     ]
 }

@@ -105,7 +105,7 @@ public class AssignField : WorkerBase
     public override void EnterState(Worker wk)
     {
         worker = wk;
-        worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position);
+        worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position); //for testing let it be here
     }
 
     public override void ExitState(Worker wk)
@@ -115,7 +115,10 @@ public class AssignField : WorkerBase
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)
     {
-        
+        if(id == 1) //Cached Event
+        {
+            worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position);
+        }
     }
 
     public override void ListenToEvent(Component sender, object data)

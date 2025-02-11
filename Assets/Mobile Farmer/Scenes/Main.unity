@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028417, g: 0.22571534, b: 0.30692172, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028463, g: 0.22571611, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -845,7 +845,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 173305166}
-  - component: {fileID: 173305171}
   - component: {fileID: 173305170}
   - component: {fileID: 173305169}
   - component: {fileID: 173305168}
@@ -943,34 +942,6 @@ MonoBehaviour:
   wateringCan: {fileID: 1198862379}
   harvestScythe: {fileID: 1410532941}
   moveSpeedMultiplier: 30
---- !u!114 &173305171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173305165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12106e9cbea7aea44af087dbcada7923, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 38fb9421b7b62724bb3edecf64509638, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: ListenToPlayerInteracting
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &173305172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33489,6 +33460,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 454010031}
     m_Modifications:
+    - target: {fileID: 3203851954268495689, guid: 0a00392333fe33f41bc89995b90d15d2,
+        type: 3}
+      propertyPath: initateTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalPosition.x
