@@ -114,7 +114,6 @@ public class InventoryManager : MonoSingleton<InventoryManager>
             this.inventory.AddItemToInventory(temp[i]);
         }
         inventoryDisplay.UpdateDisplay(this.inventory);
-        inventory.ClearInventory();
     }
 
 }

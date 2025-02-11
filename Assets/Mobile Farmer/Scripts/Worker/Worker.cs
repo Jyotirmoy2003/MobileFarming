@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using jy_util;
-using Unity.VisualScripting;
-using UnityEditor;
+
 
 public class Worker : MonoBehaviour
 {
@@ -26,17 +23,18 @@ public class Worker : MonoBehaviour
 
     public Barn allocatedBarn;
     public workerStat workerStat;
-    public CropField assignedCropField;
-    public CropFieldDataHolder cropFieldDataHolder;
+    [HideInInspector] public CropField assignedCropField;
+    [HideInInspector] public CropFieldDataHolder cropFieldDataHolder;
 
     [Header("Elements")]
     public NavMeshAgent navMeshAgent;
-    [SerializeField] PlayerDataHolder playerDataHolder;
+    public PlayerDataHolder playerDataHolder;
 
 
 
     private Action onDelayDone;
     public int carringCrop = 0;
+    public bool isMyBarnFull = false;
     void Start()
     {
         workerStat.allocatedBarn = allocatedBarn;
@@ -48,11 +46,13 @@ public class Worker : MonoBehaviour
     void Update()
     {
         currentState.UpdateState(this);
+        playerDataHolder.playerAnimator.ManageAnimation(navMeshAgent.velocity);
     }
 
     public void SwitchState( WorkerBase nextState)
     {
         currentState.ExitState(this);
+        Debug.Log("Last State Was:"+currentState);
         nextState.EnterState(this);
         currentState = nextState;
     }
@@ -76,6 +76,18 @@ public class Worker : MonoBehaviour
             {
                 carringCrop = workerStat.maxLoadCapacity;
                 currentState.ListenToEvent(sender,data);
+            }
+        }
+    }
+
+    public void ListenToOnBarnFilled(Component sender,object data)
+    {
+        if(sender as Barn == allocatedBarn)
+        {
+            if(data as CropData == workerStat.workableCorp)
+            {
+                //my my barn filled
+                SwitchState(waitForBarnToClearState);
             }
         }
     }
@@ -109,6 +121,7 @@ public class AssignField : WorkerBase
     {
         worker = wk;
         worker.assignedCropField = worker.workerStat.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
+        worker.cropFieldDataHolder = worker.assignedCropField.cropFieldDataHolder;
         worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position); //for testing let it be here
     }
 
@@ -190,6 +203,10 @@ public class PerformAction : WorkerBase
 
     void SelectNextState()
     {
+        if(worker.isMyBarnFull)
+        {
+            worker.SwitchState(worker.waitForBarnToClearState);
+        }
         if(worker.carringCrop >= worker.workerStat.maxLoadCapacity)
         {
             worker.SwitchState(worker.loadoutToBarnState);
@@ -447,12 +464,14 @@ public class LoadoutToBarn : WorkerBase
         worker.E_state= E_Worker_State.LoadoutToBarn;
         timmer = 5f;
         GoToBarn();
+        worker.playerDataHolder.playerAnimator.StopAllLayeredAnimation();
+        worker.allocatedBarn.OnBarnFull += OnBarnFullCallback;
         
     }
 
     public override void ExitState(Worker wk)
     {
-        
+        worker.allocatedBarn.OnBarnFull -= OnBarnFullCallback;
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)
@@ -480,8 +499,8 @@ public class LoadoutToBarn : WorkerBase
             if(timmer <= 0)
             {
                 worker.carringCrop = 0;
-                worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
                 worker.SwitchState(worker.assignFieldState);
+                worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
             }
         }
 
@@ -491,19 +510,28 @@ public class LoadoutToBarn : WorkerBase
     {
         worker.navMeshAgent.SetDestination(worker.workerStat.allocatedBarn.workerLoadOutPos.position);
     }
+    void OnBarnFullCallback(E_Inventory_Item_Type item_Type)
+    {
+        worker.isMyBarnFull = true;
+        worker.SwitchState(worker.waitForBarnToClearState);
+    }
     
 }
 
 public class WaitForBarnToClear : WorkerBase
 {
+    Worker worker;
     public override void EnterState(Worker wk)
     {
-        
+        worker = wk;
+        worker.E_state = E_Worker_State.WaitForBarnToClear;
+        worker.allocatedBarn.OnBarnCollected +=OnBarnCollectedCallBack;
+        worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position);
     }
 
     public override void ExitState(Worker wk)
     {
-        
+        worker.allocatedBarn.OnBarnCollected -= OnBarnCollectedCallBack;
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)
@@ -524,6 +552,13 @@ public class WaitForBarnToClear : WorkerBase
     public override void UpdateState(Worker wk)
     {
         
+
+    }
+
+    void OnBarnCollectedCallBack()
+    {
+        worker.isMyBarnFull = false;
+        worker.SwitchState(worker.performActionState);
     }
 }
 

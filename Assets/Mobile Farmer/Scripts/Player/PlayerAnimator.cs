@@ -35,6 +35,17 @@ public class PlayerAnimator : MonoBehaviour
             PlayIdleAnimation();
         }
     }
+    public void ManageAnimation(float speed)
+    {
+        if(speed>0.2){
+            animator.SetFloat("moveSpeed",speed * moveSpeedMultiplier);
+            PlayRunAnimation();
+        }
+        else {
+            animator.SetFloat("moveSpeed",0);
+            PlayIdleAnimation();
+        }
+    }
 
     void PlayRunAnimation()
     {

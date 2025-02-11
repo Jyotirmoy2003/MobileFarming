@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myDataHolder: {fileID: 7867034984667647486}
   connectedFields: []
+  initateTime: 3
   IsConnected: 0
 --- !u!114 &9004709938444591012
 MonoBehaviour:
@@ -271,6 +272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CropField
       objectReference: {fileID: 0}
+    - target: {fileID: 7988581825960275022, guid: 60508736bc2cf1e4886823bd651fd9a7,
+        type: 3}
+      propertyPath: cropFieldDataHolder
+      value: 
+      objectReference: {fileID: 7867034984667647486}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -54,6 +54,17 @@ public class Inventory
         AddItemToInventory(item.item_type,item.amount);
    }
     
+    public int GetItemAmountInInventory(E_Inventory_Item_Type item_Type)
+    {
+        foreach(InventoryItem item in items)
+        {
+            if(item.item_type == item_Type)
+            {
+                return item.amount;
+            }
+        }
+        return 0;
+    }
    
 
     public InventoryItem[] GetInventoryItems()

@@ -854,6 +854,7 @@ GameObject:
   - component: {fileID: 173305174}
   - component: {fileID: 173305175}
   - component: {fileID: 173305176}
+  - component: {fileID: 173305177}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -941,7 +942,7 @@ MonoBehaviour:
   seedParticel: {fileID: 613482112}
   wateringCan: {fileID: 1198862379}
   harvestScythe: {fileID: 1410532941}
-  moveSpeedMultiplier: 30
+  moveSpeedMultiplier: 0.5
 --- !u!114 &173305172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,6 +1063,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &173305177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173305165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12106e9cbea7aea44af087dbcada7923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 0ba236d6ee7e52c4bb40a133c4a005af, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &201103255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12972,7 +12989,7 @@ Animator:
   m_GameObject: {fileID: 719735695}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2bbfce167e6e8e1458dc39605e1f356c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 45e28930cf7d73c4798249e72ecf59a8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -19598,6 +19615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344fbe48291fa8949a5119cb6a77bf07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cropFieldDataHolder: {fileID: 0}
   infoUI: {fileID: 0}
   tilesParent: {fileID: 1279476466}
   interactButtonData_Sow:
@@ -30400,8 +30418,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workerLoadOutPos: {fileID: 1404556986}
+  barnCapableItem:
+  - item_Type: 0
+    maxLoadCapacity: 150
+  - item_Type: 1
+    maxLoadCapacity: 150
+  - item_Type: 2
+    maxLoadCapacity: 150
   nearByFields:
-  - {fileID: 2051730050}
+  - {fileID: 1769492010}
 --- !u!135 &1404556989
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -31640,6 +31665,7 @@ MonoBehaviour:
   OnPlayerInteractStatusChangeEvent: {fileID: 11400000, guid: 38fb9421b7b62724bb3edecf64509638,
     type: 2}
   OnHervestedEvent: {fileID: 11400000, guid: e333f485717173c41bb9ad202072efea, type: 2}
+  OnBarnFullEvent: {fileID: 11400000, guid: 0ba236d6ee7e52c4bb40a133c4a005af, type: 2}
   OnViewChangeEvent: {fileID: 11400000, guid: 4399a6cc3e4320d42850a7a329e90fce, type: 2}
   seedParticel: {fileID: 782743594}
   waterParticel: {fileID: 1229114605}
@@ -32018,6 +32044,18 @@ Transform:
   - {fileID: 567125680}
   m_Father: {fileID: 231593158}
   m_LocalEulerAnglesHint: {x: 2.0402663, y: -8.641576, z: 37.93155}
+--- !u!114 &1769492010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3453079311856838811, guid: 0a00392333fe33f41bc89995b90d15d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1221641647377871673}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344fbe48291fa8949a5119cb6a77bf07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1776948011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33063,7 +33101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2049914508}
   - component: {fileID: 2049914509}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Stickman_heads_sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33105,7 +33143,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e1b95fc2e3d90db49bbbaf9b3df3bbbd, type: 2}
+  - {fileID: 2100000, guid: 60339ab6aa6fc7d40b1890bf4d01da2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

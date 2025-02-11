@@ -10,6 +10,7 @@ using System;
 public class CropField : MonoBehaviour,IInteractable
 {
     [Header("Elements")]
+    public CropFieldDataHolder cropFieldDataHolder;
     [SerializeField] CropFieldInfoUI infoUI;
 
     [SerializeField] Transform tilesParent;

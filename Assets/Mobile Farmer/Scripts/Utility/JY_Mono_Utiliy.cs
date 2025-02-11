@@ -106,6 +106,7 @@ public enum E_Worker_State{
     WaterField,
     HervestField,
     LoadoutToBarn,
+    WaitForBarnToClear,
 }
 public class WorldData
 {

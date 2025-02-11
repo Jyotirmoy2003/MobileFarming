@@ -138,6 +138,9 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     #region INTERFACE
     public void Interact(GameObject interactingObject)
     {
+        if(!interactingObject.CompareTag("Player")) return;
+
+
         if(!IsReady()) return;
         UIManager.Instance.UpdateShakeSlider(0);
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
@@ -152,6 +155,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
 
     public void OutIntreactZone(GameObject interactingObject)
     {
+        if(!interactingObject.CompareTag("Player")) return;
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
     }
 
