@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using jy_util;
 using UnityEngine;
 
 public class _GameAssets : MonoSingleton<_GameAssets>
@@ -40,6 +41,14 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     {
       allFieldInGame = FindObjectsOfType<CropField>();
 
+    }
+
+    public CropData GetCropData(E_Inventory_Item_Type item_Type)
+    {
+        foreach(CropData cropData in cropDatas) if(cropData.item_type == item_Type) return cropData;
+
+        Debug.LogError("Crop data not added in _GameAssets");
+        return null;
     }
     
 }

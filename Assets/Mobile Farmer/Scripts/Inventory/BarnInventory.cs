@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using jy_util;
 using UnityEngine;
 
@@ -38,8 +39,14 @@ public class BarnInventory : MonoBehaviour
                 inventory = new Inventory();
         }else{
                 
-            File.Create(dataPath);
+            FileStream fs = new FileStream(dataPath, FileMode.Create); //create new file 
             inventory = new Inventory();
+            
+            data = JsonUtility.ToJson(inventory,true);
+            byte[] dataByte= Encoding.UTF8.GetBytes(data);
+            fs.Write(dataByte);
+
+            fs.Close();
         }
             
     }
@@ -48,6 +55,7 @@ public class BarnInventory : MonoBehaviour
     {
         string data = JsonUtility.ToJson(inventory,true);
         File.WriteAllText(dataPath,data);
+        
     }
 
 

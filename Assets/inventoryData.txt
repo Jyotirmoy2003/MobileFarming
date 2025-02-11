@@ -2,15 +2,19 @@
     "items": [
         {
             "item_type": 2,
-            "amount": 18
+            "amount": 27
         },
         {
             "item_type": 5,
             "amount": 24
         },
         {
+            "item_type": 0,
+            "amount": 234
+        },
+        {
             "item_type": 1,
-            "amount": 27
+            "amount": 135
         }
     ]
 }

@@ -52,7 +52,7 @@ public class Worker : MonoBehaviour
     public void SwitchState( WorkerBase nextState)
     {
         currentState.ExitState(this);
-        Debug.Log("Last State Was:"+currentState);
+        //Debug.Log("Last State Was:"+currentState);
         nextState.EnterState(this);
         currentState = nextState;
     }
@@ -168,7 +168,7 @@ public class PerformAction : WorkerBase
     {
         worker = wk;
         worker.E_state= E_Worker_State.PerformAction;
-        worker.StartTimmer(3f,DelayDone);
+        worker.StartTimmer(worker.workerStat.performActionDelay,DelayDone);
         
     }
 
@@ -493,14 +493,17 @@ public class LoadoutToBarn : WorkerBase
     {
         
 
-        if(worker.navMeshAgent.remainingDistance <=0.1f )
+        if(worker.navMeshAgent.remainingDistance <=0.1f)
         {
             timmer -= Time.deltaTime;
+            if(worker.carringCrop > 0)
+            {
+                worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
+                worker.carringCrop = 0;
+            }
             if(timmer <= 0)
             {
-                worker.carringCrop = 0;
                 worker.SwitchState(worker.assignFieldState);
-                worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
             }
         }
 
@@ -512,8 +515,11 @@ public class LoadoutToBarn : WorkerBase
     }
     void OnBarnFullCallback(E_Inventory_Item_Type item_Type)
     {
-        worker.isMyBarnFull = true;
-        worker.SwitchState(worker.waitForBarnToClearState);
+        if(item_Type == worker.workerStat.workableCorp.item_type)
+        {
+            worker.isMyBarnFull = true;
+            worker.SwitchState(worker.waitForBarnToClearState);
+        }
     }
     
 }

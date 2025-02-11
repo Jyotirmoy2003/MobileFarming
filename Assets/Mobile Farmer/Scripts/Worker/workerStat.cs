@@ -8,6 +8,8 @@ public class workerStat : ScriptableObject
 {
     public Barn allocatedBarn;
     [Header("Settings")]
+    [Range(0.1f,3f)]
+    public float performActionDelay =2f;
     [Range(2,10)]
     public float walkSpeed = 3f;
     [Range(0.1f,3f)]
