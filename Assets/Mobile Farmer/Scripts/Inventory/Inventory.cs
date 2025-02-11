@@ -49,6 +49,10 @@ public class Inventory
         //create new Item for inventroy as its a new type of crop added to inventory
         items.Add(new InventoryItem(itemType,amount));
    }
+   public void AddItemToInventory(InventoryItem item)
+   {
+        AddItemToInventory(item.item_type,item.amount);
+   }
     
    
 

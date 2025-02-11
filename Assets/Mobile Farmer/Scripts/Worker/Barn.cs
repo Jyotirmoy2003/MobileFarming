@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using jy_util;
+using Unity.Loading;
 using UnityEngine;
 
 [RequireComponent(typeof(BarnInventory))]
 public class Barn : MonoBehaviour,IInteractable
 {
+    public Transform workerLoadOutPos;
     public List<CropField> nearByFields = new List<CropField>();
     private BarnInventory barnInventory;
 
@@ -25,7 +28,7 @@ public class Barn : MonoBehaviour,IInteractable
     #region  INTERFACE
     public void InIntreactZone(GameObject interactingObject)
     {
-        InventoryManager.Instance.AddInventoryToInventory(barnInventory.GetInventory());
+        
     }
 
     public void Interact(GameObject interactingObject)
@@ -45,6 +48,23 @@ public class Barn : MonoBehaviour,IInteractable
     #endregion
 
 
+    void LoadInventoryToPlayer()
+    {
+        InventoryManager.Instance.AddInventoryToInventory(barnInventory.GetInventory());
+    }
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(collider.CompareTag("Player"))
+        {
+            Debug.Log("PlayerCollided");
+            LoadInventoryToPlayer();
+        }
+    }
+
+    public void AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
+    {
+        barnInventory.AddItemToInventory(item_Type,amount);
+    }
 
 
 

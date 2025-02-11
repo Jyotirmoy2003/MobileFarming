@@ -107,7 +107,14 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     }
     public void AddInventoryToInventory(Inventory inventory)
     {
+        InventoryItem[] temp = inventory.GetInventoryItems();
 
+        for(int i=0 ;i< temp.Length; i++)
+        {
+            this.inventory.AddItemToInventory(temp[i]);
+        }
+        inventoryDisplay.UpdateDisplay(this.inventory);
+        inventory.ClearInventory();
     }
 
 }

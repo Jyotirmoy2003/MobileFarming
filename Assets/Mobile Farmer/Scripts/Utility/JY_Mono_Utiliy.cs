@@ -105,7 +105,7 @@ public enum E_Worker_State{
     SowField,
     WaterField,
     HervestField,
-    UnloadInBarn,
+    LoadoutToBarn,
 }
 public class WorldData
 {

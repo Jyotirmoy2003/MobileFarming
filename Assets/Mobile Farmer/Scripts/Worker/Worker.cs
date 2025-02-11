@@ -17,11 +17,14 @@ public class Worker : MonoBehaviour
     public HarvestField harvestFieldState = new HarvestField();
     public SowField sowFieldState = new SowField();
     public WaterField waterFieldState = new WaterField();
+    public LoadoutToBarn loadoutToBarnState = new LoadoutToBarn();
+    public E_Worker_State E_state;
 
     #endregion
 
 
 
+    public Barn allocatedBarn;
     public workerStat workerStat;
     public CropField assignedCropField;
     public CropFieldDataHolder cropFieldDataHolder;
@@ -33,10 +36,10 @@ public class Worker : MonoBehaviour
 
 
     private Action onDelayDone;
-    private int carringCrop = 0;
+    public int carringCrop = 0;
     void Start()
     {
-        
+        workerStat.allocatedBarn = allocatedBarn;
         currentState = assignFieldState;
         currentState.EnterState(this);
     }
@@ -105,6 +108,7 @@ public class AssignField : WorkerBase
     public override void EnterState(Worker wk)
     {
         worker = wk;
+        worker.assignedCropField = worker.workerStat.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
         worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position); //for testing let it be here
     }
 
@@ -150,6 +154,7 @@ public class PerformAction : WorkerBase
     public override void EnterState(Worker wk)
     {
         worker = wk;
+        worker.E_state= E_Worker_State.PerformAction;
         worker.StartTimmer(3f,DelayDone);
         
     }
@@ -185,6 +190,11 @@ public class PerformAction : WorkerBase
 
     void SelectNextState()
     {
+        if(worker.carringCrop >= worker.workerStat.maxLoadCapacity)
+        {
+            worker.SwitchState(worker.loadoutToBarnState);
+            return;
+        }
         switch(worker.assignedCropField.state)
         {
             case E_Crop_State.Empty:
@@ -215,6 +225,7 @@ public class SowField : WorkerBase
         isDone = false;
         index = -1;
         worker = wk;
+        worker.E_state= E_Worker_State.SowField;
         dataHolder = wk.cropFieldDataHolder;
         SetNextDest();
         worker.assignedCropField.onFullySown += onCompleteSow;
@@ -288,6 +299,7 @@ public class WaterField : WorkerBase
         isDone = false;
         index = -1;
         worker = wk;
+        worker.E_state= E_Worker_State.WaterField;
         dataHolder = wk.cropFieldDataHolder;
         SetNextDest();
         worker.assignedCropField.onFullyWatered += onCompleteWater;
@@ -360,6 +372,7 @@ public class HarvestField : WorkerBase
         isDone = false;
         index = -1;
         worker = wk;
+        worker.E_state= E_Worker_State.HervestField;
         dataHolder = wk.cropFieldDataHolder;
         SetNextDest();
         worker.assignedCropField.OnFullyHarvested += onCompleteHervest;
@@ -369,6 +382,7 @@ public class HarvestField : WorkerBase
 
     public override void ExitState(Worker wk)
     {
+        worker.assignedCropField.OnFullyHarvested -= onCompleteHervest;
         worker.navMeshAgent.speed = worker.workerStat.walkSpeed;
     }
 
@@ -379,7 +393,8 @@ public class HarvestField : WorkerBase
 
     public override void ListenToEvent(Component sender, object data)
     {
-        
+        //worker on full load
+        worker.SwitchState(worker.loadoutToBarnState);
     }
 
     public override void StartTime(string coroutineName, Action OnComplete)
@@ -422,8 +437,16 @@ public class HarvestField : WorkerBase
 
 public class LoadoutToBarn : WorkerBase
 {
+    private Worker worker;
+    private float timmer = 5f;
+    private bool stopIdle = false;
     public override void EnterState(Worker wk)
     {
+
+        worker = wk;
+        worker.E_state= E_Worker_State.LoadoutToBarn;
+        timmer = 5f;
+        GoToBarn();
         
     }
 
@@ -450,7 +473,25 @@ public class LoadoutToBarn : WorkerBase
     public override void UpdateState(Worker wk)
     {
         
+
+        if(worker.navMeshAgent.remainingDistance <=0.1f )
+        {
+            timmer -= Time.deltaTime;
+            if(timmer <= 0)
+            {
+                worker.carringCrop = 0;
+                worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
+                worker.SwitchState(worker.assignFieldState);
+            }
+        }
+
     }
+
+    void GoToBarn()
+    {
+        worker.navMeshAgent.SetDestination(worker.workerStat.allocatedBarn.workerLoadOutPos.position);
+    }
+    
 }
 
 public class WaitForBarnToClear : WorkerBase

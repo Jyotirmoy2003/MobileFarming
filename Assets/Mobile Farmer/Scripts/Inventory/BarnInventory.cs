@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using jy_util;
 using UnityEngine;
 
 public class BarnInventory : MonoBehaviour
@@ -50,10 +51,10 @@ public class BarnInventory : MonoBehaviour
     }
 
 
-    public void AddCropToInventory(CropData cropData)
+    public void AddItemToInventory(E_Inventory_Item_Type item_Type,int amount)
     {
         //Update inventory data
-        inventory.OnCropHervestedCallback(cropData);
+        inventory.AddItemToInventory(item_Type,amount);
 
         SaveInventory();
     }
