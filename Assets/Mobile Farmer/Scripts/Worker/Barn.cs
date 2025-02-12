@@ -13,6 +13,7 @@ public class Barn : MonoBehaviour,IInteractable
     public Transform workerLoadOutPos;
     public List<BarnItem> barnCapableItem = new List<BarnItem>();
     public List<CropField> nearByFields = new List<CropField>();
+    [SerializeField] List<workerStat> workerStats = new List<workerStat>();
     [Header("UI ref")]
     public InfoUI infoUI;
     public List<StorageUIStatus> storageUIStatuses = new List<StorageUIStatus>();
@@ -21,6 +22,7 @@ public class Barn : MonoBehaviour,IInteractable
     private BarnInventory barnInventory;
     public Action<E_Inventory_Item_Type> OnBarnFull;
     public Action OnBarnCollected;
+    private bool isBarnEmpty = true;
     
 
 
@@ -50,7 +52,7 @@ public class Barn : MonoBehaviour,IInteractable
    {
         for(int i=0 ;i<nearByFields.Count;i++)
         {
-            if(nearByFields[i].cropFieldDataHolder.chunk.IsUnclocked() && nearByFields[i].GetCropData()==cropData &&!nearByFields[i].cropFieldDataHolder.cropField.IsOccupied)
+            if(nearByFields[i].cropFieldDataHolder.chunk.IsUnclocked() && nearByFields[i].GetCropData()==cropData && !nearByFields[i].cropFieldDataHolder.cropField.IsOccupied)
                 return nearByFields[i];
         }
        return nearByFields[0];
@@ -73,7 +75,7 @@ public class Barn : MonoBehaviour,IInteractable
 
     public void OutIntreactZone(GameObject interactingObject)
     {
-        
+        SubcribeToUiButton(false);
     }
 
     public void ShowInfo(bool val)
@@ -106,23 +108,30 @@ public class Barn : MonoBehaviour,IInteractable
     }
     void LoadInventoryToPlayer()
     {
-        InventoryManager.Instance.AddInventoryToInventory(barnInventory.GetInventory());
-        barnInventory.ClearInventory();
-        OnBarnCollected?.Invoke(); //Fire event
-        
-        UpdateUiDisplay();
+        if(!isBarnEmpty)
+        {
+            InventoryManager.Instance.AddInventoryToInventory(barnInventory.GetInventory());
+            barnInventory.ClearInventory();
+            OnBarnCollected?.Invoke(); //Fire event
+            
+            isBarnEmpty = true;
+            UpdateUiDisplay();
+        }else{
+            BarnUImanager.Instance.ShowWorkerData(workerStats);
+            SubcribeToUiButton(true);
+        }
     }
     private void OnTriggerEnter(Collider collider)
     {
         if(collider.CompareTag("Player"))
         {
-            Debug.Log("PlayerCollided");
             LoadInventoryToPlayer();
         }
     }
 
     public void AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
     {
+        isBarnEmpty = false;
         int availableSpace = CheckForMaxload(item_Type);
         
         //check for spcae in barn
@@ -159,19 +168,32 @@ public class Barn : MonoBehaviour,IInteractable
     }
 
 
+
+    void SubcribeToUiButton(bool val)
+    {
+        if(val)
+        {
+            BarnUImanager.Instance.hireButtonPressed += OnHireButtonPressed;
+        }else
+            BarnUImanager.Instance.hireButtonPressed -= OnHireButtonPressed;
+    }
+
+    void Hireworker(int index)
+    {
+        switch(index)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    void OnHireButtonPressed(int index)
+    {
+        
+    }
 }
 
-[System.Serializable]
-public struct BarnItem{
-    public E_Inventory_Item_Type item_Type;
-    public int maxLoadCapacity;
-}
-
-[System.Serializable]
-public class StorageUIStatus
-{
-    public E_Inventory_Item_Type Item_Type;
-    public Slider slider;
-    public TMP_Text text;
-    public Image icon;
-}

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -51,6 +53,20 @@ public class ButtonInfo{
 }
 public delegate void NoArgumentFun();
 
+[System.Serializable]
+public struct BarnItem{
+    public E_Inventory_Item_Type item_Type;
+    public int maxLoadCapacity;
+}
+
+[System.Serializable]
+public class StorageUIStatus
+{
+    public E_Inventory_Item_Type Item_Type;
+    public Slider slider;
+    public TMP_Text text;
+    public Image icon;
+}
 public enum E_Crop_State{
         Empty,
         Sown,

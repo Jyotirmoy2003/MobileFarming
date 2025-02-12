@@ -19,7 +19,7 @@ public class CropField : MonoBehaviour,IInteractable
 
     [Header("Settings")]
     [SerializeField] CropData cropData;
-    [HideInInspector]
+    //[HideInInspector]
     public bool IsOccupied= false;
 
     private int tileSown=0,tileWatered=0,tileHarvested=0;
@@ -300,7 +300,7 @@ public class CropField : MonoBehaviour,IInteractable
             case E_Crop_State.Sown:
                 playerDataHolder.playerAnimator.PlayeWaterAnimation(false);
                 playerDataHolder.waterParticle.onWaterCollided -= WaterCollidedCallBack;
-                AudioManager.instance.StopSound("Water");
+                AudioManager.instance.StopSound("Water",this.gameObject);
                 break;
             case E_Crop_State.Watered:
                 playerDataHolder.playerAnimator.PlayerHarvestAnimation(false);
@@ -326,8 +326,8 @@ public class CropField : MonoBehaviour,IInteractable
             Debug.LogError("Null Playeranimator faild to water");
             return;
         }
-        AudioManager.instance.PlaySound("Water");
         animator.PlayeWaterAnimation(true);
+        AudioManager.instance.PlaySound("Water",this.gameObject);
     }
 
     void PlayerHervestField(PlayerAnimator animator)
@@ -355,7 +355,7 @@ public class CropField : MonoBehaviour,IInteractable
         if(interactingObject.CompareTag("Player"))
             _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
         playerDataHolder.playerAnimator.StopAllLayeredAnimation();
-        AudioManager.instance.StopSound("Water");
+        AudioManager.instance.StopSound("Water",this.gameObject);
     }
 
     public void ShowInfo(bool val)

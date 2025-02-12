@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="workerStat" ,menuName ="GAME/Worker Stat")]
 public class workerStat : ScriptableObject
 {
+    public Sprite workerAvater;
+    public Worker workerPrefab;
     public Barn allocatedBarn;
     [Header("Settings")]
     [Range(0.1f,3f)]

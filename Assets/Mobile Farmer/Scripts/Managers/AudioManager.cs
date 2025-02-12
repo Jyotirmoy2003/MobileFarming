@@ -48,11 +48,11 @@ public class AudioManager : MonoBehaviour
         if(s.Fade)
         {
             s.source.volume=0;
-            s.source.Play();
+            s.source?.Play();
             StartCoroutine(FadeSound(s,0.1f));
             return;
         }
-        s.source.Play();
+        s.source?.Play();
         s.source.volume=s.volume*audioVolumeFactor;
 
     } 
@@ -75,7 +75,7 @@ public class AudioManager : MonoBehaviour
         if(s.Fade)
         {
             s.source.volume=0;
-            s.source.Play();
+            s.source?.Play();
             StartCoroutine(FadeSound(s,0.1f));
             return;
         }
@@ -107,7 +107,7 @@ public class AudioManager : MonoBehaviour
         s.source.spatialBlend=s.spatialBlend;
 
 
-        s.source.Play();
+        s.source?.Play();
 
     }
     public void StopAllSounds()
@@ -128,7 +128,7 @@ public class AudioManager : MonoBehaviour
             StartCoroutine(FadeSound(s,-0.1f));
             return;
         }
-        s.source.Stop();
+        s.source?.Stop();
     }
      public void StopSound(string name,GameObject obj)
     {
@@ -136,7 +136,7 @@ public class AudioManager : MonoBehaviour
         if (s == null){ return;}
          if(obj.TryGetComponent<AudioSource>(out AudioSource so))
         {
-           so.Stop();
+           so?.Stop();
         }
     }
 

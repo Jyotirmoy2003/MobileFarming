@@ -8,6 +8,7 @@ public class Worker : MonoBehaviour
 {
     #region STATES
     public WorkerBase currentState ;
+    public WorkerIdle workerIdleState = new WorkerIdle();
     public AssignField assignFieldState = new AssignField();
     public WaitForBarnToClear waitForBarnToClearState = new WaitForBarnToClear();
     public PerformAction performActionState = new PerformAction();
@@ -38,7 +39,7 @@ public class Worker : MonoBehaviour
     void Start()
     {
         workerStat.allocatedBarn = allocatedBarn;
-        currentState = assignFieldState;
+        currentState = workerIdleState;
         currentState.EnterState(this);
     }
 
@@ -92,6 +93,11 @@ public class Worker : MonoBehaviour
         }
     }
 
+    public void StartWorke()
+    {
+        SwitchState(assignFieldState);
+    }
+
 }
 
 
@@ -110,6 +116,46 @@ public abstract class WorkerBase
 
 }
 
+public class WorkerIdle : WorkerBase
+{
+    Worker worker;
+    public override void EnterState(Worker wk)
+    {
+        worker = wk;
+        worker.E_state = E_Worker_State.Idle;
+        worker.StartTimmer(4f,StartWork);
+    }
+
+    public override void ExitState(Worker wk)
+    {
+        
+    }
+
+    public override void ListenToEvent(Component sender, object data, int id, Worker wk)
+    {
+        
+    }
+
+    public override void ListenToEvent(Component sender, object data)
+    {
+        
+    }
+
+    public override void StartTime(string coroutineName, Action OnComplete)
+    {
+        
+    }
+
+    public override void UpdateState(Worker wk)
+    {
+        
+    }
+
+    void StartWork()
+    {
+        worker.SwitchState(worker.assignFieldState);
+    }
+}
 
 
 
