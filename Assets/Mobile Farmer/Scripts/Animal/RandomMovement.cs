@@ -58,6 +58,10 @@ public class RandomMovement : MonoBehaviour
                 {
                     if (rayHit.collider.TryGetComponent<Chunk>(out var chunk) && chunk.IsUnclocked())
                     {
+                        if(rayHit.collider.TryGetComponent<CropFieldDataHolder>(out var cropFieldDataHolder))
+                        {
+                            return false;
+                        }
                         result = pointPos;
                         return true; // Found a valid unlocked chunk
                     }

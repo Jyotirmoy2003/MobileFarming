@@ -7,7 +7,6 @@ using UnityEngine;
 public class Tree : MonoBehaviour,IInteractable,IShakeable
 {
     [Header("Elements")]
-    [SerializeField] GameObject treeCam;
     [SerializeField] Renderer treeRendere;
     [SerializeField] Transform fruitParent;
     [SerializeField] CropData cropData;
@@ -24,6 +23,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     private float shakeMagnitude = 0;
     private bool IsShaking = false;
     private List<Fruit> fruitsInTree = new List<Fruit>();
+    private PlayerDataHolder playerDataHolder;
 
     public E_ShakeType e_ShakeType { get { return needToShake;} set { needToShake = value;} }
 
@@ -44,7 +44,8 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
 
     public void SetTreeCamActivation(bool isActive)
     {
-        treeCam.SetActive(isActive);
+        if(isActive)CameraManager.Instance.SwitchCamera(treeRendere.transform,new Vector3(0,5,-10),new Vector3(0,3,0));
+        else CameraManager.Instance.SwitchCamera();
     }
 
     private void StartShakeTree()
@@ -106,7 +107,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     private void ReleaseApple(Fruit fruit)
     {
         fruit.Release();
-        _GameAssets.Instance.OnHervestedEvent.Raise(this,cropData);
+        _GameAssets.Instance.OnHervestedEvent.Raise(playerDataHolder,cropData);
     }
 
 
@@ -144,11 +145,13 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
         if(!IsReady()) return;
         UIManager.Instance.UpdateShakeSlider(0);
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
+        playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
         IntiateShake(interactingObject);
     }
 
     public void InIntreactZone(GameObject interactingObject)
     {
+        if(!interactingObject.CompareTag("Player")) return;
         if(!IsReady()) return;
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,true);
     }

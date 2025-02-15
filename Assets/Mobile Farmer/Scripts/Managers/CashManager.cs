@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using jy_util;
 using TMPro;
 using UnityEngine;
 
@@ -13,13 +14,13 @@ public class CashManager : MonoSingleton<CashManager>
      void Start()
      {
           LoadCoins();
-          coinsAmount_text.text = coins.ToString();;
+          coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
      }
      public void CreditCoins(int amount)
      {
           coins+=amount;
           SaveCoins();
-          coinsAmount_text.text = coins.ToString();
+          coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
           AudioManager.instance.PlaySound("Coin");
      }
 
@@ -29,7 +30,7 @@ public class CashManager : MonoSingleton<CashManager>
           {
                coins-=amount;
                SaveCoins();
-               coinsAmount_text.text = coins.ToString();
+               coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
                AudioManager.instance.PlaySound("Coin_Debit");
                return true;  
           }else{
@@ -53,6 +54,12 @@ public class CashManager : MonoSingleton<CashManager>
      private void Add500Coin()
      {
           CreditCoins(500);
+     }
+
+      [NaughtyAttributes.Button]
+     private void Add50000Coin()
+     {
+          CreditCoins(50000);
      }
      [NaughtyAttributes.Button]
      public void ClearCoin()

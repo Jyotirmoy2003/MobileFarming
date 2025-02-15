@@ -36,7 +36,8 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 
     void SetCameraActivationStatus(bool isActive)
     {
-        cameraObject.SetActive(isActive);
+         if(isActive)CameraManager.Instance.SwitchCamera(cowMesh.transform,new Vector3(0,5,0));
+        else CameraManager.Instance.SwitchCamera();
 
         
         if(isActive)

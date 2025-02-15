@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using jy_util;
-
 using UnityEngine;
 
 public class WorldManager : MonoBehaviour
@@ -191,32 +186,21 @@ public class WorldManager : MonoBehaviour
     }
 
 
+    
     private void LoadWorld()
     {
-       
 
-        string data= "";
-
-        if(!File.Exists(dataPath))
+        worldData = SaveAndLoad.Load<WorldData>(dataPath);
+        if(worldData == null)
         {
-            FileStream fs = new FileStream(dataPath, FileMode.Create); //create new file 
             worldData = new WorldData();
 
             for(int i=0;i<world.childCount;i++)
             {
                 worldData.chunkPrices.Add(world.GetChild(i).GetComponent<Chunk>().GetInitialPrice());
             }
-
-            string worldDataString = JsonUtility.ToJson(worldData,true);
-            byte[] worldDataByte = Encoding.UTF8.GetBytes(worldDataString);
-            fs.Write(worldDataByte);
-
-            //close the the file stream
-            fs.Close();
+            SaveAndLoad.Save(dataPath,worldData);
         }else{
-            data = File.ReadAllText(dataPath);
-            worldData = JsonUtility.FromJson<WorldData>(data);
-
             if(worldData.chunkPrices.Count < world.childCount )
                 UpdateData();
         }
@@ -265,10 +249,7 @@ public class WorldManager : MonoBehaviour
                 worldData.chunkPrices.Add(world.GetChild(i).GetComponent<Chunk>().GetCurrentPrice());
             }
         }
-        
-        string data = JsonUtility.ToJson(worldData,true);
-
-        File.WriteAllText(dataPath, data);
+        SaveAndLoad.Save<WorldData>(dataPath,worldData);
         
     }
     

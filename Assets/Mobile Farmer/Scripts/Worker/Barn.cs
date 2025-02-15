@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using jy_util;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,15 +14,18 @@ public class Barn : MonoBehaviour,IInteractable
     public Transform workerLoadOutPos;
     public List<BarnItem> barnCapableItem = new List<BarnItem>();
     public List<CropField> nearByFields = new List<CropField>();
-    [SerializeField] List<workerStat> workerStats = new List<workerStat>();
+    [SerializeField] List<WorkerStat> workerStats = new List<WorkerStat>();
     [Header("UI ref")]
     public InfoUI infoUI;
     public List<StorageUIStatus> storageUIStatuses = new List<StorageUIStatus>();
+    [Header("Settings")]
+    [SerializeField] string saveFileName = "/BarnData.txt";
 
 
     private BarnInventory barnInventory;
     public Action<E_Inventory_Item_Type> OnBarnFull;
     public Action OnBarnCollected;
+    [SerializeField]
     private bool isBarnEmpty = true;
     
 
@@ -37,17 +39,28 @@ public class Barn : MonoBehaviour,IInteractable
     void  Start()
     {
         barnInventory = GetComponent<BarnInventory>();
-        Init();
+         Invoke(nameof(Init),1f);
     }
 
     void Init()
     {
+        //set up storage UI
         for(int i=0;i<storageUIStatuses.Count;i++)
             storageUIStatuses[i].slider.maxValue = barnCapableItem[i].maxLoadCapacity;
         
+        UpdateUiDisplay();
         
-        
-        Invoke(nameof(UpdateUiDisplay),1f);
+        //spawn worker
+        for(int i=0 ; i< workerStats.Count ; i++ )
+            if(workerStats[i].isPurchesed) SpawnWorkers(i);
+
+        foreach(BarnItem item in barnCapableItem)
+            if(barnInventory.GetInventory().GetItemAmountInInventory(item.item_Type) > 0)
+            {
+                isBarnEmpty = false;
+                break;
+            }
+       
     }
    
    public CropField GetUnlockedField(CropData cropData)
@@ -86,6 +99,7 @@ public class Barn : MonoBehaviour,IInteractable
     }
     #endregion
 
+   
     void UpdateUiDisplay()
     {
         Inventory temp_Inventory = barnInventory.GetInventory();
@@ -120,6 +134,7 @@ public class Barn : MonoBehaviour,IInteractable
             UpdateUiDisplay();
         }else{
             BarnUImanager.Instance.ShowWorkerData(workerStats);
+            CameraManager.Instance.SwitchCamera(workerLoadOutPos,new Vector3(0,8,-10),new Vector3(0,0,0));
             SubcribeToUiButton(true);
         }
     }
@@ -131,23 +146,7 @@ public class Barn : MonoBehaviour,IInteractable
         }
     }
 
-    public void AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
-    {
-        isBarnEmpty = false;
-        //show pop feedback
-        barnFeedback.PlayFeedback();
-
-
-        int availableSpace = CheckForMaxload(item_Type);
-        
-        //check for spcae in barn
-        if(availableSpace>=amount)
-            barnInventory.AddItemToInventory(item_Type,amount);
-        else if(availableSpace > 0) //Add only the amount of space available
-            barnInventory.AddItemToInventory(item_Type,availableSpace);
-        //Update slider UI
-        UpdateUiDisplay();
-    }
+    
 
     [NaughtyAttributes.Button]
     void DebguCheckLoad()
@@ -174,14 +173,50 @@ public class Barn : MonoBehaviour,IInteractable
     }
 
 
+    #region Worker
+    void SpawnWorkers(int index)
+    {
+        Worker temp=Instantiate(workerStats[index].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
+        temp.allocatedBarn = this;
+        temp.workerStat = workerStats[index];
+        workerStats[index].isPurchesed = true;
+    }
+    public int AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
+    {
+        isBarnEmpty = false;
+        //show pop feedback
+        barnFeedback.PlayFeedback();
 
+
+        int availableSpace = CheckForMaxload(item_Type);
+        
+        //check for spcae in barn
+        if(availableSpace>=amount)
+            barnInventory.AddItemToInventory(item_Type,amount);
+        else if(availableSpace > 0) //Add only the amount of space available
+        {
+            barnInventory.AddItemToInventory(item_Type,availableSpace);
+            OnBarnFull?.Invoke(item_Type); //Fire Event when BarnFilled
+        }
+
+        //Update slider UI
+        UpdateUiDisplay();
+
+        return availableSpace;
+    }
+    
+    #region UI
     void SubcribeToUiButton(bool val)
     {
         if(val)
         {
             BarnUImanager.Instance.hireButtonPressed += OnHireButtonPressed;
+            BarnUImanager.Instance.closeButtonPressed += OnCloseButtonPressed;
         }else
+        {
             BarnUImanager.Instance.hireButtonPressed -= OnHireButtonPressed;
+            BarnUImanager.Instance.closeButtonPressed -= OnCloseButtonPressed;
+        }
     }
 
     void Hireworker(int index)
@@ -189,25 +224,14 @@ public class Barn : MonoBehaviour,IInteractable
         if(CashManager.Instance.DebitCoin(workerStats[index].price))
         {
             barnFeedback.PlayFeedback();
-            switch(index)
-            {
-                case 0:
-                    Worker temp=Instantiate(workerStats[0].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
-                    temp.allocatedBarn = this;
-                    temp.workerStat = workerStats[0];
-                    break;
-                case 1:
-                    Worker temp_1=Instantiate(workerStats[1].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
-                    temp_1.allocatedBarn = this;
-                    temp_1.workerStat = workerStats[1];
-                    break;
-                case 2:
-                    Worker temp_2=Instantiate(workerStats[2].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
-                    temp_2.allocatedBarn = this;
-                    temp_2.workerStat = workerStats[2];
-                    break;
-            }
+            
+            if(workerStats[index].isPurchesed)
+                workerStats[index].Upgrade();
+            else
+                SpawnWorkers(index);    
         }
+        //update UI
+        BarnUImanager.Instance.ShowWorkerData(workerStats);
     }
 
     void OnHireButtonPressed(int index)
@@ -215,6 +239,13 @@ public class Barn : MonoBehaviour,IInteractable
         Hireworker(index-1);
     }
 
+    void OnCloseButtonPressed()
+    {
+        CameraManager.Instance.SwitchCamera();
+    }
+    #endregion
+
+    #endregion
     
 }
 

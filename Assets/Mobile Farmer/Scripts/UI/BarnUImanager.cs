@@ -11,17 +11,26 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
     [SerializeField] GameObject barnUIContiner;
     [SerializeField] List<WorkerContiner> workerContiners = new List<WorkerContiner>();
     public Action<int> hireButtonPressed;
+    public Action closeButtonPressed;
 
 
 
-    public void ShowWorkerData(List<workerStat> workers)
+    public void ShowWorkerData(List<WorkerStat> workers)
     {
         for(int i=0 ; i<workers.Count ; i++ )
         {
-            workerContiners[i].workerImg.sprite=workers[i].workerAvater;
-            workerContiners[i].workerName.text = "Worker "+(i+1);
-            workerContiners[i].workingCropImg.sprite=workers[i].workableCorp.uiIconSprite;
-            workerContiners[i].text_amount.text = JY_Mono_Utiliy.ConverCoinToString(workers[i].price);
+            workerContiners[i].img_workerImg.sprite=workers[i].workerAvater;
+            workerContiners[i].text_workerName.text = "Worker "+(i+1);
+            workerContiners[i].img_workingCropImg.sprite=workers[i].workableCorp.uiIconSprite;
+            if(workers[i].price > 0)
+            {
+                workerContiners[i].text_amount.text = CoinSystem.ConvertCoinToString(workers[i].price);
+                workerContiners[i].text_button.text = (workers[i].isPurchesed) ? "Upgrade" : "Hire";
+
+            }else{
+                workerContiners[i].text_amount.text = "";
+                workerContiners[i].text_button.text = "Max";
+            }
         }
         barnUIContiner.SetActive(true);
     }
@@ -31,6 +40,12 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
         hireButtonPressed?.Invoke(index);
     }
 
+    public void CloseButtonPressed()
+    {
+        closeButtonPressed?.Invoke();
+        barnUIContiner.SetActive(false);
+    }
+
    
 }
 
@@ -38,12 +53,3 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
 
 
 
-[System.Serializable]
-public struct WorkerContiner
-{
-    public Image workerImg;
-    public TMP_Text workerName;
-    public TMP_Text workerDescription;
-    public TMP_Text text_amount;
-    public Image workingCropImg;
-}

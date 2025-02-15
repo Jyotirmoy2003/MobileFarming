@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using jy_util;
 using UnityEngine;
 
@@ -49,8 +45,7 @@ public class InventoryManager : MonoSingleton<InventoryManager>
 
     
 
-    // [NaughtyAttributes.Button]
-    // public void DebugInventory()=>inventory.DebugInventory();
+    
     [NaughtyAttributes.Button]
     public void ClearInventory()
     {
@@ -63,35 +58,17 @@ public class InventoryManager : MonoSingleton<InventoryManager>
 
    private void LoadInventory()
    {
-        
-        string data;
-        if(File.Exists(dataPath))
-        {
-            
-            data = File.ReadAllText(dataPath);
-            inventory = JsonUtility.FromJson<Inventory>(data);
-            if(inventory == null)
-                inventory = new Inventory();
-        }else{
-            
-            // File.Create(dataPath);
-            // inventory = new Inventory();
-            FileStream fs = new FileStream(dataPath, FileMode.Create); //create new file 
+       inventory = SaveAndLoad.Load<Inventory>(dataPath);
+       if(inventory == null)
+       {
             inventory = new Inventory();
-            
-            data = JsonUtility.ToJson(inventory,true);
-            byte[] dataByte= Encoding.UTF8.GetBytes(data);
-            fs.Write(dataByte);
-
-            fs.Close();
-        }
-        
+            SaveInventory();
+       }
    }
 
    private void SaveInventory()
    {
-        string data = JsonUtility.ToJson(inventory,true);
-        File.WriteAllText(dataPath,data);
+        SaveAndLoad.Save<Inventory>(dataPath,inventory);
    }
 
 

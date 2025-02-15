@@ -23,7 +23,7 @@ public class Worker : MonoBehaviour
 
 
     public Barn allocatedBarn;
-    public workerStat workerStat;
+    public WorkerStat workerStat;
     [HideInInspector] public CropField assignedCropField;
     [HideInInspector] public CropFieldDataHolder cropFieldDataHolder;
 
@@ -544,8 +544,12 @@ public class LoadoutToBarn : WorkerBase
             timmer -= Time.deltaTime;
             if(worker.carringCrop > 0)
             {
-                worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
-                worker.carringCrop = 0;
+                int temp_avl_Space = worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
+                
+                if(temp_avl_Space < worker.carringCrop) 
+                    worker.carringCrop -= temp_avl_Space;
+                else
+                    worker.carringCrop = 0;
             }
             if(timmer <= 0)
             {

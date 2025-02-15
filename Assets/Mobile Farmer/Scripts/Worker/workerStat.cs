@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName ="workerStat" ,menuName ="GAME/Worker Stat")]
-public class workerStat : ScriptableObject
+[CreateAssetMenu(fileName ="WorkerStat" ,menuName ="GAME/Worker Stat")]
+public class WorkerStat : ScriptableObject
 {
+    public bool isPurchesed = false;
     public Sprite workerAvater;
     public Worker workerPrefab;
     public Barn allocatedBarn;
     [Header("Settings")]
+    [Range(1,10)]
+    public int level = 1;
     [Range(0.1f,3f)]
     public float performActionDelay =2f;
     [Range(2,10)]
@@ -20,4 +23,15 @@ public class workerStat : ScriptableObject
     public int price = 1000;
 
     public CropData workableCorp;
+
+    public void Upgrade()
+    {
+        level++;
+        price += price / 2;
+        maxLoadCapacity +=  maxLoadCapacity / 2;
+        if(level >= 10)
+        {
+            price = 0;
+        }
+    }
 }

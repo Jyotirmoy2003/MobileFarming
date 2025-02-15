@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 
@@ -46,16 +45,7 @@ public class JY_Mono_Utiliy : MonoSingleton<JY_Mono_Utiliy>
 
 
 
-    public static string ConverCoinToString(int amount)
-    {
-        double result = amount;
-        if(amount > 999)
-        {
-            result = (double)amount/1000.0f;
-            return result.ToString() + "K";
-        }
-        return amount.ToString();
-    }
+    
 }
 public class util{
 
@@ -64,18 +54,12 @@ public void NullFun()
 
 }
 }
+
+#region Class
 [System.Serializable]
 public class ButtonInfo{
     public Sprite sprite;
 }
-public delegate void NoArgumentFun();
-
-[System.Serializable]
-public struct BarnItem{
-    public E_Inventory_Item_Type item_Type;
-    public int maxLoadCapacity;
-}
-
 [System.Serializable]
 public class StorageUIStatus
 {
@@ -84,6 +68,38 @@ public class StorageUIStatus
     public TMP_Text text;
     public Image icon;
 }
+public class WorldData
+{
+    public List<int> chunkPrices;
+    public WorldData()
+    {
+        chunkPrices = new List<int>();
+    }
+}
+#endregion
+
+public delegate void NoArgumentFun();
+
+#region Structures
+[System.Serializable]
+public struct BarnItem{
+    public E_Inventory_Item_Type item_Type;
+    public int maxLoadCapacity;
+}
+
+[System.Serializable]
+public struct WorkerContiner
+{
+    public Image img_workerImg;
+    public TMP_Text text_workerName;
+    public TMP_Text text_workerDescription;
+    public TMP_Text text_button;
+    public TMP_Text text_amount;
+    public Image img_workingCropImg;
+}
+#endregion
+
+#region ENUMS
 public enum E_Crop_State{
         Empty,
         Sown,
@@ -141,13 +157,8 @@ public enum E_Worker_State{
     LoadoutToBarn,
     WaitForBarnToClear,
 }
-public class WorldData
-{
-    public List<int> chunkPrices;
-    public WorldData()
-    {
-        chunkPrices = new List<int>();
-    }
-}
+
+#endregion
+
 
 }
