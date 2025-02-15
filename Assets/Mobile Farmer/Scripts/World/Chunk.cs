@@ -1,6 +1,7 @@
 using System;
 
 using System.Collections.Generic;
+using jy_util;
 using TMPro;
 
 using UnityEngine;
@@ -32,7 +33,7 @@ public class Chunk : MonoBehaviour
     {
         if(!feedBackManager) feedBackManager=GetComponent<FeedBackManager>();
         currentPrice = initialPrice;
-        priceText.text = currentPrice.ToString();
+        priceText.text = JY_Mono_Utiliy.ConverCoinToString(currentPrice);
 
     }
 

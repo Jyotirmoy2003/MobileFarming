@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: CornWorker
   m_EditorClassIdentifier: 
   workerAvater: {fileID: 21300000, guid: d490d051745ba487990d7f21825e0500, type: 3}
-  workerPrefab: {fileID: 0}
+  workerPrefab: {fileID: 982343761833447866, guid: 68fa0c12749ac5741b6921530c330dbe,
+    type: 3}
   allocatedBarn: {fileID: 0}
   performActionDelay: 2
   walkSpeed: 2
   moveSpeedWhileWorking: 3
   maxLoadCapacity: 50
+  price: 1000
   workableCorp: {fileID: 11400000, guid: dc890f597c76c2e408be10b4b8bcd2e5, type: 2}

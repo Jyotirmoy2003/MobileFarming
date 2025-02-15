@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 
@@ -39,6 +40,22 @@ public class JY_Mono_Utiliy : MonoSingleton<JY_Mono_Utiliy>
     void Execute1()=>noArgumentFun1();
     void Execute2()=>noArgumentFun2();
     void Execute3()=>noArgumentFun3();
+
+
+
+
+
+
+    public static string ConverCoinToString(int amount)
+    {
+        double result = amount;
+        if(amount > 999)
+        {
+            result = (double)amount/1000.0f;
+            return result.ToString() + "K";
+        }
+        return amount.ToString();
+    }
 }
 public class util{
 

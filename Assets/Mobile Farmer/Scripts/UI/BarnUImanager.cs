@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using jy_util;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
             workerContiners[i].workerImg.sprite=workers[i].workerAvater;
             workerContiners[i].workerName.text = "Worker "+(i+1);
             workerContiners[i].workingCropImg.sprite=workers[i].workableCorp.uiIconSprite;
+            workerContiners[i].text_amount.text = JY_Mono_Utiliy.ConverCoinToString(workers[i].price);
         }
         barnUIContiner.SetActive(true);
     }
@@ -42,5 +44,6 @@ public struct WorkerContiner
     public Image workerImg;
     public TMP_Text workerName;
     public TMP_Text workerDescription;
+    public TMP_Text text_amount;
     public Image workingCropImg;
 }

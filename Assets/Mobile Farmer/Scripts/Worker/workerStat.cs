@@ -17,6 +17,7 @@ public class workerStat : ScriptableObject
     [Range(0.1f,3f)]
     public float moveSpeedWhileWorking = 2f;
     public int maxLoadCapacity = 20;
+    public int price = 1000;
 
     public CropData workableCorp;
 }

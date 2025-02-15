@@ -10,6 +10,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BarnInventory))]
 public class Barn : MonoBehaviour,IInteractable
 {
+    [SerializeField] FeedBackManager barnFeedback;
+    [SerializeField] Transform workerSpawnPoint;
     public Transform workerLoadOutPos;
     public List<BarnItem> barnCapableItem = new List<BarnItem>();
     public List<CropField> nearByFields = new List<CropField>();
@@ -132,6 +134,10 @@ public class Barn : MonoBehaviour,IInteractable
     public void AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
     {
         isBarnEmpty = false;
+        //show pop feedback
+        barnFeedback.PlayFeedback();
+
+
         int availableSpace = CheckForMaxload(item_Type);
         
         //check for spcae in barn
@@ -180,20 +186,35 @@ public class Barn : MonoBehaviour,IInteractable
 
     void Hireworker(int index)
     {
-        switch(index)
+        if(CashManager.Instance.DebitCoin(workerStats[index].price))
         {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
+            barnFeedback.PlayFeedback();
+            switch(index)
+            {
+                case 0:
+                    Worker temp=Instantiate(workerStats[0].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
+                    temp.allocatedBarn = this;
+                    temp.workerStat = workerStats[0];
+                    break;
+                case 1:
+                    Worker temp_1=Instantiate(workerStats[1].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
+                    temp_1.allocatedBarn = this;
+                    temp_1.workerStat = workerStats[1];
+                    break;
+                case 2:
+                    Worker temp_2=Instantiate(workerStats[2].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
+                    temp_2.allocatedBarn = this;
+                    temp_2.workerStat = workerStats[2];
+                    break;
+            }
         }
     }
 
     void OnHireButtonPressed(int index)
     {
-        
+        Hireworker(index-1);
     }
+
+    
 }
 
