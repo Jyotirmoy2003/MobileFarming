@@ -25837,6 +25837,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Market Elements
       objectReference: {fileID: 0}
+    - target: {fileID: 7992748789780086660, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 7992748789780086660, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26360,14 +26371,22 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3966519016720177300}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 1d78607769d52804ebcf22480781bd15, type: 3}
   m_Controller: {fileID: 9100000, guid: 2bbfce167e6e8e1458dc39605e1f356c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Armature'\n\tTransform 'Hips'\n\tTransform 'Spine1'\n\tTransform
+    'Neck'\n\tTransform 'LeftHandThumb1'\n\tTransform 'RightHandThumb3'\n\tTransform
+    'RightForeArm'\n\tTransform 'LeftLeg'\n\tTransform 'RightHandThumb1'\n\tTransform
+    'RightHandIndex3'\n\tand more ...\n\tFrom animation clip 'Fishing Pull back'\n\tFrom
+    animation clip 'Fishing Cast'\n\tFrom animation clip 'WaterRetarget'\n\tFrom
+    animation clip 'Water'\n\tFrom animation clip 'Shake Pose'\n\tFrom animation
+    clip 'Shake Tree'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -26603,6 +26622,28 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 454010031}
     m_Modifications:
+    - target: {fileID: 289794179520818862, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 289794179520818862, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 588273614590594700, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 588273614590594700, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 1688690992747637609, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26663,6 +26704,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2043549892122381229, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 2043549892122381229, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 3244086706591986107, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
         type: 3}
       propertyPath: m_AnchorMax.y
