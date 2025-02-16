@@ -11,6 +11,7 @@ public class CropFieldDataHolder : MonoBehaviour
     public BoxCollider cropFieldRangeTrigger;
     public CropFieldMerger cropFieldMerger;
     public CropTile cropTile;
+    public InfoUI infoUI;
     public Transform tileParent;
     //[HideInInspector]
     public CropFieldDataHolder right,bottom,left,above;

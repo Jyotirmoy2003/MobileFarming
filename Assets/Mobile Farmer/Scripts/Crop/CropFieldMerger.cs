@@ -18,7 +18,8 @@ public class CropFieldMerger : MonoBehaviour
     void Start()
     {
         if(!myDataHolder.cropField) Destroy(this);
-        LeanTween.delayedCall(0f,()=>SetUpList());
+        LeanTween.delayedCall(2f,()=>SetUpList());
+        //SetUpList();
     }
     
 
@@ -44,7 +45,7 @@ public class CropFieldMerger : MonoBehaviour
     void TryToMerge()
     {
        
-
+        if(!myDataHolder.chunk.IsUnclocked()) return;
       
         for(int i=0 ; i<connectedFields.Count ; i++)
         {
@@ -74,6 +75,8 @@ public class CropFieldMerger : MonoBehaviour
             //Setup Collider
             myDataHolder.cropFieldRangeTrigger.size = new Vector3(9,1,4);
             myDataHolder.cropFieldRangeTrigger.center = new Vector3(2.5f,0,0);
+
+            myDataHolder.infoUI.transform.localPosition = new Vector3(2.5f,2,0);
             
             StartCoroutine(CreateTileRightSide(index));
 
@@ -87,6 +90,8 @@ public class CropFieldMerger : MonoBehaviour
             //Setup Collider
             myDataHolder.cropFieldRangeTrigger.size = new Vector3(4,1,9);
             myDataHolder.cropFieldRangeTrigger.center = new Vector3(0,0,2.5f);
+
+            myDataHolder.infoUI.transform.localPosition = new Vector3(0f,2,2.5f);
             StartCoroutine(CreateTileAboveSide(index));
 
             Destroy(connectedFields[index].cropField);
@@ -99,6 +104,8 @@ public class CropFieldMerger : MonoBehaviour
             //Setup Collider
             myDataHolder.cropFieldRangeTrigger.size = new Vector3(9,1,4);
             myDataHolder.cropFieldRangeTrigger.center = new Vector3(-2.5f,0,0);
+
+            myDataHolder.infoUI.transform.localPosition = new Vector3(-2.5f,2,0);
             StartCoroutine(CreateTileLeftSide(index));
 
             Destroy(connectedFields[index].cropField);
@@ -110,6 +117,8 @@ public class CropFieldMerger : MonoBehaviour
             //Setup Collider
             myDataHolder.cropFieldRangeTrigger.size = new Vector3(4,1,9);
             myDataHolder.cropFieldRangeTrigger.center = new Vector3(0f,0,-2.5f);
+
+            myDataHolder.infoUI.transform.localPosition = new Vector3(0,2,-2.5f);
             StartCoroutine(CreateTileBottomSide(index));
 
             Destroy(connectedFields[index].cropField);

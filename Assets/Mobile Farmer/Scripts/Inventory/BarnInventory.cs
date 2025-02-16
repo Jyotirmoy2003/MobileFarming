@@ -11,6 +11,7 @@ public class BarnInventory : MonoBehaviour
     [SerializeField] string saveFileName ="BarnInventory.txt";
     private Inventory inventory;
     private string dataPath="";
+    public int totalItemsInInventory = 0;
     void Start()
     {
         dataPath = Application.persistentDataPath + "/"+saveFileName;
@@ -48,7 +49,13 @@ public class BarnInventory : MonoBehaviour
 
             fs.Close();
         }
-            
+        CalulateTotalItem();
+    }
+    public void CalulateTotalItem()
+    {
+        totalItemsInInventory = 0;
+        foreach(InventoryItem item in inventory.GetInventoryItems())
+            totalItemsInInventory += item.amount;
     }
 
     private void SaveInventory()
@@ -63,7 +70,7 @@ public class BarnInventory : MonoBehaviour
     {
         //Update inventory data
         inventory.AddItemToInventory(item_Type,amount);
-
+        totalItemsInInventory += amount;
         SaveInventory();
     }
 

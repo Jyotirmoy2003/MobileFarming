@@ -24,7 +24,7 @@ public class Chunk : MonoBehaviour
     public Action chunkUnlocked;
 
 
-    private int currentPrice ;
+    [SerializeField]    private int currentPrice ;
 
     [SerializeField] FeedBackManager feedBackManager;
 

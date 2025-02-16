@@ -9,6 +9,7 @@ public class AsyncLoadManager : MonoSingleton<AsyncLoadManager>
 {
     [SerializeField] GameObject loadingPanel;
     [SerializeField] Slider progressSlider;
+    [SerializeField] float cacheSceneTime = 3f;
 
 
     IEnumerator LoadScene(string screenName)
@@ -27,6 +28,7 @@ public class AsyncLoadManager : MonoSingleton<AsyncLoadManager>
             yield return null;
         }
 
+        yield return new WaitForSeconds(cacheSceneTime);
         loadingPanel.SetActive(false);
     }
 

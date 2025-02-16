@@ -371,7 +371,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78846723}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.000000008717809, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.00000000871781, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5691,7 +5691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.000000008717809, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.00000000871781, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7462,6 +7462,7 @@ MonoBehaviour:
   unparentGameObject: 0
   loadingPanel: {fileID: 1106897591}
   progressSlider: {fileID: 826660784347538062}
+  cacheSceneTime: 3
 --- !u!114 &717503644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12629,8 +12630,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d1003b7556f0b40a2e98fdabb70bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 1
+  ID: 0
   playerAnimator: {fileID: 913347756}
+  playerAnimationEvents: {fileID: 990670517}
   hervestSphere: {fileID: 743013355}
+  seedParticle: {fileID: 1622716397}
+  waterParticle: {fileID: 758724943}
 --- !u!114 &913347752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12714,6 +12720,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 990670518}
   rendererTransform: {fileID: 990670516}
+  waterParticel: {fileID: 1622716399}
+  seedParticel: {fileID: 758724945}
+  wateringCan: {fileID: 1011502990}
+  harvestScythe: {fileID: 1839277176}
   moveSpeedMultiplier: 50
 --- !u!114 &913347757
 MonoBehaviour:
@@ -12971,6 +12981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedParticle: {fileID: 1622716399}
   waterParticle: {fileID: 758724945}
+  owningPlayer: {fileID: 913347751}
 --- !u!95 &990670518
 Animator:
   serializedVersion: 5
@@ -14386,6 +14397,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 230944978}
     m_Modifications:
+    - target: {fileID: 107032366176571404, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 107032366176571404, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 107032366176571404, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 107032366176571404, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 856619033380298320, guid: 822f2b7ef77d6774f898d3871e0e89e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14459,6 +14490,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5cf11eb350578dd4b8362fa246297b85,
         type: 2}
+    - target: {fileID: 5725430501726067287, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725430501726067287, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725430501726067287, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5725430501726067287, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6058273769955021622, guid: 822f2b7ef77d6774f898d3871e0e89e8,
         type: 3}
       propertyPath: canBuyCrops.Array.size
@@ -14470,6 +14521,46 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6d491d0023cbc4642bb3f700427d4a67,
         type: 2}
+    - target: {fileID: 6268688840126348728, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268688840126348728, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268688840126348728, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268688840126348728, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697864672842447734, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697864672842447734, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697864672842447734, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7697864672842447734, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7803070887834064758, guid: 822f2b7ef77d6774f898d3871e0e89e8,
         type: 3}
       propertyPath: m_Name
@@ -20567,6 +20658,7 @@ MonoBehaviour:
   harvestScythe: {fileID: 1839277176}
   defaultCropTileMat: {fileID: 2100000, guid: 095228817438eae45a5b214b4c137752, type: 2}
   wateredCropTileMat: {fileID: 2100000, guid: ea4a039c27f1610458680a5e10335e0c, type: 2}
+  allFieldInGame: []
   cropDatas:
   - {fileID: 11400000, guid: dc890f597c76c2e408be10b4b8bcd2e5, type: 2}
   - {fileID: 11400000, guid: 6d491d0023cbc4642bb3f700427d4a67, type: 2}
@@ -21434,6 +21526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 591462a6a82dec04dae4d4f765c13e7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  unparentGameObject: 0
 --- !u!114 &1946335961
 MonoBehaviour:
   m_ObjectHideFlags: 0

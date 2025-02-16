@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerDataHolder : MonoBehaviour
 {
     public bool isPlayer = false;
-    public int ID = 0;
     public PlayerAnimator playerAnimator;
     public PlayerAnimationEvents playerAnimationEvents;
     public Transform hervestSphere;

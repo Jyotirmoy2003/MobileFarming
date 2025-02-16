@@ -76,6 +76,33 @@ public class WorldData
         chunkPrices = new List<int>();
     }
 }
+[System.Serializable]
+public class WorkerData  // Renamed to PascalCase for convention
+{
+    public List<WorkerStatSave> workerStatSaves;
+
+    public WorkerData()
+    {
+        workerStatSaves = new List<WorkerStatSave>();
+    } 
+}
+
+[System.Serializable]
+public class WorkerStatSave
+{
+    public bool isPurchased = false;
+    public int level = 1;
+    public int price = 1000;
+    public int maxLoadCapacity = 20;
+
+    public WorkerStatSave(bool isPurchased, int level, int price, int maxLoadCapacity)
+    {
+        this.isPurchased = isPurchased;
+        this.level = level;
+        this.price = price;
+        this.maxLoadCapacity = maxLoadCapacity;
+    }
+}
 #endregion
 
 public delegate void NoArgumentFun();

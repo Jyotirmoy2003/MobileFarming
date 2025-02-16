@@ -9,7 +9,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(BarnInventory))]
 public class Barn : MonoBehaviour,IInteractable
 {
+    [Header("Visual")]
     [SerializeField] FeedBackManager barnFeedback;
+    [SerializeField] List<GameObject> sacks = new List<GameObject>();
     [SerializeField] Transform workerSpawnPoint;
     public Transform workerLoadOutPos;
     public List<BarnItem> barnCapableItem = new List<BarnItem>();
@@ -22,11 +24,13 @@ public class Barn : MonoBehaviour,IInteractable
     [SerializeField] string saveFileName = "/BarnData.txt";
 
 
+    private string dataPath;
     private BarnInventory barnInventory;
     public Action<E_Inventory_Item_Type> OnBarnFull;
     public Action OnBarnCollected;
     [SerializeField]
     private bool isBarnEmpty = true;
+    private WorkerData workerData;
     
 
 
@@ -38,8 +42,13 @@ public class Barn : MonoBehaviour,IInteractable
 
     void  Start()
     {
+        dataPath = Application.persistentDataPath + saveFileName;
+        #if UNITY_EDITOR
+        dataPath = Application.dataPath + saveFileName;
+        #endif
         barnInventory = GetComponent<BarnInventory>();
-         Invoke(nameof(Init),1f);
+        LoadWorker();
+        Invoke(nameof(Init),1f);
     }
 
     void Init()
@@ -49,20 +58,74 @@ public class Barn : MonoBehaviour,IInteractable
             storageUIStatuses[i].slider.maxValue = barnCapableItem[i].maxLoadCapacity;
         
         UpdateUiDisplay();
-        
+        UpdateSackinBarn();
+    
         //spawn worker
+       
         for(int i=0 ; i< workerStats.Count ; i++ )
-            if(workerStats[i].isPurchesed) SpawnWorkers(i);
-
+            if(workerStats[i].isPurchased) SpawnWorkers(i);
+    
         foreach(BarnItem item in barnCapableItem)
             if(barnInventory.GetInventory().GetItemAmountInInventory(item.item_Type) > 0)
             {
                 isBarnEmpty = false;
                 break;
             }
+    
        
     }
+   void LoadWorker()
+    {
+        workerData = SaveAndLoad.Load<WorkerData>(dataPath);
+
+        // Ensure workerData is initialized
+        if (workerData == null){
+            workerData = new WorkerData();
+            Debug.Log("file is null");}
+
+        // Ensure workerStatSaves list is initialized
+        if (workerData.workerStatSaves == null){
+            workerData.workerStatSaves = new List<WorkerStatSave>();Debug.Log("List is null");}
+
+        // Sync data between saved stats and existing workers
+        for (int i = 0; i < workerStats.Count; i++)
+        {
+            if (i < workerData.workerStatSaves.Count)
+            {
+                // Load saved data
+                workerStats[i].isPurchased = workerData.workerStatSaves[i].isPurchased;
+                workerStats[i].level = workerData.workerStatSaves[i].level;
+                workerStats[i].price = workerData.workerStatSaves[i].price;
+                workerStats[i].maxLoadCapacity = workerData.workerStatSaves[i].maxLoadCapacity;
+            }
+            else
+            {
+                // Add missing workers to save file
+                workerData.workerStatSaves.Add(new WorkerStatSave(
+                    workerStats[i].isPurchased, 
+                    workerStats[i].level, 
+                    workerStats[i].price, 
+                    workerStats[i].maxLoadCapacity
+                ));
+            }
+        }
+
+        // Only save if new data was added
+        if (workerData.workerStatSaves.Count > workerStats.Count)
+            SaveWorker();
+    }
    
+   void SaveWorker()
+    {
+         for (int i = 0; i < workerStats.Count; i++)
+        {
+            workerData.workerStatSaves[i].isPurchased = workerStats[i].isPurchased;
+            workerData.workerStatSaves[i].level = workerStats[i].level;
+            workerData.workerStatSaves[i].price = workerStats[i].price;
+            workerData.workerStatSaves[i].maxLoadCapacity = workerStats[i].maxLoadCapacity;
+        }
+        SaveAndLoad.Save<WorkerData>(dataPath,workerData);
+    }
    public CropField GetUnlockedField(CropData cropData)
    {
         for(int i=0 ;i<nearByFields.Count;i++)
@@ -73,6 +136,23 @@ public class Barn : MonoBehaviour,IInteractable
        return nearByFields[0];
    }
 
+    void UpdateSackinBarn()
+    {
+        int barnTotalCap = 0;
+        foreach (BarnItem item in barnCapableItem)
+            barnTotalCap += item.maxLoadCapacity;
+
+        int numberOfSacktoShow = (barnInventory.totalItemsInInventory > 0) ? 
+                                Mathf.Clamp(barnInventory.totalItemsInInventory * sacks.Count / barnTotalCap, 0, sacks.Count) 
+                                : 0;
+
+        for (int i = 0; i < sacks.Count; i++)
+        {
+            sacks[i].SetActive(i < numberOfSacktoShow);
+        }
+    }
+
+    
 
 
 
@@ -91,6 +171,7 @@ public class Barn : MonoBehaviour,IInteractable
     public void OutIntreactZone(GameObject interactingObject)
     {
         SubcribeToUiButton(false);
+        BarnUImanager.Instance.CloseButtonPressed();
     }
 
     public void ShowInfo(bool val)
@@ -131,7 +212,10 @@ public class Barn : MonoBehaviour,IInteractable
             OnBarnCollected?.Invoke(); //Fire event
             
             isBarnEmpty = true;
+            //update visual
             UpdateUiDisplay();
+            barnInventory.CalulateTotalItem();
+            UpdateSackinBarn();
         }else{
             BarnUImanager.Instance.ShowWorkerData(workerStats);
             CameraManager.Instance.SwitchCamera(workerLoadOutPos,new Vector3(0,8,-10),new Vector3(0,0,0));
@@ -179,7 +263,7 @@ public class Barn : MonoBehaviour,IInteractable
         Worker temp=Instantiate(workerStats[index].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
         temp.allocatedBarn = this;
         temp.workerStat = workerStats[index];
-        workerStats[index].isPurchesed = true;
+        workerStats[index].isPurchased = true;
     }
     public int AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
     {
@@ -201,6 +285,7 @@ public class Barn : MonoBehaviour,IInteractable
 
         //Update slider UI
         UpdateUiDisplay();
+        UpdateSackinBarn();
 
         return availableSpace;
     }
@@ -225,10 +310,12 @@ public class Barn : MonoBehaviour,IInteractable
         {
             barnFeedback.PlayFeedback();
             
-            if(workerStats[index].isPurchesed)
+            
+            if(workerStats[index].isPurchased)
                 workerStats[index].Upgrade();
             else
-                SpawnWorkers(index);    
+                SpawnWorkers(index); 
+            SaveWorker();
         }
         //update UI
         BarnUImanager.Instance.ShowWorkerData(workerStats);

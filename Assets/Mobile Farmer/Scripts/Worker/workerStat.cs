@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="WorkerStat" ,menuName ="GAME/Worker Stat")]
 public class WorkerStat : ScriptableObject
 {
-    public bool isPurchesed = false;
+    public bool isPurchased = false;
     public Sprite workerAvater;
     public Worker workerPrefab;
     public Barn allocatedBarn;
@@ -26,6 +26,7 @@ public class WorkerStat : ScriptableObject
 
     public void Upgrade()
     {
+        if(level >= 10) return;
         level++;
         price += price / 2;
         maxLoadCapacity +=  maxLoadCapacity / 2;

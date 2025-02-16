@@ -31,6 +31,7 @@ public class Worker : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     public PlayerDataHolder playerDataHolder;
     public Billboard popupBillboard;
+    public GameObject sackObject;
 
 
 
@@ -253,6 +254,7 @@ public class PerformAction : WorkerBase
         if(worker.isMyBarnFull)
         {
             worker.SwitchState(worker.waitForBarnToClearState);
+            return;
         }
         if(worker.carringCrop >= worker.workerStat.maxLoadCapacity)
         {
@@ -513,12 +515,14 @@ public class LoadoutToBarn : WorkerBase
         GoToBarn();
         worker.playerDataHolder.playerAnimator.StopAllLayeredAnimation();
         worker.allocatedBarn.OnBarnFull += OnBarnFullCallback;
+        worker.sackObject.SetActive(true);
         
     }
 
     public override void ExitState(Worker wk)
     {
         worker.allocatedBarn.OnBarnFull -= OnBarnFullCallback;
+        worker.sackObject.SetActive(false);
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)

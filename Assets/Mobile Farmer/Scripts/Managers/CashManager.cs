@@ -15,6 +15,7 @@ public class CashManager : MonoSingleton<CashManager>
      {
           LoadCoins();
           coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
+          //Invoke(nameof(Add50000Coin),1f);
      }
      public void CreditCoins(int amount)
      {

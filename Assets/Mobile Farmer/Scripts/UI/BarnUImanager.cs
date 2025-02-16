@@ -25,7 +25,7 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
             if(workers[i].price > 0)
             {
                 workerContiners[i].text_amount.text = CoinSystem.ConvertCoinToString(workers[i].price);
-                workerContiners[i].text_button.text = (workers[i].isPurchesed) ? "Upgrade" : "Hire";
+                workerContiners[i].text_button.text = (workers[i].isPurchased) ? "Upgrade" : "Hire";
 
             }else{
                 workerContiners[i].text_amount.text = "";

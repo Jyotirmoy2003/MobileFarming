@@ -33,7 +33,7 @@ public class WorldManager : MonoBehaviour
         if(!isTutorial)LoadWorld();
         else LoadTutroalWord();
         
-        Initialize();
+        Invoke(nameof(Initialize),1f);
 
         //Try to save after every 2s
         InvokeRepeating(nameof(TryToSave),2,5);
@@ -220,13 +220,16 @@ public class WorldManager : MonoBehaviour
     {
         //calculate how many chunks are missing
         int missingData = world.childCount - worldData.chunkPrices.Count;
+        Debug.Log("<color=green>Missing data:</color>"+missingData +"child cout: "+world.childCount+ " chunkprice count: "+worldData.chunkPrices.Count);
        
-        for(int i=0; i<missingData;i++)
+        if(missingData > 0)
+        for(int i=worldData.chunkPrices.Count; i<world.childCount;i++)
         {
-            int chunkIndex = world.childCount - missingData + i;
+            int chunkIndex =  i;
             int chunkPrice = world.GetChild(chunkIndex).GetComponent<Chunk>().GetInitialPrice();
             worldData.chunkPrices.Add(chunkPrice);
         }
+        SaveData();
     }
 
     private void TryToSave()
