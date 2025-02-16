@@ -15,18 +15,19 @@ public class FDM_Editor_Script : Editor
         DrawDefaultInspector();
 
 
-        feedBackManager= (FeedBackManager)target;
+        feedBackManager = (FeedBackManager)target;
         //GUILayoutOption playbuttonOption=new GUILayoutOption()
         if(GUILayout.Button("Play Feedback",  GUILayout.Height(40)))
         {
             feedBackManager.PlayFeedback();
         }
 
+        #region SHOW HIDE Variables
 
         //show camera ref field when there is camera type feedback in list
         if(CheckForCameraRef())
         {
-            feedBackManager.camRef=(CinemachineVirtualCamera)EditorGUILayout.ObjectField(
+            feedBackManager.camRef = (CinemachineVirtualCamera)EditorGUILayout.ObjectField(
                 "Cinemachine Camera ref", 
                 feedBackManager.camRef, 
                 typeof(CinemachineVirtualCamera), 
@@ -35,12 +36,19 @@ public class FDM_Editor_Script : Editor
 
         if(CheckForTransformRef())
         {
-            feedBackManager.targetTramform=(Transform)EditorGUILayout.ObjectField(
+            feedBackManager.targetTramform = (Transform)EditorGUILayout.ObjectField(
                 "Taeget Transform ref", 
                 feedBackManager.targetTramform, 
                 typeof(Transform), 
                 true);
         }
+
+        if(feedBackManager.overrideRemaps)
+        {
+            feedBackManager.curveOneRemap = EditorGUILayout.FloatField("Curve One Remap",feedBackManager.curveOneRemap);
+            feedBackManager.curveZeroRemap = EditorGUILayout.FloatField("Curve Zero Remap",feedBackManager.curveZeroRemap);
+        }
+        #endregion
 
          // Apply changes to the serialized object
         if (GUI.changed)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class CM_Zoom : FB_Camera
 {
    
-    private float defaultFieldofView=60f;
+    public float defaultFieldofView=60f;
     public float zoomedFieldofView=20f;
 
     public CM_Zoom(CM_Zoom camera) : base(camera)
@@ -19,7 +19,7 @@ public class CM_Zoom : FB_Camera
         base.OnFeedbackActiavte();
         if(cinemachineVirtualCamera)
         {
-            defaultFieldofView=cinemachineVirtualCamera.m_Lens.FieldOfView;
+            //defaultFieldofView=cinemachineVirtualCamera.m_Lens.FieldOfView;
            EvaluateTimeline();
         }
     }

@@ -10,15 +10,14 @@ using UnityEngine.Rendering;
 [SaveDuringPlay]
 public class FeedBackManager : MonoBehaviour
 {
-    [Header("Ref")]
-    public CinemachineVirtualCamera camRef;
-    public Transform targetTramform;
+    [HideInInspector] public CinemachineVirtualCamera camRef;
+    [HideInInspector] public Transform targetTramform;
 
     [Space]
     [Header("Settings")]
     public bool overrideRemaps=false;
-    public float curveZeroRemap=0f;
-    public float curveOneRemap=0f;
+    [HideInInspector] public float curveZeroRemap=0f;
+    [HideInInspector] public float curveOneRemap=0f;
     [SerializeField] bool isSequencialFlow=true;
     [SerializeField] int startIndex=0;
 
@@ -50,6 +49,11 @@ public class FeedBackManager : MonoBehaviour
     {
         foreach(FeedbackBase item in feedbackList)
         {
+            if(item == null)
+            {
+                Debug.Log("<color=yellow>Feedback List is Invalid</color>");
+                continue;
+            }
             FeedbackBase tempHoldingFeedback = item.CloneMe();
             if(tempHoldingFeedback)
                 tempInsteanceOfFeedback.Add(tempHoldingFeedback);

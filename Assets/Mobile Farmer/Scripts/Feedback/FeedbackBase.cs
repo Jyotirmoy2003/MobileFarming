@@ -16,6 +16,10 @@ public class FeedbackBase : ScriptableObject
     public Action<float> evaluteAction;
 
     public Action feedbackFinishedExe;
+    private  Sequence s= DOTween.Sequence();
+
+
+
 
     public FeedbackBase(FeedbackBase feedbackBase)
     {
@@ -36,7 +40,8 @@ public class FeedbackBase : ScriptableObject
 
    public virtual  void  EvaluateTimeline()
    {
-        Sequence s= DOTween.Sequence();
+        s.Kill();
+        s= DOTween.Sequence();
         
         s.Append(DOVirtual.Float(0, 1f, duration, v =>ExecuteCurve(v) )).onComplete=EndExe;
    }
