@@ -15,5 +15,6 @@ public class CropData : ScriptableObject
    [Range(1,5)]
    public int amountinSingleCrop=3;
    public Sprite uiIconSprite;
+   public Sprite cropPopUp;
    public int pricePerPice=1;
 }

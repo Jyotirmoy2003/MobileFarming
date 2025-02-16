@@ -24586,6 +24586,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7810555361482623205, guid: 0a00392333fe33f41bc89995b90d15d2,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8036470024056449478, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_Name
@@ -28532,6 +28537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedParticle: {fileID: 782743594}
   waterParticle: {fileID: 1229114605}
+  owningPlayer: {fileID: 1716099300}
 --- !u!223 &4369303691810648653
 Canvas:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class Worker : MonoBehaviour
 
 
 
-    public Barn allocatedBarn;
+    [HideInInspector] public Barn allocatedBarn;
     public WorkerStat workerStat;
     [HideInInspector] public CropField assignedCropField;
     [HideInInspector] public CropFieldDataHolder cropFieldDataHolder;
@@ -30,6 +30,7 @@ public class Worker : MonoBehaviour
     [Header("Elements")]
     public NavMeshAgent navMeshAgent;
     public PlayerDataHolder playerDataHolder;
+    public Billboard popupBillboard;
 
 
 
@@ -583,11 +584,15 @@ public class WaitForBarnToClear : WorkerBase
         worker.E_state = E_Worker_State.WaitForBarnToClear;
         worker.allocatedBarn.OnBarnCollected +=OnBarnCollectedCallBack;
         worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position);
+        worker.popupBillboard.gameObject.SetActive(true);
+        worker.popupBillboard.IsActive = true;
     }
 
     public override void ExitState(Worker wk)
     {
         worker.allocatedBarn.OnBarnCollected -= OnBarnCollectedCallBack;
+        worker.popupBillboard.IsActive = false;
+        worker.popupBillboard.gameObject.SetActive(false);
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)

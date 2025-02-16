@@ -68,14 +68,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b0e5a17b90807f4e8a9872112e61a7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treeCam: {fileID: 0}
   treeRendere: {fileID: 3576181067736942084}
   fruitParent: {fileID: 5751217104043986512}
   cropData: {fileID: 11400000, guid: d97ed19e5bc97ef4c90f72e63c047a4c, type: 2}
   treeButtonInfo:
     sprite: {fileID: 0}
   needToShake: 0
-  taskBeforeShake: 0
+  taskBeforeShake: 1
   maxShakeMagnitude: 0.005
   shakeIncreament: 0.02
   furitShakeMultiplayer: 0.05

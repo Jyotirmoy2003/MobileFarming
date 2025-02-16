@@ -24,8 +24,8 @@ public class CropField : MonoBehaviour,IInteractable
 
     private int tileSown=0,tileWatered=0,tileHarvested=0;
     public E_Crop_State state{get;private set;}
-    private GameObject interactingObject;
-    private PlayerDataHolder playerDataHolder;
+    private List<GameObject> interactingObjects = new List<GameObject>();
+    private List<PlayerDataHolder> playerDataHolders = new List<PlayerDataHolder>();
 
     [Header("Action")]
     public Action<CropField> onFullySown,onFullyWatered,OnFullyHarvested;
@@ -115,9 +115,9 @@ public class CropField : MonoBehaviour,IInteractable
 
 
     #region Operation on TILEs
-    private void Harvest(CropTile cropTile)
+    private void Harvest(CropTile cropTile,PlayerDataHolder owningPlayer)
     {
-        cropTile.Harvest(playerDataHolder,cropData);
+        cropTile.Harvest(owningPlayer,cropData);
 
         tileHarvested++;
 
@@ -153,7 +153,7 @@ public class CropField : MonoBehaviour,IInteractable
         
     }
 
-    public void Harvest(Transform harvestSphere)
+    public void Harvest(Transform harvestSphere,PlayerDataHolder owningPlayer)
     {
         float radius=harvestSphere.localScale.x;
 
@@ -164,7 +164,7 @@ public class CropField : MonoBehaviour,IInteractable
 
             float distanceCropSphere = Vector3.Distance(cropTiles[i].transform.position,harvestSphere.position);
             if(distanceCropSphere < radius)
-                Harvest(cropTiles[i]);
+                Harvest(cropTiles[i],owningPlayer);
         }
     }
     #endregion
@@ -224,19 +224,21 @@ public class CropField : MonoBehaviour,IInteractable
             UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,false);
         
         
+        PlayerDataHolder temp_dataholder = interactingObject.GetComponent<PlayerDataHolder>();
+
         switch(state)
         {
             case E_Crop_State.Empty:
-                playerDataHolder.seedParticle.onSeedCollided += SeedCollidedCallback;
-                PlayerSowField(playerDataHolder.playerAnimator);
+                temp_dataholder.seedParticle.onSeedCollided += SeedCollidedCallback;
+                PlayerSowField(temp_dataholder.playerAnimator);
                 break;
             case E_Crop_State.Sown:
-                playerDataHolder.waterParticle.onWaterCollided += WaterCollidedCallBack;
-                PlayerWaterField(playerDataHolder.playerAnimator);
+                temp_dataholder.waterParticle.onWaterCollided += WaterCollidedCallBack;
+                PlayerWaterField(temp_dataholder.playerAnimator);
                 break;
             case E_Crop_State.Watered:
-                playerDataHolder.playerAnimationEvents.startHarvestCallBackEvent += StartHervest;
-                PlayerHervestField(playerDataHolder.playerAnimator);
+                temp_dataholder.playerAnimationEvents.startHarvestCallBackEvent += StartHervest;
+                PlayerHervestField(temp_dataholder.playerAnimator);
                 
                 break;
         }
@@ -247,12 +249,15 @@ public class CropField : MonoBehaviour,IInteractable
 
     public void InIntreactZone(GameObject interactingObject)
     {
-        if(!(this.interactingObject !=null && interactingObject == this.interactingObject))
-            if(IsOccupied) return; //when someone already working on this field
-            IsOccupied = true;
+        // if(!(this.interactingObject !=null && interactingObject == this.interactingObject))
+        //     if(IsOccupied) return; //when someone already working on this field
+        //     IsOccupied = true;
         
-        this.interactingObject = interactingObject;
-        playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
+        if(!interactingObjects.Contains(interactingObject)) 
+        {
+            interactingObjects.Add(interactingObject);
+            playerDataHolders.Add(interactingObject.GetComponent<PlayerDataHolder>());
+        }
 
 
         infoUI.SetActivationStatus(false);
@@ -277,36 +282,46 @@ public class CropField : MonoBehaviour,IInteractable
 
     public void OutIntreactZone(GameObject interactingObject)
     {
-        if(interactingObject == null) return;
+        if(interactingObjects.Contains(interactingObject)) interactingObjects.Remove(interactingObject);
+        PlayerDataHolder temp_Dataholder = interactingObject.GetComponent<PlayerDataHolder>();
+       
 
-        if(this.interactingObject != interactingObject) return;
+        //if(this.interactingObject != interactingObject) return;
 
-        if(!IsOccupied) return;
-        IsOccupied = false;
+        // if(!IsOccupied) return;
+        // IsOccupied = false;
         infoUI.canChangeStatus = true;
         if(interactingObject.CompareTag("Player"))
         {
             _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
             UIManager.Instance.SetupIntreactButton(interactButtonData_Sow,false);
         }
-        interactingObject = null;
 
-        switch(state)
+    
+        if(playerDataHolders.Contains(temp_Dataholder))
         {
-            case E_Crop_State.Empty:
-                playerDataHolder?.playerAnimator.PlaySowAnimation(false);
-                playerDataHolder.seedParticle.onSeedCollided -= SeedCollidedCallback;
-                break;
-            case E_Crop_State.Sown:
-                playerDataHolder.playerAnimator.PlayeWaterAnimation(false);
-                playerDataHolder.waterParticle.onWaterCollided -= WaterCollidedCallBack;
-                AudioManager.instance.StopSound("Water",this.gameObject);
-                break;
-            case E_Crop_State.Watered:
-                playerDataHolder.playerAnimator.PlayerHarvestAnimation(false);
-                playerDataHolder.playerAnimationEvents.startHarvestCallBackEvent -= StartHervest;
-                break;
+
+        
+            switch(state)
+            {
+                case E_Crop_State.Empty:
+                    temp_Dataholder?.playerAnimator.PlaySowAnimation(false);
+                    temp_Dataholder.seedParticle.onSeedCollided -= SeedCollidedCallback;
+                    break;
+                case E_Crop_State.Sown:
+                    temp_Dataholder.playerAnimator.PlayeWaterAnimation(false);
+                    temp_Dataholder.waterParticle.onWaterCollided -= WaterCollidedCallBack;
+                    AudioManager.instance.StopSound("Water",this.gameObject);
+                    break;
+                case E_Crop_State.Watered:
+                    temp_Dataholder.playerAnimator.PlayerHarvestAnimation(false);
+                    temp_Dataholder.playerAnimationEvents.startHarvestCallBackEvent -= StartHervest;
+                    break;
+            }
+        
+            playerDataHolders.Remove(temp_Dataholder);
         }
+       
     }
     #region Player ANIMATIONS
     void PlayerSowField(PlayerAnimator animator)
@@ -341,21 +356,26 @@ public class CropField : MonoBehaviour,IInteractable
     }
     #endregion
     
-    private void StartHervest()
+    private void StartHervest(PlayerDataHolder owningPlayer)
     {
-        if(playerDataHolder == null) playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
-        Harvest(playerDataHolder.hervestSphere);
+        //if(playerDataHolder == null) playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
+        Harvest(owningPlayer.hervestSphere,owningPlayer);
     }
 
     
     void OnCompleteOnStep()
     {
-        if(interactingObject == null) return;
-        InIntreactZone(interactingObject);
-        if(interactingObject.CompareTag("Player"))
-            _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
-        playerDataHolder.playerAnimator.StopAllLayeredAnimation();
-        AudioManager.instance.StopSound("Water",this.gameObject);
+        for(int i=0 ; i<interactingObjects.Count ; i++)
+        {
+            if(interactingObjects[i] == null) return;
+            InIntreactZone(interactingObjects[i]);
+
+            if(interactingObjects[i].CompareTag("Player"))
+                _GameAssets.Instance.OnPlayerInteractStatusChangeEvent.Raise(this,false);
+            
+            playerDataHolders[i].playerAnimator.StopAllLayeredAnimation();
+            AudioManager.instance.StopSound("Water",this.gameObject);
+        }
     }
 
     public void ShowInfo(bool val)

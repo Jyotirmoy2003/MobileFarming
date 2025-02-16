@@ -10,8 +10,9 @@ public class PlayerAnimationEvents : MonoBehaviour
     [Header("Elements")]
     [SerializeField] ParticleSystem seedParticle;
     [SerializeField] ParticleSystem waterParticle;
+    [SerializeField] PlayerDataHolder owningPlayer;
 
-    public Action startHarvestCallBackEvent, endHarvestCallBackEvent;
+    public Action<PlayerDataHolder> startHarvestCallBackEvent, endHarvestCallBackEvent;
 
 
     void Start()
@@ -31,13 +32,13 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     private void StartHarvestingCallback()
     {
-        startHarvestCallBackEvent?.Invoke();
+        startHarvestCallBackEvent?.Invoke(owningPlayer);
         //AudioManager.instance.PlaySound("Cut");
     }
 
     private void StopHervestingCallback()
     {
-        endHarvestCallBackEvent?.Invoke();
+        endHarvestCallBackEvent?.Invoke(owningPlayer);
     }
   
 }

@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class CropFieldInfoUI : InfoUI
 {
     [Header("Elemsnts")]
-    [SerializeField] Image cropIcon;
+    [SerializeField] SpriteRenderer croPopup;
     public void Initialize(CropData cropData)
     {
-        cropIcon.sprite = cropData.uiIconSprite;
+        croPopup.sprite = cropData.cropPopUp;
     }
 }
