@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028417, g: 0.22571534, b: 0.30692172, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028463, g: 0.22571611, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9030,6 +9030,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4341532348425191982}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &810787257
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1006124406101537331, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Cow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.2808554
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.2689872
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071749112166860095, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3806243691302753248, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: beginFromStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469464291584341528, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469464291584341528, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 16d37a42b7608e24ba773b54bb9fdb2b, type: 3}
 --- !u!1 &831619094
 GameObject:
   m_ObjectHideFlags: 0
@@ -22985,37 +23068,37 @@ PrefabInstance:
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9999619
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.006335957
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000011723065
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0060024736
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -0.726
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0.004
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3826095267519727577, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.688
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7810555361482623205, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
@@ -25812,6 +25895,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6931914407078216354, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: de5e53ad3e7ee0240822004b34fc6e8e, type: 3}
+    - target: {fileID: 6931914407078216354, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3a0ec4acb61c47f449f06df1e8bad48c, type: 2}
+    - target: {fileID: 6931914407078216354, guid: 822f2b7ef77d6774f898d3871e0e89e8,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'Neck'\n\tTransform 'LeftLeg'\n\tTransform
+        'LeftArm'\n\tTransform 'RightShoulder'\n\tTransform 'LeftShoulder'\n\tTransform
+        'RightArm'\n\tTransform 'LeftFoot'\n\tTransform 'Spine'\n\tTransform 'RightLeg'\n\tand
+        more ...\n\tFrom animation clip 'Idle'"
+      objectReference: {fileID: 0}
     - target: {fileID: 7697864672842447734, guid: 822f2b7ef77d6774f898d3871e0e89e8,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -28238,3 +28341,4 @@ SceneRoots:
   - {fileID: 1464201806}
   - {fileID: 1117242180}
   - {fileID: 1356742142}
+  - {fileID: 810787257}
