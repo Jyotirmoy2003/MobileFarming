@@ -83,6 +83,7 @@ public class PlayerAnimator : MonoBehaviour
         if(water)
         {
             animator.SetLayerWeight(2,1);
+            waterParticel.Play();
         } 
         else{
             animator.SetLayerWeight(2,0);

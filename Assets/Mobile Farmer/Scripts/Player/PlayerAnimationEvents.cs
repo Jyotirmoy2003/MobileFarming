@@ -25,11 +25,7 @@ public class PlayerAnimationEvents : MonoBehaviour
         seedParticle.Play();
     }
 
-    private void PlayWaterAnimation()
-    {
-        waterParticle.Play();
-    }
-
+  
     private void StartHarvestingCallback()
     {
         startHarvestCallBackEvent?.Invoke(owningPlayer);

@@ -82,6 +82,7 @@ public class CropFieldMerger : MonoBehaviour
 
             Destroy(connectedFields[index].cropField);
             Destroy(connectedFields[index].cropFieldRangeTrigger);
+            Destroy(connectedFields[index].infoUI.gameObject);
 
         }else if(connectedFields[index].chunkTranform.position.x == myDataHolder.chunkTranform.position.x && connectedFields[index].chunkTranform.position.z > myDataHolder.chunkTranform.position.z)
         {
@@ -96,6 +97,7 @@ public class CropFieldMerger : MonoBehaviour
 
             Destroy(connectedFields[index].cropField);
             Destroy(connectedFields[index].cropFieldRangeTrigger);
+            Destroy(connectedFields[index].infoUI.gameObject);
 
         }else if(connectedFields[index].chunkTranform.position.x < myDataHolder.chunkTranform.position.x && connectedFields[index].chunkTranform.position.z == myDataHolder.chunkTranform.position.z)
         {
@@ -110,6 +112,7 @@ public class CropFieldMerger : MonoBehaviour
 
             Destroy(connectedFields[index].cropField);
             Destroy(connectedFields[index].cropFieldRangeTrigger);
+            Destroy(connectedFields[index].infoUI.gameObject);
 
         }else{
             //Connect Bottom
@@ -123,6 +126,7 @@ public class CropFieldMerger : MonoBehaviour
 
             Destroy(connectedFields[index].cropField);
             Destroy(connectedFields[index].cropFieldRangeTrigger);
+            Destroy(connectedFields[index].infoUI.gameObject);
 
         }
     }

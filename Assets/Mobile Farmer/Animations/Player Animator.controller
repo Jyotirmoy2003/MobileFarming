@@ -113,10 +113,10 @@ AnimatorStateMachine:
     m_Position: {x: 250, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2751040042611841813}
-    m_Position: {x: 250, y: -40, z: 0}
+    m_Position: {x: 250, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7880111344054485956}
-    m_Position: {x: 612.3434, y: 220.78189, z: 0}
+    m_Position: {x: 560, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -973334161094588198}
     m_Position: {x: 622.3434, y: 230.78189, z: 0}
@@ -227,7 +227,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9769b10aefebfa444b338df0e7d0979e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 24d182d0aad5c9b40a5095932b799134, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -355,7 +355,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0eaaceb06ede48c4ca4154b8a457120a, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0c1a83d23c0a963429a5971409228a19, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -417,7 +417,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shake Tree
-  m_Speed: 1.5
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 8784466279697515260}
@@ -430,7 +430,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 473647998ce4d0349b91fa7ac86a4703, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0d483ddcd3c48a84ea3835f19a43ce91, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
