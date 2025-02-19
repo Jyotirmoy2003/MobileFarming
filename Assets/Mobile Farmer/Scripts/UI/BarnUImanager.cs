@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using jy_util;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BarnUImanager : MonoSingleton<BarnUImanager>
 {
     [SerializeField] GameObject barnUIContiner;
     [SerializeField] List<WorkerContiner> workerContiners = new List<WorkerContiner>();
-    public Action<int> hireButtonPressed;
+    public Action<int> hireButtonPressed,clothButtonPressed;
     public Action closeButtonPressed;
 
 
@@ -39,9 +40,15 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
     {
         hireButtonPressed?.Invoke(index);
     }
+    public void OnClothButtonPressed(int index)
+    {
+        clothButtonPressed?.Invoke(index);
+        
+    }
 
     public void CloseButtonPressed()
     {
+        
         closeButtonPressed?.Invoke();
         barnUIContiner.SetActive(false);
     }

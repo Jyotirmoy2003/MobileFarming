@@ -8,16 +8,20 @@ using System;
 public class PlayerAnimationEvents : MonoBehaviour
 {
     [Header("Elements")]
-    [SerializeField] ParticleSystem seedParticle;
-    [SerializeField] ParticleSystem waterParticle;
-    [SerializeField] PlayerDataHolder owningPlayer;
+     ParticleSystem seedParticle;
+     PlayerDataHolder owningPlayer;
 
     public Action<PlayerDataHolder> startHarvestCallBackEvent, endHarvestCallBackEvent;
 
 
     void Start()
     {
-        
+        if(!owningPlayer)
+        {
+            owningPlayer = GetComponentInParent<PlayerDataHolder>();
+            if(owningPlayer)
+                seedParticle = owningPlayer.seedParticle.GetComponent<ParticleSystem>();
+        }
     }
 
     private void PlaySeedParticle()
@@ -35,6 +39,13 @@ public class PlayerAnimationEvents : MonoBehaviour
     private void StopHervestingCallback()
     {
         endHarvestCallBackEvent?.Invoke(owningPlayer);
+    }
+
+    public void CacheData()
+    {
+        owningPlayer = GetComponentInParent<PlayerDataHolder>();
+        if(owningPlayer)
+            seedParticle = owningPlayer.seedParticle.GetComponent<ParticleSystem>();
     }
   
 }

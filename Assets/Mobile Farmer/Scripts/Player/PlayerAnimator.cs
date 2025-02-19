@@ -120,5 +120,13 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetLayerWeight(4,1);
     }
 
+    public void CacheNewVisual(DressSetup dressSetup)
+    {
+        animator = dressSetup.animator;
+        rendererTransform = dressSetup.animator.transform;
+        wateringCan = dressSetup.wateringCan;
+        harvestScythe = dressSetup.Scythe;
+    }
+
 
 }

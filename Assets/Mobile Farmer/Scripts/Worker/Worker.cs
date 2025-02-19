@@ -16,6 +16,7 @@ public class Worker : MonoBehaviour
     public SowField sowFieldState = new SowField();
     public WaterField waterFieldState = new WaterField();
     public LoadoutToBarn loadoutToBarnState = new LoadoutToBarn();
+    public ChangeVisual changeVisualState = new ChangeVisual();
     public E_Worker_State E_state;
 
     #endregion
@@ -38,8 +39,12 @@ public class Worker : MonoBehaviour
     private Action onDelayDone;
     public int carringCrop = 0;
     public bool isMyBarnFull = false;
+
+    public DressSetup myDresssetup;
+
     void Start()
     {
+        CacheNewVisual(myDresssetup);
         workerStat.allocatedBarn = allocatedBarn;
         currentState = workerIdleState;
         currentState.EnterState(this);
@@ -95,9 +100,25 @@ public class Worker : MonoBehaviour
         }
     }
 
+
     public void StartWorke()
     {
         SwitchState(assignFieldState);
+    }
+
+    public void CacheNewVisual(DressSetup dressSetup)
+    {
+        Destroy(playerDataHolder.playerAnimationEvents.gameObject);
+        myDresssetup = Instantiate(dressSetup,transform);
+        sackObject = dressSetup.sack;
+        playerDataHolder.CacheNewVisual(myDresssetup);
+        playerDataHolder.playerAnimator.CacheNewVisual(myDresssetup);
+    }
+
+    public void CallVisualChange(DressSetup dressSetup)
+    {
+        myDresssetup = dressSetup;
+        SwitchState(changeVisualState);
     }
 
 }
@@ -168,6 +189,7 @@ public class AssignField : WorkerBase
     public override void EnterState(Worker wk)
     {
         worker = wk;
+        worker.E_state = E_Worker_State.AssignField;
         worker.assignedCropField = worker.workerStat.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
         worker.cropFieldDataHolder = worker.assignedCropField.cropFieldDataHolder;
         worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position); //for testing let it be here
@@ -544,7 +566,7 @@ public class LoadoutToBarn : WorkerBase
     {
         
 
-        if(worker.navMeshAgent.remainingDistance <=0.1f)
+        if(worker.navMeshAgent.remainingDistance <=0.5f)
         {
             timmer -= Time.deltaTime;
             if(worker.carringCrop > 0)
@@ -627,6 +649,84 @@ public class WaitForBarnToClear : WorkerBase
     }
 }
 
+
+public class ChangeVisual : WorkerBase 
+{
+   private Worker worker;
+    private float timmer = 5f;
+    private bool stopIdle = false;
+    public override void EnterState(Worker wk)
+    {
+
+        worker = wk;
+        worker.E_state= E_Worker_State.ChangeVisual;
+        timmer = 5f;
+        GoToBarn();
+        worker.playerDataHolder.playerAnimator.StopAllLayeredAnimation();
+        worker.allocatedBarn.OnBarnFull += OnBarnFullCallback;
+        //worker.sackObject.SetActive(true);
+        
+    }
+
+    public override void ExitState(Worker wk)
+    {
+        worker.CacheNewVisual(worker.myDresssetup);
+        worker.allocatedBarn.OnBarnFull -= OnBarnFullCallback;
+        worker.sackObject.SetActive(false);
+    }
+
+    public override void ListenToEvent(Component sender, object data, int id, Worker wk)
+    {
+        
+    }
+
+    public override void ListenToEvent(Component sender, object data)
+    {
+        
+    }
+
+    public override void StartTime(string coroutineName, Action OnComplete)
+    {
+        
+    }
+
+    public override void UpdateState(Worker wk)
+    {
+        
+
+        if(worker.navMeshAgent.remainingDistance <=0.5f)
+        {
+            timmer -= Time.deltaTime;
+            if(worker.carringCrop > 0)
+            {
+                int temp_avl_Space = worker.allocatedBarn.AddItemInInventory(worker.workerStat.workableCorp.item_type,worker.workerStat.maxLoadCapacity);
+                
+                if(temp_avl_Space < worker.carringCrop) 
+                    worker.carringCrop -= temp_avl_Space;
+                else
+                    worker.carringCrop = 0;
+            }
+            if(timmer <= 0)
+            {
+                worker.SwitchState(worker.assignFieldState);
+            }
+        }
+
+    }
+
+    void GoToBarn()
+    {
+        worker.navMeshAgent.SetDestination(worker.workerStat.allocatedBarn.workerLoadOutPos.position);
+    }
+    void OnBarnFullCallback(E_Inventory_Item_Type item_Type)
+    {
+        if(item_Type == worker.workerStat.workableCorp.item_type)
+        {
+            worker.isMyBarnFull = true;
+            worker.SwitchState(worker.waitForBarnToClearState);
+        }
+    } 
+}
 
 
 

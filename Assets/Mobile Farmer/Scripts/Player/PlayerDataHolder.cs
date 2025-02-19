@@ -11,4 +11,10 @@ public class PlayerDataHolder : MonoBehaviour
     [Header ( "Particel")]
     public SeedParticle seedParticle;
     public WaterParticle waterParticle;
+
+    public void CacheNewVisual(DressSetup dressSetup)
+    {
+        playerAnimationEvents = dressSetup.playerAnimationEvents;
+        playerAnimationEvents.CacheData();
+    }
 }

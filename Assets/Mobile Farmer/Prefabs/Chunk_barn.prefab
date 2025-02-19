@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2942548549095902481}
   - component: {fileID: 6850770633977307150}
   - component: {fileID: 2551636265582141843}
+  - component: {fileID: 7949701954741374985}
   m_Layer: 0
   m_Name: barnTrigger
   m_TagString: Untagged
@@ -133,6 +134,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveFileName: BarnInventory.txt
   totalItemsInInventory: 0
+--- !u!114 &7949701954741374985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199094050848071277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12106e9cbea7aea44af087dbcada7923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: b6d8e45e0f0f5944b8f6224921940cb1, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6850770633977307150}
+        m_TargetAssemblyTypeName: Barn, Assembly-CSharp
+        m_MethodName: ListnToOnNewDressSelected
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1374178095326911469
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using jy_util;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(BarnInventory))]
@@ -24,6 +25,7 @@ public class Barn : MonoBehaviour,IInteractable
     [SerializeField] string saveFileName = "/BarnData.txt";
 
 
+    private List<Worker> workersUnderthisBarn = new List<Worker>();
     private string dataPath;
     private BarnInventory barnInventory;
     public Action<E_Inventory_Item_Type> OnBarnFull;
@@ -31,6 +33,8 @@ public class Barn : MonoBehaviour,IInteractable
     [SerializeField]
     private bool isBarnEmpty = true;
     private WorkerData workerData;
+    private bool listenigForInput = false;
+    private int selectedWorkerIndex = -1;
     
 
 
@@ -264,6 +268,7 @@ public class Barn : MonoBehaviour,IInteractable
         temp.allocatedBarn = this;
         temp.workerStat = workerStats[index];
         workerStats[index].isPurchased = true;
+        workersUnderthisBarn.Add(temp);
     }
     public int AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
     {
@@ -297,10 +302,12 @@ public class Barn : MonoBehaviour,IInteractable
         {
             BarnUImanager.Instance.hireButtonPressed += OnHireButtonPressed;
             BarnUImanager.Instance.closeButtonPressed += OnCloseButtonPressed;
+            BarnUImanager.Instance.clothButtonPressed += OnClothButtonPressed;
         }else
         {
             BarnUImanager.Instance.hireButtonPressed -= OnHireButtonPressed;
             BarnUImanager.Instance.closeButtonPressed -= OnCloseButtonPressed;
+            BarnUImanager.Instance.clothButtonPressed -= OnClothButtonPressed;
         }
     }
 
@@ -326,13 +333,36 @@ public class Barn : MonoBehaviour,IInteractable
         Hireworker(index-1);
     }
 
+    void OnClothButtonPressed(int index)
+    {
+        listenigForInput = true;
+        selectedWorkerIndex = -1;
+        for(int i=0 ; i<workersUnderthisBarn.Count;i++)
+        {
+            if(workersUnderthisBarn[i].workerStat == workerStats[index-1]) selectedWorkerIndex = i;
+        }
+
+        if(selectedWorkerIndex >= 0) //when its a valid index
+        {
+            SceneManager.LoadScene("DressingRoom", LoadSceneMode.Additive);
+        }
+    }
+
     void OnCloseButtonPressed()
     {
+        listenigForInput = false;
+        SceneManager.UnloadSceneAsync("DressingRoom");
         CameraManager.Instance.SwitchCamera();
     }
     #endregion
 
     #endregion
+
+    public void ListnToOnNewDressSelected(Component sender, object data)
+    {
+        if(!listenigForInput) return;
+        workersUnderthisBarn[selectedWorkerIndex].CallVisualChange(data as DressSetup);
+    }
     
 }
 

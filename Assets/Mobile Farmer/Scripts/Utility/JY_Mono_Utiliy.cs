@@ -183,6 +183,7 @@ public enum E_Worker_State{
     HervestField,
     LoadoutToBarn,
     WaitForBarnToClear,
+    ChangeVisual,
 }
 
 #endregion

@@ -9,6 +9,7 @@ public class WorkerStat : ScriptableObject
     public bool isPurchased = false;
     public Sprite workerAvater;
     public Worker workerPrefab;
+    public Worker currentWorkerInstance;
     public Barn allocatedBarn;
     [Header("Settings")]
     [Range(1,10)]
