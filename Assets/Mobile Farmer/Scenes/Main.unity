@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028463, g: 0.22571611, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028417, g: 0.22571534, b: 0.30692172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -25908,12 +25908,7 @@ PrefabInstance:
     - target: {fileID: 6931914407078216354, guid: 822f2b7ef77d6774f898d3871e0e89e8,
         type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'Neck'\n\tTransform 'LeftLeg'\n\tTransform
-        'LeftArm'\n\tTransform 'RightShoulder'\n\tTransform 'LeftShoulder'\n\tTransform
-        'RightArm'\n\tTransform 'LeftFoot'\n\tTransform 'Spine'\n\tTransform 'RightLeg'\n\tand
-        more ...\n\tFrom animation clip 'Idle'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7697864672842447734, guid: 822f2b7ef77d6774f898d3871e0e89e8,
         type: 3}
@@ -26487,8 +26482,7 @@ Animator:
     'LeftHandThumb1'\n\tTransform 'RightHandThumb3'\n\tTransform 'RightForeArm'\n\tTransform
     'LeftLeg'\n\tTransform 'RightHandThumb1'\n\tTransform 'RightHandIndex3'\n\tTransform
     'RightHandIndex1'\n\tand more ...\n\tFrom animation clip 'Fishing Pull back'\n\tFrom
-    animation clip 'Fishing Cast'\n\tFrom animation clip 'Shake Pose'\n\tFrom animation
-    clip 'Shake Tree'"
+    animation clip 'Fishing Cast'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

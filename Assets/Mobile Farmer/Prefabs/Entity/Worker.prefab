@@ -449,7 +449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2666845906374572638}
+  m_Father: {fileID: 7197116205736269371}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &8795486973388644448
 ParticleSystem:
@@ -7512,6 +7512,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1062424832321439980}
+  - {fileID: 3210005697798652230}
   - {fileID: 3837095256154010249}
   - {fileID: 2666845906374572638}
   - {fileID: 7457695309722000403}
@@ -7529,8 +7531,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da9b35deadbe0248a74e038b7b61d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 545830161461207564}
-  rendererTransform: {fileID: 3837095256154010249}
+  animator: {fileID: 6601872206664426874}
+  rendererTransform: {fileID: 2666845906374572638}
   waterParticel: {fileID: 1197705684665543186}
   seedParticel: {fileID: 8795486973388644448}
   wateringCan: {fileID: 7302504578397341758}
@@ -7577,7 +7579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 0
   playerAnimator: {fileID: 3406181513860698265}
-  playerAnimationEvents: {fileID: 7254489317009512639}
+  playerAnimationEvents: {fileID: 262328427556228016}
   hervestSphere: {fileID: 3801134252780154289}
   seedParticle: {fileID: 7789604908101182823}
   waterParticle: {fileID: 9165359184202916944}
@@ -7769,7 +7771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2666845906374572638
 Transform:
   m_ObjectHideFlags: 0
@@ -7783,8 +7785,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3210005697798652230}
-  - {fileID: 1062424832321439980}
   - {fileID: 529408681489159995}
   - {fileID: 4931500006537604123}
   - {fileID: 3801134252780154289}
@@ -7799,14 +7799,20 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4459070216563781381}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: de5e53ad3e7ee0240822004b34fc6e8e, type: 3}
   m_Controller: {fileID: 9100000, guid: 45e28930cf7d73c4798249e72ecf59a8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform 'LeftHandThumb1'\n\tTransform
+    'RightHandThumb3'\n\tTransform 'RightForeArm'\n\tTransform 'RightHandThumb1'\n\tTransform
+    'RightHandIndex1'\n\tTransform 'LeftArm'\n\tTransform 'RightShoulder'\n\tTransform
+    'LeftShoulder'\n\tand more ...\n\tFrom animation clip 'Shake Pose'\n\tFrom animation
+    clip 'Shake Tree'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -9121,7 +9127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3837095256154010249
 Transform:
   m_ObjectHideFlags: 0
@@ -9165,13 +9171,10 @@ Animator:
   m_StabilizeFeet: 0
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
-    'Spine'\n\tTransform 'Spine2'\n\tTransform 'Hips'\n\tTransform 'Head'\n\tTransform
-    'Spine1'\n\tTransform 'Neck'\n\tTransform 'Armature'\n\tand more ...\n\tFrom
-    animation clip 'Idle'\n\tFrom animation clip 'Mow'\n\tFrom animation clip 'Run'\n\tFrom
-    animation clip 'Sow'\n\tFrom animation clip 'Fishing Pull back'\n\tFrom animation
-    clip 'Fishing Cast'\n\tFrom animation clip 'Sow'\n\tFrom animation clip 'Water'\n\tFrom
-    animation clip 'Mow'\n\tFrom animation clip 'Shake Pose'\n\tand more ..."
+    by Humanoid clips.\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform 'Spine'\n\tTransform
+    'Spine2'\n\tTransform 'Head'\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
+    'Armature'\n\tTransform 'Spine'\n\tTransform 'Spine2'\n\tand more ...\n\tFrom
+    animation clip 'Shake Pose'\n\tFrom animation clip 'Shake Tree'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -9385,7 +9388,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2666845906374572638}
+  m_Father: {fileID: 7197116205736269371}
   m_LocalEulerAnglesHint: {x: -54.033, y: 0, z: 0}
 --- !u!198 &1197705684665543186
 ParticleSystem:
