@@ -1785,7 +1785,12 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform 'Spine'\n\tTransform
+    'Spine2'\n\tTransform 'Head'\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
+    'Armature'\n\tTransform 'Spine'\n\tTransform 'Spine2'\n\tand more ...\n\tFrom
+    animation clip 'Shake Pose'\n\tFrom animation clip 'Shake Tree'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

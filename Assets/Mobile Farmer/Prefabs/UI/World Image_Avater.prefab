@@ -166,7 +166,7 @@ MonoBehaviour:
   m_cameraDepth: 0
   m_cameraCullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   CameraOverride: {fileID: 0}
   RenderTextureOverride: {fileID: 0}
 --- !u!114 &4896550169743301388

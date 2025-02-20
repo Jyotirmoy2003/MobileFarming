@@ -15,6 +15,12 @@ public class PlayerAnimator : MonoBehaviour
     [Header("Settings")]
     [SerializeField] float moveSpeedMultiplier=1f;
 
+    void Start()
+    {
+        // #if UNITY_EDITOR
+        // moveSpeedMultiplier = 30f;
+        // #endif
+    }
 
 
 
@@ -26,7 +32,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         if(moveVector.magnitude > 0)
         {
-            animator.SetFloat("moveSpeed",moveVector.magnitude * moveSpeedMultiplier);
+            animator.SetFloat("moveSpeed",moveVector.magnitude * moveSpeedMultiplier * Time.deltaTime);
             PlayRunAnimation();
 
             rendererTransform.forward=moveVector.normalized;
