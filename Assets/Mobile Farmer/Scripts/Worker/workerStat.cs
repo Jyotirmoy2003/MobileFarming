@@ -10,7 +10,6 @@ public class WorkerStat : ScriptableObject
     public Sprite workerAvater;
     public Worker workerPrefab;
     public Worker currentWorkerInstance;
-    public Barn allocatedBarn;
     [Header("Settings")]
     [Range(1,10)]
     public int level = 1;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028417, g: 0.22571534, b: 0.30692172, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028463, g: 0.22571611, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22379,7 +22379,7 @@ MonoBehaviour:
   seedParticel: {fileID: 782743594}
   wateringCan: {fileID: 2558700391981673481}
   harvestScythe: {fileID: 5013334355223573180}
-  moveSpeedMultiplier: 6
+  moveSpeedMultiplier: 2500
 --- !u!114 &1716099293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26846,6 +26846,11 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 554231036604488005, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.241
+      objectReference: {fileID: 0}
     - target: {fileID: 588273614590594700, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd,
         type: 3}
       propertyPath: m_fontAsset
@@ -27040,7 +27045,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 292220154}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5623048152458470061, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9db2ddcddd66e6a4ab4c8c20792fc2fd, type: 3}

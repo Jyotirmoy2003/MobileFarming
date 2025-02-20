@@ -45,7 +45,7 @@ public class Worker : MonoBehaviour
     void Start()
     {
         CacheNewVisual(myDresssetup);
-        workerStat.allocatedBarn = allocatedBarn;
+
         currentState = workerIdleState;
         currentState.EnterState(this);
     }
@@ -146,7 +146,7 @@ public class WorkerIdle : WorkerBase
     {
         worker = wk;
         worker.E_state = E_Worker_State.Idle;
-        worker.StartTimmer(4f,StartWork);
+        worker.StartTimmer(2f,StartWork);
     }
 
     public override void ExitState(Worker wk)
@@ -186,18 +186,21 @@ public class WorkerIdle : WorkerBase
 public class AssignField : WorkerBase
 {
     Worker worker;
+    Action updateAction;
     public override void EnterState(Worker wk)
     {
         worker = wk;
         worker.E_state = E_Worker_State.AssignField;
-        worker.assignedCropField = worker.workerStat.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
+        worker.assignedCropField = worker.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
         worker.cropFieldDataHolder = worker.assignedCropField.cropFieldDataHolder;
         worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position); //for testing let it be here
+
+        updateAction += CheckDest;
     }
 
     public override void ExitState(Worker wk)
     {
-        
+        updateAction -= CheckDest;
     }
 
     public override void ListenToEvent(Component sender, object data, int id, Worker wk)
@@ -220,12 +223,17 @@ public class AssignField : WorkerBase
 
     public override void UpdateState(Worker wk)
     {
+        updateAction?.Invoke();
+    }
+
+    void CheckDest()
+    {
         if(worker.navMeshAgent.remainingDistance <= 0.1f)
         {
+            Debug.Log("reached to crop field");
             worker.SwitchState(worker.performActionState);
         }
     }
-
 
 
 }
@@ -588,7 +596,7 @@ public class LoadoutToBarn : WorkerBase
 
     void GoToBarn()
     {
-        worker.navMeshAgent.SetDestination(worker.workerStat.allocatedBarn.workerLoadOutPos.position);
+        worker.navMeshAgent.SetDestination(worker.allocatedBarn.workerLoadOutPos.position);
     }
     void OnBarnFullCallback(E_Inventory_Item_Type item_Type)
     {
@@ -716,7 +724,7 @@ public class ChangeVisual : WorkerBase
 
     void GoToBarn()
     {
-        worker.navMeshAgent.SetDestination(worker.workerStat.allocatedBarn.workerLoadOutPos.position);
+        worker.navMeshAgent.SetDestination(worker.allocatedBarn.workerLoadOutPos.position);
     }
     void OnBarnFullCallback(E_Inventory_Item_Type item_Type)
     {

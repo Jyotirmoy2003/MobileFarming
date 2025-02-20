@@ -33,6 +33,10 @@ public class CropField : MonoBehaviour,IInteractable
 
     void Start()
     {
+        OnFullyHarvested = null;
+        onFullySown = null;
+        onFullyWatered = null;
+        
         state=E_Crop_State.Empty;
         infoUI.Initialize(cropData);
         StoreTile();
@@ -44,6 +48,14 @@ public class CropField : MonoBehaviour,IInteractable
         cropTiles.Clear();
         for(int i=0;i<tilesParent.childCount;i++)
             cropTiles.Add(tilesParent.GetChild(i).GetComponent<CropTile>());
+    }
+
+
+    private void OnDisable()
+    {
+        OnFullyHarvested = null;
+        onFullySown = null;
+        onFullyWatered = null;
     }
    
     #region Particel Callbacks

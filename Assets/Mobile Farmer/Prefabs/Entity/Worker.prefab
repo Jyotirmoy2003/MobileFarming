@@ -4962,7 +4962,7 @@ MonoBehaviour:
   seedParticel: {fileID: 8795486973388644448}
   wateringCan: {fileID: 7302504578397341758}
   harvestScythe: {fileID: 5540355979412755928}
-  moveSpeedMultiplier: 0.5
+  moveSpeedMultiplier: 70
 --- !u!114 &3421568490677907059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5031,7 +5031,7 @@ MonoBehaviour:
   sackObject: {fileID: 8426482025813404044}
   carringCrop: 0
   isMyBarnFull: 0
-  myDresssetup: {fileID: 5948113940310587717, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+  myDresssetup: {fileID: 6811876677036345532, guid: a9338021583897840a5c9600c68addb7,
     type: 3}
 --- !u!195 &3850596516937870505
 NavMeshAgent:
