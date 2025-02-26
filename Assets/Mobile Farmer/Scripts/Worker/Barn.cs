@@ -23,6 +23,7 @@ public class Barn : MonoBehaviour,IInteractable
     public List<StorageUIStatus> storageUIStatuses = new List<StorageUIStatus>();
     [Header("Settings")]
     [SerializeField] string saveFileName = "/BarnData.txt";
+    [SerializeField] bool isActive = false; //for testing in editor
 
 
     private List<Worker> workersUnderthisBarn = new List<Worker>();
@@ -63,9 +64,11 @@ public class Barn : MonoBehaviour,IInteractable
         
         UpdateUiDisplay();
         UpdateSackinBarn();
-    
+
+        if(!isActive) return;
+
         //spawn worker
-       
+
         for(int i=0 ; i< workerStats.Count ; i++ )
             if(workerStats[i].isPurchased) SpawnWorkers(i);
     

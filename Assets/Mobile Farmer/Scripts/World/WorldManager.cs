@@ -53,6 +53,8 @@ public class WorldManager : MonoBehaviour
         InitializeGrid(); //creates grid
         UpdateGridWall(); //set up walls
         UpdateGridRenderer(); //set up chunk visibility
+
+        SaveData();
     }
 
 
@@ -218,19 +220,39 @@ public class WorldManager : MonoBehaviour
 
     private void UpdateData()
     {
-        //calculate how many chunks are missing
-        int missingData = world.childCount - worldData.chunkPrices.Count;
-        Debug.Log("<color=green>Missing data:</color>"+missingData +"child cout: "+world.childCount+ " chunkprice count: "+worldData.chunkPrices.Count);
-       
-        if(missingData > 0)
-        for(int i=worldData.chunkPrices.Count; i<world.childCount;i++)
+        int savedChunkCount = worldData.chunkPrices.Count;
+        int currentChunkCount = world.childCount;
+        int missingData = currentChunkCount - savedChunkCount;
+
+        Debug.Log($"<color=green>Missing data:</color> {missingData} | World Child Count: {currentChunkCount} | Saved Chunk Count: {savedChunkCount}");
+
+        // If missing chunks exist, add their initial price
+        if (missingData > 0)
         {
-            int chunkIndex =  i;
-            int chunkPrice = world.GetChild(chunkIndex).GetComponent<Chunk>().GetInitialPrice();
-            worldData.chunkPrices.Add(chunkPrice);
+            for (int i = savedChunkCount; i < currentChunkCount; i++)
+            {
+                int chunkPrice = world.GetChild(i).GetComponent<Chunk>().GetInitialPrice();
+                worldData.chunkPrices.Add(chunkPrice);
+            }
+
+            shouldsave = true; // Mark as needing save
         }
-        SaveData();
+        
+        // Optional: Ensure no extra old data lingers
+        if (savedChunkCount > currentChunkCount)
+        {
+            Debug.LogWarning("Detected more saved chunks than present in the world. Trimming extra data...");
+            worldData.chunkPrices.RemoveRange(currentChunkCount, savedChunkCount - currentChunkCount);
+            shouldsave = true; // Mark as needing save
+        }
+
+        // Save only if changes were made
+        if (shouldsave)
+        {
+            SaveData();
+        }
     }
+
 
     private void TryToSave()
     {
@@ -240,8 +262,14 @@ public class WorldManager : MonoBehaviour
     private void SaveData()
     {
         shouldsave =false;
-        if(worldData.chunkPrices.Count != world.childCount)
-            worldData = new WorldData();
+        // if(worldData.chunkPrices.Count != world.childCount)
+        //     worldData = new WorldData();
+
+        // Ensure the list is large enough but don't wipe previous data
+        while (worldData.chunkPrices.Count < world.childCount)
+        {
+            worldData.chunkPrices.Add(0); // Default price, or use a method to get new chunk prices
+        }
         
         for(int i=0;i<world.childCount;i++)
         {
