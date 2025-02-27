@@ -145,6 +145,7 @@ public enum E_Crop_Type{
     Apple,
     Lemon,
     Pumpkin,
+    None,
 }
 
 public enum E_Inventory_Item_Type{
@@ -156,6 +157,7 @@ public enum E_Inventory_Item_Type{
     Pumpkin,
     Milk,
     Fish,
+    Egg,
 }
 
 public enum E_Crop_Progess{

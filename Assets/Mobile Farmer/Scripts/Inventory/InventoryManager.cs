@@ -90,6 +90,11 @@ public class InventoryManager : MonoSingleton<InventoryManager>
     public void AddItemToInventory(E_Inventory_Item_Type item,int amount)
     {
         inventory.AddItemToInventory(item, amount);
+        
+        inventoryDisplay.UpdateDisplay(inventory);
+
+        SaveInventory();
+        
     }
     public void AddInventoryToInventory(Inventory inventory)
     {
