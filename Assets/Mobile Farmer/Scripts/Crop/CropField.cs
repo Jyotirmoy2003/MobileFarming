@@ -43,12 +43,34 @@ public class CropField : MonoBehaviour,IInteractable
     }
 
 
-    public void StoreTile()
+     void StoreTile()
     {
         cropTiles.Clear();
         for(int i=0;i<tilesParent.childCount;i++)
             cropTiles.Add(tilesParent.GetChild(i).GetComponent<CropTile>());
+
+        
     }
+
+    public void MergeDone()
+    {
+        StoreTile();
+        switch(state)
+        {
+            case E_Crop_State.Empty:
+                InstantlySowTile();
+                break;
+            case E_Crop_State.Sown:
+                InstantlySowTile();
+                break;
+            case E_Crop_State.Watered:
+                InstantlyWaterTile();
+                break;
+
+        }
+    }
+
+   
 
 
     private void OnDisable()
@@ -197,6 +219,7 @@ public class CropField : MonoBehaviour,IInteractable
     {
         return cropData;
     }
+
     
     
     public void AnimateCropTileCallback()

@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CandyCoded.HapticFeedback;
 
-public class HapticManager : MonoBehaviour
+public class HapticManager : MonoSingleton<HapticManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    public void LightHaptic()
     {
-        
+        HapticFeedback.LightFeedback();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MediumHaptic()
     {
-        
+        HapticFeedback.MediumFeedback();
     }
+
+
 }

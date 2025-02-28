@@ -22,6 +22,7 @@ public class Barn : MonoBehaviour,IInteractable
     public InfoUI infoUI;
     public List<StorageUIStatus> storageUIStatuses = new List<StorageUIStatus>();
     [Header("Settings")]
+    [SerializeField] Chunk myChunkRef;
     [SerializeField] string saveFileName = "/BarnData.txt";
     [SerializeField] bool isActive = false; //for testing in editor
 
@@ -51,19 +52,40 @@ public class Barn : MonoBehaviour,IInteractable
         #if UNITY_EDITOR
         dataPath = Application.dataPath + saveFileName;
         #endif
+
+        
+        
         barnInventory = GetComponent<BarnInventory>();
         LoadWorker();
         Invoke(nameof(Init),1f);
+        
+    }
+
+    void MyChunkUnlocked()
+    {
+        myChunkRef.chunkUnlocked -= MyChunkUnlocked;
+        isActive = true;
+        Init();
     }
 
     void Init()
     {
+        if(!myChunkRef.IsUnclocked())
+        {
+            isActive = false;
+            myChunkRef.chunkUnlocked += MyChunkUnlocked;
+            return;
+        }
+        
+
         //set up storage UI
         for(int i=0;i<storageUIStatuses.Count;i++)
             storageUIStatuses[i].slider.maxValue = barnCapableItem[i].maxLoadCapacity;
         
         UpdateUiDisplay();
         UpdateSackinBarn();
+
+
 
         if(!isActive) return;
 
@@ -138,7 +160,10 @@ public class Barn : MonoBehaviour,IInteractable
         for(int i=0 ;i<nearByFields.Count;i++)
         {
             if(nearByFields[i].cropFieldDataHolder.chunk.IsUnclocked() && nearByFields[i].GetCropData()==cropData && !nearByFields[i].cropFieldDataHolder.cropField.IsOccupied)
-                return nearByFields[i];
+                {
+                    nearByFields[i].IsOccupied = true;
+                    return nearByFields[i];
+                }
         }
        return nearByFields[0];
    }

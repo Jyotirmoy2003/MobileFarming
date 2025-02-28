@@ -4962,7 +4962,7 @@ MonoBehaviour:
   seedParticel: {fileID: 8795486973388644448}
   wateringCan: {fileID: 7302504578397341758}
   harvestScythe: {fileID: 5540355979412755928}
-  moveSpeedMultiplier: 70
+  moveSpeedMultiplier: 0.5
 --- !u!114 &3421568490677907059
 MonoBehaviour:
   m_ObjectHideFlags: 0

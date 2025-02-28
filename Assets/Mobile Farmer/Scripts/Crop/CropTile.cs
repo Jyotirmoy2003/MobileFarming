@@ -18,11 +18,7 @@ public class CropTile : MonoBehaviour
 
 
 
-    void Start()
-    {
-        
-    }
-
+    
    
     public bool IsEmpty()
     {
@@ -43,9 +39,15 @@ public class CropTile : MonoBehaviour
     {
         state=E_Crop_State.Sown;
 
-        //set up new Crop in tile
-        crop=Instantiate(cropData.cropPrefab,transform.position,Quaternion.identity,cropParent);
-        crop.PushData(cropData);
+        if(crop == null)
+        {
+            //set up new Crop in tile
+            crop=Instantiate(cropData.cropPrefab,transform.position,Quaternion.identity,cropParent);
+            crop.PushData(cropData);
+        }else{
+            crop.gameObject.SetActive(true);
+            crop.ResetScale();
+        }
     }
 
 

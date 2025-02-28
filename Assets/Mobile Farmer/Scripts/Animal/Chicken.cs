@@ -39,6 +39,8 @@ public class Chicken : AnimalBase,IInteractable
             eggParticel.Play();
             infoUI.SetActivationStatus(false);
             infoUI.canChangeStatus = false;
+
+            HapticManager.Instance.MediumHaptic();
             Invoke(nameof(AddEggstoInventory),2f);
 
         }

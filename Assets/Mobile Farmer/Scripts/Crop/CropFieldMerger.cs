@@ -10,9 +10,9 @@ public class CropFieldMerger : MonoBehaviour
     [SerializeField] List<CropFieldDataHolder> connectedFields = new List<CropFieldDataHolder>();
     [Range(0.1f,5f)]
     [SerializeField] float initateTime = 3f;
+    public int priority = 10;
     public bool IsConnected = false;
     private bool calledByChunkUnlocking=false;
-    private bool tryToConnect = true;
 
 
     void Start()
@@ -42,10 +42,12 @@ public class CropFieldMerger : MonoBehaviour
 
 
 
-    void TryToMerge()
+    public void TryToMerge()
     {
        
         if(!myDataHolder.chunk.IsUnclocked()) return;
+
+       
       
         for(int i=0 ; i<connectedFields.Count ; i++)
         {
@@ -155,7 +157,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.StoreTile();
+        myDataHolder.cropField.MergeDone();
     }
     IEnumerator CreateTileLeftSide(int index)
     {
@@ -181,7 +183,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.StoreTile();
+        myDataHolder.cropField.MergeDone();
     }
 
     IEnumerator CreateTileAboveSide(int index)
@@ -208,7 +210,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.StoreTile();
+        myDataHolder.cropField.MergeDone();
     }
 
     IEnumerator CreateTileBottomSide(int index)
@@ -234,7 +236,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.StoreTile();
+        myDataHolder.cropField.MergeDone();
 
         yield return new WaitForSeconds(.2f);
         switch(myDataHolder.cropField.state)
@@ -253,7 +255,28 @@ public class CropFieldMerger : MonoBehaviour
     {
         if(!myDataHolder.chunk.IsUnclocked()) return; //When this chunk is locked dont listen to event
         calledByChunkUnlocking = true;
-        TryToMerge();
+
+        SelectMerger();
+    }
+
+    void SelectMerger()
+    {
+        for(int i=0 ; i<connectedFields.Count ; i++)
+        {
+            if(connectedFields[i] == null) continue;
+
+            if(!connectedFields[i].chunk.IsUnclocked()) continue;
+            
+            if(connectedFields[i].cropFieldMerger.IsConnected) continue;
+
+            if(connectedFields[i].cropField.GetCropData().cropType != myDataHolder.cropField?.GetCropData().cropType) continue;
+
+            if(connectedFields[i].cropFieldMerger.priority >= priority) connectedFields[i].cropFieldMerger.TryToMerge();
+            else{
+                Merge(i);
+            }
+
+        }
     }
 
  

@@ -40,6 +40,8 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         inventory.OnCropHervestedCallback(cropData);
         inventoryDisplay.UpdateDisplay(inventory);
 
+        HapticManager.Instance.LightHaptic();
+
         SaveInventory();
     }
 
