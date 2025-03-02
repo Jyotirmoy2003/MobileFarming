@@ -199,7 +199,7 @@ public class Barn : MonoBehaviour,IInteractable
             barnInventory.CalulateTotalItem();
             UpdateSackinBarn();
         }else{
-            BarnUImanager.Instance.ShowWorkerData(workerStats);
+            BarnUImanager.Instance.ShowWorkerData(workerStats,nearByFields);
             CameraManager.Instance.SwitchCamera(workerLoadOutPos,new Vector3(0,8,-10),new Vector3(0,0,0));
             SubcribeToUiButton(true);
         }
@@ -256,7 +256,10 @@ public class Barn : MonoBehaviour,IInteractable
         // Ensure workerData is initialized
         if (workerData == null){
             workerData = new WorkerData();
-            Debug.Log("file is null");}
+            Debug.Log("file is null");
+            
+        
+        }
 
         // Ensure workerStatSaves list is initialized
         if (workerData.workerStatSaves == null){
@@ -265,7 +268,7 @@ public class Barn : MonoBehaviour,IInteractable
         // Sync data between saved stats and existing workers
         for (int i = 0; i < workerStats.Count; i++)
         {
-            if (i < workerData.workerStatSaves.Count)
+            if (i < workerData.workerStatSaves.Count) //not using as we are creating the data there is no list
             {
                 // Load saved data
                 workerStats[i].isPurchased = workerData.workerStatSaves[i].isPurchased;
@@ -364,7 +367,7 @@ public class Barn : MonoBehaviour,IInteractable
             SaveWorker();
         }
         //update UI
-        BarnUImanager.Instance.ShowWorkerData(workerStats);
+        BarnUImanager.Instance.ShowWorkerData(workerStats,nearByFields);
     }
 
     void OnHireButtonPressed(int index)

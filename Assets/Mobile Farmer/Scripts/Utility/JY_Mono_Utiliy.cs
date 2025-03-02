@@ -80,11 +80,6 @@ public class WorldData
 public class WorkerData  // Renamed to PascalCase for convention
 {
     public List<WorkerStatSave> workerStatSaves;
-
-    public WorkerData()
-    {
-        workerStatSaves = new List<WorkerStatSave>();
-    } 
 }
 
 [System.Serializable]
@@ -94,6 +89,11 @@ public class WorkerStatSave
     public int level = 1;
     public int price = 1000;
     public int maxLoadCapacity = 20;
+    public WorkerStatSave()
+    {
+        this.isPurchased = false;
+        this.level = 1;
+    }
 
     public WorkerStatSave(bool isPurchased, int level, int price, int maxLoadCapacity)
     {
@@ -117,6 +117,8 @@ public struct BarnItem{
 [System.Serializable]
 public struct WorkerContiner
 {
+    public Button hireButton;
+    public Button clothButton;
     public Image img_workerImg;
     public TMP_Text text_workerName;
     public TMP_Text text_workerDescription;

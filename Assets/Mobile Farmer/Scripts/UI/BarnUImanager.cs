@@ -16,10 +16,11 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
 
 
 
-    public void ShowWorkerData(List<WorkerStat> workers)
+    public void ShowWorkerData(List<WorkerStat> workers,List<CropField> nearbyFields)
     {
         for(int i=0 ; i<workers.Count ; i++ )
         {
+            workerContiners[i].clothButton.interactable = workers[i].isPurchased;
             workerContiners[i].img_workerImg.sprite=workers[i].workerAvater;
             workerContiners[i].text_workerName.text = "Worker "+(i+1);
             workerContiners[i].img_workingCropImg.sprite=workers[i].workableCorp.uiIconSprite;
@@ -27,6 +28,17 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
             {
                 workerContiners[i].text_amount.text = CoinSystem.ConvertCoinToString(workers[i].price);
                 workerContiners[i].text_button.text = (workers[i].isPurchased) ? "Upgrade" : "Hire";
+
+                workerContiners[i].hireButton.interactable = false;
+                foreach(CropField item in nearbyFields)
+                {
+                    if(item.GetCropData() == workers[i].workableCorp && item.cropFieldDataHolder.chunk.IsUnclocked())
+                    {
+                        workerContiners[i].hireButton.interactable = true;
+                        break;
+                    }
+                }
+                
 
             }else{
                 workerContiners[i].text_amount.text = "";
@@ -51,6 +63,11 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
         
         closeButtonPressed?.Invoke();
         barnUIContiner.SetActive(false);
+    }
+
+    public void SetInteractStatus()
+    {
+
     }
 
    
