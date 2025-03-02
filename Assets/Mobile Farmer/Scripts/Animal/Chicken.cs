@@ -32,11 +32,14 @@ public class Chicken : AnimalBase,IInteractable
         if(isEggReady)
         {
             isEggReady = false;
+            Vector3 particelPos = new Vector3(transform.position.x,transform.position.y+1,transform.position.z);
 
-            ParticleSystem.Burst burst = eggParticel.emission.GetBurst(0);
+            ParticleSystem tempParticel = Instantiate(eggParticel,particelPos,Quaternion.identity);
+
+            ParticleSystem.Burst burst = tempParticel.emission.GetBurst(0);
             burst.count = eggCout;
-            eggParticel.emission.SetBurst(0, burst);
-            eggParticel.Play();
+            tempParticel.emission.SetBurst(0, burst);
+            tempParticel.Play();
             infoUI.SetActivationStatus(false);
             infoUI.canChangeStatus = false;
 
