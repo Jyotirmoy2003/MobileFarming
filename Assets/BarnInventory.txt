@@ -1,12 +1,12 @@
 {
     "items": [
         {
-            "item_type": 2,
+            "item_type": 1,
             "amount": 30
         },
         {
-            "item_type": 1,
-            "amount": 90
+            "item_type": 2,
+            "amount": 60
         }
     ]
 }

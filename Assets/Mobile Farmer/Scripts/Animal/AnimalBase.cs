@@ -21,9 +21,9 @@ public class AnimalBase : MonoBehaviour
         randomMovement.OnReachOnDestination += OnReachToOneDest;
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
-        randomMovement.OnReachOnDestination -= OnReachToOneDest;
+        if(randomMovement)randomMovement.OnReachOnDestination -= OnReachToOneDest;
     }
 
    void OnReachToOneDest()

@@ -6,7 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class SeedParticle : MonoBehaviour
 {
-    public  Action<Vector3[]> onSeedCollided;
+    [SerializeField] PlayerDataHolder ownerData;
+    public  Action<Vector3[],PlayerDataHolder> onSeedCollided;
     ParticleSystem ps;
     void Start()
     {
@@ -27,6 +28,6 @@ public class SeedParticle : MonoBehaviour
             collisionPosition[i]=collisionEvents[i].intersection;
         
 
-        onSeedCollided?.Invoke(collisionPosition);
+        onSeedCollided?.Invoke(collisionPosition,ownerData);
     }
 }

@@ -157,7 +157,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.MergeDone();
+        myDataHolder.cropField.MergeDone(calledByChunkUnlocking);
     }
     IEnumerator CreateTileLeftSide(int index)
     {
@@ -183,7 +183,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.MergeDone();
+        myDataHolder.cropField.MergeDone(calledByChunkUnlocking);
     }
 
     IEnumerator CreateTileAboveSide(int index)
@@ -210,7 +210,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.MergeDone();
+        myDataHolder.cropField.MergeDone(calledByChunkUnlocking);
     }
 
     IEnumerator CreateTileBottomSide(int index)
@@ -236,7 +236,7 @@ public class CropFieldMerger : MonoBehaviour
         {
             connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
         }
-        myDataHolder.cropField.MergeDone();
+        myDataHolder.cropField.MergeDone(calledByChunkUnlocking);
 
         yield return new WaitForSeconds(.2f);
         switch(myDataHolder.cropField.state)

@@ -171,7 +171,9 @@ MonoBehaviour:
     slider: {fileID: 3162250735303955956}
     text: {fileID: 2043549892122381229}
     icon: {fileID: 6149731238836161210}
+  myChunkRef: {fileID: 899228274459964177}
   saveFileName: /BarnData.txt
+  isActive: 1
   isBarnEmpty: 1
 --- !u!114 &2551636265582141843
 MonoBehaviour:
@@ -2928,6 +2930,18 @@ PrefabInstance:
       addedObject: {fileID: 5682140180109475438}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 675ad130957ad194384a8c594285fd76, type: 3}
+--- !u!114 &899228274459964177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1842643238616928800, guid: 675ad130957ad194384a8c594285fd76,
+    type: 3}
+  m_PrefabInstance: {fileID: 1578741581855711537}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf04b65e8d8b9646a0e88258a196eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9145134777264968825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7710966008023283016, guid: 675ad130957ad194384a8c594285fd76,

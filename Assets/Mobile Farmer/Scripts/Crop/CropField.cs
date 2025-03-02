@@ -43,7 +43,7 @@ public class CropField : MonoBehaviour,IInteractable
     }
 
 
-     void StoreTile()
+    void StoreTile()
     {
         cropTiles.Clear();
         for(int i=0;i<tilesParent.childCount;i++)
@@ -52,9 +52,14 @@ public class CropField : MonoBehaviour,IInteractable
         
     }
 
-    public void MergeDone()
+    public void MergeDone(bool calledByChunkUnlocking)
     {
         StoreTile();
+       //if(calledByChunkUnlocking)MergeStateSet();
+        
+    }
+    void MergeStateSet()
+    {
         switch(state)
         {
             case E_Crop_State.Empty:
@@ -62,9 +67,11 @@ public class CropField : MonoBehaviour,IInteractable
                 break;
             case E_Crop_State.Sown:
                 InstantlySowTile();
+                //tileSown += 6;
                 break;
             case E_Crop_State.Watered:
                 InstantlyWaterTile();
+                //tileWatered += 6;
                 break;
 
         }
@@ -81,7 +88,7 @@ public class CropField : MonoBehaviour,IInteractable
     }
    
     #region Particel Callbacks
-    public void SeedCollidedCallback(Vector3[] seedPos)
+    public void SeedCollidedCallback(Vector3[] seedPos,PlayerDataHolder ownerData)
     {
         //go through all collided particel and sow seed in collided crop tile
         for(int i=0;i<seedPos.Length;i++)
@@ -96,13 +103,14 @@ public class CropField : MonoBehaviour,IInteractable
 
             closestCropTile.Sow(cropData);
             tileSown++;
+            if(ownerData.isPlayer) HapticManager.Instance.LightHaptic();
 
             if(tileSown>=cropTiles.Count)
                 FieldFullySown();
             
         }
     }
-    public void WaterCollidedCallBack(Vector3[] waterPos)
+    public void WaterCollidedCallBack(Vector3[] waterPos,PlayerDataHolder ownerData)
     {
         //go through all collided particel and water particel in collided crop tile
         for(int i=0;i<waterPos.Length;i++)
@@ -117,6 +125,7 @@ public class CropField : MonoBehaviour,IInteractable
 
             closestCropTile.Water(cropData);
             tileWatered++;
+            if(ownerData.isPlayer) HapticManager.Instance.LightHaptic();
 
             if(tileWatered>=cropTiles.Count)
                 FieldFullyWatered();
@@ -132,7 +141,7 @@ public class CropField : MonoBehaviour,IInteractable
         for(int i=0;i<cropTiles.Count;i++)
         {
             CropTile temp_holding_cropTile=cropTiles[i];
-            if(temp_holding_cropTile == null) continue; //Handel by any chanceh null ref
+            if(temp_holding_cropTile == null) continue; //Handel by any chance null ref
             float disanceTileSeed=Vector3.Distance(temp_holding_cropTile.transform.position,particelPos);
             if(disanceTileSeed < minDistance)
             {
@@ -164,6 +173,7 @@ public class CropField : MonoBehaviour,IInteractable
     private  void FieldFullySown()
     {
         state= E_Crop_State.Sown;
+        tileSown = cropTiles.Count;
         OnCompleteOnStep();
         onFullySown?.Invoke(this);
     }
@@ -171,6 +181,7 @@ public class CropField : MonoBehaviour,IInteractable
     private void FieldFullyWatered()
     {
         state = E_Crop_State.Watered;
+        tileWatered = cropTiles.Count;
         OnCompleteOnStep();
         onFullyWatered?.Invoke(this);
     }

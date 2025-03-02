@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 6348383531720156231, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}
       propertyPath: m_Name
-      value: Chunk Variant
+      value: Chunk_CropField
       objectReference: {fileID: 0}
     - target: {fileID: 8925415818205777349, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}
@@ -159,7 +159,8 @@ MonoBehaviour:
   cropFieldFeedbackManager: {fileID: 31029447662612351}
   cropFieldRangeTrigger: {fileID: 352037369256600080}
   cropFieldMerger: {fileID: 3203851954268495689}
-  cropTile: {fileID: 3112942718072679821}
+  cropTile: {fileID: 3102666473185057963, guid: b0776f4db1a4c0349a243299f521571a,
+    type: 3}
   infoUI: {fileID: 1457689384268616067}
   tileParent: {fileID: 3540995944422160229}
   right: {fileID: 0}
@@ -181,6 +182,7 @@ MonoBehaviour:
   myDataHolder: {fileID: 7867034984667647486}
   connectedFields: []
   initateTime: 3
+  priority: 10
   IsConnected: 0
 --- !u!114 &9004709938444591012
 MonoBehaviour:
@@ -299,18 +301,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 075f6b57b8addf84a8d352d6a54e6c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3112942718072679821 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7639667812585613656, guid: 60508736bc2cf1e4886823bd651fd9a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 4699200060254766293}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8215113f0ac24041bbfd4d1f6d3556a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &3453079311856838811 stripped

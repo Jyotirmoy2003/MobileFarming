@@ -57,10 +57,11 @@ public class Barn : MonoBehaviour,IInteractable
         
         barnInventory = GetComponent<BarnInventory>();
         LoadWorker();
-        Invoke(nameof(Init),1f);
+        Invoke(nameof(Init),3f);
         
     }
 
+    //called when chunk unlockes
     void MyChunkUnlocked()
     {
         myChunkRef.chunkUnlocked -= MyChunkUnlocked;
@@ -103,58 +104,7 @@ public class Barn : MonoBehaviour,IInteractable
     
        
     }
-   void LoadWorker()
-    {
-        workerData = SaveAndLoad.Load<WorkerData>(dataPath);
-
-        // Ensure workerData is initialized
-        if (workerData == null){
-            workerData = new WorkerData();
-            Debug.Log("file is null");}
-
-        // Ensure workerStatSaves list is initialized
-        if (workerData.workerStatSaves == null){
-            workerData.workerStatSaves = new List<WorkerStatSave>();Debug.Log("List is null");}
-
-        // Sync data between saved stats and existing workers
-        for (int i = 0; i < workerStats.Count; i++)
-        {
-            if (i < workerData.workerStatSaves.Count)
-            {
-                // Load saved data
-                workerStats[i].isPurchased = workerData.workerStatSaves[i].isPurchased;
-                workerStats[i].level = workerData.workerStatSaves[i].level;
-                workerStats[i].price = workerData.workerStatSaves[i].price;
-                workerStats[i].maxLoadCapacity = workerData.workerStatSaves[i].maxLoadCapacity;
-            }
-            else
-            {
-                // Add missing workers to save file
-                workerData.workerStatSaves.Add(new WorkerStatSave(
-                    workerStats[i].isPurchased, 
-                    workerStats[i].level, 
-                    workerStats[i].price, 
-                    workerStats[i].maxLoadCapacity
-                ));
-            }
-        }
-
-        // Only save if new data was added
-        if (workerData.workerStatSaves.Count > workerStats.Count)
-            SaveWorker();
-    }
-   
-   void SaveWorker()
-    {
-         for (int i = 0; i < workerStats.Count; i++)
-        {
-            workerData.workerStatSaves[i].isPurchased = workerStats[i].isPurchased;
-            workerData.workerStatSaves[i].level = workerStats[i].level;
-            workerData.workerStatSaves[i].price = workerStats[i].price;
-            workerData.workerStatSaves[i].maxLoadCapacity = workerStats[i].maxLoadCapacity;
-        }
-        SaveAndLoad.Save<WorkerData>(dataPath,workerData);
-    }
+  
    public CropField GetUnlockedField(CropData cropData)
    {
         for(int i=0 ;i<nearByFields.Count;i++)
@@ -254,6 +204,7 @@ public class Barn : MonoBehaviour,IInteractable
             SubcribeToUiButton(true);
         }
     }
+    #region Triggers
     private void OnTriggerEnter(Collider collider)
     {
         if(collider.CompareTag("Player"))
@@ -262,7 +213,15 @@ public class Barn : MonoBehaviour,IInteractable
         }
     }
 
-    
+    private void OnTriggerExit(Collider collider)
+    {
+        if(collider.CompareTag("Player"))
+        {
+            OnCloseButtonPressed();
+        }
+    }
+
+    #endregion
 
     [NaughtyAttributes.Button]
     void DebguCheckLoad()
@@ -290,6 +249,58 @@ public class Barn : MonoBehaviour,IInteractable
 
 
     #region Worker
+    void LoadWorker()
+    {
+        workerData = SaveAndLoad.Load<WorkerData>(dataPath);
+
+        // Ensure workerData is initialized
+        if (workerData == null){
+            workerData = new WorkerData();
+            Debug.Log("file is null");}
+
+        // Ensure workerStatSaves list is initialized
+        if (workerData.workerStatSaves == null){
+            workerData.workerStatSaves = new List<WorkerStatSave>();Debug.Log("List is null");}
+
+        // Sync data between saved stats and existing workers
+        for (int i = 0; i < workerStats.Count; i++)
+        {
+            if (i < workerData.workerStatSaves.Count)
+            {
+                // Load saved data
+                workerStats[i].isPurchased = workerData.workerStatSaves[i].isPurchased;
+                workerStats[i].level = workerData.workerStatSaves[i].level;
+                workerStats[i].price = workerData.workerStatSaves[i].price;
+                workerStats[i].maxLoadCapacity = workerData.workerStatSaves[i].maxLoadCapacity;
+            }
+            else
+            {
+                // Add missing workers to save file
+                workerData.workerStatSaves.Add(new WorkerStatSave(
+                    workerStats[i].isPurchased, 
+                    workerStats[i].level, 
+                    workerStats[i].price, 
+                    workerStats[i].maxLoadCapacity
+                ));
+            }
+        }
+
+        // Only save if new data was added
+        if (workerData.workerStatSaves.Count > workerStats.Count)
+            SaveWorker();
+    }
+   
+    void SaveWorker()
+    {
+         for (int i = 0; i < workerStats.Count; i++)
+        {
+            workerData.workerStatSaves[i].isPurchased = workerStats[i].isPurchased;
+            workerData.workerStatSaves[i].level = workerStats[i].level;
+            workerData.workerStatSaves[i].price = workerStats[i].price;
+            workerData.workerStatSaves[i].maxLoadCapacity = workerStats[i].maxLoadCapacity;
+        }
+        SaveAndLoad.Save<WorkerData>(dataPath,workerData);
+    }
     void SpawnWorkers(int index)
     {
         Worker temp=Instantiate(workerStats[index].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
@@ -379,8 +390,13 @@ public class Barn : MonoBehaviour,IInteractable
     void OnCloseButtonPressed()
     {
         listenigForInput = false;
-        SceneManager.UnloadSceneAsync("DressingRoom");
+
+        try{SceneManager.UnloadSceneAsync("DressingRoom");}
+        catch{}
+
         CameraManager.Instance.SwitchCamera();
+        SubcribeToUiButton(false);
+        
     }
     #endregion
 
@@ -390,6 +406,7 @@ public class Barn : MonoBehaviour,IInteractable
     {
         if(!listenigForInput) return;
         workersUnderthisBarn[selectedWorkerIndex].CallVisualChange(data as DressSetup);
+        OnCloseButtonPressed();
     }
     
 }

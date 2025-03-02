@@ -7,7 +7,8 @@ using System;
 [RequireComponent(typeof(ParticleSystem))]
 public class WaterParticle : MonoBehaviour
 {
-   public  Action<Vector3[]> onWaterCollided;
+    [SerializeField] PlayerDataHolder ownerData;
+   public  Action<Vector3[],PlayerDataHolder> onWaterCollided;
     ParticleSystem ps;
     void Start()
     {
@@ -28,6 +29,6 @@ public class WaterParticle : MonoBehaviour
             collisionPosition[i]=collisionEvents[i].intersection;
         
 
-        onWaterCollided?.Invoke(collisionPosition);
+        onWaterCollided?.Invoke(collisionPosition,ownerData);
     }
 }

@@ -194,7 +194,11 @@ public class AssignField : WorkerBase
         worker.assignedCropField = worker.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
         worker.cropFieldDataHolder = worker.assignedCropField.cropFieldDataHolder;
         worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position); //for testing let it be here
-
+        //daly 1s given after setting destination the remaning distance sometimes giving zero for one frame,, and worker goes to reached field state
+        worker.StartTimmer(1,Init);
+    }
+    void Init()
+    {
         updateAction += CheckDest;
     }
 
@@ -228,9 +232,9 @@ public class AssignField : WorkerBase
 
     void CheckDest()
     {
+
         if(worker.navMeshAgent.remainingDistance <= 0.1f)
         {
-            Debug.Log("reached to crop field");
             worker.SwitchState(worker.performActionState);
         }
     }

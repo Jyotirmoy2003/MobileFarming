@@ -33,7 +33,6 @@ public class CropTile : MonoBehaviour
     {
         return state==E_Crop_State.Watered;
     }
-    
 
     public void Sow(CropData cropData)
     {

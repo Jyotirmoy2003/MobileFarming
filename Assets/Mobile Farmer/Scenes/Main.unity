@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028463, g: 0.22571611, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028417, g: 0.22571534, b: 0.30692172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9091,6 +9091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563f393157948c94db908e12e2e75905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerData: {fileID: 1716099300}
 --- !u!1 &785337300
 GameObject:
   m_ObjectHideFlags: 0
@@ -15750,6 +15751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff8e93eb765db04988bf540d18ab225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerData: {fileID: 1716099300}
 --- !u!199 &1229114604
 ParticleSystemRenderer:
   serializedVersion: 6
