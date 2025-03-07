@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FreeSwimming : MonoBehaviour
 {
+    [SerializeField] SeaControl seaControl;
     public float maxSpeed = 5f;             
     public float minSpeed = 1f;             
     public float rotationSpeed = 2f;        
@@ -27,12 +28,12 @@ public class FreeSwimming : MonoBehaviour
     private void SetRandomTargetPosition()
     {
         var angle = Random.Range(0f, 2f * Mathf.PI);
-        var radius = Random.Range(0f, SeaControl.Instance.radius);
+        var radius = Random.Range(0f, seaControl.radius);
         var x = radius * Mathf.Cos(angle);
         var z = radius * Mathf.Sin(angle);
-        var y = Random.Range(-SeaControl.Instance.height / 2, SeaControl.Instance.height / 2);
+        var y = Random.Range(-seaControl.height / 2, seaControl.height / 2);
 
-        _targetPosition = SeaControl.Instance.transform.position + new Vector3(x, y, z);
+        _targetPosition = seaControl.transform.position + new Vector3(x, y, z);
     }
 
     private void MoveTowardsTarget()

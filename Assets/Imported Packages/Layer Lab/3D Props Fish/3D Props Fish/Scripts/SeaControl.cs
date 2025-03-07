@@ -3,14 +3,14 @@ using UnityEngine.Serialization;
 
 public class SeaControl : MonoBehaviour
 {
-    public static SeaControl Instance { get; set; }
+    //public static SeaControl Instance { get; set; }
     
     public float radius = 5f;
     public float height = 10f;
 
     private void Awake()
     {
-        Instance = this;
+        //Instance = this;
     }
 
     private void OnDrawGizmosSelected()
