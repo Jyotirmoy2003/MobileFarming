@@ -191,7 +191,7 @@ public class AssignField : WorkerBase
     {
         worker = wk;
         worker.E_state = E_Worker_State.AssignField;
-        worker.assignedCropField = worker.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
+        if(worker.assignedCropField == null) worker.assignedCropField = worker.allocatedBarn.GetUnlockedField(worker.workerStat.workableCorp); //assign new field
         worker.cropFieldDataHolder = worker.assignedCropField.cropFieldDataHolder;
         worker.navMeshAgent.SetDestination(worker.assignedCropField.transform.position); //for testing let it be here
         //daly 1s given after setting destination the remaning distance sometimes giving zero for one frame,, and worker goes to reached field state
@@ -285,6 +285,7 @@ public class PerformAction : WorkerBase
 
     void SelectNextState()
     {
+
         if(worker.isMyBarnFull)
         {
             worker.SwitchState(worker.waitForBarnToClearState);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using jy_util;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class Barn : MonoBehaviour,IInteractable
     public List<BarnItem> barnCapableItem = new List<BarnItem>();
     public List<CropField> nearByFields = new List<CropField>();
     [SerializeField] List<WorkerStat> workerStats = new List<WorkerStat>();
+    private List<WorkerStat> deepCopyWorkerStats = new List<WorkerStat>();
     [Header("UI ref")]
     public InfoUI infoUI;
     public List<StorageUIStatus> storageUIStatuses = new List<StorageUIStatus>();
@@ -28,6 +30,7 @@ public class Barn : MonoBehaviour,IInteractable
 
 
     private List<Worker> workersUnderthisBarn = new List<Worker>();
+    private Action WorkerinfoUpdateEvent;
     private string dataPath;
     private BarnInventory barnInventory;
     public Action<E_Inventory_Item_Type> OnBarnFull;
@@ -58,8 +61,35 @@ public class Barn : MonoBehaviour,IInteractable
         barnInventory = GetComponent<BarnInventory>();
         LoadWorker();
         Invoke(nameof(Init),3f);
+
+        SetUpDeepCopyWorkerStats();
+
+        //subcribe
+        WorkerinfoUpdateEvent += SetUpDeepCopyWorkerStats;
+        WorkerinfoUpdateEvent += SaveWorker;
+        
+
+        //initiaze the list first , when worker spawns it holds workers ref, macking sure all index is valid
+        workersUnderthisBarn = Enumerable.Repeat<Worker>(null, workerStats.Count).ToList();
+
+        
         
     }
+    void SetUpDeepCopyWorkerStats()
+    {
+        for (int i = 0; i < workerData.workerStatSaves.Count; i++)
+        {
+            if (i < deepCopyWorkerStats.Count)
+            {
+                deepCopyWorkerStats[i] = GetDeepCopyWorkerStat(i);
+            }
+            else
+            {
+                deepCopyWorkerStats.Add(GetDeepCopyWorkerStat(i));
+            }
+        }
+    }
+
 
     //called when chunk unlockes
     void MyChunkUnlocked()
@@ -92,8 +122,8 @@ public class Barn : MonoBehaviour,IInteractable
 
         //spawn worker
 
-        for(int i=0 ; i< workerStats.Count ; i++ )
-            if(workerStats[i].isPurchased) SpawnWorkers(i);
+        for(int i=0 ; i< workerData.workerStatSaves.Count ; i++ )
+            if(workerData.workerStatSaves[i].isPurchased) SpawnWorkers(i);
     
         foreach(BarnItem item in barnCapableItem)
             if(barnInventory.GetInventory().GetItemAmountInInventory(item.item_Type) > 0)
@@ -115,6 +145,7 @@ public class Barn : MonoBehaviour,IInteractable
                     return nearByFields[i];
                 }
         }
+        Debug.Log("No Field found to assign");
        return nearByFields[0];
    }
 
@@ -199,9 +230,12 @@ public class Barn : MonoBehaviour,IInteractable
             barnInventory.CalulateTotalItem();
             UpdateSackinBarn();
         }else{
-            BarnUImanager.Instance.ShowWorkerData(workerStats,nearByFields);
+            //show barn UI
+            BarnUImanager.Instance.ShowWorkerData(deepCopyWorkerStats,nearByFields);
+            BarnUImanager.Instance.OpenCloseBarnUI(true);
             CameraManager.Instance.SwitchCamera(workerLoadOutPos,new Vector3(0,8,-10),new Vector3(0,0,0));
             SubcribeToUiButton(true);
+            
         }
     }
     #region Triggers
@@ -256,14 +290,14 @@ public class Barn : MonoBehaviour,IInteractable
         // Ensure workerData is initialized
         if (workerData == null){
             workerData = new WorkerData();
-            Debug.Log("file is null");
+            Debug.Log("worker file is null");
             
         
         }
 
         // Ensure workerStatSaves list is initialized
         if (workerData.workerStatSaves == null){
-            workerData.workerStatSaves = new List<WorkerStatSave>();Debug.Log("List is null");}
+            workerData.workerStatSaves = new List<WorkerStatSave>();Debug.Log("worker List is null");}
 
         // Sync data between saved stats and existing workers
         for (int i = 0; i < workerStats.Count; i++)
@@ -271,10 +305,11 @@ public class Barn : MonoBehaviour,IInteractable
             if (i < workerData.workerStatSaves.Count) //not using as we are creating the data there is no list
             {
                 // Load saved data
-                workerStats[i].isPurchased = workerData.workerStatSaves[i].isPurchased;
-                workerStats[i].level = workerData.workerStatSaves[i].level;
-                workerStats[i].price = workerData.workerStatSaves[i].price;
-                workerStats[i].maxLoadCapacity = workerData.workerStatSaves[i].maxLoadCapacity;
+                Debug.Log("Loading saved data");
+                // workerStats[i].isPurchased = workerData.workerStatSaves[i].isPurchased;
+                // workerStats[i].level = workerData.workerStatSaves[i].level;
+                // workerStats[i].price = workerData.workerStatSaves[i].price;
+                // workerStats[i].maxLoadCapacity = workerData.workerStatSaves[i].maxLoadCapacity;
             }
             else
             {
@@ -295,22 +330,38 @@ public class Barn : MonoBehaviour,IInteractable
    
     void SaveWorker()
     {
-         for (int i = 0; i < workerStats.Count; i++)
-        {
-            workerData.workerStatSaves[i].isPurchased = workerStats[i].isPurchased;
-            workerData.workerStatSaves[i].level = workerStats[i].level;
-            workerData.workerStatSaves[i].price = workerStats[i].price;
-            workerData.workerStatSaves[i].maxLoadCapacity = workerStats[i].maxLoadCapacity;
-        }
+        // for (int i = 0; i < workerStats.Count; i++)
+        // {
+        //     workerData.workerStatSaves[i].isPurchased = workerStats[i].isPurchased;
+        //     workerData.workerStatSaves[i].level = workerStats[i].level;
+        //     workerData.workerStatSaves[i].price = workerStats[i].price;
+        //     workerData.workerStatSaves[i].maxLoadCapacity = workerStats[i].maxLoadCapacity;
+        // }
         SaveAndLoad.Save<WorkerData>(dataPath,workerData);
     }
     void SpawnWorkers(int index)
     {
         Worker temp=Instantiate(workerStats[index].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
         temp.allocatedBarn = this;
-        temp.workerStat = workerStats[index];
-        workerStats[index].isPurchased = true;
-        workersUnderthisBarn.Add(temp);
+        temp.workerStat = deepCopyWorkerStats[index];
+        workerData.workerStatSaves[index].isPurchased = true;
+        workersUnderthisBarn[index] = temp;
+    }
+
+    
+
+    WorkerStat GetDeepCopyWorkerStat(int index)
+    {
+        WorkerStat result ;
+        result = new WorkerStat(workerStats[index]);
+        
+        //Override Loaded data into new copy
+        result.isPurchased = workerData.workerStatSaves[index].isPurchased;
+        result.level = workerData.workerStatSaves[index].level;
+        result.price = workerData.workerStatSaves[index].price;
+        result.maxLoadCapacity = workerData.workerStatSaves[index].maxLoadCapacity;
+
+        return result;
     }
     public int AddItemInInventory(E_Inventory_Item_Type item_Type,int amount)
     {
@@ -355,20 +406,29 @@ public class Barn : MonoBehaviour,IInteractable
 
     void Hireworker(int index)
     {
-        if(CashManager.Instance.DebitCoin(workerStats[index].price))
+        if(CashManager.Instance.DebitCoin(workerData.workerStatSaves[index].price))
         {
             barnFeedback.PlayFeedback();
             
             
-            if(workerStats[index].isPurchased)
-                workerStats[index].Upgrade();
+            if(workerData.workerStatSaves[index].isPurchased)
+            {
+                workerData.workerStatSaves[index].Upgrade();
+                SetUpDeepCopyWorkerStats();
+                workersUnderthisBarn[index].workerStat = deepCopyWorkerStats[index];
+            }
             else
                 SpawnWorkers(index); 
-            SaveWorker();
+            
+            WorkerinfoUpdateEvent?.Invoke(); //fire event when worker data changes
         }
         //update UI
-        BarnUImanager.Instance.ShowWorkerData(workerStats,nearByFields);
+        BarnUImanager.Instance.ShowWorkerData(deepCopyWorkerStats,nearByFields);
     }
+
+    
+
+   
 
     void OnHireButtonPressed(int index)
     {
@@ -397,7 +457,9 @@ public class Barn : MonoBehaviour,IInteractable
         try{SceneManager.UnloadSceneAsync("DressingRoom");}
         catch{}
 
+        //Revart back to main
         CameraManager.Instance.SwitchCamera();
+        BarnUImanager.Instance.OpenCloseBarnUI(false); 
         SubcribeToUiButton(false);
         
     }

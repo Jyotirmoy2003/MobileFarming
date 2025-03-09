@@ -45,7 +45,6 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
                 workerContiners[i].text_button.text = "Max";
             }
         }
-        barnUIContiner.SetActive(true);
     }
 
     public void OnHireButtonPressed(int index)
@@ -62,7 +61,11 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
     {
         
         closeButtonPressed?.Invoke();
-        barnUIContiner.SetActive(false);
+    }
+
+    public void OpenCloseBarnUI(bool isActive)
+    {
+        barnUIContiner.SetActive(isActive);
     }
 
     public void SetInteractStatus()

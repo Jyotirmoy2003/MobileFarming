@@ -35,4 +35,19 @@ public class WorkerStat : ScriptableObject
             price = 0;
         }
     }
+
+    public WorkerStat(WorkerStat workerStat)
+    {
+        isPurchased = workerStat.isPurchased;
+        workerAvater = workerStat.workerAvater;
+        workerPrefab = workerStat.workerPrefab;
+        currentWorkerInstance = workerStat.currentWorkerInstance;
+        level = workerStat.level;
+        performActionDelay = workerStat.performActionDelay;
+        walkSpeed = workerStat.walkSpeed;
+        moveSpeedWhileWorking = workerStat.moveSpeedWhileWorking;
+        maxLoadCapacity = workerStat.maxLoadCapacity;
+        price = workerStat.price;
+        workableCorp = workerStat.workableCorp;
+    }
 }
