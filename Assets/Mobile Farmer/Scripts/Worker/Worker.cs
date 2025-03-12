@@ -579,7 +579,7 @@ public class LoadoutToBarn : WorkerBase
     {
         
 
-        if(worker.navMeshAgent.remainingDistance <=0.5f)
+        if(worker.navMeshAgent.remainingDistance <=1f)
         {
             timmer -= Time.deltaTime;
             if(worker.carringCrop > 0)
@@ -707,7 +707,7 @@ public class ChangeVisual : WorkerBase
     {
         
 
-        if(worker.navMeshAgent.remainingDistance <=0.5f)
+        if(worker.navMeshAgent.remainingDistance <=1f)
         {
             timmer -= Time.deltaTime;
             if(worker.carringCrop > 0)
