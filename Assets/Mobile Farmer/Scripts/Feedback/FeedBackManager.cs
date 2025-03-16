@@ -26,7 +26,7 @@ public class FeedBackManager : MonoBehaviour
     public List<FeedbackBase> feedbackList=new List<FeedbackBase>();
 
 
-
+    private int maxDurationFeedbackindex = 0;
     private int playingFeedbackIndexForSeq=-1;
     private bool isAlreadyPlayingFeedback=false;
     public Action CompletePlayingFeedback;
@@ -77,13 +77,24 @@ public class FeedBackManager : MonoBehaviour
 
     void InitiateFeedback()
     {
-        
+        maxDurationFeedbackindex = 0;
+        float lastLongestDuration = -1;
         for(int i=startIndex;i<feedbackList.Count;i++)
         {
+            if(tempInsteanceOfFeedback[i].duration > lastLongestDuration)
+            {
+                maxDurationFeedbackindex = i;
+            }
             tempInsteanceOfFeedback[i].PushNeededComponent(compList);
             tempInsteanceOfFeedback[i].OnFeedbackActiavte();
         }
+        tempInsteanceOfFeedback[maxDurationFeedbackindex].feedbackFinishedExe += CompletePlayingFeedbackNonSequ;
+        CompletePlayingFeedback?.Invoke();
+    }
 
+    void CompletePlayingFeedbackNonSequ()
+    {
+        tempInsteanceOfFeedback[maxDurationFeedbackindex].feedbackFinishedExe -= CompletePlayingFeedback;
         CompletePlayingFeedback?.Invoke();
     }
 

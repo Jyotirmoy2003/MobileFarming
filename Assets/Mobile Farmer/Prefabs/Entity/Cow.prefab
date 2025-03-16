@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3806243691302753248}
   - component: {fileID: 8994559490284905710}
   - component: {fileID: 2777149876592795451}
+  - component: {fileID: 880395375064749170}
   m_Layer: 0
   m_Name: Cow
   m_TagString: Untagged
@@ -112,6 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6c22ef5fc66224292e0c0a7b1558d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alocatedChunk: {fileID: 0}
+  feedBackManager: {fileID: 880395375064749170}
   canInteract: 0
   idelTimeMin: 3
   idelTimeMAX: 7
@@ -120,6 +123,31 @@ MonoBehaviour:
   needToShake: 0
   taskBeforeShake: 0
   shakeIncreament: 0.5
+--- !u!114 &880395375064749170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006124406101537331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdfc4d53d81096948b34ce07860f324e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camRef: {fileID: 0}
+  targetTramform: {fileID: 8323200416676874721}
+  overrideRemaps: 0
+  curveZeroRemap: 0
+  curveOneRemap: 0
+  isSequencialFlow: 0
+  startIndex: 0
+  feedbackList:
+  - {fileID: 11400000, guid: 496909c73a7baed4289f1eb63aead97c, type: 2}
+  - {fileID: 11400000, guid: 8771d6f38ef678f499fb6ca14e45a1e1, type: 2}
+  UEvent_completePlayingFeedback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2566019875860338716
 GameObject:
   m_ObjectHideFlags: 0

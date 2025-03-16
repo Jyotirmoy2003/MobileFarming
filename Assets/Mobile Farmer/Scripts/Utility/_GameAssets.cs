@@ -10,6 +10,7 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     public GameEvent OnHervestedEvent;
     public GameEvent OnViewChangeEvent;
     [Header("Particel System")]
+    public ParticleSystem spawnDustParticel;
     public ParticleSystem seedParticel;
     public ParticleSystem waterParticel;
 

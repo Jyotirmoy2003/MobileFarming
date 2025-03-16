@@ -6,6 +6,8 @@ using UnityEngine;
 public class AnimalBase : MonoBehaviour
 {
     [Header("Elemesnts")]
+    [SerializeField] Chunk alocatedChunk;
+    [SerializeField] FeedBackManager feedBackManager;
     private RandomMovement randomMovement;
 
     [Header("Settings")]
@@ -19,7 +21,22 @@ public class AnimalBase : MonoBehaviour
     {
         randomMovement = GetComponent<RandomMovement>();
         randomMovement.OnReachOnDestination += OnReachToOneDest;
+        alocatedChunk.chunkUnlocked += OnUnlockedMyChunk;
+        Invoke(nameof(Init),3f);
     }
+
+
+    void Init()
+    {
+          
+          if(alocatedChunk.IsUnclocked())
+          {
+               randomMovement.StopAndStartMovement(false);
+               feedBackManager.CompletePlayingFeedback -= Init;
+          }
+    }
+
+
 
     void OnDisable()
     {
@@ -51,7 +68,11 @@ public class AnimalBase : MonoBehaviour
 
    void OnUnlockedMyChunk()
    {
-     
+          Debug.Log("Chunk unlocaked");
+          alocatedChunk.chunkUnlocked -= OnUnlockedMyChunk;
+          Instantiate(_GameAssets.Instance.spawnDustParticel,transform);
+          feedBackManager.PlayFeedback();
+          feedBackManager.CompletePlayingFeedback += Init;
    }
 
 

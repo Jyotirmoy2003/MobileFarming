@@ -12,6 +12,7 @@ public class FB_Transform : FeedbackBase
 
     public bool effectX,effectY,effectZ;
     public AnimationCurve curveX,curveY,curveZ;
+    public bool useRemapedValue = true;
     [Tooltip("Curve 0 and 1 values will be reamped in this values and set to target transform")]
     public float reampCurveZero=0f;
     public float reampCurveOne=0f;
@@ -37,6 +38,7 @@ public class FB_Transform : FeedbackBase
         reampCurveZero = fb_TranformBase.reampCurveZero;
 
         effectLocal = fb_TranformBase.effectLocal;
+        useRemapedValue = fb_TranformBase.useRemapedValue;
 
     }
 
@@ -50,6 +52,10 @@ public class FB_Transform : FeedbackBase
 
     void EvaluteCurveY()
     {
+        // float minYvalue = 0;
+        // float maxYvalue = 0;
+        // GetCurveMinMax(curveY, ref minYvalue, ref maxYvalue);
+        
         Sequence sy= DOTween.Sequence();
         
         sy.Append(DOVirtual.Float(0, 1f, duration, v =>PerformEffectY(v) )).onComplete=EndExe;
@@ -67,6 +73,22 @@ public class FB_Transform : FeedbackBase
     void EndExe()=>feedbackFinishedExe?.Invoke();
 
 
+    protected void GetCurveMinMax(AnimationCurve curve, ref float min, ref float max)
+    {
+        min = float.MaxValue;
+        max = float.MinValue;
+
+        // Ensure the curve has at least one keyframe
+        if (curve.keys.Length == 0) return;
+
+        // Loop through the curve from start time to end time in small increments
+        for (float t = curve.keys[0].time; t <= curve.keys[curve.keys.Length - 1].time; t += 0.01f) 
+        {
+            float value = curve.Evaluate(t);
+            if (value < min) min = value;
+            if (value > max) max = value;
+        }
+    }
 
 
 
@@ -97,7 +119,7 @@ public class FB_Transform : FeedbackBase
         float curveEvaluteval=curveX.Evaluate(val);
         float remapedVal=Mathf.Lerp(reampCurveZero,reampCurveOne,curveEvaluteval);
 
-        evalutedVector.x=remapedVal;
+        evalutedVector.x=(useRemapedValue)?remapedVal:curveEvaluteval;
 
         if(effectLocal) EffectLocal();
         else EffectGlobal();
@@ -107,7 +129,7 @@ public class FB_Transform : FeedbackBase
         float curveEvaluteval=curveY.Evaluate(val);
         float remapedVal=Mathf.Lerp(reampCurveZero,reampCurveOne,curveEvaluteval);
 
-        evalutedVector.y=remapedVal;
+        evalutedVector.y=(useRemapedValue)?remapedVal:curveEvaluteval;
 
         if(effectLocal) EffectLocal();
         else EffectGlobal();
@@ -118,7 +140,7 @@ public class FB_Transform : FeedbackBase
         float curveEvaluteval=curveZ.Evaluate(val);
         float remapedVal=Mathf.Lerp(reampCurveZero,reampCurveOne,curveEvaluteval);
 
-        evalutedVector.z=remapedVal;
+        evalutedVector.z=(useRemapedValue)?remapedVal:curveEvaluteval;
 
         if(effectLocal) EffectLocal();
         else EffectGlobal();

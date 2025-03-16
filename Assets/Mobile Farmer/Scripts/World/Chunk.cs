@@ -51,7 +51,7 @@ public class Chunk : MonoBehaviour
             unlocedElements.SetActive(false);
             //show left price
             currentPrice = price;
-            priceText.text = currentPrice.ToString();
+            priceText.text = CoinSystem.ConvertCoinToString(currentPrice);
         }
     }
 
