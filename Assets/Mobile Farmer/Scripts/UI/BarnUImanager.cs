@@ -11,6 +11,8 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
 {
     [SerializeField] GameObject barnUIContiner;
     [SerializeField] List<WorkerContiner> workerContiners = new List<WorkerContiner>();
+    [SerializeField] Button barnUpgradbutton;
+    [SerializeField] TMP_Text barnUpgradeText;
     public Action<int> hireButtonPressed,clothButtonPressed;
     public Action closeButtonPressed;
 
@@ -47,6 +49,17 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
         }
     }
 
+    public void ShowBarnData(int price)
+    {
+        if(price < 0)
+        {
+            barnUpgradeText.text = "Max";
+            barnUpgradbutton.interactable = false;
+        }else{
+            barnUpgradeText.text = CoinSystem.ConvertCoinToString(price);
+            barnUpgradbutton.interactable = true;
+        }
+    }
     public void OnHireButtonPressed(int index)
     {
         hireButtonPressed?.Invoke(index);
@@ -72,6 +85,8 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
     {
 
     }
+
+    
 
    
 }

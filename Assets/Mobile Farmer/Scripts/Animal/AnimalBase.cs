@@ -49,6 +49,11 @@ public class AnimalBase : MonoBehaviour
    }
    
 
+   void OnUnlockedMyChunk()
+   {
+     
+   }
+
 
 
 

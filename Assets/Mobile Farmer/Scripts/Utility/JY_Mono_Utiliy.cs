@@ -123,7 +123,7 @@ public delegate void NoArgumentFun();
 
 #region Structures
 [System.Serializable]
-public struct BarnItem{
+public class BarnItem{
     public E_Inventory_Item_Type item_Type;
     public int maxLoadCapacity;
 }

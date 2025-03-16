@@ -28,6 +28,11 @@ public class Barn : MonoBehaviour,IInteractable
     [SerializeField] string saveFileName = "/BarnData.txt";
     [SerializeField] bool isActive = false; //for testing in editor
 
+    [Header("Barn")]
+    [SerializeField] int maxBarnLevel = 5;
+    [SerializeField] int barnLevel = 1;
+    [SerializeField] int nextUpgradePrice = 2000;
+
 
     private List<Worker> workersUnderthisBarn = new List<Worker>();
     private Action WorkerinfoUpdateEvent;
@@ -330,13 +335,6 @@ public class Barn : MonoBehaviour,IInteractable
    
     void SaveWorker()
     {
-        // for (int i = 0; i < workerStats.Count; i++)
-        // {
-        //     workerData.workerStatSaves[i].isPurchased = workerStats[i].isPurchased;
-        //     workerData.workerStatSaves[i].level = workerStats[i].level;
-        //     workerData.workerStatSaves[i].price = workerStats[i].price;
-        //     workerData.workerStatSaves[i].maxLoadCapacity = workerStats[i].maxLoadCapacity;
-        // }
         SaveAndLoad.Save<WorkerData>(dataPath,workerData);
     }
     void SpawnWorkers(int index)
@@ -406,6 +404,21 @@ public class Barn : MonoBehaviour,IInteractable
 
     void Hireworker(int index)
     {
+       
+        if(index >= workerData.workerStatSaves.Count)
+        {
+            if(barnLevel >= maxBarnLevel)
+            {
+                nextUpgradePrice = -1;
+            }else
+            //Barn upgrade button pressed
+            if(CashManager.Instance.DebitCoin(nextUpgradePrice))
+            {
+                barnLevel +=1;
+                UpgradeBarn();
+                UpdateUiDisplay();
+            }
+        }else
         if(CashManager.Instance.DebitCoin(workerData.workerStatSaves[index].price))
         {
             barnFeedback.PlayFeedback();
@@ -424,6 +437,19 @@ public class Barn : MonoBehaviour,IInteractable
         }
         //update UI
         BarnUImanager.Instance.ShowWorkerData(deepCopyWorkerStats,nearByFields);
+        BarnUImanager.Instance.ShowBarnData(nextUpgradePrice);
+    }
+
+    void UpgradeBarn()
+    {
+        //cash debited now upgrade barn capacity
+        for(int i=0; i<barnCapableItem.Count ; i++)
+        {
+            barnCapableItem[i].maxLoadCapacity += 50;
+        }
+
+        nextUpgradePrice += (int)(nextUpgradePrice * 0.20);
+        
     }
 
     
