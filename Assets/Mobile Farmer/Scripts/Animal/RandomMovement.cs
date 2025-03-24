@@ -19,7 +19,7 @@ public class RandomMovement : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        updateDel += new util().NullFun;
+        updateDel += util.NullFun;
         if (beginFromStart) updateDel += Movement;
     }
 

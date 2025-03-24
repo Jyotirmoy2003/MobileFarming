@@ -121,6 +121,16 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 
+    public void PlayFishingRod(bool isInitiate)
+    {
+        if(isInitiate)
+        {
+
+        }else{
+            
+        }
+    }
+
     public void PlayerReadyToShake()
     {
         animator.SetLayerWeight(4,1);

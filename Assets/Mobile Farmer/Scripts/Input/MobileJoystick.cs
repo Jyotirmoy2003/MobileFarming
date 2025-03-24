@@ -16,7 +16,7 @@ public class MobileJoystick : MonoSingleton<MobileJoystick>
 
     private Vector3 clickedPosition;
     private Vector3 move;
-    private Action updateAction=new util().NullFun;
+    private Action updateAction=util.NullFun;
 
     void Start()
     {
@@ -77,7 +77,7 @@ public class MobileJoystick : MonoSingleton<MobileJoystick>
         {
             updateAction=ControlJoystick;
         }else{
-            updateAction=new util().NullFun;
+            updateAction=util.NullFun;
         }
     }
 }

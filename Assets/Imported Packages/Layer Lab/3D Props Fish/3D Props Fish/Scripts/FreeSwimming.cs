@@ -1,5 +1,8 @@
+using System;
 using System.Linq;
+using jy_util;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class FreeSwimming : MonoBehaviour
@@ -11,19 +14,24 @@ public class FreeSwimming : MonoBehaviour
     public float avoidanceDistance = 5f;    
     public LayerMask obstacleLayer;         
     public float targetProximityThreshold = 1f; 
+    public Action onFishReachedToDest;
 
     private Vector3 _targetPosition;
     private Collider[] _obstacles;
+
+
+
+    private NoArgumentFun updateDel;
 
     private void Start()
     {
         SetRandomTargetPosition();
     }
 
-    private void Update()
-    {
-        MoveTowardsTarget();
-    }
+    private void Update()=>updateDel?.Invoke();
+    
+       
+    
 
     private void SetRandomTargetPosition()
     {
@@ -61,13 +69,37 @@ public class FreeSwimming : MonoBehaviour
 
         if (Vector3.Distance(transform.position, _targetPosition) <= targetProximityThreshold)
         {
-            SetRandomTargetPosition();
+            onFishReachedToDest?.Invoke();
         }
     }
 
-    // private void OnDrawGizmosSelected()
-    // {
-    //     Gizmos.color = Color.yellow;
-    //     Gizmos.DrawWireSphere(transform.position, avoidanceDistance);
-    // }
+
+
+
+
+
+    public void RandomMovementActivation(bool isActive)
+    {
+        if(isActive)
+        {
+            onFishReachedToDest += SetRandomTargetPosition;
+            SetRandomTargetPosition();
+
+        }else{
+            onFishReachedToDest -= SetRandomTargetPosition;
+        }
+    }
+
+    public void SetTargetPosition(Vector3 targetPosition)
+    {
+        _targetPosition = targetPosition;
+    }
+
+    public void SetMovementActivation(bool isActive)
+    {
+        updateDel = (isActive)? MoveTowardsTarget:util.NullFun;
+    }
+
+
+ 
 }

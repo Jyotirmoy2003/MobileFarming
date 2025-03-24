@@ -49,7 +49,7 @@ public class JY_Mono_Utiliy : MonoSingleton<JY_Mono_Utiliy>
 }
 public class util{
 
-public void NullFun()
+public static void NullFun()
 {
 
 }

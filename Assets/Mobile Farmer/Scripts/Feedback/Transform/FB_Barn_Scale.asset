@@ -121,6 +121,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  useRemapedValue: 1
   reampCurveZero: 0.4
   reampCurveOne: 0.5
   effectLocal: 0

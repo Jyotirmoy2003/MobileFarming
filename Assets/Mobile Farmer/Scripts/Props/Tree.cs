@@ -139,7 +139,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     #region INTERFACE
     public void Interact(GameObject interactingObject)
     {
-        if(!interactingObject.CompareTag("Player")) return;
+        if(!interactingObject.CompareTag(_GameAssets.PlayerTag)) return;
 
 
         if(!IsReady()) return;
@@ -151,14 +151,14 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
 
     public void InIntreactZone(GameObject interactingObject)
     {
-        if(!interactingObject.CompareTag("Player")) return;
+        if(!interactingObject.CompareTag(_GameAssets.PlayerTag)) return;
         if(!IsReady()) return;
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,true);
     }
 
     public void OutIntreactZone(GameObject interactingObject)
     {
-        if(!interactingObject.CompareTag("Player")) return;
+        if(!interactingObject.CompareTag(_GameAssets.PlayerTag)) return;
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
     }
 
