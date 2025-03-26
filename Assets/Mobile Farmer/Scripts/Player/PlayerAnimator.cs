@@ -9,7 +9,7 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Transform rendererTransform;
     [SerializeField] ParticleSystem waterParticel,seedParticel;
-    [SerializeField] GameObject wateringCan,harvestScythe;
+    [SerializeField] GameObject wateringCan,harvestScythe,fishingRod;
 
 
     [Header("Settings")]
@@ -125,10 +125,12 @@ public class PlayerAnimator : MonoBehaviour
     {
         if(isInitiate)
         {
-
+            animator.Play("Fishing Cast");
         }else{
-            
+            animator.Play("Idle");
         }
+
+        fishingRod.SetActive(isInitiate);
     }
 
     public void PlayerReadyToShake()

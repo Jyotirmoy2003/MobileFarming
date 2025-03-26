@@ -9,6 +9,7 @@ using UnityEngine;
 public class FDM_Editor_Script : Editor
 {
     FeedBackManager feedBackManager;
+    private bool isTranformRefRequired = false;
     public override void OnInspectorGUI()
     {
         EditorGUILayout.HelpBox("This Script is used for giving multiple type of feedback juice to your game",MessageType.Info);
@@ -34,13 +35,18 @@ public class FDM_Editor_Script : Editor
                 true);
         }
 
-        if(CheckForTransformRef())
+        if(isTranformRefRequired=CheckForTransformRef())
         {
             feedBackManager.targetTramform = (Transform)EditorGUILayout.ObjectField(
                 "Taeget Transform ref", 
                 feedBackManager.targetTramform, 
                 typeof(Transform), 
                 true);
+        }
+
+        if(isTranformRefRequired && feedBackManager.targetTramform == null)
+        {
+            feedBackManager.targetTramform = feedBackManager.transform;
         }
 
         if(feedBackManager.overrideRemaps)

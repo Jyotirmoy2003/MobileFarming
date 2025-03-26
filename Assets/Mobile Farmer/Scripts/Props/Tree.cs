@@ -117,10 +117,15 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     {
         _GameAssets.Instance.playerAnimator.PlayerShakeTreeAnimation(false);
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,false);
         SetTreeCamActivation(false);
         TweenShake(0);
 
         ResstFruits();
+
+        
+         //little delay so that it not get overriden in some devicies
+        LeanTween.delayedCall(.1f,()=>playerDataHolder.playerAnimator.PlayerShakeTreeAnimation(false));
     }
 
     private void ResstFruits()
@@ -144,7 +149,12 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
 
         if(!IsReady()) return;
         UIManager.Instance.UpdateShakeSlider(0);
+
+        //call events Change view activate shake
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,true);
+
+
         playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
         IntiateShake(interactingObject);
     }
@@ -162,6 +172,14 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
         UIManager.Instance.SetupIntreactButton(treeButtonInfo,false);
     }
 
+
+
+
+
+    public void ReachedtoTarget()
+    {
+        playerDataHolder.playerAnimator.PlayerReadyToShake();
+    }
     public void Shake(float magnitude)
     {
         _GameAssets.Instance.playerAnimator.PlayerShakeTreeAnimation(true);

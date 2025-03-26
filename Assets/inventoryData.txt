@@ -1,1 +1,1 @@
-{"items":[{"item_type":5,"amount":42},{"item_type":8,"amount":199},{"item_type":3,"amount":7}]}
+{"items":[{"item_type":5,"amount":42},{"item_type":8,"amount":206},{"item_type":7,"amount":7},{"item_type":3,"amount":5}]}

@@ -33,17 +33,16 @@ public class UIManager : MonoSingleton<UIManager>
 
    
 
-    public void SetViewMode(bool isTree)
-    {
-        gamePanel.SetActive(!isTree);
-        shakeModePanel.SetActive(isTree);
-        
-    }
+   
 
 
     public void ListenToShakeModeStartEvent(Component sender,object data)
     {
-        SetViewMode((bool)data);
+        shakeModePanel.SetActive((bool)data);
+    }
+    public void ListenToViewChangedEvent(Component sender,object data)
+    {
+        gamePanel.SetActive(!(bool)data);
     }
 
     public void SetupIntreactButton(ButtonInfo buttonInfo,bool isActive)

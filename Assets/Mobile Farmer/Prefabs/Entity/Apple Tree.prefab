@@ -72,7 +72,7 @@ MonoBehaviour:
   fruitParent: {fileID: 5751217104043986512}
   cropData: {fileID: 11400000, guid: d97ed19e5bc97ef4c90f72e63c047a4c, type: 2}
   treeButtonInfo:
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 108faa4932fb57e4087d90a182b0ce15, type: 3}
   needToShake: 0
   taskBeforeShake: 1
   maxShakeMagnitude: 0.005

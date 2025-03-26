@@ -37,15 +37,28 @@ public class PlayerShakeTreeAbility : MonoBehaviour
             shakeable = (IShakeable)sender;
             shakebleGameobject = shakeable.IntiateShake(this.gameObject);
             neededShakeType = shakeable.e_ShakeType;
-            if(shakeable.e_NeedToperformTask_BeforeShake == E_NeedToperformTask_BeforeShake.MovetowardsTarget)MoveTowardsTarget();
+            
+
             isAbilityActive = true;
         }else{
             //stop shake mode
             shakeable = null;
             isAbilityActive = false;
             isShaking = false;
-            //little delay so that it not get overriden in some devicies
-            LeanTween.delayedCall(.1f,()=>playerAnimator.PlayerShakeTreeAnimation(false));
+           
+        }
+    }
+
+    public void ListenToOnViewChange(Component sender,object data)
+    {
+        if((bool)data && sender is IShakeable)
+        {
+            shakeable = (IShakeable)sender;
+            shakebleGameobject = shakeable.IntiateShake(this.gameObject);
+            neededShakeType = shakeable.e_ShakeType;
+            
+            if(shakeable.e_NeedToperformTask_BeforeShake == E_NeedToperformTask_BeforeShake.MovetowardsTarget)MoveTowardsTarget();
+            else ReachedtoTarget();
         }
     }
 
@@ -66,7 +79,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
 
     void ReachedtoTarget(){
         playerAnimator.ManageAnimation(Vector3.zero);
-        playerAnimator.PlayerReadyToShake();
+       shakeable.ReachedtoTarget();
     }
         
     

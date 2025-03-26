@@ -51,4 +51,6 @@ public class CameraManager : MonoSingleton<CameraManager>
     {
         transitionCamera.gameObject.SetActive(false);
     }
+
+    
 }

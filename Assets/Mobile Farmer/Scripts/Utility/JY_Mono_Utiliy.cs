@@ -174,6 +174,8 @@ public enum E_Inventory_Item_Type{
     Milk,
     Fish,
     Egg,
+
+    
 }
 
 public enum E_Crop_Progess{

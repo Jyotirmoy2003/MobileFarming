@@ -146,6 +146,11 @@ public class Cow : AnimalBase, IShakeable,IInteractable
         
     }
 
+    public void ReachedtoTarget()
+    {
+        throw new NotImplementedException();
+    }
+
 
 
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using jy_util;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -13,13 +14,23 @@ public class Fish : FreeSwimming
 
     public FishState currentState;
     #endregion
+
+    public FeedBackManager feedBackManager;
+    public E_Inventory_Item_Type fishType;
+
+
     [HideInInspector]
     public Transform hookPos;
     [HideInInspector]
     public Transform fishTargetWhenHooked1,fishTargetWhenHooked2;
-    public Action FishHooked;
+    public Action FishHooked,FishCatched;
     private float shakeThresold = 350f;
     public float shakeValue = 0f;
+
+    [HideInInspector]
+    public float shakeSliderValue = 0f;
+    [HideInInspector]
+    public float surfaceY = 3f;
 
     private Coroutine moveCoroutine; // Store reference to running coroutine
 
@@ -37,7 +48,11 @@ public class Fish : FreeSwimming
         currentState.UpdateState(this);
     }
 
-
+    public void ResetFish()
+    {
+        transform.localScale = Vector3.one;
+        SwithState(fishIdleState);
+    }
 
 
     public void HookthisFish(Transform hookPos,Transform fishTargetWhenHooked1,Transform fishTargetWhenHooked2)
@@ -84,8 +99,7 @@ public class Fish : FreeSwimming
         float baseMoveSpeed = 0.5f; // Base speed
         float maxMoveAmount = 3f; // Maximum movement per shake
         float minMoveAmount = 0.5f; // Minimum movement per shake
-        float surfaceY = 3f; // Water surface height
-        float startY = 0f; // Assuming fish starts from y = 0
+        
 
             while (true)
             {
@@ -97,11 +111,10 @@ public class Fish : FreeSwimming
                 transform.position = Vector3.Lerp(transform.position, target, baseMoveSpeed * Time.deltaTime);
 
                 // Normalize progress so that when fish reaches y = 3, progress is 1
-                float progress = Mathf.Clamp01((transform.position.y - startY) / (surfaceY - startY)); 
-                    Debug.Log(progress);
-                    UIManager.Instance.UpdateShakeSlider(progress); 
+                //float progress = Mathf.Clamp01((transform.position.y - startY) / (surfaceY - startY)); 
+                
 
-                    yield return null; // Wait for next frame
+                yield return null; // Wait for next frame
             }
         }
 
@@ -114,6 +127,26 @@ public class Fish : FreeSwimming
         currentState = nextState;
         
     
+   }
+
+   public void UpdateShakeSlider()
+   {
+        shakeSliderValue = (transform.localPosition.y/surfaceY);
+        UIManager.Instance.UpdateShakeSlider(shakeSliderValue);
+
+        if(shakeSliderValue > 1)
+        {
+            //Fish catched
+            feedBackManager.PlayFeedback();
+            StopAllCoroutines();
+            
+            FishCatched?.Invoke();
+
+            SwithState(fishIdleState);
+            SetMovementActivation(false);
+            InventoryManager.Instance.AddItemToInventory(fishType,1);
+
+        }
    }
 }
 
@@ -224,11 +257,19 @@ public class FishRegistHook : FishState
     public override void ExitState(Fish fish)
     {
         fish.onFishReachedToDest -= FishReachedToTarget;
+        
+
+        //call events to change the view and turn off slider
+        _GameAssets.Instance.OnViewChangeEvent.Raise(fish,false);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(fish,false);
     }
 
     public override void UpdateState(Fish fish)
     {
         fish.hookPos.position = fish.transform.position;
+        fish.UpdateShakeSlider();
+
+        
     }
 
     void FishReachedToTarget()

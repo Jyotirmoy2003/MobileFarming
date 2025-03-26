@@ -11,6 +11,7 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
     [SerializeField] Transform cameraLookAt;
     [SerializeField] SeaControl seaControl;
     [SerializeField] Transform hookTranform;
+    [SerializeField] GameObject rope;
     [SerializeField] Vector3 hookStartPos,hookEndPos;
     [Header("Settings")]
     [SerializeField] E_ShakeType needToShake;
@@ -47,10 +48,12 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     public void Interact(GameObject interactingObject)
     {
-        _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
-        CameraManager.Instance.SwitchCamera(cameraLookAt,new Vector3(0,-0.45f,-8f),new Vector3(0,1.42f,0));
         playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
-        InitateFishing();
+
+         _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
+        CameraManager.Instance.SwitchCamera(cameraLookAt,new Vector3(0,-0.45f,-8f),new Vector3(0,1.42f,0));
+        
+        
     }
 
 
@@ -81,24 +84,46 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
         hookedFish?.ShakeValue(0);
     }
 
+    public void ReachedtoTarget()
+    {
+       
+        InitateFishing();
+    }
+
     #endregion
 
 
 
     void InitateFishing()
     {
+        foreach(Fish item in allFishes) item.ResetFish();
+
+
+        rope.SetActive(true);
         playerDataHolder.playerAnimator.PlayFishingRod(true);
         hookTranform.position = hookStartPos;
         hookTranform.LeanMove(hookEndPos,2f);
-       Invoke(nameof(SetUpFish),2.5f);
+        Invoke(nameof(SetUpFish),2.5f);
     }
 
     void SetUpFish()
     {
+
+
          //Hook a fish
         hookedFish = GetARandomFishHooked();
         hookedFish.HookthisFish(hookTranform,fishTargetWhenHooked1,fishTargetWhenHooked2);
         hookedFish.FishHooked += FishHooked;
+        hookedFish.FishCatched += FishCatched;
+    }
+
+    private void FishCatched()
+    {
+        hookedFish.FishCatched -= FishCatched;
+        rope.SetActive(false);
+        CameraManager.Instance.SwitchCamera();
+        playerDataHolder.playerAnimator.PlayFishingRod(false);
+
     }
 
     void FishHooked()
