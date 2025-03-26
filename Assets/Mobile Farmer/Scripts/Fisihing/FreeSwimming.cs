@@ -23,17 +23,15 @@ public class FreeSwimming : MonoBehaviour
 
     private NoArgumentFun updateDel;
 
-    private void Start()
-    {
-        SetRandomTargetPosition();
-    }
+   
 
-    private void Update()=>updateDel?.Invoke();
+    protected void Update()=>updateDel?.Invoke();
+    
     
        
     
 
-    private void SetRandomTargetPosition()
+    public void SetRandomTargetPosition()
     {
         var angle = Random.Range(0f, 2f * Mathf.PI);
         var radius = Random.Range(0f, seaControl.radius);
@@ -46,6 +44,7 @@ public class FreeSwimming : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
+        
         _obstacles = Physics.OverlapSphere(transform.position, avoidanceDistance, obstacleLayer);
 
         if (_obstacles.Length > 0)
@@ -97,6 +96,7 @@ public class FreeSwimming : MonoBehaviour
 
     public void SetMovementActivation(bool isActive)
     {
+        //if(isActive); updateDel = MoveTowardsTarget;
         updateDel = (isActive)? MoveTowardsTarget:util.NullFun;
     }
 

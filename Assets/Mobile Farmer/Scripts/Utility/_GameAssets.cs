@@ -7,6 +7,7 @@ public class _GameAssets : MonoSingleton<_GameAssets>
 {
     public static readonly string PlayerTag = "Player";
     [Header("Events")]
+    public GameEvent OnShakeInitiateEvent;
     public GameEvent OnPlayerInteractStatusChangeEvent;
     public GameEvent OnHervestedEvent;
     public GameEvent OnViewChangeEvent;

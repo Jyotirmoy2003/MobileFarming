@@ -525,7 +525,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78846723}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.000000008717809, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.00000000871781, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -866,7 +866,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4314161489066835213, guid: 0b02f23768c7a0240846adaa40f0e564,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 826254067}
+      addedObject: {fileID: 826254069}
   m_SourcePrefab: {fileID: 100100000, guid: 0b02f23768c7a0240846adaa40f0e564, type: 3}
 --- !u!1 &95860156
 GameObject:
@@ -1015,6 +1015,37 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2071798463}
+--- !u!1 &119084153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119084154}
+  m_Layer: 6
+  m_Name: FishTargetWhenHooked1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &119084154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119084153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.06, y: 0.361, z: 0.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 273939148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &138950301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,7 +1433,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6742890190357792748, guid: 3a0a1da01fb7da4469ba5ff5f182c6bd,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1424773785}
+      addedObject: {fileID: 1424773787}
   m_SourcePrefab: {fileID: 100100000, guid: 3a0a1da01fb7da4469ba5ff5f182c6bd, type: 3}
 --- !u!1 &171338843 stripped
 GameObject:
@@ -1854,6 +1885,8 @@ Transform:
   - {fileID: 1263717041}
   - {fileID: 335083544}
   - {fileID: 1504984364}
+  - {fileID: 119084154}
+  - {fileID: 1905538955}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &273939149
@@ -1889,6 +1922,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47d1a8a42b4acb4eaba192e1988d7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allFishes:
+  - {fileID: 826254069}
+  - {fileID: 1904263741}
+  - {fileID: 1424773787}
+  - {fileID: 2083048922}
+  fishTargetWhenHooked1: {fileID: 119084154}
+  fishTargetWhenHooked2: {fileID: 1905538955}
   cameraLookAt: {fileID: 1504984364}
   seaControl: {fileID: 335083545}
   hookTranform: {fileID: 2097201739}
@@ -2176,7 +2216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.000000008717809, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.00000000871781, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3337,7 +3377,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1465181154044907004, guid: c9d21a80be8faa740be277343139fff5,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2083048920}
+      addedObject: {fileID: 2083048922}
   m_SourcePrefab: {fileID: 100100000, guid: c9d21a80be8faa740be277343139fff5, type: 3}
 --- !u!1 &445505231
 GameObject:
@@ -10745,27 +10785,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 91690902}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &826254067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826254065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d335996c1c7274efba30aa43eec9f005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seaControl: {fileID: 335083545}
-  maxSpeed: 0.2
-  minSpeed: 0.1
-  rotationSpeed: 0.3
-  avoidanceDistance: 5
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  targetProximityThreshold: 0.5
 --- !u!95 &826254068
 Animator:
   serializedVersion: 5
@@ -10777,7 +10796,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a6418dc149217cb45a9c5c59d5cb6ae4, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -10787,6 +10806,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &826254069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826254065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a05bfdcd8cc12d458297dcc17ba4b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seaControl: {fileID: 335083545}
+  maxSpeed: 0.2
+  minSpeed: 0.1
+  rotationSpeed: 0.3
+  avoidanceDistance: 5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  targetProximityThreshold: 0.5
+  hookPos: {fileID: 0}
+  fishTargetWhenHooked1: {fileID: 0}
+  fishTargetWhenHooked2: {fileID: 0}
+  shakeValue: 0
 --- !u!1001 &830462419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23219,7 +23263,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7775739741393635707, guid: b2f7f8aa3af94ed49ad087928c7a15c2,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1904263739}
+      addedObject: {fileID: 1904263741}
   m_SourcePrefab: {fileID: 100100000, guid: b2f7f8aa3af94ed49ad087928c7a15c2, type: 3}
 --- !u!1 &1356742141
 GameObject:
@@ -23597,27 +23641,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 167084013}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1424773785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424773783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d335996c1c7274efba30aa43eec9f005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seaControl: {fileID: 335083545}
-  maxSpeed: 0.2
-  minSpeed: 0.1
-  rotationSpeed: 0.3
-  avoidanceDistance: 5
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  targetProximityThreshold: 0.5
 --- !u!95 &1424773786
 Animator:
   serializedVersion: 5
@@ -23629,7 +23652,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a6418dc149217cb45a9c5c59d5cb6ae4, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -23639,6 +23662,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1424773787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424773783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a05bfdcd8cc12d458297dcc17ba4b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seaControl: {fileID: 335083545}
+  maxSpeed: 0.2
+  minSpeed: 0.1
+  rotationSpeed: 0.3
+  avoidanceDistance: 5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  targetProximityThreshold: 0.5
+  hookPos: {fileID: 0}
+  fishTargetWhenHooked1: {fileID: 0}
+  fishTargetWhenHooked2: {fileID: 0}
+  shakeValue: 0
 --- !u!1001 &1434569037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25300,6 +25348,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   unparentGameObject: 0
+  OnShakeInitiateEvent: {fileID: 11400000, guid: 4399a6cc3e4320d42850a7a329e90fce,
+    type: 2}
   OnPlayerInteractStatusChangeEvent: {fileID: 11400000, guid: 38fb9421b7b62724bb3edecf64509638,
     type: 2}
   OnHervestedEvent: {fileID: 11400000, guid: e333f485717173c41bb9ad202072efea, type: 2}
@@ -26695,27 +26745,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1345954865}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1904263739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1904263737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d335996c1c7274efba30aa43eec9f005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seaControl: {fileID: 335083545}
-  maxSpeed: 0.2
-  minSpeed: 0.1
-  rotationSpeed: 0.3
-  avoidanceDistance: 5
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  targetProximityThreshold: 0.5
 --- !u!95 &1904263740
 Animator:
   serializedVersion: 5
@@ -26737,6 +26766,62 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1904263741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904263737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a05bfdcd8cc12d458297dcc17ba4b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seaControl: {fileID: 335083545}
+  maxSpeed: 0.2
+  minSpeed: 0.1
+  rotationSpeed: 0.3
+  avoidanceDistance: 5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  targetProximityThreshold: 0.5
+  hookPos: {fileID: 0}
+  fishTargetWhenHooked1: {fileID: 0}
+  fishTargetWhenHooked2: {fileID: 0}
+  shakeValue: 0
+--- !u!1 &1905538954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905538955}
+  m_Layer: 6
+  m_Name: FishTargetWhenHooked1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1905538955
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905538954}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.06, y: 0.361, z: -1.557}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 273939148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1926950907
 GameObject:
   m_ObjectHideFlags: 0
@@ -27933,27 +28018,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 443202551}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2083048920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083048918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d335996c1c7274efba30aa43eec9f005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seaControl: {fileID: 335083545}
-  maxSpeed: 0.2
-  minSpeed: 0.1
-  rotationSpeed: 0.3
-  avoidanceDistance: 5
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  targetProximityThreshold: 0.5
 --- !u!95 &2083048921
 Animator:
   serializedVersion: 5
@@ -27965,7 +28029,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a6418dc149217cb45a9c5c59d5cb6ae4, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -27975,6 +28039,31 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2083048922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083048918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a05bfdcd8cc12d458297dcc17ba4b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seaControl: {fileID: 335083545}
+  maxSpeed: 0.2
+  minSpeed: 0.1
+  rotationSpeed: 0.3
+  avoidanceDistance: 5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  targetProximityThreshold: 0.5
+  hookPos: {fileID: 0}
+  fishTargetWhenHooked1: {fileID: 0}
+  fishTargetWhenHooked2: {fileID: 0}
+  shakeValue: 0
 --- !u!1 &2097201738
 GameObject:
   m_ObjectHideFlags: 0
@@ -41312,7 +41401,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.5
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

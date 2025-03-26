@@ -6,6 +6,8 @@ using UnityEngine;
 public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 {
     [Header("Ref")]
+    [SerializeField] List<Fish> allFishes = new List<Fish>();
+    [SerializeField] Transform fishTargetWhenHooked1,fishTargetWhenHooked2;
     [SerializeField] Transform cameraLookAt;
     [SerializeField] SeaControl seaControl;
     [SerializeField] Transform hookTranform;
@@ -70,13 +72,13 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
     }
     public void Shake(float magnitude)
     {
-        
+        hookedFish.ShakeValue(magnitude);
     }
 
 
     public void StopShaking()
     {
-        
+        hookedFish?.ShakeValue(0);
     }
 
     #endregion
@@ -88,18 +90,31 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
         playerDataHolder.playerAnimator.PlayFishingRod(true);
         hookTranform.position = hookStartPos;
         hookTranform.LeanMove(hookEndPos,2f);
-        //Hook a fish
-        hookedFish = seaControl.GetARandomFishHooked();
+       Invoke(nameof(SetUpFish),2.5f);
+    }
+
+    void SetUpFish()
+    {
+         //Hook a fish
+        hookedFish = GetARandomFishHooked();
+        hookedFish.HookthisFish(hookTranform,fishTargetWhenHooked1,fishTargetWhenHooked2);
+        hookedFish.FishHooked += FishHooked;
     }
 
     void FishHooked()
     {
-
+        hookedFish.FishHooked -= FishHooked;
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,true);
     }
 
 
     bool IsReady()
     {
         return true;
+    }
+
+    Fish GetARandomFishHooked()
+    {
+        return allFishes[Random.Range(0, allFishes.Count)];
     }
 }
