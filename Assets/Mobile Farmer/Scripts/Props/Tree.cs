@@ -19,6 +19,10 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     [SerializeField] float maxShakeMagnitude = 0.005f;
     [SerializeField] float shakeIncreament = 0.2f;
     [SerializeField] float furitShakeMultiplayer;
+
+    [Header("Camera settings")]
+    [SerializeField] Vector3 cameraBodyOffset;
+    [SerializeField] Vector3 cameraAimOffset;
     private float shakeSliderValue = 0f;
     private float shakeMagnitude = 0;
     private bool IsShaking = false;
@@ -44,7 +48,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
 
     public void SetTreeCamActivation(bool isActive)
     {
-        if(isActive)CameraManager.Instance.SwitchCamera(treeRendere.transform,new Vector3(0,5,-10),new Vector3(0,3,0));
+        if(isActive)CameraManager.Instance.SwitchCamera(treeRendere.transform,cameraBodyOffset,cameraAimOffset);
         else CameraManager.Instance.SwitchCamera();
     }
 
@@ -117,7 +121,7 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     {
         _GameAssets.Instance.playerAnimator.PlayerShakeTreeAnimation(false);
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
-        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,false);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,"");
         SetTreeCamActivation(false);
         TweenShake(0);
 
@@ -146,16 +150,17 @@ public class Tree : MonoBehaviour,IInteractable,IShakeable
     {
         if(!interactingObject.CompareTag(_GameAssets.PlayerTag)) return;
 
+        playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
 
         if(!IsReady()) return;
         UIManager.Instance.UpdateShakeSlider(0);
 
         //call events Change view activate shake
         _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
-        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,true);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,"Shake the Tree!");
 
 
-        playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
+        
         IntiateShake(interactingObject);
     }
 

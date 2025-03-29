@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using jy_util;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,7 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] Image interactButtonIcon;
 
     [Header("Shake Silder")]
+    [SerializeField] TMP_Text shakeSliderText;
     [SerializeField] Slider shakeSlider;
     [SerializeField] Button shakeExitButton;
 
@@ -38,7 +40,8 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ListenToShakeModeStartEvent(Component sender,object data)
     {
-        shakeModePanel.SetActive((bool)data);
+        shakeModePanel.SetActive((string)data != "");
+        shakeSliderText.text = (string)data;
     }
     public void ListenToViewChangedEvent(Component sender,object data)
     {

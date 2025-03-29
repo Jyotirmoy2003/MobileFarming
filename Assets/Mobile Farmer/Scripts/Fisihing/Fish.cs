@@ -168,6 +168,12 @@ public class FishIdle : FishState
     public override void EnterState(Fish fish)
     {
         this.fish = fish;
+        
+         //Set new Speed;
+        fish.maxSpeed =0.2f;
+        fish.minSpeed = 0.1f;
+        fish.rotationSpeed = 0.3f;
+
         fish.SetRandomTargetPosition();
         fish.SetMovementActivation(true);
     }
@@ -248,6 +254,13 @@ public class FishRegistHook : FishState
     public override void EnterState(Fish fish)
     {
         this.fish = fish;
+
+         //Set new Speed;
+        fish.maxSpeed =1f;
+        fish.minSpeed = 0.8f;
+        fish.rotationSpeed = 0.6f;
+
+
         fish.onFishReachedToDest += FishReachedToTarget;
         isTaregtis1 = true;
         fish.SetTargetPosition(fish.fishTargetWhenHooked1.position);
@@ -261,7 +274,7 @@ public class FishRegistHook : FishState
 
         //call events to change the view and turn off slider
         _GameAssets.Instance.OnViewChangeEvent.Raise(fish,false);
-        _GameAssets.Instance.OnShakeInitiateEvent.Raise(fish,false);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(fish,"");
     }
 
     public override void UpdateState(Fish fish)

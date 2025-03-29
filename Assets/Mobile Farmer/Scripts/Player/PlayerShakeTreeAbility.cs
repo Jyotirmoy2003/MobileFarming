@@ -32,7 +32,7 @@ public class PlayerShakeTreeAbility : MonoBehaviour
 
     public void ListenToTreeModeStartEvent(Component sender,object data)
     {
-        if((bool)data && sender is IShakeable)
+        if((string)data != "" && sender is IShakeable)
         {
             shakeable = (IShakeable)sender;
             shakebleGameobject = shakeable.IntiateShake(this.gameObject);
@@ -78,6 +78,13 @@ public class PlayerShakeTreeAbility : MonoBehaviour
     }
 
     void ReachedtoTarget(){
+        Vector3 treePos = shakebleGameobject.transform.position;
+        Vector3 dir = transform.position - treePos;
+
+        Vector3 faltDir = dir;
+        faltDir.y = 0;
+
+        transform.eulerAngles = faltDir;
         playerAnimator.ManageAnimation(Vector3.zero);
        shakeable.ReachedtoTarget();
     }

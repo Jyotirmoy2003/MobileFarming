@@ -58,11 +58,19 @@ public class Chunk : MonoBehaviour
     public void TryUnlcok()
     {
         //check for enough money
-        if(!CashManager.Instance.DebitCoin(1)) return;
+        if(currentPrice > 100)
+        {
+            if(!CashManager.Instance.DebitCoin(100)) return;
+        }else if( currentPrice >10)
+        {
+            if(!CashManager.Instance.DebitCoin(10)) return;
+        }else{
+            if(!CashManager.Instance.DebitCoin(1)) return;
+        }
 
         //decrease the chunk price 
         currentPrice --;
-        priceText.text = currentPrice.ToString();
+        priceText.text = CoinSystem.ConvertCoinToString(currentPrice);
 
         if(currentPrice <= 0)
             Unlock();
@@ -115,14 +123,14 @@ public class Chunk : MonoBehaviour
         return animalPetrolPoints[UnityEngine.Random.Range(0, animalPetrolPoints.Count)].position;
     }
 
-    private void OnDrawGizmos()
-    {
+    // private void OnDrawGizmos()
+    // {
 
-        Gizmos. color = Color. red;
-        Gizmos.DrawWireCube(transform.position, Vector3.one * 5);
-        Gizmos.color =new Color(0, 0, 0, 0);
+    //     Gizmos. color = Color. red;
+    //     Gizmos.DrawWireCube(transform.position, Vector3.one * 5);
+    //     Gizmos.color =new Color(0, 0, 0, 0);
 
-        Gizmos.DrawCube(transform.position, Vector3.one * 5) ;
+    //     Gizmos.DrawCube(transform.position, Vector3.one * 5) ;
 
-    }
+    // }
 }

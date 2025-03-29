@@ -78,6 +78,8 @@ MonoBehaviour:
   maxShakeMagnitude: 0.005
   shakeIncreament: 0.02
   furitShakeMultiplayer: 0.05
+  cameraBodyOffset: {x: 0, y: 5, z: -10}
+  cameraAimOffset: {x: 0, y: 3, z: 0}
 --- !u!1 &6173682392194498427
 GameObject:
   m_ObjectHideFlags: 0

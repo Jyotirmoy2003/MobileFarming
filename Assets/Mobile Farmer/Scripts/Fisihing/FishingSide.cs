@@ -17,6 +17,10 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
     [SerializeField] E_ShakeType needToShake;
     [SerializeField] E_NeedToperformTask_BeforeShake taskBeforeShake;
 
+    [Header ("Camera settings")]
+    [SerializeField] Vector3 cameraBodyOffSet;
+    [SerializeField] Vector3 cameraAim;
+
     [Header("UI")]
     [SerializeField] ButtonInfo fishingButtonInfo;
 
@@ -31,6 +35,11 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
 
 
+
+    void Start()
+    {
+        rope.SetActive(false);
+    }
 
 
 
@@ -51,7 +60,7 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
         playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
 
          _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
-        CameraManager.Instance.SwitchCamera(cameraLookAt,new Vector3(0,-0.45f,-8f),new Vector3(0,1.42f,0));
+        CameraManager.Instance.SwitchCamera(cameraLookAt,cameraBodyOffSet,cameraAim);
         
         
     }
@@ -99,16 +108,22 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
         foreach(Fish item in allFishes) item.ResetFish();
 
 
-        rope.SetActive(true);
+        
         playerDataHolder.playerAnimator.PlayFishingRod(true);
         hookTranform.position = hookStartPos;
+       
+        Invoke(nameof(FishingRodCasted),1f);
+    }
+    void FishingRodCasted()
+    {
+        rope.SetActive(true);
         hookTranform.LeanMove(hookEndPos,2f);
         Invoke(nameof(SetUpFish),2.5f);
     }
 
     void SetUpFish()
     {
-
+       
 
          //Hook a fish
         hookedFish = GetARandomFishHooked();
@@ -129,7 +144,7 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
     void FishHooked()
     {
         hookedFish.FishHooked -= FishHooked;
-        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,true);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,"Catch the Fish!");
     }
 
 
