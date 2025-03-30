@@ -570,6 +570,12 @@ PrefabInstance:
       propertyPath: treeRendere
       value: 
       objectReference: {fileID: 4795290391113782135}
+    - target: {fileID: 761320832889049733, guid: b9578076a5f90f045be148abe8a67fab,
+        type: 3}
+      propertyPath: treeButtonInfo.sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fb14ce727e4561c44ac9c7727b3de5fc,
+        type: 3}
     - target: {fileID: 1927679435336218396, guid: b9578076a5f90f045be148abe8a67fab,
         type: 3}
       propertyPath: m_LocalPosition.x

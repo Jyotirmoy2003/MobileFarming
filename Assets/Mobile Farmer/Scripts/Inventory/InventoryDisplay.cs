@@ -36,7 +36,7 @@ public class InventoryDisplay : MonoBehaviour
 
             }
         }
-
+            
         return null;
     }
 

@@ -9,11 +9,11 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
     [SerializeField] List<Fish> allFishes = new List<Fish>();
     [SerializeField] Transform fishTargetWhenHooked1,fishTargetWhenHooked2;
     [SerializeField] Transform cameraLookAt;
-    [SerializeField] SeaControl seaControl;
     [SerializeField] Transform hookTranform;
     [SerializeField] GameObject rope;
     [SerializeField] Vector3 hookStartPos,hookEndPos;
     [Header("Settings")]
+    [SerializeField] float timeToReadyFish = 30f;
     [SerializeField] E_ShakeType needToShake;
     [SerializeField] E_NeedToperformTask_BeforeShake taskBeforeShake;
 
@@ -27,6 +27,7 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     private PlayerDataHolder playerDataHolder;
     private Fish hookedFish;
+    private bool isReady = false;
 
 
     public E_ShakeType e_ShakeType { get {return needToShake;} set {needToShake = value;} }
@@ -38,11 +39,32 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     void Start()
     {
-        rope.SetActive(false);
+       Deactivate();
+       Invoke(nameof(MakeFishingsideReady),timeToReadyFish);
+    }
+
+    void MakeFishingsideReady()
+    {
+        isReady = true;
     }
 
 
+    void Activate()
+    {
+        foreach(Fish item in allFishes)
+        {
+            item.gameObject.SetActive(true);
+        }
+    }
 
+    void Deactivate()
+    {
+        rope.SetActive(false);
+        foreach(Fish item in allFishes)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 
 
 
@@ -59,10 +81,12 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
     {
         playerDataHolder = interactingObject.GetComponent<PlayerDataHolder>();
 
+        isReady = false;
          _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
         CameraManager.Instance.SwitchCamera(cameraLookAt,cameraBodyOffSet,cameraAim);
+        UIManager.Instance.SetupIntreactButton(fishingButtonInfo,false);
         
-        
+        Activate();
     }
 
 
@@ -139,6 +163,8 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
         CameraManager.Instance.SwitchCamera();
         playerDataHolder.playerAnimator.PlayFishingRod(false);
 
+        Invoke(nameof(MakeFishingsideReady),timeToReadyFish);
+
     }
 
     void FishHooked()
@@ -150,7 +176,7 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     bool IsReady()
     {
-        return true;
+        return isReady;
     }
 
     Fish GetARandomFishHooked()

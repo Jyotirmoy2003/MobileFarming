@@ -93,6 +93,7 @@ public class Chicken : AnimalBase,IInteractable
 
     public void ShowInfo(bool val)
     {
-        infoUI.SetActivationStatus(val);
+        if(val && eggCout>0) infoUI.SetActivationStatus(true);
+        infoUI.SetActivationStatus(false);
     }
 }

@@ -57,19 +57,23 @@ public class Chunk : MonoBehaviour
 
     public void TryUnlcok()
     {
+        int moneyDeductamount = 1;
         //check for enough money
         if(currentPrice > 100)
         {
-            if(!CashManager.Instance.DebitCoin(100)) return;
+            moneyDeductamount = 100;
         }else if( currentPrice >10)
         {
-            if(!CashManager.Instance.DebitCoin(10)) return;
-        }else{
-            if(!CashManager.Instance.DebitCoin(1)) return;
+            moneyDeductamount = 10;
         }
 
+        
+        if(!CashManager.Instance.DebitCoin(moneyDeductamount))
+            if(!CashManager.Instance.DebitCoin(moneyDeductamount = 1)) return;
+        
+        //Debug.Log("Money deduct amount : "+ moneyDeductamount);
         //decrease the chunk price 
-        currentPrice --;
+        currentPrice -= moneyDeductamount;
         priceText.text = CoinSystem.ConvertCoinToString(currentPrice);
 
         if(currentPrice <= 0)

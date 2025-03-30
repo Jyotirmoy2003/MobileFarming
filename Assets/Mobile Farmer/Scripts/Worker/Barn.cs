@@ -339,6 +339,7 @@ public class Barn : MonoBehaviour,IInteractable
     }
     void SpawnWorkers(int index)
     {
+        
         Worker temp=Instantiate(workerStats[index].workerPrefab,workerSpawnPoint.position,workerSpawnPoint.rotation);
         temp.allocatedBarn = this;
         temp.workerStat = deepCopyWorkerStats[index];

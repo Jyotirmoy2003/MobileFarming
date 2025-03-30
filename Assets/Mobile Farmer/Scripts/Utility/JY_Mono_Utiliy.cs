@@ -173,6 +173,10 @@ public enum E_Inventory_Item_Type{
     Pumpkin,
     Milk,
     Fish,
+    FlameFish,
+    BicolorFish,
+    KoranFish,
+    FireGobyFish,
     Egg,
 
     

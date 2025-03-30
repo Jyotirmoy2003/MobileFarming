@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48344da1df9bc49499eaf7a06bc8c094, type: 3}
-  m_Name: Fish
+  m_Name: FlameFish
   m_EditorClassIdentifier: 
   cropPrefab: {fileID: 0}
   cropType: 6
-  item_type: 7
+  item_type: 8
   growDuration: 3
   amountinSingleCrop: 1
-  uiIconSprite: {fileID: 21300000, guid: 75d8ef5dc3b354ca0afa5df573ced0ec, type: 3}
+  uiIconSprite: {fileID: 21300000, guid: 27d009aa8096f8e429d99882edd41e29, type: 3}
   cropPopUp: {fileID: 0}
   pricePerPice: 5

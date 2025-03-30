@@ -41,6 +41,10 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     public CropField[] allFieldInGame ;
     public List<CropData> cropDatas=new List<CropData>();
 
+    [Space]
+    [Header("Float Data")]
+    public float fishShakeThresold =350f;
+
     public void ListnToOnGameCache(Component sender,object data)
     {
       allFieldInGame = FindObjectsOfType<CropField>();

@@ -37,6 +37,7 @@ public class Fish : FreeSwimming
 
     void Start()
     {
+        shakeThresold = _GameAssets.Instance.fishShakeThresold;
         currentState = fishIdleState;
         currentState.EnterState(this);
     }
@@ -96,9 +97,9 @@ public class Fish : FreeSwimming
     // Coroutine for smooth movement
     private IEnumerator SmoothMoveUp()
     {
-        float baseMoveSpeed = 0.5f; // Base speed
+        float baseMoveSpeed = 2f; // Base speed
         float maxMoveAmount = 3f; // Maximum movement per shake
-        float minMoveAmount = 0.5f; // Minimum movement per shake
+        float minMoveAmount = 1f; // Minimum movement per shake
         
 
             while (true)
