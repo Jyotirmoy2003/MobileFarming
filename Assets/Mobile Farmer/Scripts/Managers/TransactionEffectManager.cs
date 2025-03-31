@@ -9,6 +9,7 @@ public class TransactionEffectManager : MonoSingleton<TransactionEffectManager>
    [SerializeField] int cointParticelAmount=20;
    [SerializeField] float moveSpeed=5f;
    private Camera cameraMain;
+   private int cashAmount = 0;
 
     void Start()
     {
@@ -23,6 +24,11 @@ public class TransactionEffectManager : MonoSingleton<TransactionEffectManager>
    public void PlayeCoinParticel(int amount)
    {
         if(cointParticel.isPlaying) return;
+        cashAmount =  amount;
+
+        if(amount > 1500) amount = 1500; //cap particel amount
+
+
         ParticleSystem.Burst burst = cointParticel.emission.GetBurst(0);
         burst.count = amount;
         cointParticel.emission.SetBurst(0, burst);
@@ -70,6 +76,11 @@ public class TransactionEffectManager : MonoSingleton<TransactionEffectManager>
             cointParticel.SetParticles(particles);
 
             yield return null;
+        }
+
+        if(cashAmount > 1500)
+        {
+            CashManager.Instance.CreditCoins(cashAmount-1500);
         }
 
    }

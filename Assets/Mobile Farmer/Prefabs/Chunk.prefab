@@ -993,7 +993,7 @@ MonoBehaviour:
   animalPetrolPoints:
   - {fileID: 3658965366459659360}
   cropFieldDataHolder: {fileID: 0}
-  initialPrice: 50
+  initialPrice: 1500
   currentPrice: 0
   feedBackManager: {fileID: 4030869937230357246}
 --- !u!114 &4030869937230357246

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028463, g: 0.22571611, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028417, g: 0.22571534, b: 0.30692172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -371,7 +371,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78846723}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.00000000871781, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.000000008717809, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5598,6 +5598,52 @@ MonoBehaviour:
   img: {fileID: 338739140}
   target: {fileID: 0}
   offset: {x: 0, y: 0, z: 2}
+--- !u!1 &308203035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308203036}
+  - component: {fileID: 308203037}
+  m_Layer: 0
+  m_Name: HapticManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &308203036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308203035}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1356742142}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &308203037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308203035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302f958d5ba04b5459b47ab131837c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  unparentGameObject: 0
 --- !u!224 &320409400 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9023999429292867333, guid: 78185a48b9c500f4ea6b34de50a87b7d,
@@ -5691,7 +5737,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.00000000871781, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.000000008717809, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7574,6 +7620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff8e93eb765db04988bf540d18ab225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerData: {fileID: 913347751}
 --- !u!199 &758724944
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -12719,11 +12766,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 990670518}
   rendererTransform: {fileID: 990670516}
-  waterParticel: {fileID: 1622716399}
-  seedParticel: {fileID: 758724945}
+  waterParticel: {fileID: 758724945}
+  seedParticel: {fileID: 1622716399}
   wateringCan: {fileID: 1011502990}
   harvestScythe: {fileID: 1839277176}
-  moveSpeedMultiplier: 500
+  fishingRod: {fileID: 0}
+  moveSpeedMultiplier: 25
 --- !u!114 &913347757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12994,13 +13042,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Hips'\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
-    'LeftHandThumb1'\n\tTransform 'RightHandThumb3'\n\tTransform 'RightForeArm'\n\tTransform
-    'LeftLeg'\n\tTransform 'RightHandThumb1'\n\tTransform 'RightHandIndex3'\n\tTransform
-    'RightHandIndex1'\n\tand more ...\n\tFrom animation clip 'Fishing Pull back'\n\tFrom
-    animation clip 'Fishing Cast'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -13236,6 +13278,7 @@ MonoBehaviour:
   shakeModePanel: {fileID: 871577921}
   IntreactButton: {fileID: 1063446220}
   interactButtonIcon: {fileID: 1090174583}
+  shakeSliderText: {fileID: 0}
   shakeSlider: {fileID: 7625183325299607564}
   shakeExitButton: {fileID: 0}
 --- !u!114 &1063066724
@@ -14279,6 +14322,7 @@ Transform:
   - {fileID: 1830638782}
   - {fileID: 301464223}
   - {fileID: 2082656344}
+  - {fileID: 308203036}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1403504740
@@ -15668,6 +15712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563f393157948c94db908e12e2e75905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownerData: {fileID: 913347751}
 --- !u!199 &1622716398
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -20662,10 +20707,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   unparentGameObject: 0
+  OnShakeInitiateEvent: {fileID: 0}
   OnPlayerInteractStatusChangeEvent: {fileID: 11400000, guid: 38fb9421b7b62724bb3edecf64509638,
     type: 2}
   OnHervestedEvent: {fileID: 11400000, guid: e333f485717173c41bb9ad202072efea, type: 2}
   OnViewChangeEvent: {fileID: 11400000, guid: 4399a6cc3e4320d42850a7a329e90fce, type: 2}
+  spawnDustParticel: {fileID: 0}
   seedParticel: {fileID: 1622716399}
   waterParticel: {fileID: 758724945}
   playerAnimator: {fileID: 913347756}
@@ -20673,6 +20720,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 1946335960}
   wateringCan: {fileID: 1011502990}
   harvestScythe: {fileID: 1839277176}
+  fishingRodTip: {fileID: 0}
   defaultCropTileMat: {fileID: 2100000, guid: 095228817438eae45a5b214b4c137752, type: 2}
   wateredCropTileMat: {fileID: 2100000, guid: ea4a039c27f1610458680a5e10335e0c, type: 2}
   allFieldInGame: []
@@ -20680,6 +20728,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc890f597c76c2e408be10b4b8bcd2e5, type: 2}
   - {fileID: 11400000, guid: 6d491d0023cbc4642bb3f700427d4a67, type: 2}
   - {fileID: 11400000, guid: d97ed19e5bc97ef4c90f72e63c047a4c, type: 2}
+  fishShakeThresold: 350
 --- !u!1 &1743553359
 GameObject:
   m_ObjectHideFlags: 0

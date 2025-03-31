@@ -56,7 +56,7 @@ public class TutorialManager : MonoBehaviour
 
         moveSeq.Play().SetLoops(5,LoopType.Restart);
 
-        CashManager.Instance.CreditCoins(2000);
+        CashManager.Instance.CreditCoins(3000);
         ListenToEvent =true;
 
         

@@ -9,6 +9,7 @@ public class Crop : MonoBehaviour
     
     private CropData myCropData;
     private Vector3 initialScale ;
+    private bool isCropAgainPlanted = false;
 
     void Start()
     {
@@ -21,6 +22,10 @@ public class Crop : MonoBehaviour
     }
     public void ScaleDown()
     {
+        isCropAgainPlanted = false;
+
+        LeanTween.cancel(cropRendererObject); //first cancel previous tweens if running;
+
         cropRendererObject.LeanScale(Vector3.zero,1)
             .setEase(LeanTweenType.easeOutBack).setOnComplete(()=>LeanTween.delayedCall(1,DeactivateCrop)); //deactivate crop after 1s delay so particel gets time to fully get played
 
@@ -35,11 +40,12 @@ public class Crop : MonoBehaviour
 
     public void ResetScale()
     {
+        isCropAgainPlanted = true;
         cropRendererObject.transform.localScale = initialScale;
     }
 
     void DeactivateCrop()
     {
-        gameObject.SetActive(false);
+       if(!isCropAgainPlanted) gameObject.SetActive(false);
     }
 }

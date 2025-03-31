@@ -98,8 +98,8 @@ public class Fish : FreeSwimming
     private IEnumerator SmoothMoveUp()
     {
         float baseMoveSpeed = 2f; // Base speed
-        float maxMoveAmount = 3f; // Maximum movement per shake
-        float minMoveAmount = 1f; // Minimum movement per shake
+        float maxMoveAmount = 2f; // Maximum movement per shake
+        float minMoveAmount = 0.5f; // Minimum movement per shake
         
 
             while (true)
@@ -257,8 +257,8 @@ public class FishRegistHook : FishState
         this.fish = fish;
 
          //Set new Speed;
-        fish.maxSpeed =1f;
-        fish.minSpeed = 0.8f;
+        fish.maxSpeed =0.8f;
+        fish.minSpeed = 0.5f;
         fish.rotationSpeed = 0.6f;
 
 

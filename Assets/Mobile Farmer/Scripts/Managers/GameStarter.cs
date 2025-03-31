@@ -11,13 +11,13 @@ public class GameStarter : MonoBehaviour
 
     void LoadScene()
     {
-        AsyncLoadManager.Instance.LoadSceneAsync("Main");
-        // if(PlayerPrefs.GetInt("Tutorial")>0)
-        // {
-        //     AsyncLoadManager.Instance.LoadSceneAsync("Main");
-        // }else{
-        //     AsyncLoadManager.Instance.LoadSceneAsync("Tutorial");
-        // }
-        //AsyncLoadManager.Instance.LoadSceneAsync("Tutorial");
+        //AsyncLoadManager.Instance.LoadSceneAsync("Main");
+        if(PlayerPrefs.GetInt("Tutorial")>0)
+        {
+            AsyncLoadManager.Instance.LoadSceneAsync("Main");
+        }else{
+            AsyncLoadManager.Instance.LoadSceneAsync("Tutorial");
+        }
+        AsyncLoadManager.Instance.LoadSceneAsync("Tutorial");
     }
 }

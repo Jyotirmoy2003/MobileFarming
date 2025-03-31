@@ -29,7 +29,6 @@ public class WorkerStat : ScriptableObject
         if(level >= 10) return;
         level++;
         price += price / 2;
-        maxLoadCapacity +=  maxLoadCapacity / 2;
         if(level >= 10)
         {
             price = 0;
