@@ -20,4 +20,4 @@ MonoBehaviour:
   amountinSingleCrop: 3
   uiIconSprite: {fileID: 21300000, guid: 69f62ad8086630a4ea97d69f8c6a9367, type: 3}
   cropPopUp: {fileID: 21300000, guid: f9905be67c5b2f54c9da97fe1694213b, type: 3}
-  pricePerPice: 8
+  pricePerPice: 10

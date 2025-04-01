@@ -19,11 +19,18 @@ public class Chicken : AnimalBase,IInteractable
 
     void Start()
     {
-        Invoke(nameof(EggReady),eggReproduceTime);
+       base.Start();
+        ActivationStatusChanged += ActivationStatusChangedinBase;
     }
 
    
-
+    void ActivationStatusChangedinBase(bool val)
+    {
+        if(val)
+        {
+            Invoke(nameof(EggReady),eggReproduceTime);
+        }
+    }
 
 
 
@@ -78,7 +85,8 @@ public class Chicken : AnimalBase,IInteractable
 
     public void InIntreactZone(GameObject interactingObject)
     {
-        DropEggs();
+        if(interactingObject.CompareTag(_GameAssets.PlayerTag))
+            DropEggs();
     }
 
     public void Interact(GameObject interactingObject)

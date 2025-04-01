@@ -147,7 +147,8 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     void SetUpFish()
     {
-       
+        UIManager.Instance.OnUniversalCloseButtonPressed += CloseButtonPressed;
+        UIManager.Instance.SetCloseButton(true);
 
          //Hook a fish
         hookedFish = GetARandomFishHooked();
@@ -158,11 +159,9 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     private void FishCatched()
     {
-        hookedFish.FishCatched -= FishCatched;
-        rope.SetActive(false);
-        CameraManager.Instance.SwitchCamera();
-        playerDataHolder.playerAnimator.PlayFishingRod(false);
+        FishingDone();
 
+        //Make ready for next round
         Invoke(nameof(MakeFishingsideReady),timeToReadyFish);
 
     }
@@ -182,5 +181,32 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
     Fish GetARandomFishHooked()
     {
         return allFishes[Random.Range(0, allFishes.Count)];
+    }
+
+    
+    void CloseButtonPressed()
+    {
+        isReady = true;
+        FishingDone();
+    }
+    void FishingDone()
+    {
+        UIManager.Instance.OnUniversalCloseButtonPressed -= CloseButtonPressed;
+        UIManager.Instance.SetCloseButton(false);
+
+        //call events to change the view and turn off slider
+        _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,"");
+
+
+        if(hookedFish)hookedFish.FishCatched -= FishCatched;
+        rope.SetActive(false);
+        CameraManager.Instance.SwitchCamera();
+        playerDataHolder.playerAnimator.PlayFishingRod(false);
+
+        Invoke(nameof(Deactivate),1f);
+
+        //Make ready for next round
+        Invoke(nameof(MakeFishingsideReady),timeToReadyFish);
     }
 }

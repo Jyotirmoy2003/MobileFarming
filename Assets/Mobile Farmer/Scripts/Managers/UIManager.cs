@@ -10,6 +10,8 @@ public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] GameObject gamePanel;
     [SerializeField] GameObject shakeModePanel;
+    [Header("Universal Buttons")]
+    [SerializeField] GameObject closeButton;
     
     [Header("Interact Button")]
     [SerializeField] Button IntreactButton;
@@ -21,6 +23,7 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] Button shakeExitButton;
 
     public Action OnExitButtonPressed;
+    public Action OnUniversalCloseButtonPressed;
 
     
     void Start()
@@ -54,6 +57,11 @@ public class UIManager : MonoSingleton<UIManager>
         interactButtonIcon.sprite = buttonInfo.sprite;
     }
 
+    public void SetCloseButton(bool isActive)
+    {
+        closeButton.SetActive(isActive);
+    }
+
     public void ShowShakeExit(bool val)
     {
         shakeExitButton.gameObject.SetActive(val);
@@ -68,5 +76,11 @@ public class UIManager : MonoSingleton<UIManager>
     public void OnExitButtonPressedCallback()
     {
         OnExitButtonPressed?.Invoke();
+    }
+
+
+    public void OnUniversalClosePressed()
+    {
+        OnUniversalCloseButtonPressed?.Invoke();
     }
 }

@@ -273,9 +273,9 @@ public class FishRegistHook : FishState
         fish.onFishReachedToDest -= FishReachedToTarget;
         
 
-        //call events to change the view and turn off slider
-        _GameAssets.Instance.OnViewChangeEvent.Raise(fish,false);
-        _GameAssets.Instance.OnShakeInitiateEvent.Raise(fish,"");
+        // //call events to change the view and turn off slider
+        // _GameAssets.Instance.OnViewChangeEvent.Raise(fish,false);
+        // _GameAssets.Instance.OnShakeInitiateEvent.Raise(fish,"");
     }
 
     public override void UpdateState(Fish fish)

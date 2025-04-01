@@ -144,7 +144,7 @@ public class Barn : MonoBehaviour,IInteractable
    {
         for(int i=0 ;i<nearByFields.Count;i++)
         {
-            if(nearByFields[i].cropFieldDataHolder.chunk.IsUnclocked() && nearByFields[i].GetCropData()==cropData && !nearByFields[i].cropFieldDataHolder.cropField.IsOccupied)
+            if(nearByFields[i].cropFieldDataHolder.chunk.IsUnclocked() && nearByFields[i].GetCropData()==cropData )//&& !nearByFields[i].cropFieldDataHolder.cropField.IsOccupied)
                 {
                     nearByFields[i].IsOccupied = true;
                     return nearByFields[i];
@@ -466,11 +466,15 @@ public class Barn : MonoBehaviour,IInteractable
     {
         listenigForInput = true;
         selectedWorkerIndex = -1;
-        for(int i=0 ; i<workersUnderthisBarn.Count;i++)
+        for(int i=0 ; i<workersUnderthisBarn.Count ; i++)
         {
-            if(workersUnderthisBarn[i].workerStat == workerStats[index-1]) selectedWorkerIndex = i;
+            if(workersUnderthisBarn[i] != null && workersUnderthisBarn[i].workerStat.workableCorp == workerStats[index-1].workableCorp) {
+                selectedWorkerIndex = i;
+                break;
+            }
         }
 
+        Debug.Log("Selected index: "+selectedWorkerIndex);
         if(selectedWorkerIndex >= 0) //when its a valid index
         {
             SceneManager.LoadScene("DressingRoom", LoadSceneMode.Additive);

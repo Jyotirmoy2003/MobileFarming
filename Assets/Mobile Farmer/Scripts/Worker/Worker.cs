@@ -48,6 +48,7 @@ public class Worker : MonoBehaviour
 
         currentState = workerIdleState;
         currentState.EnterState(this);
+        navMeshAgent.avoidancePriority = UnityEngine.Random.Range(50,100);
     }
 
     // Update is called once per frame

@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RandomMovement))]
@@ -16,8 +16,9 @@ public class AnimalBase : MonoBehaviour
     [SerializeField] float idelTimeMAX=5f;
     private bool isMoveing=true;
     protected bool shouldStartMovement = true;
+    public Action<bool> ActivationStatusChanged;
 
-    void Start()
+    public void Start()
     {
         randomMovement = GetComponent<RandomMovement>();
         randomMovement.OnReachOnDestination += OnReachToOneDest;
@@ -33,6 +34,7 @@ public class AnimalBase : MonoBehaviour
           {
                randomMovement.StopAndStartMovement(false);
                feedBackManager.CompletePlayingFeedback -= Init;
+               ActivationStatusChanged?.Invoke(true);
           }
     }
 
@@ -48,7 +50,7 @@ public class AnimalBase : MonoBehaviour
         if(!isMoveing) return;
         isMoveing = false;
         randomMovement.StopAndStartMovement(true);
-        LeanTween.delayedCall(Random.Range(idelTimeMin,idelTimeMAX), ()=>StartMovemnt() );
+        LeanTween.delayedCall(UnityEngine.Random.Range(idelTimeMin,idelTimeMAX), ()=>StartMovemnt() );
    }
    void StartMovemnt()
    {
