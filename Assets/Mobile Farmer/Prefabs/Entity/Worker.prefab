@@ -666,7 +666,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 60
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -5916,7 +5916,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 60
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -6121,7 +6121,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -10170,6 +10170,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player Renderer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5844060270533109398, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
+        'LeftHandThumb1'\n\tTransform 'RightHandThumb3'\n\tTransform 'RightForeArm'\n\tTransform
+        'RightHandThumb1'\n\tTransform 'RightHandIndex1'\n\tTransform 'LeftArm'\n\tTransform
+        'RightShoulder'\n\tTransform 'LeftShoulder'\n\tand more ...\n\tFrom animation
+        clip 'Shake PoseR'\n\tFrom animation clip 'Shake TreeR'"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
