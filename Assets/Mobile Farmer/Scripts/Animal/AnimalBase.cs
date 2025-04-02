@@ -52,7 +52,7 @@ public class AnimalBase : MonoBehaviour
         randomMovement.StopAndStartMovement(true);
         LeanTween.delayedCall(UnityEngine.Random.Range(idelTimeMin,idelTimeMAX), ()=>StartMovemnt() );
    }
-   void StartMovemnt()
+   protected void StartMovemnt()
    {
         if(!shouldStartMovement) return; //dont start  movemnt if its not needed from child class
         randomMovement.StopAndStartMovement(false);

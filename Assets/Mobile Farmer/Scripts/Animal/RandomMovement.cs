@@ -78,6 +78,7 @@ public class RandomMovement : MonoBehaviour
         if (stop)
         {
             updateDel -= Movement;
+            agent.isStopped = true;
         }
         else
         {
@@ -88,6 +89,7 @@ public class RandomMovement : MonoBehaviour
                 agent.SetDestination(point);
             }
             updateDel += Movement;
+            agent.isStopped = false;
         }
     }
 }

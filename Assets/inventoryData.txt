@@ -1,1 +1,1 @@
-{"items":[]}
+{"items":[{"item_type":13,"amount":30}]}
