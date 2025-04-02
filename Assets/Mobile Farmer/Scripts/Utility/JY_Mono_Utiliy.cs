@@ -178,7 +178,10 @@ public enum E_Inventory_Item_Type{
     KoranFish,
     FireGobyFish,
     Egg,
-
+    Wool,
+    Honey,
+    Sweater,
+    T_Shirt,
     
 }
 
