@@ -7,7 +7,6 @@ public class Sheep : AnimalBase,IInteractable
     [Space]
     [Header("Sheep")]
    public MeshDeformer sheepDeformerMesh;
-   [SerializeField] ButtonInfo buttonInfo;
    [SerializeField] ParticleSystem sheepWoolParticel;
    [SerializeField] Transform sheepTargetPos;
 
@@ -41,6 +40,9 @@ public class Sheep : AnimalBase,IInteractable
         _GameAssets.Instance.OnSheepModeChangedEvent.Raise(this,false);
         //show particels
         Instantiate(sheepWoolParticel,sheepTargetPos.position,Quaternion.identity);
+
+        sheepDeformerMesh.RestoreMesh();
+        sheepDeformerMesh.OnMeshRestored += WoolResotred;
     }
 
     void BackToGround()
@@ -48,6 +50,12 @@ public class Sheep : AnimalBase,IInteractable
         InventoryManager.Instance.AddItemToInventory(E_Inventory_Item_Type.Wool,3);
         shouldStartMovement = true;
         StartMovemnt();
+    }
+
+    void WoolResotred()
+    {
+        sheepDeformerMesh.OnMeshRestored -= WoolResotred;
+        canInteract = true;
     }
 
 
