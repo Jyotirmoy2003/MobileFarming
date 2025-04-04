@@ -75,3 +75,12 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+#myCred
+Assets/credential.txt
+/Assets/credential.text
+/Assets/credential.text.meta
+Assets/Firebase/Plugins/
+
+/Assets/StreamingAssets/google-services.json
+/Assets/StreamingAssets/google-services.json.meta

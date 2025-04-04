@@ -231,6 +231,7 @@ public class WorldManager : MonoBehaviour
         {
             for (int i = savedChunkCount; i < currentChunkCount; i++)
             {
+                
                 int chunkPrice = world.GetChild(i).GetComponent<Chunk>().GetInitialPrice();
                 worldData.chunkPrices.Add(chunkPrice);
             }

@@ -295,7 +295,6 @@ public class Barn : MonoBehaviour,IInteractable
         // Ensure workerData is initialized
         if (workerData == null){
             workerData = new WorkerData();
-            Debug.Log("worker file is null");
             
         
         }
