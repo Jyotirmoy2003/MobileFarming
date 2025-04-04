@@ -182,6 +182,7 @@ public enum E_Inventory_Item_Type{
     Honey,
     Sweater,
     T_Shirt,
+    None,
     
 }
 

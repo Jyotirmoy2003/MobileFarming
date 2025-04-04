@@ -3,6 +3,7 @@ using Firebase;
 using Firebase.Database;
 using System.Threading.Tasks;
 using System.IO;
+using System;
 
 public class DatabaseManager : MonoSingleton<DatabaseManager>
 {
@@ -70,30 +71,28 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
        DeleteCode(lastGeneratedCode);
     }
 
-    public void CreateSharedInfo(string code, int goldAmount, bool isValid)
+    public async Task<bool> CreateSharedInfo(string code, int goldAmount, bool isValid)
     {
         if (!isFirebaseReady)
         {
             Debug.LogError("Firebase is not ready yet!");
-            return;
+            return false;
         }
 
         SharedInfo sharedInfo = new SharedInfo(code, goldAmount, isValid);
         string jsonData = JsonUtility.ToJson(sharedInfo);
 
-        // Write data in database
-        databaseReference.Child("Codes").Child(code).SetRawJsonValueAsync(jsonData)
-            .ContinueWith(task =>
-            {
-                if (task.IsCompletedSuccessfully)
-                {
-                    Debug.Log("Data successfully written to Firebase!");
-                }
-                else
-                {
-                    Debug.LogError("Error writing data: " + task.Exception);
-                }
-            });
+        try
+        {
+            await databaseReference.Child("Codes").Child(code).SetRawJsonValueAsync(jsonData);
+            Debug.Log("Data successfully written to Firebase!");
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error writing data: " + ex.Message);
+            return false;
+        }
     }
 
 

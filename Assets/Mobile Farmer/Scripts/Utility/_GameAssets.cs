@@ -32,6 +32,9 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     public GameObject wateringCan;
     public GameObject harvestScythe;
     public Transform fishingRodTip;
+    [Space]
+    [Header("UI")]
+    public SelectItemButton selectItemButtonPrefabl;
 
     [Space]
     [Header("Material Ref")]
@@ -58,6 +61,20 @@ public class _GameAssets : MonoSingleton<_GameAssets>
         foreach(CropData cropData in cropDatas) if(cropData.item_type == item_Type) return cropData;
 
         Debug.LogError("Crop data not added in _GameAssets");
+        return null;
+    }
+
+    public Sprite GetItemIcon(E_Inventory_Item_Type item_type)
+    {
+        foreach(CropData item in cropDatas)
+        {
+            if(item.item_type == item_type)
+            {
+                return item.uiIconSprite;
+
+            }
+        }
+            
         return null;
     }
     

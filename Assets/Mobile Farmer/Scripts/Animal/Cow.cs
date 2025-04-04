@@ -40,12 +40,12 @@ public class Cow : AnimalBase, IShakeable,IInteractable
         else CameraManager.Instance.SwitchCamera();
 
         
-        if(isActive)
-        {
-            UIManager.Instance.OnExitButtonPressed += ExitAnimal;
-        }else{
-            UIManager.Instance.OnExitButtonPressed -= ExitAnimal;
-        }
+        // if(isActive)
+        // {
+        //     UIManager.Instance.OnExitButtonPressed += ExitAnimal;
+        // }else{
+        //     UIManager.Instance.OnExitButtonPressed -= ExitAnimal;
+        // }
     }
 
 
