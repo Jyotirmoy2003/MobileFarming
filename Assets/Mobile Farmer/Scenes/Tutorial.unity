@@ -371,7 +371,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78846723}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.00000000871781, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.000000008717809, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5737,7 +5737,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35826376, y: 0.000000022718249, z: -0.00000000871781, w: 0.93362045}
+  m_LocalRotation: {x: 0.35826376, y: -0.000000022718249, z: 0.000000008717809, w: 0.93362045}
   m_LocalPosition: {x: 0, y: 13, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -13276,11 +13276,24 @@ MonoBehaviour:
   unparentGameObject: 0
   gamePanel: {fileID: 891759006}
   shakeModePanel: {fileID: 871577921}
+  closeButton: {fileID: 0}
   IntreactButton: {fileID: 1063446220}
   interactButtonIcon: {fileID: 1090174583}
   shakeSliderText: {fileID: 0}
   shakeSlider: {fileID: 7625183325299607564}
   shakeExitButton: {fileID: 0}
+  bankTrandeUIConatiner: {fileID: 0}
+  bankGetCodeUIContainer: {fileID: 0}
+  bankSendCodeUIContainer: {fileID: 0}
+  codeInputField: {fileID: 0}
+  itemAmountInputField: {fileID: 0}
+  generatedCode: {fileID: 0}
+  selectItemContainrParent: {fileID: 0}
+  selectItemtoShareGameobject: {fileID: 0}
+  selectedItemIcon: {fileID: 0}
+  GenerateCodeButton: {fileID: 0}
+  loadingPanel: {fileID: 0}
+  loadingText: {fileID: 0}
 --- !u!114 &1063066724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20712,6 +20725,7 @@ MonoBehaviour:
     type: 2}
   OnHervestedEvent: {fileID: 11400000, guid: e333f485717173c41bb9ad202072efea, type: 2}
   OnViewChangeEvent: {fileID: 11400000, guid: 4399a6cc3e4320d42850a7a329e90fce, type: 2}
+  OnSheepModeChangedEvent: {fileID: 0}
   spawnDustParticel: {fileID: 0}
   seedParticel: {fileID: 1622716399}
   waterParticel: {fileID: 758724945}
@@ -20721,6 +20735,7 @@ MonoBehaviour:
   wateringCan: {fileID: 1011502990}
   harvestScythe: {fileID: 1839277176}
   fishingRodTip: {fileID: 0}
+  selectItemButtonPrefabl: {fileID: 0}
   defaultCropTileMat: {fileID: 2100000, guid: 095228817438eae45a5b214b4c137752, type: 2}
   wateredCropTileMat: {fileID: 2100000, guid: ea4a039c27f1610458680a5e10335e0c, type: 2}
   allFieldInGame: []
@@ -20728,6 +20743,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc890f597c76c2e408be10b4b8bcd2e5, type: 2}
   - {fileID: 11400000, guid: 6d491d0023cbc4642bb3f700427d4a67, type: 2}
   - {fileID: 11400000, guid: d97ed19e5bc97ef4c90f72e63c047a4c, type: 2}
+  - {fileID: 11400000, guid: 330eaf6d86fa0bf46bbec8637ced151a, type: 2}
+  - {fileID: 11400000, guid: 5cf11eb350578dd4b8362fa246297b85, type: 2}
+  - {fileID: 11400000, guid: 60f22720d55f7eb45961681a109a3647, type: 2}
+  - {fileID: 11400000, guid: 229d0f76737a65043a74afb3e16bdfb3, type: 2}
+  - {fileID: 11400000, guid: 96fb0a7eb2e5c5b46b9374ea2963cc95, type: 2}
+  - {fileID: 11400000, guid: 9248bb2cae9f8214fa8d19d48af769f2, type: 2}
+  - {fileID: 11400000, guid: e89a1b728382ab04d9f49325fb4978e1, type: 2}
+  - {fileID: 11400000, guid: 1a06f6b9c56cd4e468fdf3cc35369e69, type: 2}
+  - {fileID: 11400000, guid: 21f6e0cf6e5dc944aba01296f07097d6, type: 2}
   fishShakeThresold: 350
 --- !u!1 &1743553359
 GameObject:

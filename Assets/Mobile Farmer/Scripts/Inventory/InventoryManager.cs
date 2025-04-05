@@ -98,6 +98,13 @@ public class InventoryManager : MonoSingleton<InventoryManager>
         SaveInventory();
         
     }
+
+    public bool RemoveItemFromInventory(E_Inventory_Item_Type item_type,int itemAmount)
+    {
+        bool result = inventory.RemoveItem(item_type, itemAmount);;
+        inventoryDisplay.UpdateDisplay(inventory);
+        return result;
+    }
     public void AddInventoryToInventory(Inventory inventory)
     {
         InventoryItem[] temp = inventory.GetInventoryItems();

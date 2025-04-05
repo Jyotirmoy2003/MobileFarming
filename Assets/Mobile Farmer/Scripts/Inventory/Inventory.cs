@@ -81,4 +81,24 @@ public class Inventory
     {
         items.Remove(item);
     }
+
+    public bool RemoveItem(E_Inventory_Item_Type item_Type, int amount)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].item_type == item_Type)
+            {
+                if (items[i].amount < amount)
+                    return false; // Not enough items to remove
+
+                items[i].amount -= amount;
+                if (items[i].amount == 0)
+                    items.RemoveAt(i);
+
+                return true; // Successfully removed items
+            }
+        }
+        return false; // Item not found in inventory
+    }
+
 }

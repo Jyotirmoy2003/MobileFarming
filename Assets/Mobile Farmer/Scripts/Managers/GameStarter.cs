@@ -18,6 +18,6 @@ public class GameStarter : MonoBehaviour
         }else{
             AsyncLoadManager.Instance.LoadSceneAsync("Tutorial");
         }
-        AsyncLoadManager.Instance.LoadSceneAsync("Tutorial");
+        //AsyncLoadManager.Instance.LoadSceneAsync("Tutorial");
     }
 }

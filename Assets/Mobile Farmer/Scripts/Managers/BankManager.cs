@@ -62,14 +62,5 @@ public class BankManager : MonoBehaviour
         
     }
 
-    void PopulateItemSelectContainer()
-    {
-        InventoryItem[] inventoryItems = InventoryManager.Instance.GetInventory().GetInventoryItems();
-
-        foreach (InventoryItem item in inventoryItems)
-        {
-            SelectItemButton selectItemButton = Instantiate(_GameAssets.Instance.selectItemButtonPrefabl, selectItemContainerParent);
-            selectItemButton.Configure(_GameAssets.Instance.GetItemIcon(item.item_type),item.item_type);
-        }
-    }
+    
 }

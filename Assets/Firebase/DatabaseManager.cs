@@ -4,6 +4,7 @@ using Firebase.Database;
 using System.Threading.Tasks;
 using System.IO;
 using System;
+using jy_util;
 
 public class DatabaseManager : MonoSingleton<DatabaseManager>
 {
@@ -15,7 +16,8 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
 
     private async void Start()
     {
-        LoadDatabaseURL();
+        //LoadDatabaseURL();
+        databaseUrl = "https://field-frenzy-default-rtdb.asia-southeast1.firebasedatabase.app/";
         await InitializeFirebase();
     }
 
@@ -49,6 +51,7 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
         {
             Debug.LogError($"Firebase dependencies not met: {dependencyStatus} or Database URL is missing.");
         }
+        Debug.Log("Database URL: " + databaseUrl);
     }
 
 
@@ -61,7 +64,7 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
             return;
         }
 
-        CreateSharedInfo(lastGeneratedCode = CodeGenerator.GenerateRandomCode(), 100, true);
+        CreateSharedInfo(lastGeneratedCode = CodeGenerator.GenerateRandomCode(),E_Inventory_Item_Type.Corn, 100);
     }
 
     [NaughtyAttributes.Button ]
@@ -71,7 +74,7 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
        DeleteCode(lastGeneratedCode);
     }
 
-    public async Task<bool> CreateSharedInfo(string code, int goldAmount, bool isValid)
+    public async Task<bool> CreateSharedInfo(string code,E_Inventory_Item_Type item_Type ,int itemAmount)
     {
         if (!isFirebaseReady)
         {
@@ -79,7 +82,7 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
             return false;
         }
 
-        SharedInfo sharedInfo = new SharedInfo(code, goldAmount, isValid);
+        SharedInfo sharedInfo = new SharedInfo(code,(int)item_Type, itemAmount);
         string jsonData = JsonUtility.ToJson(sharedInfo);
 
         try
@@ -100,12 +103,12 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
 
 
     //Read data from the database
-    public async Task<int> ValidateCode(string code)
+    public async Task<SharedInfo> ValidateCode(string code)
     {
         if (!isFirebaseReady)
         {
             Debug.LogError("Firebase is not initialized yet!");
-            return -1;
+            return null;
         }
 
         DatabaseReference codeReference = databaseReference.Child("Codes").Child(code);
@@ -117,15 +120,14 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
             string jsonData = dataSnapshot.GetRawJsonValue();
             SharedInfo sharedInfo = JsonUtility.FromJson<SharedInfo>(jsonData);
 
-            if (sharedInfo.isValid)
-            {
-                Debug.Log($"Code {code} is valid! Gold Amount: {sharedInfo.goldAmount}");
-                return sharedInfo.goldAmount;
-            }
+            
+            Debug.Log($"Code {code} is valid! Gold Amount: {sharedInfo.itemAmount}");
+            return sharedInfo;
         }
+        
 
         Debug.Log($"Code {code} is invalid or not found in database.");
-        return -1;
+        return null;
     }
 
 
@@ -161,20 +163,21 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
 public class SharedInfo
 {
     public string code;
-    public int goldAmount;
-    public bool isValid;
+    public int item_type;
+    public int itemAmount;
+    
 
-    public SharedInfo(string code,int goldAmount,bool isValid)
+    public SharedInfo(string code,int item_Type,int itemAmount)
     {
         this.code = code;
-        this.goldAmount = goldAmount;
-        this.isValid = isValid;
+        this.item_type = item_Type;
+        this.itemAmount = itemAmount;
     }
 
     public SharedInfo()
     {
         code ="";
-        goldAmount =0;
-        isValid = false;
+        itemAmount =0;
+       
     }
 }
