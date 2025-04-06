@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using jy_util;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+    #region Variables
     [SerializeField] GameObject gamePanel;
     [SerializeField] GameObject shakeModePanel;
     [Header("Universal Buttons")]
@@ -46,12 +48,22 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] GameObject loadingPanel;
     [SerializeField] TMP_Text loadingText;
 
+    [Space]
+    [Header("Item Creadited")]
+    [SerializeField] RectTransform creditedImageParent;
+    [SerializeField] RectTransform creditedChakra;
+    [SerializeField] Image crediItemIcon;
+    [SerializeField] TMP_Text crediAmoutText;
 
     public Action OnUniversalCloseButtonPressed;
 
+    #endregion
     
     void Start()
     {
+        
+        creditedImageParent.gameObject.SetActive(false);
+
         shakeModePanel.SetActive(false);
         IntreactButton.gameObject.SetActive(false);
     }
@@ -105,6 +117,21 @@ public class UIManager : MonoSingleton<UIManager>
         OnUniversalCloseButtonPressed?.Invoke();
     }
 
+    public void SetLoadingPanel(bool isActive,string data)
+    {
+        loadingPanel.SetActive(isActive);
+        loadingText.text = data;
+    }
+
+    
+    public void SetLoadingPaenlForTime(bool isActive,string data,float time)
+    {
+        gameObject.LeanCancel(); //dismiss all previous lean working on this
+
+        SetLoadingPanel(isActive,data);
+        LeanTween.delayedCall(time,()=> loadingPanel.SetActive(false));
+    }
+
     #region  Bank UI
 
     public void BankUIActivationStatus(bool isActive)
@@ -114,40 +141,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     
 
-    // public async void OnGenerateCodeButtonPressed()
-    // {
-    //     if (int.TryParse(itemAmountInputField.text, out int enteredItemAmount))
-    //     {
-    //         if (CashManager.Instance.DebitCoin(enteredItemAmount))
-    //         {
-    //             // Cash debited, generate a random code
-    //             string generatedCode = CodeGenerator.GenerateRandomCode();
-                
-    //             // Await the CreateSharedInfo function
-    //             bool success = await DatabaseManager.Instance.CreateSharedInfo(generatedCode, enteredItemAmount, true);
-
-    //             if (success)
-    //             {
-    //                 // Successfully written to Firebase
-    //                 UIManager.Instance.SetGeneratedCode(generatedCode);
-    //                 Debug.Log($"<color=orange>Code written</color>: {generatedCode}");
-    //                 lastGeneratedCode = generatedCode;
-    //             }
-    //             else
-    //             {
-                   
-    //             }
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError("Insufficient balance or debit failed.");
-    //         }
-    //     }
-    //     else
-    //     {
-    //         Debug.LogError("Invalid gold amount entered.");
-    //     }
-    // }
+   
 
     public async void OnGenerateCodeButtonPressed()
     {
@@ -170,6 +164,7 @@ public class UIManager : MonoSingleton<UIManager>
                         UIManager.Instance.SetGeneratedCode(generatedCode);
                         Debug.Log($"<color=orange>Code written</color>: {generatedCode}");
                         lastGeneratedCode = generatedCode;
+                        SetLoadingPaenlForTime(true, "Copied", 2f);
                     }
                     else
                     {
@@ -199,7 +194,7 @@ public class UIManager : MonoSingleton<UIManager>
             {
                 // Valid code, credit Items
                 InventoryManager.Instance.AddItemToInventory((E_Inventory_Item_Type)sharedInfo.item_type,sharedInfo.itemAmount);
-
+                ItemCreadited((E_Inventory_Item_Type)sharedInfo.item_type,sharedInfo.itemAmount);
             }
             else
             {
@@ -215,12 +210,21 @@ public class UIManager : MonoSingleton<UIManager>
 
 
 
+    public void OnPastButtonPressed()
+    {
+        string clipboardText = GUIUtility.systemCopyBuffer;
+        if(!string.IsNullOrEmpty(clipboardText))
+        {
+            codeInputField.text = clipboardText;
+        }
+    }
+
     public void OnCopyCodeButtonPressed()
     {
         if (!string.IsNullOrEmpty(lastGeneratedCode))
         {
             GUIUtility.systemCopyBuffer = lastGeneratedCode;
-            Debug.Log($"Copied to clipboard: {lastGeneratedCode}");
+            SetLoadingPaenlForTime(true,$"Copied to clipboard: {lastGeneratedCode}",2f);
         }
         else
         {
@@ -304,6 +308,9 @@ public class UIManager : MonoSingleton<UIManager>
                 Destroy(selectItemContainrParent.GetChild(j).gameObject);
             }
         }
+
+        if(inventoryItems.Length > 0)SelectedItemType(inventoryItems[0].item_type);
+        else GenerateCodeButton.interactable = false;
     }
 
 
@@ -327,9 +334,73 @@ public class UIManager : MonoSingleton<UIManager>
         maxPossibleItemToShare = InventoryManager.Instance.GetInventory().GetItemAmountInInventory(selectedItemTypeToShare);
 
         GenerateCodeButton.interactable = !(maxPossibleItemToShare <= 0);
+        itemAmountInputField.text = maxPossibleItemToShare.ToString();
         
     }
     
 
     #endregion
+
+
+
+
+
+
+    #region  ItemCreadited UI
+
+    [NaughtyAttributes.Button]
+    public void PopUpTest()
+    {
+        ItemCreadited(E_Inventory_Item_Type.Corn,1000);
+    }
+
+    public void ItemCreadited(E_Inventory_Item_Type item_Type,int amount)
+    {
+        LeanTween.cancel(this.gameObject);
+
+        
+        crediItemIcon.sprite = _GameAssets.Instance.GetItemIcon(item_Type);
+        crediAmoutText.text =("+")+ CoinSystem.ConvertCoinToString(amount);
+        creditedImageParent.gameObject.SetActive(true);
+
+        creditedImageParent.anchoredPosition = new Vector2(0,-1500);
+        //LeanTween.move(creditedImageParent,creditedPanelEndPos,1f ).setDelay(1f).setOnComplete(()=> LeanTween.move(creditedImageParent,screenOutPosUp,0.2f ));
+        // creditedImageParent.DOAnchorPos(Vector2.zero, 1f,false)
+        // .SetEase(Ease.InOutQuint)
+        
+        // .OnComplete(() => {
+        //     creditedImageParent.DOAnchorPos( new Vector2(0, 1500),0.3f);
+        // });
+
+        // Start rotating the background image (looping)
+        
+        creditedChakra.DORotate(new Vector3(0, 0, 360), 4f, RotateMode.FastBeyond360)
+        .SetEase(Ease.Linear)
+        .SetLoops(-1, LoopType.Restart);
+
+
+        Sequence creditSequence = DOTween.Sequence();
+
+        creditSequence.Append(
+            creditedImageParent.DOAnchorPos(Vector2.zero, 1f).SetEase(Ease.InOutQuint)
+        );
+        creditSequence.AppendInterval(2f); // Wait for 2 seconds
+        creditSequence.AppendCallback(() => {
+           creditedImageParent.DOAnchorPos( new Vector2(0, 1500),0.3f); // Reset
+
+           creditedChakra.DOKill(); // Stop rotation
+            creditedChakra.rotation = Quaternion.identity; // Reset rotation
+        });
+    }
+
+
+
+
+
+
+
+
+    #endregion
+
+
 }

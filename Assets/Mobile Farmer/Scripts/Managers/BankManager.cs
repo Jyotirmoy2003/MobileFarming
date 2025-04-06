@@ -32,7 +32,7 @@ public class BankManager : MonoBehaviour
     {
         if (!isStillinTrigger) return;
 
-        _GameAssets.Instance.OnViewChangeEvent.Raise(this, true); // Turn off joystick control
+        //_GameAssets.Instance.OnViewChangeEvent.Raise(this, true); // Turn off joystick control
         UIManager.Instance.OnUniversalCloseButtonPressed -= CloseButtonPressed; // Ensure no duplicate subscriptions
         UIManager.Instance.OnUniversalCloseButtonPressed += CloseButtonPressed;
         UIManager.Instance.SetCloseButton(true);
@@ -50,7 +50,7 @@ public class BankManager : MonoBehaviour
     {
         UIManager.Instance.SetCloseButton(false);
         UIManager.Instance.OnUniversalCloseButtonPressed -= CloseButtonPressed;
-        _GameAssets.Instance.OnViewChangeEvent.Raise(this,false); //turn on joystick controll
+        //_GameAssets.Instance.OnViewChangeEvent.Raise(this,false); //turn on joystick controll
 
         //Bank UI deactivate
         UIManager.Instance.BankUIActivationStatus(false);

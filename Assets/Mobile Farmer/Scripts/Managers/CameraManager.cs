@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraManager : MonoSingleton<CameraManager>
 {
     [SerializeField] GameObject playerCamReal;
     [SerializeField] CinemachineVirtualCamera transitionCamera;
-
+    [SerializeField] Transform transitionCameraRig;
+    private bool isRotating;
+    [SerializeField] float rotationSpeed;
+  
 
     public void SwitchCamera(Transform lookAt,Vector3 bodyOffset)
     {
@@ -52,5 +54,34 @@ public class CameraManager : MonoSingleton<CameraManager>
         transitionCamera.gameObject.SetActive(false);
     }
 
+
+    #region Rotate Around object
+    public void StartRotating(Transform target,Vector3 worldPosPivot)
+    {
+        if (!isRotating && transitionCameraRig != null && target != null)
+        {
+            transitionCamera.Follow = null;
+            isRotating = true;
+            StartCoroutine(RotateAroundTarget(target));
+        }
+    }
+
+    public void StopRotating()
+    {
+        isRotating = false;
+    }
+
+    private IEnumerator RotateAroundTarget(Transform target)
+    {
+        while (isRotating)
+        {
+            transitionCameraRig.RotateAround(target.position, Vector3.up, rotationSpeed * Time.deltaTime);
+            transitionCamera.transform.LookAt(target); // Keep looking at the target
+            yield return null;
+        }
+    }
+
+
+    #endregion
     
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Chicken : AnimalBase,IInteractable
 {
 
-    [SerializeField] int eggCout = 5;
+    private int eggCout = 0;
     [SerializeField] int maxEggCap = 10;
 
     [SerializeField] InfoUI infoUI;

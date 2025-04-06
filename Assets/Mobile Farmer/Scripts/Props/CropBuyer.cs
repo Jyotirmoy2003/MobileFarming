@@ -39,6 +39,7 @@ public class CropBuyer : MonoBehaviour,IInteractable
         //only fire the event if player actually sold something
         if(coinsEarned <=0) return;
         SoldCropEvent.Raise(this,coinsEarned);
+         
         TransactionEffectManager.Instance.PlayeCoinParticel(coinsEarned);
     }
 

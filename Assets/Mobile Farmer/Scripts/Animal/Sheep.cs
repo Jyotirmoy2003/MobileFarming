@@ -20,7 +20,7 @@ public class Sheep : AnimalBase,IInteractable
         _GameAssets.Instance.OnSheepModeChangedEvent.Raise(this,true);
         sheepDeformerMesh.OnThresholdReached += OnSuccessfullySearAllWool;
 
-        LeanTween.move(sheepRenderer,sheepTargetPos, 2f).setOnComplete(StartRotation);
+        StartRotation();
     }
 
     /// <summary>
@@ -29,9 +29,9 @@ public class Sheep : AnimalBase,IInteractable
     void OnSuccessfullySearAllWool()
     {
         canInteract = false;
-        RotateObject(false);
-        LeanTween.move(sheepRenderer,transform, 2f).setOnComplete(BackToGround);
-        LeanTween.rotate(sheepRenderer,Vector3.zero,2f);
+        StopRotation();
+        BackToGround();
+        
 
         sheepDeformerMesh.OnThresholdReached -= OnSuccessfullySearAllWool;
         PlayerVisualManager.Instance.SetPlayerRendererShowStatus(true);
@@ -61,31 +61,22 @@ public class Sheep : AnimalBase,IInteractable
 
     void StartRotation()
     {
-        RotateObject(true);
+        CameraManager.Instance.SwitchCamera(this.transform,cameraBodyOffset,cameraAimOffset);
+        CameraManager.Instance.StartRotating(this.transform,this.transform.position);
     }
 
     void StopRotation()
     {
-        RotateObject(false);
+        CameraManager.Instance.StopRotating();
     }
 
     public GameObject sheepRenderer; // The object to rotate
     private bool isRotating = false; // Flag to control rotation
     public float rotationSpeed = 100f; // Speed of rotation
 
-    void Update()
-    {
-        if (isRotating && sheepRenderer != null)
-        {
-            sheepRenderer.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
-        }
-    }
+   
 
-    public void RotateObject(bool shouldRotate)
-    {
-        isRotating = shouldRotate;
-    }
-
+ 
 
 
 

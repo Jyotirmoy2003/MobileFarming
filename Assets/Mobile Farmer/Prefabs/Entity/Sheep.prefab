@@ -112,7 +112,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isValidPosition: 0
-  centrePoint: {fileID: 2868978580676960137}
+  centrePoint: {fileID: 0}
   beginFromStart: 0
 --- !u!65 &8951089375748554160
 BoxCollider:
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camRef: {fileID: 0}
-  targetTramform: {fileID: 0}
+  targetTramform: {fileID: 2868978580676960137}
   overrideRemaps: 0
   curveZeroRemap: 0
   curveOneRemap: 0
@@ -181,10 +181,10 @@ MonoBehaviour:
   sheepWoolParticel: {fileID: 198746235106984045, guid: 9dc9738f2e1d4dd4380b63d975bba8a2,
     type: 3}
   sheepTargetPos: {fileID: 4767545799953733085}
-  cameraBodyOffset: {x: 0, y: 1.7, z: -5}
-  cameraAimOffset: {x: 0, y: 0.14, z: 0}
+  cameraBodyOffset: {x: 0, y: 1.7, z: -2.5}
+  cameraAimOffset: {x: 0, y: 0.8, z: 0}
   sheepRenderer: {fileID: 693295512622140117}
-  rotationSpeed: 100
+  rotationSpeed: 10
 --- !u!114 &2972796464122367339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,8 +433,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deformRadius: 0.4
-  deformStrength: 0.0001
-  deformationThreshold: 60
+  deformStrength: 0.0002
+  deformationThreshold: 80
   mesh: {fileID: 0}
   restoreSpeed: 0.001
 --- !u!135 &986776062398059223
