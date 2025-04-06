@@ -29,15 +29,16 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] GameObject bankTrandeUIConatiner;
     [SerializeField] GameObject bankGetCodeUIContainer,bankSendCodeUIContainer;
     [Header("GetCode")]
-    [SerializeField] TMP_InputField codeInputField;
+    public TMP_InputField codeInputField;
 
     [Header("Generate Code")]
-    [SerializeField] TMP_InputField itemAmountInputField;
-    [SerializeField] TMP_Text generatedCode;
-    [SerializeField] Transform selectItemContainrParent;
-    [SerializeField] GameObject selectItemtoShareGameobject;
-    [SerializeField] Image selectedItemIcon;
-    [SerializeField] Button GenerateCodeButton;
+    public TMP_InputField itemAmountInputField;
+    public TMP_Text generatedCode;
+    public Transform selectItemContainrParent;
+    public GameObject selectItemtoShareScrollview;
+    public Image selectedItemIcon;
+    public Button GenerateCodeButton;
+    public Button selectedItemButton;
     private string lastGeneratedCode;
     private E_Inventory_Item_Type selectedItemTypeToShare;
     private int maxPossibleItemToShare =-1;
@@ -56,6 +57,7 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] TMP_Text crediAmoutText;
 
     public Action OnUniversalCloseButtonPressed;
+    public Action<int> UniversalButtonAction;
 
     #endregion
     
@@ -131,13 +133,25 @@ public class UIManager : MonoSingleton<UIManager>
         SetLoadingPanel(isActive,data);
         LeanTween.delayedCall(time,()=> loadingPanel.SetActive(false));
     }
+    /// <summary>
+    /// Any class can subcribe to this and listen for ui inputs without making direct reference to the UI
+    /// just pass the correct index through the button and listne in reciver class then chechk if you are looking for that index , and handel accordingly
+    /// </summary>
+    /// <param name="index">Every listening class will look for a specific index which will be passed from the button making it resuable</param>
+
+    public void UniversalButtonPressed(int index)
+    {
+        UniversalButtonAction?.Invoke(index);
+    }
+
+
 
     #region  Bank UI
-
     public void BankUIActivationStatus(bool isActive)
     {
         bankTrandeUIConatiner.SetActive(isActive);
     }
+/*
 
     
 
@@ -164,7 +178,10 @@ public class UIManager : MonoSingleton<UIManager>
                         UIManager.Instance.SetGeneratedCode(generatedCode);
                         Debug.Log($"<color=orange>Code written</color>: {generatedCode}");
                         lastGeneratedCode = generatedCode;
-                        SetLoadingPaenlForTime(true, "Copied", 2f);
+                        OnCopyCodeButtonPressed(); //automatic copy the generated code
+
+                        //repopulate the Container as the values should have changed in Inventory
+                        PopulateItemSelectContainer();
                     }
                     else
                     {
@@ -198,7 +215,7 @@ public class UIManager : MonoSingleton<UIManager>
             }
             else
             {
-                Debug.Log("Invalid or non-existent code.");
+                SetLoadingPaenlForTime(true,"Invalid Code",2f);
             }
             await DatabaseManager.Instance.DeleteCode(code);
         }
@@ -260,12 +277,15 @@ public class UIManager : MonoSingleton<UIManager>
     //For + and - button
     public void AddValueToInputField(int amount)
     {
+        if(selectedItemTypeToShare == E_Inventory_Item_Type.None) return;
+
         int enteredAmount = int.Parse(itemAmountInputField.text);
         enteredAmount += amount;
         itemAmountInputField.text = enteredAmount.ToString();
     }
     public void OnGenerateCodePanelTurnOn()
     {
+        OnGeneratePanelOpned?.Invoke();
         PopulateItemSelectContainer();
 
     }
@@ -309,8 +329,26 @@ public class UIManager : MonoSingleton<UIManager>
             }
         }
 
-        if(inventoryItems.Length > 0)SelectedItemType(inventoryItems[0].item_type);
-        else GenerateCodeButton.interactable = false;
+        if(inventoryItems.Length > 0)
+        {
+            //Copied the hole code fron SelectedItemType Fun just remove the scrollview deactive line
+            selectedItemTypeToShare = inventoryItems[0].item_type;
+
+            //select correct icon
+            selectedItemIcon.sprite=_GameAssets.Instance.GetItemIcon(inventoryItems[0].item_type);
+            maxPossibleItemToShare = InventoryManager.Instance.GetInventory().GetItemAmountInInventory(selectedItemTypeToShare);
+            selectedItemButton.interactable = true;
+
+            GenerateCodeButton.interactable = !(maxPossibleItemToShare <= 0);
+            itemAmountInputField.text = maxPossibleItemToShare.ToString();
+        }
+        else
+        { 
+            selectedItemTypeToShare = E_Inventory_Item_Type.None;
+            selectedItemButton.interactable = false;
+            GenerateCodeButton.interactable = false;
+            selectItemtoShareScrollview.SetActive(false);
+        }
     }
 
 
@@ -327,17 +365,18 @@ public class UIManager : MonoSingleton<UIManager>
     void SelectedItemType(E_Inventory_Item_Type item_type)
     {
         selectedItemTypeToShare = item_type;
-        selectItemtoShareGameobject.SetActive(false);
+        selectItemtoShareScrollview.SetActive(false);
 
         //select correct icon
         selectedItemIcon.sprite=_GameAssets.Instance.GetItemIcon(item_type);
         maxPossibleItemToShare = InventoryManager.Instance.GetInventory().GetItemAmountInInventory(selectedItemTypeToShare);
+        selectedItemButton.interactable = true;
 
         GenerateCodeButton.interactable = !(maxPossibleItemToShare <= 0);
         itemAmountInputField.text = maxPossibleItemToShare.ToString();
         
     }
-    
+    */
 
     #endregion
 
@@ -364,15 +403,7 @@ public class UIManager : MonoSingleton<UIManager>
         creditedImageParent.gameObject.SetActive(true);
 
         creditedImageParent.anchoredPosition = new Vector2(0,-1500);
-        //LeanTween.move(creditedImageParent,creditedPanelEndPos,1f ).setDelay(1f).setOnComplete(()=> LeanTween.move(creditedImageParent,screenOutPosUp,0.2f ));
-        // creditedImageParent.DOAnchorPos(Vector2.zero, 1f,false)
-        // .SetEase(Ease.InOutQuint)
-        
-        // .OnComplete(() => {
-        //     creditedImageParent.DOAnchorPos( new Vector2(0, 1500),0.3f);
-        // });
 
-        // Start rotating the background image (looping)
         
         creditedChakra.DORotate(new Vector3(0, 0, 360), 4f, RotateMode.FastBeyond360)
         .SetEase(Ease.Linear)

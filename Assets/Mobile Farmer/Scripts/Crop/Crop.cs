@@ -32,6 +32,10 @@ public class Crop : MonoBehaviour
         //harvestParticel.transform.parent = null;  as we are going ro reuse same crop again and again
         harvestParticel.Play();
     }
+    public void InstantScaleUp()
+    {
+        cropRendererObject.LeanScale(Vector3.one,0.2f).setEase(LeanTweenType.easeOutBack);
+    }
 
     public void PushData(CropData cropData)
     {

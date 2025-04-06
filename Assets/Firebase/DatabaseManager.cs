@@ -16,8 +16,8 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
 
     private async void Start()
     {
-        //LoadDatabaseURL();
-        databaseUrl = "https://field-frenzy-default-rtdb.asia-southeast1.firebasedatabase.app/";
+        LoadDatabaseURL();
+        
         await InitializeFirebase();
     }
 

@@ -29,6 +29,7 @@ public class CropField : MonoBehaviour,IInteractable
 
     [Header("Action")]
     public Action<CropField> onFullySown,onFullyWatered,OnFullyHarvested;
+    private bool isJustMerged = false;
 
 
     void Start()
@@ -55,11 +56,12 @@ public class CropField : MonoBehaviour,IInteractable
     public void MergeDone(bool calledByChunkUnlocking)
     {
         StoreTile();
-       //if(calledByChunkUnlocking)MergeStateSet();
+       if(calledByChunkUnlocking)MergeStateSet();
         
     }
     void MergeStateSet()
     {
+        isJustMerged = true;
         switch(state)
         {
             case E_Crop_State.Empty:
@@ -174,6 +176,8 @@ public class CropField : MonoBehaviour,IInteractable
     {
         state= E_Crop_State.Sown;
         tileSown = cropTiles.Count;
+
+        if(isJustMerged)foreach(CropTile cropTile in cropTiles) cropTile.ForceSow(cropData);
         OnCompleteOnStep();
         onFullySown?.Invoke(this);
     }
@@ -182,6 +186,9 @@ public class CropField : MonoBehaviour,IInteractable
     {
         state = E_Crop_State.Watered;
         tileWatered = cropTiles.Count;
+
+        if(isJustMerged)foreach(CropTile cropTile in cropTiles) cropTile.ForceWater();
+
         OnCompleteOnStep();
         onFullyWatered?.Invoke(this);
     }
@@ -189,12 +196,17 @@ public class CropField : MonoBehaviour,IInteractable
     private void FieldFullyHarvested()
     {
         state =  E_Crop_State.Empty;
+
+        if(isJustMerged)foreach(CropTile cropTile in cropTiles) cropTile.ForceHervest();
+
         OnCompleteOnStep();
         OnFullyHarvested?.Invoke(this);
 
         tileSown = 0;
         tileWatered = 0;
         tileHarvested = 0;
+
+        isJustMerged = false;
         
     }
 
