@@ -8,19 +8,23 @@ using UnityEngine;
 public class CashManager : MonoSingleton<CashManager>
 {
      private int coins;
+     private int gems;
      [SerializeField] TMP_Text coinsAmount_text;
+     [SerializeField] TMP_Text gemsAmount_text;
 
 
      void Start()
      {
-          LoadCoins();
+          LoadCurrency();
           coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
+          gemsAmount_text.text = CoinSystem.ConvertCoinToString(gems);
           //Invoke(nameof(Add50000Coin),1f);
      }
+     #region Transaction
      public void CreditCoins(int amount)
      {
           coins+=amount;
-          SaveCoins();
+          SaveCurrency();
           coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
           AudioManager.instance.PlaySound("Coin");
      }
@@ -30,7 +34,7 @@ public class CashManager : MonoSingleton<CashManager>
           if(coins>=amount)
           {
                coins-=amount;
-               SaveCoins();
+               SaveCurrency();
                coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
                AudioManager.instance.PlaySound("Coin_Debit");
                return true;  
@@ -39,17 +43,44 @@ public class CashManager : MonoSingleton<CashManager>
           }
      }
 
+     public void CreditGems(int amount)
+     {
+          gems += amount;
+          SaveCurrency();
+          gemsAmount_text.text = CoinSystem.ConvertCoinToString(gems);
+          AudioManager.instance.PlaySound("Gem");
+     }
 
+     public bool DebitGems(int amount)
+     {
+          if(gems>=amount)
+          {
+               gems-=amount;
+               SaveCurrency();
+               gemsAmount_text.text = CoinSystem.ConvertCoinToString(gems);
+               AudioManager.instance.PlaySound("Gem");
+               return true;  
+          }else{
+               return false;
+          }
+     }
+     
+     
+     
+     #endregion
 
-     private void SaveCoins()
+     private void SaveCurrency()
      {
           PlayerPrefs.SetInt("Coins",coins);
+          PlayerPrefs.SetInt("Gems",gems);
      }
 
-     private void LoadCoins()
+     private void LoadCurrency()
      {
           coins = PlayerPrefs.GetInt("Coins",0);
+          gems = PlayerPrefs.GetInt("Gems",0);
      }
+
 
      [NaughtyAttributes.Button]
      private void Add500Coin()
@@ -64,6 +95,18 @@ public class CashManager : MonoSingleton<CashManager>
      }
      [NaughtyAttributes.Button]
      public void ClearCoin()
+     {
+          DebitCoin(coins);
+     }
+
+     [NaughtyAttributes.Button]
+     private void Add500Gems()
+     {
+          CreditCoins(500);
+     }
+
+     [NaughtyAttributes.Button]
+     public void ClearGems()
      {
           DebitCoin(coins);
      }

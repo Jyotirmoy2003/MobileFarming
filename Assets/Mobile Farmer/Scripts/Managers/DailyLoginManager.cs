@@ -29,7 +29,7 @@ public class DailyLoginManager : MonoBehaviour
         if (lastLogin != today) // If user hasn't logged in today
         {
             _GameAssets.Instance.OnViewChangeEvent.Raise(this,true);
-            currentDay = PlayerPrefs.GetInt(CURRENT_DAY, 0) + 1;
+            currentDay = PlayerPrefs.GetInt(CURRENT_DAY, -1) + 1;
             if (currentDay >= 7) currentDay = 1; // Reset after 7 days
 
             PlayerPrefs.SetInt(CURRENT_DAY, currentDay);

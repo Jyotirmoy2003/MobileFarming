@@ -40,7 +40,7 @@ public class CropBuyer : MonoBehaviour,IInteractable
         if(coinsEarned <=0) return;
         SoldCropEvent.Raise(this,coinsEarned);
          
-        TransactionEffectManager.Instance.PlayeCoinParticel(coinsEarned);
+        TransactionEffectManager.Instance.PlayCoinParticel(coinsEarned);
     }
 
     private int GetCropPrice(E_Inventory_Item_Type item_Type)

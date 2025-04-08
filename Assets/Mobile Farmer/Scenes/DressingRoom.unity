@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -141,6 +141,11 @@ PrefabInstance:
       propertyPath: m_worldObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1759300989}
+    - target: {fileID: 3316467226161685078, guid: d5b6ec1541b007044a431ab474ac4ff9,
+        type: 3}
+      propertyPath: m_worldObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1759300989}
     - target: {fileID: 4896550169743301388, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -169,7 +174,7 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -179,7 +184,7 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -229,12 +234,12 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 350
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -380.765
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -267,6 +272,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6377764}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6377766 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 355170534775023438, guid: d5b6ec1541b007044a431ab474ac4ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6377764}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &31711773
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +367,11 @@ PrefabInstance:
       propertyPath: m_worldObjects.Array.data[0]
       value: 
       objectReference: {fileID: 7949527493975061521}
+    - target: {fileID: 3316467226161685078, guid: d5b6ec1541b007044a431ab474ac4ff9,
+        type: 3}
+      propertyPath: m_worldObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 7949527493975061521}
     - target: {fileID: 4896550169743301388, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -383,7 +405,7 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -393,7 +415,7 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -443,12 +465,12 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1850
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -380.765
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -481,6 +503,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 223595804}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &223595806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 355170534775023438, guid: d5b6ec1541b007044a431ab474ac4ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 223595804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &310657302
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +592,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 10
@@ -729,6 +763,11 @@ PrefabInstance:
       propertyPath: m_worldObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1574183359488369033}
+    - target: {fileID: 3316467226161685078, guid: d5b6ec1541b007044a431ab474ac4ff9,
+        type: 3}
+      propertyPath: m_worldObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1574183359488369033}
     - target: {fileID: 4896550169743301388, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -762,7 +801,7 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -772,7 +811,7 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -822,12 +861,12 @@ PrefabInstance:
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -380.765
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8372483427932464818, guid: d5b6ec1541b007044a431ab474ac4ff9,
         type: 3}
@@ -860,6 +899,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 877381266}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &877381268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 355170534775023438, guid: d5b6ec1541b007044a431ab474ac4ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 877381266}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &939100795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,13 +1065,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5379cdaf12bf11a428d23338e99f7c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
-  unparentGameObject: 0
-  onDressSelected: {fileID: 11400000, guid: b6d8e45e0f0f5944b8f6224921940cb1, type: 2}
   dressSetups:
   - {fileID: 5948113940310587717, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea, type: 3}
   - {fileID: 6811876677036345532, guid: a9338021583897840a5c9600c68addb7, type: 3}
   - {fileID: 3076056993801280070, guid: 48cca21d22964744f96bf861bcbb5a1a, type: 3}
+  onDressSelected: {fileID: 11400000, guid: b6d8e45e0f0f5944b8f6224921940cb1, type: 2}
 --- !u!4 &1370433070
 Transform:
   m_ObjectHideFlags: 0
@@ -1408,6 +1457,32 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5844060270533109398, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
+        'LeftHandThumb1'\n\tTransform 'RightHandThumb3'\n\tTransform 'RightForeArm'\n\tTransform
+        'RightHandThumb1'\n\tTransform 'RightHandIndex1'\n\tTransform 'LeftArm'\n\tTransform
+        'RightShoulder'\n\tTransform 'LeftShoulder'\n\tand more ...\n\tFrom animation
+        clip 'Shake PoseR'\n\tFrom animation clip 'Shake TreeR'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948113940310587717, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948113940310587717, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+        type: 3}
+      propertyPath: gemPriceText
+      value: 
+      objectReference: {fileID: 6377766}
+    - target: {fileID: 5948113940310587717, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+        type: 3}
+      propertyPath: gemAmountText
+      value: 
+      objectReference: {fileID: 6377766}
     - target: {fileID: 6223299298182947807, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
         type: 3}
       propertyPath: m_Layer
@@ -1483,10 +1558,15 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5844060270533109398, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3991603989045472489, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1759300991}
   m_SourcePrefab: {fileID: 100100000, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea, type: 3}
 --- !u!4 &1759300989 stripped
 Transform:
@@ -1494,6 +1574,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1759300988}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1759300990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3991603989045472489, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1759300988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1759300991
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759300990}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: d89038faca9f8c8499a4488aeb3f15f8, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: d89038faca9f8c8499a4488aeb3f15f8, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1998423279
 GameObject:
   m_ObjectHideFlags: 0
@@ -2035,6 +2137,32 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6788080088277469107, guid: a9338021583897840a5c9600c68addb7,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
+        'Spine'\n\tTransform 'Spine2'\n\tTransform 'Head'\n\tTransform 'Spine1'\n\tTransform
+        'Neck'\n\tTransform 'Armature'\n\tTransform 'Spine'\n\tTransform 'Spine2'\n\tand
+        more ...\n\tFrom animation clip 'Shake PoseR'\n\tFrom animation clip 'Shake
+        TreeR'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811876677036345532, guid: a9338021583897840a5c9600c68addb7,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6811876677036345532, guid: a9338021583897840a5c9600c68addb7,
+        type: 3}
+      propertyPath: gemPriceText
+      value: 
+      objectReference: {fileID: 877381268}
+    - target: {fileID: 6811876677036345532, guid: a9338021583897840a5c9600c68addb7,
+        type: 3}
+      propertyPath: gemAmountText
+      value: 
+      objectReference: {fileID: 877381268}
     - target: {fileID: 6812037396028773911, guid: a9338021583897840a5c9600c68addb7,
         type: 3}
       propertyPath: m_Layer
@@ -2130,11 +2258,38 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6788080088277469107, guid: a9338021583897840a5c9600c68addb7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6041478580195662519, guid: a9338021583897840a5c9600c68addb7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1651218836427324774}
   m_SourcePrefab: {fileID: 100100000, guid: a9338021583897840a5c9600c68addb7, type: 3}
+--- !u!1 &1651218836427324773 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6041478580195662519, guid: a9338021583897840a5c9600c68addb7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1651218836427324772}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1651218836427324774
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651218836427324773}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: e0f410fffbc9a9140a9ff218c7e04aaf, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: e0f410fffbc9a9140a9ff218c7e04aaf, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!4 &3810632299422906456
 Transform:
   m_ObjectHideFlags: 0
@@ -6245,6 +6400,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3076056993801280070, guid: 48cca21d22964744f96bf861bcbb5a1a,
+        type: 3}
+      propertyPath: GemPrice
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076056993801280070, guid: 48cca21d22964744f96bf861bcbb5a1a,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076056993801280070, guid: 48cca21d22964744f96bf861bcbb5a1a,
+        type: 3}
+      propertyPath: gemPriceText
+      value: 
+      objectReference: {fileID: 223595806}
+    - target: {fileID: 3076056993801280070, guid: 48cca21d22964744f96bf861bcbb5a1a,
+        type: 3}
+      propertyPath: gemAmountText
+      value: 
+      objectReference: {fileID: 223595806}
     - target: {fileID: 3131256512951603162, guid: 48cca21d22964744f96bf861bcbb5a1a,
         type: 3}
       propertyPath: m_Layer
@@ -6284,6 +6459,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653694921703144641, guid: 48cca21d22964744f96bf861bcbb5a1a,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Spine1'\n\tTransform 'Neck'\n\tTransform
+        'Spine'\n\tTransform 'Spine2'\n\tTransform 'Head'\n\tTransform 'Spine1'\n\tTransform
+        'Neck'\n\tTransform 'Armature'\n\tTransform 'Spine'\n\tTransform 'Spine2'\n\tand
+        more ...\n\tFrom animation clip 'Shake PoseR'\n\tFrom animation clip 'Shake
+        TreeR'"
       objectReference: {fileID: 0}
     - target: {fileID: 3687507730977439246, guid: 48cca21d22964744f96bf861bcbb5a1a,
         type: 3}
@@ -6605,17 +6791,44 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3653694921703144641, guid: 48cca21d22964744f96bf861bcbb5a1a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4158425210087074457, guid: 48cca21d22964744f96bf861bcbb5a1a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7949527493975061522}
   m_SourcePrefab: {fileID: 100100000, guid: 48cca21d22964744f96bf861bcbb5a1a, type: 3}
+--- !u!1 &4423710313496146855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4158425210087074457, guid: 48cca21d22964744f96bf861bcbb5a1a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4423710313496146854}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7949527493975061521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6689106668734158188, guid: 48cca21d22964744f96bf861bcbb5a1a,
     type: 3}
   m_PrefabInstance: {fileID: 4423710313496146854}
   m_PrefabAsset: {fileID: 0}
+--- !u!111 &7949527493975061522
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423710313496146855}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 6a3bf62214ad87143b62a404a5e2395e, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 6a3bf62214ad87143b62a404a5e2395e, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
