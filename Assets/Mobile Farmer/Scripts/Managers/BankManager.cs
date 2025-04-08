@@ -167,8 +167,9 @@ public class BankManager : MonoBehaviour
     public async void OnAddCodeButtonPressed()
     {
         string code = UIManager.Instance.codeInputField.text;
-        if (!string.IsNullOrEmpty(code) && code.Length !> 5)
+        if (!string.IsNullOrEmpty(code) && code.Length < 6)
         {
+            
             SharedInfo sharedInfo = await DatabaseManager.Instance.ValidateCode(code);
             if(sharedInfo == null)
             {
