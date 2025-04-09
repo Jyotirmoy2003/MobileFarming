@@ -24889,7 +24889,7 @@ PrefabInstance:
     - target: {fileID: 2515351442638769166, guid: 53b82005885544a019fa1881dafc535b,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0.4999994
       objectReference: {fileID: 0}
     - target: {fileID: 2515351442638769166, guid: 53b82005885544a019fa1881dafc535b,
         type: 3}
@@ -38840,7 +38840,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3733449642106290400}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.61023253
+  m_Size: 0.6277578
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
