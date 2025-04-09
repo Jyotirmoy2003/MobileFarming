@@ -4,7 +4,7 @@ using TMPro;
 
 public class DressingRoomManager : MonoBehaviour
 {
-    public List<DressSetup> dressSetups;
+    public List<DressSetupUI> dressSetupsUI;
     public GameEvent onDressSelected;
 
     private DressSetupSave dressSetupSave;
@@ -33,7 +33,7 @@ public class DressingRoomManager : MonoBehaviour
             dressSetupSave = new DressSetupSave();
             dressSetupSave.dressesIspPurchessed = new List<bool>();
 
-            for (int i = 0; i < dressSetups.Count; i++)
+            for (int i = 0; i < dressSetupsUI.Count; i++)
             {
                 dressSetupSave.dressesIspPurchessed.Add(false); // All not purchased by default
             }
@@ -42,21 +42,21 @@ public class DressingRoomManager : MonoBehaviour
         }
 
         // Update local dress data from saved info
-        for (int i = 0; i < dressSetups.Count; i++)
+        for (int i = 0; i < dressSetupsUI.Count; i++)
         {
             if (i < dressSetupSave.dressesIspPurchessed.Count)
-                dressSetups[i].isPurched = dressSetupSave.dressesIspPurchessed[i];
+                dressSetupsUI[i].isPurched = dressSetupSave.dressesIspPurchessed[i];
         }
     }
 
     void Save()
     {
-        for (int i = 0; i < dressSetups.Count; i++)
+        for (int i = 0; i < dressSetupsUI.Count; i++)
         {
             if (i < dressSetupSave.dressesIspPurchessed.Count)
-                dressSetupSave.dressesIspPurchessed[i] = dressSetups[i].isPurched;
+                dressSetupSave.dressesIspPurchessed[i] = dressSetupsUI[i].isPurched;
             else
-                dressSetupSave.dressesIspPurchessed.Add(dressSetups[i].isPurched);
+                dressSetupSave.dressesIspPurchessed.Add(dressSetupsUI[i].isPurched);
         }
 
         SaveAndLoad.Save(dataPath,dressSetupSave);
@@ -64,27 +64,29 @@ public class DressingRoomManager : MonoBehaviour
 
     void InitializeDresses()
     {
-        foreach (var dress in dressSetups)
+        foreach (var dress in dressSetupsUI)
         {
            
             dress.gemPriceText.text = dress.isPurched ? "Purchased" : dress.GemPrice.ToString();
+            dress.gemIcongameObject.SetActive(!dress.isPurched);
             
         }
     }
 
     public void OnDressSelectd(int index)
     {
-        if (dressSetups[index].isPurched)
+        if (dressSetupsUI[index].isPurched)
         {
-            onDressSelected.Raise(this, dressSetups[index]);
+            onDressSelected.Raise(this, dressSetupsUI[index]);
         }
         else
         {
-            if (CashManager.Instance.DebitGems(dressSetups[index].GemPrice))
+            if (CashManager.Instance.DebitGems(dressSetupsUI[index].GemPrice))
             {
-                dressSetups[index].isPurched = true;
+                dressSetupsUI[index].isPurched = true;
+                dressSetupsUI[index].gemIcongameObject.SetActive(false);
                 Save();
-                onDressSelected.Raise(this, dressSetups[index]);
+                onDressSelected.Raise(this, dressSetupsUI[index]);
                 InitializeDresses();
             }
             else
@@ -99,4 +101,17 @@ public class DressingRoomManager : MonoBehaviour
 public class DressSetupSave
 {
     public List<bool> dressesIspPurchessed = new List<bool>();
+}
+
+[System.Serializable]
+public class DressSetupUI
+{
+    public DressSetup dressSetup;
+   [Tooltip("These are used only for the Dressing Room part not in game")]
+   public bool isPurched = false;
+   public int GemPrice = 40;
+   public GameObject gemIcongameObject;
+
+   public TMP_Text gemPriceText ;
+
 }

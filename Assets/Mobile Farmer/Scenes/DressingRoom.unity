@@ -284,6 +284,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6377767 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7782108748933319516, guid: d5b6ec1541b007044a431ab474ac4ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6377764}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &31711773
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,6 +521,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &223595807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7782108748933319516, guid: d5b6ec1541b007044a431ab474ac4ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 223595804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &310657302
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +923,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &877381269 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7782108748933319516, guid: d5b6ec1541b007044a431ab474ac4ff9,
+    type: 3}
+  m_PrefabInstance: {fileID: 877381266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &939100795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,10 +1083,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5379cdaf12bf11a428d23338e99f7c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dressSetups:
-  - {fileID: 5948113940310587717, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea, type: 3}
-  - {fileID: 6811876677036345532, guid: a9338021583897840a5c9600c68addb7, type: 3}
-  - {fileID: 3076056993801280070, guid: 48cca21d22964744f96bf861bcbb5a1a, type: 3}
+  dressSetupsUI:
+  - dressSetup: {fileID: 1759300992}
+    isPurched: 0
+    GemPrice: 40
+    gemIcongameObject: {fileID: 6377767}
+    gemPriceText: {fileID: 6377766}
+  - dressSetup: {fileID: 1651218836427324775}
+    isPurched: 0
+    GemPrice: 40
+    gemIcongameObject: {fileID: 877381269}
+    gemPriceText: {fileID: 877381268}
+  - dressSetup: {fileID: 4423710313496146856}
+    isPurched: 0
+    GemPrice: 30
+    gemIcongameObject: {fileID: 223595807}
+    gemPriceText: {fileID: 223595806}
   onDressSelected: {fileID: 11400000, guid: b6d8e45e0f0f5944b8f6224921940cb1, type: 2}
 --- !u!4 &1370433070
 Transform:
@@ -1596,6 +1626,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1759300992 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5948113940310587717, guid: 7e9dd9b0040a6c94cbf5e731bef6c0ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1759300988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1759300990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574b01eb604123a409a3ea77a7b54ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1998423279
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,6 +2332,18 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1651218836427324775 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6811876677036345532, guid: a9338021583897840a5c9600c68addb7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1651218836427324772}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651218836427324773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574b01eb604123a409a3ea77a7b54ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3810632299422906456
 Transform:
   m_ObjectHideFlags: 0
@@ -6807,6 +6861,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4423710313496146854}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4423710313496146856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3076056993801280070, guid: 48cca21d22964744f96bf861bcbb5a1a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4423710313496146854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423710313496146855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574b01eb604123a409a3ea77a7b54ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7949527493975061521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6689106668734158188, guid: 48cca21d22964744f96bf861bcbb5a1a,

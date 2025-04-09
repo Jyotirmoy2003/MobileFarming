@@ -1,1 +1,1 @@
-{"dressesIspPurchessed":[true,true,true]}
+{"dressesIspPurchessed":[true,false,false]}

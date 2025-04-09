@@ -11,9 +11,5 @@ public class DressSetup : MonoBehaviour
    public Animator animator;
    public PlayerAnimationEvents playerAnimationEvents;
 
-   [Tooltip("These are used only for the Dressing Room part not in game")]
-   public bool isPurched = false;
-   public int GemPrice = 40;
-
-   public TMP_Text gemPriceText ;
+  
 }
