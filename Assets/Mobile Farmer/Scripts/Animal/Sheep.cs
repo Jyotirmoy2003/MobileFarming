@@ -18,9 +18,34 @@ public class Sheep : AnimalBase,IInteractable
     void InitializeSheep()
     {
         _GameAssets.Instance.OnSheepModeChangedEvent.Raise(this,true);
+        UIManager.Instance.OnUniversalCloseButtonPressed += ClosebuttonPressed;
+        UIManager.Instance.SetCloseButton(true);
+
         sheepDeformerMesh.OnThresholdReached += OnSuccessfullySearAllWool;
 
         StartRotation();
+    }
+
+    void ClosebuttonPressed()
+    {
+        //close button
+        UIManager.Instance.OnUniversalCloseButtonPressed -= ClosebuttonPressed;
+        UIManager.Instance.SetCloseButton(false);
+
+        //set up sheep
+         canInteract = false;
+        StopRotation();
+        BackToGround();
+        
+
+        sheepDeformerMesh.OnThresholdReached -= OnSuccessfullySearAllWool;
+        PlayerVisualManager.Instance.SetPlayerRendererShowStatus(true);
+        _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
+        CameraManager.Instance.SwitchCamera();
+        _GameAssets.Instance.OnSheepModeChangedEvent.Raise(this,false);
+
+        sheepDeformerMesh.RestoreMesh();
+        sheepDeformerMesh.OnMeshRestored += WoolResotred;
     }
 
     /// <summary>
@@ -40,6 +65,8 @@ public class Sheep : AnimalBase,IInteractable
         _GameAssets.Instance.OnSheepModeChangedEvent.Raise(this,false);
         //show particels
         Instantiate(sheepWoolParticel,sheepTargetPos.position,Quaternion.identity);
+        InventoryManager.Instance.AddItemToInventory(E_Inventory_Item_Type.Wool,3);
+
 
         sheepDeformerMesh.RestoreMesh();
         sheepDeformerMesh.OnMeshRestored += WoolResotred;
@@ -47,7 +74,7 @@ public class Sheep : AnimalBase,IInteractable
 
     void BackToGround()
     {
-        InventoryManager.Instance.AddItemToInventory(E_Inventory_Item_Type.Wool,3);
+        
         shouldStartMovement = true;
         StartMovemnt();
     }

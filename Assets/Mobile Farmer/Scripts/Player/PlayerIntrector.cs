@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerIntrector : MonoBehaviour
 {
+    public bool canInteract = true;
     private IInteractable currentInteractable;
     private IInteractable temp_holding_Intreactable;
 
@@ -34,6 +35,7 @@ public class PlayerIntrector : MonoBehaviour
 
     void EnterNewInteractbale(IInteractable interactable)
     {
+        if(!canInteract) return;
         currentInteractable = interactable;
         currentInteractable.InIntreactZone(this.gameObject);
 
@@ -41,16 +43,23 @@ public class PlayerIntrector : MonoBehaviour
 
     public void Intreact()
     {
+        if(!canInteract) return;
         currentInteractable?.Interact(this.gameObject);
         AudioManager.instance.PlaySound("UI_Button");
     }
 
     void ExitInteractable(IInteractable interactable)
     {
+        if(!canInteract) return;
         if(currentInteractable == interactable)
         {
             currentInteractable.OutIntreactZone(this.gameObject);
             currentInteractable = null;
         }
+    }
+
+    public void ListenToOnHorseModeStatusChanged(Component sender,object data)
+    {
+        canInteract = !(bool)data;
     }
 }

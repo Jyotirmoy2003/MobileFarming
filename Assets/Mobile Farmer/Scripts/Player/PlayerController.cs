@@ -7,11 +7,13 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] PlayerAnimator playerAnimator;
+    [SerializeField] PlayerVisualManager playerVisualManager;
     private CharacterController characterController;
 
     [Header("Settings")]
     [SerializeField] float normalMovespeed=50f;
     [SerializeField] float interactMovespeed=40f;
+    [SerializeField] float horseSpeed = 100f;
     private float moveSpeed;
     void Start()
     {
@@ -29,6 +31,8 @@ public class PlayerController : MonoBehaviour
         moveVector.y=0;
         //setup animation
         playerAnimator.ManageAnimation(moveVector);
+        playerVisualManager.ManagerHorseAnim?.Invoke(moveVector);
+
         moveVector.y=-1;
         characterController?.Move(moveVector);
     }
@@ -51,5 +55,15 @@ public class PlayerController : MonoBehaviour
         }else{
             moveSpeed = normalMovespeed;
         }
+    }
+
+    public void ListenTOPlayerHorseModeChange(Component sender,object data)
+    {
+        HorseModeStart((bool)data);
+    }
+
+    void HorseModeStart(bool isStart)
+    {
+        moveSpeed = isStart? horseSpeed : normalMovespeed;
     }
 }

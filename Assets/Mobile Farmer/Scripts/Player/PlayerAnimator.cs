@@ -8,6 +8,7 @@ public class PlayerAnimator : MonoBehaviour
     [Header("Elements")]
     [SerializeField] Animator animator;
     [SerializeField] Transform rendererTransform;
+    [SerializeField] Transform horseTranform;
     [SerializeField] ParticleSystem waterParticel,seedParticel;
     [SerializeField] GameObject wateringCan,harvestScythe,fishingRod;
 
@@ -36,6 +37,7 @@ public class PlayerAnimator : MonoBehaviour
             PlayRunAnimation();
 
             rendererTransform.forward=moveVector.normalized;
+            
         }else{
             animator.SetFloat("moveSpeed",0);
             PlayIdleAnimation();
