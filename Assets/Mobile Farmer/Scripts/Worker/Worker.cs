@@ -109,8 +109,9 @@ public class Worker : MonoBehaviour
 
     public void CacheNewVisual(DressSetup dressSetup)
     {
-        Destroy(playerDataHolder.playerAnimationEvents.gameObject);
         myDresssetup = Instantiate(dressSetup,transform);
+        Destroy(playerDataHolder.playerAnimationEvents.gameObject,0.1f);
+
         sackObject = myDresssetup.sack;
         playerDataHolder.CacheNewVisual(myDresssetup);
         playerDataHolder.playerAnimator.CacheNewVisual(myDresssetup);

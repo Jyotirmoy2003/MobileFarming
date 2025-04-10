@@ -77,7 +77,7 @@ public class DressingRoomManager : MonoBehaviour
     {
         if (dressSetupsUI[index].isPurched)
         {
-            onDressSelected.Raise(this, dressSetupsUI[index]);
+            onDressSelected.Raise(this, dressSetupsUI[index].dressSetup);
         }
         else
         {
@@ -86,7 +86,7 @@ public class DressingRoomManager : MonoBehaviour
                 dressSetupsUI[index].isPurched = true;
                 dressSetupsUI[index].gemIcongameObject.SetActive(false);
                 Save();
-                onDressSelected.Raise(this, dressSetupsUI[index]);
+                onDressSelected.Raise(this, dressSetupsUI[index].dressSetup);
                 InitializeDresses();
             }
             else
