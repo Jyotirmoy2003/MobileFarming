@@ -50,7 +50,6 @@ public class PlayerIntrector : MonoBehaviour
 
     void ExitInteractable(IInteractable interactable)
     {
-        if(!canInteract) return;
         if(currentInteractable == interactable)
         {
             currentInteractable.OutIntreactZone(this.gameObject);
@@ -61,5 +60,6 @@ public class PlayerIntrector : MonoBehaviour
     public void ListenToOnHorseModeStatusChanged(Component sender,object data)
     {
         canInteract = !(bool)data;
+        if(currentInteractable != null )ExitInteractable(currentInteractable);
     }
 }

@@ -117,7 +117,8 @@ public class Sheep : AnimalBase,IInteractable
     #region  INTERFACE
     public void InIntreactZone(GameObject interactingObject)
     {
-        if(!canInteract) return;
+        if(!canInteract || !interactingObject.CompareTag(_GameAssets.PlayerTag)) return;
+        
 
         HapticManager.Instance.LightHaptic();
 

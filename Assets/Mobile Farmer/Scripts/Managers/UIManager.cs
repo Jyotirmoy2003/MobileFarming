@@ -56,6 +56,16 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] Image crediItemIcon;
     [SerializeField] TMP_Text crediAmoutText;
 
+    [Space]
+    [Header("Horse Mode")]
+    [SerializeField] GameObject horseButton;
+
+    [Space]
+    [Header("Shop Panel")]
+    [SerializeField] GameObject shopPanel;
+    [SerializeField] List<GameObject> shopPanels = new List<GameObject>();
+    
+
     public Action OnUniversalCloseButtonPressed;
     public Action<int> UniversalButtonAction;
 
@@ -151,238 +161,29 @@ public class UIManager : MonoSingleton<UIManager>
     {
         bankTrandeUIConatiner.SetActive(isActive);
     }
-/*
-
-    
-
-   
-
-    public async void OnGenerateCodeButtonPressed()
-    {
-        if (int.TryParse(itemAmountInputField.text, out int enteredItemAmount))
-        {
-            if (maxPossibleItemToShare >= enteredItemAmount)
-            {
-                // Item debited
-                if(InventoryManager.Instance.RemoveItemFromInventory(selectedItemTypeToShare,enteredItemAmount))
-                {
-                    //generate a random code
-                    string generatedCode = CodeGenerator.GenerateRandomCode();
-                    
-                    // Await the CreateSharedInfo function
-                    bool success = await DatabaseManager.Instance.CreateSharedInfo(generatedCode,selectedItemTypeToShare, enteredItemAmount);
-
-                    if (success)
-                    {
-                        // Successfully written to Firebase
-                        UIManager.Instance.SetGeneratedCode(generatedCode);
-                        Debug.Log($"<color=orange>Code written</color>: {generatedCode}");
-                        lastGeneratedCode = generatedCode;
-                        OnCopyCodeButtonPressed(); //automatic copy the generated code
-
-                        //repopulate the Container as the values should have changed in Inventory
-                        PopulateItemSelectContainer();
-                    }
-                    else
-                    {
-                    
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("Insufficient balance or debit failed.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Invalid gold amount entered.");
-        }
-    }
-    public async void OnAddCodeButtonPressed()
-    {
-        string code = codeInputField.text;
-        if (!string.IsNullOrEmpty(code))
-        {
-            // Code is not null
-            SharedInfo sharedInfo = await DatabaseManager.Instance.ValidateCode(code);
-            
-            if (sharedInfo.itemAmount > 0)
-            {
-                // Valid code, credit Items
-                InventoryManager.Instance.AddItemToInventory((E_Inventory_Item_Type)sharedInfo.item_type,sharedInfo.itemAmount);
-                ItemCreadited((E_Inventory_Item_Type)sharedInfo.item_type,sharedInfo.itemAmount);
-            }
-            else
-            {
-                SetLoadingPaenlForTime(true,"Invalid Code",2f);
-            }
-            await DatabaseManager.Instance.DeleteCode(code);
-        }
-        else
-        {
-            Debug.Log("Code input is empty.");
-        }
-    }
-
-
-
-    public void OnPastButtonPressed()
-    {
-        string clipboardText = GUIUtility.systemCopyBuffer;
-        if(!string.IsNullOrEmpty(clipboardText))
-        {
-            codeInputField.text = clipboardText;
-        }
-    }
-
-    public void OnCopyCodeButtonPressed()
-    {
-        if (!string.IsNullOrEmpty(lastGeneratedCode))
-        {
-            GUIUtility.systemCopyBuffer = lastGeneratedCode;
-            SetLoadingPaenlForTime(true,$"Copied to clipboard: {lastGeneratedCode}",2f);
-        }
-        else
-        {
-            Debug.LogError("No code available to copy.");
-        }
-    }
-
-    public void OpenKeyboard(string text)
-    {
-        #if UNITY_ANDROID
-                TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
-        #endif
-    }
-
-    public void OpenKeyboardNumeric(string text)
-    {
-        #if UNITY_ANDROID
-                TouchScreenKeyboard.Open("", TouchScreenKeyboardType.NumberPad);
-        #endif
-    }
-
-    public void SetGeneratedCode(string  code)
-    {
-        generatedCode.text = code;
-
-    }
-
-
-    public void OnInputFieldValueChanged()
-    {
-        GenerateCodeButton.interactable = (maxPossibleItemToShare >= int.Parse(itemAmountInputField.text));
-    }
-    //For + and - button
-    public void AddValueToInputField(int amount)
-    {
-        if(selectedItemTypeToShare == E_Inventory_Item_Type.None) return;
-
-        int enteredAmount = int.Parse(itemAmountInputField.text);
-        enteredAmount += amount;
-        itemAmountInputField.text = enteredAmount.ToString();
-    }
-    public void OnGenerateCodePanelTurnOn()
-    {
-        OnGeneratePanelOpned?.Invoke();
-        PopulateItemSelectContainer();
-
-    }
-
-    void PopulateItemSelectContainer()
-    {
-        InventoryItem[] inventoryItems = InventoryManager.Instance.GetInventory().GetInventoryItems();
-        int preMadeButtonCount = selectItemContainrParent.childCount;
-
-        // If we already have enough or fewer buttons, reuse or create as needed
-        if (preMadeButtonCount <= inventoryItems.Length)
-        {
-            for (int i = 0; i < inventoryItems.Length; i++)
-            {
-                if (i < preMadeButtonCount)
-                {
-                    // Reuse existing button
-                    selectItemContainrParent.GetChild(i).GetComponent<SelectItemButton>()
-                        .Configure(_GameAssets.Instance.GetItemIcon(inventoryItems[i].item_type), inventoryItems[i].item_type);
-                }
-                else
-                {
-                    // Create new button
-                    SelectItemButton selectItemButton = Instantiate(_GameAssets.Instance.selectItemButtonPrefabl, selectItemContainrParent);
-                    selectItemButton.Configure(_GameAssets.Instance.GetItemIcon(inventoryItems[i].item_type), inventoryItems[i].item_type);
-                }
-            }
-        }
-        else
-        {
-            // We have more buttons than items — reuse some, destroy the extras
-            int i;
-            for (i = 0; i < inventoryItems.Length; i++)
-            {
-                selectItemContainrParent.GetChild(i).GetComponent<SelectItemButton>()
-                    .Configure(_GameAssets.Instance.GetItemIcon(inventoryItems[i].item_type), inventoryItems[i].item_type);
-            }
-            for (int j = i; j < preMadeButtonCount; j++)
-            {
-                Destroy(selectItemContainrParent.GetChild(j).gameObject);
-            }
-        }
-
-        if(inventoryItems.Length > 0)
-        {
-            //Copied the hole code fron SelectedItemType Fun just remove the scrollview deactive line
-            selectedItemTypeToShare = inventoryItems[0].item_type;
-
-            //select correct icon
-            selectedItemIcon.sprite=_GameAssets.Instance.GetItemIcon(inventoryItems[0].item_type);
-            maxPossibleItemToShare = InventoryManager.Instance.GetInventory().GetItemAmountInInventory(selectedItemTypeToShare);
-            selectedItemButton.interactable = true;
-
-            GenerateCodeButton.interactable = !(maxPossibleItemToShare <= 0);
-            itemAmountInputField.text = maxPossibleItemToShare.ToString();
-        }
-        else
-        { 
-            selectedItemTypeToShare = E_Inventory_Item_Type.None;
-            selectedItemButton.interactable = false;
-            GenerateCodeButton.interactable = false;
-            selectItemtoShareScrollview.SetActive(false);
-        }
-    }
-
-
-
-    //listen to button pressed event
-    public void ListnToOnSelectShareItemButtonPressed(Component sender,object data)
-    {
-        if(data is E_Inventory_Item_Type)
-        {
-            SelectedItemType((E_Inventory_Item_Type)data);
-        }
-    }
-
-    void SelectedItemType(E_Inventory_Item_Type item_type)
-    {
-        selectedItemTypeToShare = item_type;
-        selectItemtoShareScrollview.SetActive(false);
-
-        //select correct icon
-        selectedItemIcon.sprite=_GameAssets.Instance.GetItemIcon(item_type);
-        maxPossibleItemToShare = InventoryManager.Instance.GetInventory().GetItemAmountInInventory(selectedItemTypeToShare);
-        selectedItemButton.interactable = true;
-
-        GenerateCodeButton.interactable = !(maxPossibleItemToShare <= 0);
-        itemAmountInputField.text = maxPossibleItemToShare.ToString();
-        
-    }
-    */
 
     #endregion
 
 
+    public void InsufficientGold()
+    {
+        shopPanel.SetActive(true);
+    }
 
+    public void InsufficientGem()
+    {
+        shopPanel.SetActive(true);
+    }
 
+    public void OnShopButtonPressed()
+    {
+        shopPanel.SetActive(true);
+    }
+
+    public void OnShopClosePressed()
+    {
+        shopPanel.SetActive(false);
+    }
 
 
     #region  ItemCreadited UI

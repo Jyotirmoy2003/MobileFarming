@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerVisualManager : MonoSingleton<PlayerVisualManager>
@@ -7,7 +8,9 @@ public class PlayerVisualManager : MonoSingleton<PlayerVisualManager>
    [SerializeField] Transform horseTransform;
    [SerializeField] Transform horseModePlayerPos;
    [SerializeField] Transform groundPlayerpos;
-   [SerializeField] ParticleSystem spawnParticel;
+   [SerializeField] List<ParticleSystem> spawnParticel = new List<ParticleSystem>();
+   [SerializeField] Animator horseAnimator;
+   [SerializeField] 
 
    public Action<Vector3> ManagerHorseAnim;
 
@@ -28,12 +31,13 @@ public class PlayerVisualManager : MonoSingleton<PlayerVisualManager>
          playerRenderer.transform.position = horseModePlayerPos.position;
          horseTransform.gameObject.SetActive(true);
          ManagerHorseAnim += ManageHorseMovement;
+
       }else{
          playerRenderer.transform.position = groundPlayerpos.position;
          horseTransform.gameObject.SetActive(false);
          ManagerHorseAnim -= ManageHorseMovement;
       }
-      spawnParticel?.Play();
+      foreach(var item in spawnParticel) item.Play();
    }
 
    void ManageHorseMovement(Vector3 moveVector)
@@ -42,5 +46,6 @@ public class PlayerVisualManager : MonoSingleton<PlayerVisualManager>
       {
          horseTransform.forward = moveVector.normalized;
       }
+      horseAnimator.SetFloat("WalkMagnitude",moveVector.magnitude);
    }
 }

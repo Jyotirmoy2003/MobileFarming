@@ -8,13 +8,14 @@ public class PlayerAnimator : MonoBehaviour
     [Header("Elements")]
     [SerializeField] Animator animator;
     [SerializeField] Transform rendererTransform;
-    [SerializeField] Transform horseTranform;
+
     [SerializeField] ParticleSystem waterParticel,seedParticel;
     [SerializeField] GameObject wateringCan,harvestScythe,fishingRod;
 
 
     [Header("Settings")]
     [SerializeField] float moveSpeedMultiplier=1f;
+    private bool isInHorseMode = false;
 
     void Start()
     {
@@ -31,6 +32,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void ManageAnimation(Vector3 moveVector)
     {
+
         if(moveVector.magnitude > 0)
         {
             animator.SetFloat("moveSpeed",moveVector.magnitude * moveSpeedMultiplier);
@@ -78,6 +80,7 @@ public class PlayerAnimator : MonoBehaviour
         waterParticel.Stop();
         animator.SetLayerWeight(3,0);
         animator.SetLayerWeight(4,0);
+        animator.SetLayerWeight(5,0);
 
         wateringCan.SetActive(false);
         harvestScythe.SetActive(false);
@@ -149,4 +152,18 @@ public class PlayerAnimator : MonoBehaviour
     }
 
 
+
+
+    public void ListenToHorseMode(Component sender,object data)
+    {
+        isInHorseMode = (bool)data;
+        
+        if(isInHorseMode)
+        {
+            animator.SetLayerWeight(5,1);
+        }else{
+            animator.SetLayerWeight(5,0);
+        }
+
+    }
 }

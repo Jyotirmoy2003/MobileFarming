@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,11 +14,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float normalMovespeed=50f;
     [SerializeField] float interactMovespeed=40f;
     [SerializeField] float horseSpeed = 100f;
+
+    public Action<Vector3> ManagerMovementAnim;
     private float moveSpeed;
     void Start()
     {
         moveSpeed = normalMovespeed;
         characterController=GetComponent<CharacterController>();
+        ManagerMovementAnim += playerAnimator.ManageAnimation;
+        ManagerMovementAnim += playerVisualManager.ManagerHorseAnim;
     }
 
 
@@ -30,7 +34,10 @@ public class PlayerController : MonoBehaviour
         moveVector.z=moveVector.y;
         moveVector.y=0;
         //setup animation
-        playerAnimator.ManageAnimation(moveVector);
+        ManagerMovementAnim?.Invoke(moveVector);
+        
+
+       
         playerVisualManager.ManagerHorseAnim?.Invoke(moveVector);
 
         moveVector.y=-1;

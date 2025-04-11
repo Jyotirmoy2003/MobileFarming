@@ -5,15 +5,13 @@ using UnityEngine;
 public class HorseModeManager : MonoBehaviour
 {
     [SerializeField] GameEvent   OnHorseModechanged;
+    private bool isHorseActive = false;
 
     [NaughtyAttributes.Button]
     public void OnHorseButtonpressed()
-    {
-        OnHorseModechanged.Raise(this,true);
+    {  
+        //toggle horese mode
+        OnHorseModechanged.Raise(this,isHorseActive = !isHorseActive);
     }
-    [NaughtyAttributes.Button]
-    public void OnHorseButtonpressedOff()
-    {
-        OnHorseModechanged.Raise(this,false);
-    }
+    
 }
