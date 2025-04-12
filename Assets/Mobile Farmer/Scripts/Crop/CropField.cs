@@ -56,7 +56,7 @@ public class CropField : MonoBehaviour,IInteractable
     public void MergeDone(bool calledByChunkUnlocking)
     {
         StoreTile();
-       if(calledByChunkUnlocking)MergeStateSet();
+       if(calledByChunkUnlocking && playerDataHolders.Count>0)MergeStateSet();
         
     }
     void MergeStateSet()

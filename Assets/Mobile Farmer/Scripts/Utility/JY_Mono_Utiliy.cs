@@ -74,12 +74,29 @@ public class StorageUIStatus
     public TMP_Text text;
     public Image icon;
 }
+[System.Serializable]
+public class ChunkIdPricePair
+{
+    public int chunkId;
+    public int chunkPrice;
+    public ChunkIdPricePair()
+    {
+        chunkId = -1;
+        chunkPrice = 550;
+    }
+    public ChunkIdPricePair(int chunkId, int chunkPrice)
+    {
+        this.chunkId = chunkId;
+        this.chunkPrice = chunkPrice;
+    }
+
+}
 public class WorldData
 {
-    public List<int> chunkPrices;
+    public List<ChunkIdPricePair> chunkPrices;
     public WorldData()
     {
-        chunkPrices = new List<int>();
+        chunkPrices = new List<ChunkIdPricePair>();
     }
 }
 [System.Serializable]

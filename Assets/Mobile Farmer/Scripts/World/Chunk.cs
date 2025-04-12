@@ -9,6 +9,7 @@ using UnityEngine;
 public class Chunk : MonoBehaviour
 {
     [Header("Elements")]
+    public int ChunkID = -1;
     [SerializeField] GameObject unlocedElements;
     [SerializeField] GameObject lockedElements;
     [SerializeField] TextMeshPro priceText;
