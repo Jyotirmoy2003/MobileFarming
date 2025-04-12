@@ -59,6 +59,9 @@ public class UIManager : MonoSingleton<UIManager>
     [Space]
     [Header("Horse Mode")]
     [SerializeField] GameObject horseButton;
+    [SerializeField] GameObject horsePurchesPanel;
+    [SerializeField] GameObject horseBuyWithGem;
+    [SerializeField] GameObject horseBuyWithAd;
 
     [Space]
     [Header("Shop Panel")]
@@ -165,6 +168,8 @@ public class UIManager : MonoSingleton<UIManager>
     #endregion
 
 
+
+    #region SHOP
     public void InsufficientGold()
     {
         shopPanel.SetActive(true);
@@ -184,7 +189,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         shopPanel.SetActive(false);
     }
-
+    #endregion
 
     #region  ItemCreadited UI
 
@@ -235,4 +240,20 @@ public class UIManager : MonoSingleton<UIManager>
     #endregion
 
 
+
+    #region Horse
+    public void SetupHorseBuyPanel(bool isActive,bool buyusingGem)
+    {
+
+        horsePurchesPanel.SetActive(isActive);
+        horseBuyWithGem.SetActive(buyusingGem);
+        horseBuyWithAd.SetActive(!buyusingGem);
+        
+    }
+    public void ShowHorseButton(bool isActive)
+    {
+        horseButton.SetActive(isActive);
+    }
+
+    #endregion
 }

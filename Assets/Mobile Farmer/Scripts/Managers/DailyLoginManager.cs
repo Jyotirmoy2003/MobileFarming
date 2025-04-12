@@ -38,10 +38,7 @@ public class DailyLoginManager : MonoBehaviour
 
             GiveReward(currentDay);
         }
-        else
-        {
-            Debug.Log("Daily reward already claimed today!");
-        }
+       
     }
 
     void DeactivateDay(int index)

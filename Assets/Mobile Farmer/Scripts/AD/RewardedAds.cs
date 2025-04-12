@@ -11,6 +11,9 @@ public class RewardedAds : MonoBehaviour ,IUnityAdsLoadListener ,IUnityAdsShowLi
 
     private string adUnitId;
     public Action OnAddSucessFullyWatched;
+    private IUnityAdsLoadListener loadListener;
+
+    
 
     private void Awake()
     {
@@ -24,7 +27,8 @@ public class RewardedAds : MonoBehaviour ,IUnityAdsLoadListener ,IUnityAdsShowLi
 
     public void LoadRewardedAd()
     {
-        Advertisement.Load(adUnitId, this);
+        Advertisement.Load(adUnitId,loadListener);
+
     }
     
     [NaughtyAttributes.Button]

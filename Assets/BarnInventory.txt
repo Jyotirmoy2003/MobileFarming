@@ -2,7 +2,11 @@
     "items": [
         {
             "item_type": 1,
-            "amount": 60
+            "amount": 90
+        },
+        {
+            "item_type": 0,
+            "amount": 112
         }
     ]
 }

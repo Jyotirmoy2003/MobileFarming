@@ -5,7 +5,7 @@ using UnityEngine;
 public class Horse : MonoBehaviour
 {
     [SerializeField] AnimationEventHandeler animationEventHandeler;
-    [SerializeField] AudioSource footAudio;
+    [SerializeField] float RandomTimeDiff = 5f;
     void Start()
     {
         animationEventHandeler.animationEventFired +=OnHorseTouchGround;
@@ -14,5 +14,21 @@ public class Horse : MonoBehaviour
     {
         
         AudioManager.instance.PlaySound("Horse Foot");
+    }
+
+    void PlaySnorAudio()
+    {
+        if(gameObject.activeSelf)
+            AudioManager.instance.PlaySound("Horse_Snort");
+    }
+
+    void OnEnable()
+    {
+        InvokeRepeating(nameof(PlaySnorAudio),4f,Random.Range((10+RandomTimeDiff),(10- RandomTimeDiff)));
+    }
+
+    void Osable()
+    {
+        CancelInvoke();       
     }
 }

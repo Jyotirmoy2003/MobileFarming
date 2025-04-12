@@ -24,15 +24,16 @@ public class AdsManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
 
-        bannerAds.LoadBannerAd();
-        interstitialAds.LoadInterstitialAd();
-        rewardedAds.LoadRewardedAd();
+        
     }
 
 
     void Start()
     {
-        UIManager.Instance.UniversalButtonAction +=ListenToUniversalButtonEvent;    
+        UIManager.Instance.UniversalButtonAction +=ListenToUniversalButtonEvent;  
+        bannerAds.LoadBannerAd();
+        interstitialAds.LoadInterstitialAd();
+        rewardedAds.LoadRewardedAd(); 
     }
 
 
@@ -63,8 +64,14 @@ public class AdsManager : MonoBehaviour
         switch (data)
         {
             case 1001:
-                OnRewardAddButtonPressedCoin(500);
+                if(IsConnectedToInternet())
+                    OnRewardAddButtonPressedCoin(500);
                 break;
         }
+    }
+
+    public bool IsConnectedToInternet()
+    {
+        return Application.internetReachability != NetworkReachability.NotReachable;
     }
 }

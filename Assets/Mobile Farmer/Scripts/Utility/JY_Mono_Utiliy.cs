@@ -56,6 +56,12 @@ public static void NullFun()
 }
 
 #region Class
+public class AllSave{
+    public bool ishorsePurchesed = false;
+    public string horsePurchesTime ;
+
+    
+}
 [System.Serializable]
 public class ButtonInfo{
     public Sprite sprite;

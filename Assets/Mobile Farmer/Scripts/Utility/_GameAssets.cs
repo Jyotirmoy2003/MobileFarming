@@ -51,6 +51,10 @@ public class _GameAssets : MonoSingleton<_GameAssets>
     [Header("Float Data")]
     public float fishShakeThresold =350f;
 
+    [Space]
+    [Header("Strings")]
+    public static readonly string AllSaveFileName = "AllSave.txt";
+
     public void ListnToOnGameCache(Component sender,object data)
     {
       allFieldInGame = FindObjectsOfType<CropField>();
