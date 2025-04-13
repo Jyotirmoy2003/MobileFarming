@@ -149,6 +149,7 @@ public delegate void NoArgumentFun();
 public class BarnItem{
     public E_Inventory_Item_Type item_Type;
     public int maxLoadCapacity;
+    public ParticleSystem loadOutParticel;
 }
 
 [System.Serializable]

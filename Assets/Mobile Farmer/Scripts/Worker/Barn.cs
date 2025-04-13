@@ -225,6 +225,7 @@ public class Barn : MonoBehaviour,IInteractable
     {
         if(!isBarnEmpty)
         {
+            PlayParticels();
             InventoryManager.Instance.AddInventoryToInventory(barnInventory.GetInventory());
             barnInventory.ClearInventory();
             OnBarnCollected?.Invoke(); //Fire event
@@ -241,6 +242,21 @@ public class Barn : MonoBehaviour,IInteractable
             CameraManager.Instance.SwitchCamera(workerLoadOutPos,new Vector3(0,8,-10),new Vector3(0,0,0));
             SubcribeToUiButton(true);
             
+        }
+    }
+    void PlayParticels()
+    {
+       
+        Inventory temp_Inventory = barnInventory.GetInventory();
+
+
+        for(int i=0;i<barnCapableItem.Count;i++)
+        {
+            if(temp_Inventory.GetItemAmountInInventory(barnCapableItem[i].item_Type) >0)
+            {
+                barnCapableItem[i].loadOutParticel.Play();
+            }
+
         }
     }
     #region Triggers

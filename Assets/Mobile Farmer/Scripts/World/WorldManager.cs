@@ -291,15 +291,11 @@ public class WorldManager : MonoBehaviour
         
             shouldsave = true;
         }
+        
         // If missing chunks exist, add their initial price
         if (missingData > 0)
         {
-            // for (int i = savedChunkCount; i < currentChunkCount; i++)
-            // {
-                
-            //     int chunkPrice = world.GetChild(i).GetComponent<Chunk>().GetInitialPrice();
-            //     worldData.chunkPrices.Add(chunkPrice);
-            // }
+            
 
            
             int index = 0;
