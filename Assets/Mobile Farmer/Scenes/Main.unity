@@ -107,7 +107,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 3
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.3
     agentHeight: 1
     agentSlope: 45
     agentClimb: 0.3
@@ -115,7 +115,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.1
     manualTileSize: 0
     tileSize: 256
     buildHeightMesh: 0
@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3368efb490c7bce4fbdb365107bc4999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horseDustParticel: {fileID: 141433446842962268, guid: bdc8bba25eb3ed240b59bb2c96f78b78,
+    type: 3}
   animationEventHandeler: {fileID: 910735516}
   RandomTimeDiff: 5
 --- !u!1 &19364892
@@ -4116,7 +4118,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   unparentGameObject: 0
   OnHorseModechanged: {fileID: 11400000, guid: bbbfbf0b2580c6c4a8099ce1c44770b9, type: 2}
-  isTesting: 1
+  isTesting: 0
 --- !u!114 &292220154 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3453079311856838811, guid: 0a00392333fe33f41bc89995b90d15d2,
@@ -16923,6 +16925,11 @@ PrefabInstance:
       propertyPath: alocatedChunk
       value: 
       objectReference: {fileID: 1090229795}
+    - target: {fileID: 3806243691302753248, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
+        type: 3}
+      propertyPath: range
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3806243691302753248, guid: 16d37a42b7608e24ba773b54bb9fdb2b,
         type: 3}
       propertyPath: centrePoint
@@ -36405,6 +36412,7 @@ MonoBehaviour:
   gridSale: 5
   isTutorial: 0
   fileName: /WorldData.txt
+  isGameUpdated: 1
   chunkShapes: []
 --- !u!114 &1403504743
 MonoBehaviour:
@@ -50489,7 +50497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 1.7, z: -2.5}
+  m_FollowOffset: {x: 0, y: 1.3, z: -8}
   m_XDamping: 14.58
   m_YDamping: 1
   m_ZDamping: 1
@@ -50510,7 +50518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0.8, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: -1.14, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0

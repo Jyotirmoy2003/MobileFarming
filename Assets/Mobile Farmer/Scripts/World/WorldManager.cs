@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using jy_util;
 using UnityEngine;
 
@@ -15,9 +16,12 @@ public class WorldManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] string fileName = "/WorldData.txt";
     private WorldData worldData;
+    private List<Chunk> worldChunk = new List<Chunk>();
     string dataPath ;
 
     private bool shouldsave=false;
+    [SerializeField]
+    private bool isGameUpdated = true;
 
     [Header(" Chunk Meshes " )]
     [SerializeField] private Mesh[] chunkShapes;
@@ -30,6 +34,9 @@ public class WorldManager : MonoBehaviour
         #if UNITY_EDITOR
         dataPath = Application.dataPath + fileName;
         #endif
+
+        CacheChunk();
+
         if(!isTutorial)LoadWorld();
         else LoadTutroalWord();
         
@@ -40,14 +47,31 @@ public class WorldManager : MonoBehaviour
 
     }
 
+    [NaughtyAttributes.Button]
+    void UnlockAllChunks()
+    {
+        foreach(Chunk item in worldChunk) item.Initialize(0);
+
+        SaveData();
+    }
+
+    void CacheChunk()
+    {
+        for(int i=0;i<world.childCount ; i++)
+        {
+            if(world.GetChild(i).TryGetComponent<Chunk>(out Chunk chunk)) worldChunk.Add(chunk);
+        }
+    }
+
 
     void Initialize()
     {
         
+        
         for(int i=0;i<world.childCount;i++)
         {
-            if(world.GetChild(i).TryGetComponent<Chunk>(out var chunk))
-                chunk.Initialize(GetChunkPricewithId(chunk.ChunkID));
+            
+            worldChunk[i].Initialize(GetChunkPricewithId(worldChunk[i].ChunkID));
         
         }
         
@@ -65,6 +89,7 @@ public class WorldManager : MonoBehaviour
             if(item.chunkId == chunkId) return item.chunkPrice;
         }
         // execution should not come here
+        Debug.Log("Unable to Find Price for chunk :"+chunkId+"  Saved:=> "+ worldData.chunkPrices.Count + " inWold:=> "+worldChunk.Count);
         return 555;
     }
 
@@ -210,26 +235,24 @@ public class WorldManager : MonoBehaviour
 
             for(int i=0;i<world.childCount;i++)
             {
-                if(world.GetChild(i).TryGetComponent<Chunk>(out var chunk))
-                    worldData.chunkPrices.Add(new ChunkIdPricePair(chunk.ChunkID,chunk.GetInitialPrice()));
+                worldData.chunkPrices.Add(new ChunkIdPricePair(worldChunk[i].ChunkID,worldChunk[i].GetInitialPrice()));
             }
 
             SaveAndLoad.Save(dataPath,worldData);
         }else{
-            if(worldData.chunkPrices.Count < world.childCount )
                 UpdateData();
         }
     }
 
     private void LoadTutroalWord()
     {
-        worldData = new WorldData();
+        // worldData = new WorldData();
 
-        for(int i=0;i<world.childCount;i++)
-        {
-            if(world.GetChild(i).TryGetComponent<Chunk>(out var chunk))
-                    worldData.chunkPrices.Add(new ChunkIdPricePair(chunk.GetInitialPrice(),chunk.ChunkID));
-        }
+        // for(int i=0;i<world.childCount;i++)
+        // {
+        //     if(world.GetChild(i).TryGetComponent<Chunk>(out var chunk))
+        //             worldData.chunkPrices.Add(new ChunkIdPricePair(chunk.GetInitialPrice(),chunk.ChunkID));
+        // }
     }
 
     private void UpdateData()
@@ -240,6 +263,34 @@ public class WorldManager : MonoBehaviour
 
         Debug.Log($"<color=green>Missing data:</color> {missingData} | World Child Count: {currentChunkCount} | Saved Chunk Count: {savedChunkCount}");
 
+        if(missingData == 0 && isGameUpdated)
+        {
+            //when word has data that is not saved in file
+            for(int i=0;i<worldChunk.Count;i++)
+            {
+                if(!ContainsChunkIdInSaved(worldChunk[i].ChunkID))
+                {
+                    worldData.chunkPrices.Add(new ChunkIdPricePair(worldChunk[i].ChunkID,worldChunk[i].GetInitialPrice()));
+                }
+            }
+
+            //when file has data that is not needed in world
+            List<int> NeedtoRemoveIndex = new List<int>();
+
+            for(int i=0;i<worldData.chunkPrices.Count ; i++)
+            {
+                if(!ContainsChunkIdInWorld(worldData.chunkPrices[i].chunkId)) NeedtoRemoveIndex.Add(i);
+
+            }
+
+            for(int i=0; i<NeedtoRemoveIndex.Count ;i++)
+            {
+                worldData.chunkPrices.RemoveAt(NeedtoRemoveIndex[i]);
+            }
+
+        
+            shouldsave = true;
+        }
         // If missing chunks exist, add their initial price
         if (missingData > 0)
         {
@@ -249,19 +300,23 @@ public class WorldManager : MonoBehaviour
             //     int chunkPrice = world.GetChild(i).GetComponent<Chunk>().GetInitialPrice();
             //     worldData.chunkPrices.Add(chunkPrice);
             // }
+
+           
             int index = 0;
             while(world.childCount > worldData.chunkPrices.Count)
             {
-                if(world.GetChild(index).TryGetComponent<Chunk>(out var chunk))
+                
+                if(!ContainsChunkIdInSaved(worldChunk[index].ChunkID))
                 {
-                    if(!ContainsChunkIdInSaved(chunk.ChunkID))
-                    {
-                        //found a new Chunk add this
-                        worldData.chunkPrices.Add(new ChunkIdPricePair(chunk.ChunkID,chunk.GetInitialPrice()));
-                    }
-                    index ++;
+                    Debug.Log("<color=yellow> Making new Chunk to Save data </color>" +worldChunk[index].ChunkID);
+                    //found a new Chunk add this
+                    worldData.chunkPrices.Add(new ChunkIdPricePair(worldChunk[index].ChunkID,worldChunk[index].GetInitialPrice()));
                 }
+                index ++;
+                
             }
+
+           
 
             shouldsave = true; // Mark as needing save
         }
@@ -273,26 +328,35 @@ public class WorldManager : MonoBehaviour
             // worldData.chunkPrices.RemoveRange(currentChunkCount, savedChunkCount - currentChunkCount);
             // shouldsave = true; // Mark as needing save
 
-            int index = 0;
-            while(world.childCount < worldData.chunkPrices.Count)
+            List<int> NeedtoRemoveIndex = new List<int>();
+
+            for(int i=0;i<worldData.chunkPrices.Count ; i++)
             {
-                if(!ContainsChunkIdInWorld(worldData.chunkPrices[index].chunkId))
-                {
-                    //curent chunk is not in world anymore need to delete from saved data
-                    var temp = worldData.chunkPrices[index];
-                    worldData.chunkPrices.Remove(temp);
-                }
+                if(!ContainsChunkIdInWorld(worldData.chunkPrices[i].chunkId)) NeedtoRemoveIndex.Add(i);
+
             }
+
+            for(int i=0; i<NeedtoRemoveIndex.Count ;i++)
+            {
+                worldData.chunkPrices.RemoveAt(NeedtoRemoveIndex[i]);
+            }
+
+        
             shouldsave = true;
         }
 
 
 
-        // Save only if changes were made
-        if (shouldsave)
-        {
-            SaveData();
-        }
+       
+    }
+
+    void DebugSavedChunkPrices()
+    {
+        Debug.Log("<color=green> =============Debuging prices============</color>");
+        for(int i=0;i<worldData.chunkPrices.Count; i++)
+            {
+                Debug.Log(worldData.chunkPrices[i].chunkPrice);
+            }
     }
 
     bool ContainsChunkIdInSaved(int chunkId)
@@ -309,7 +373,7 @@ public class WorldManager : MonoBehaviour
     {
         for(int i = 0 ; i<world.childCount ;i++)
         {
-            if(world.GetChild(i).TryGetComponent<Chunk>(out Chunk chunk) && chunk.ChunkID == chunkId) return true;
+            if(worldChunk[i].ChunkID == chunkId) return true;
         }
 
         return false;
@@ -324,29 +388,12 @@ public class WorldManager : MonoBehaviour
     private void SaveData()
     {
         shouldsave =false;
-        // if(worldData.chunkPrices.Count != world.childCount)
-        //     worldData = new WorldData();
+       
 
-        // Ensure the list is large enough but don't wipe previous data
-        while (worldData.chunkPrices.Count < world.childCount)
-        {
-            worldData.chunkPrices.Add(new ChunkIdPricePair()); // Default price, or use a method to get new chunk prices
-        }
-        
-        // for(int i=0;i<world.childCount;i++)
-        // {
-        //     if(worldData.chunkPrices.Count>i)
-        //     {
-        //         worldData.chunkPrices[i]=world.GetChild(i).GetComponent<Chunk>().GetCurrentPrice();
-        //     }else{
-        //         worldData.chunkPrices.Add(world.GetChild(i).GetComponent<Chunk>().GetCurrentPrice());
-        //     }
-        // }
-
+       
         for(int i=0;i<world.childCount;i++)
         {
-           if(world.GetChild(i).TryGetComponent<Chunk>(out Chunk chunk))
-            SetNewPriceWithChunkID(chunk.ChunkID,chunk.GetCurrentPrice());
+            SetNewPriceWithChunkID(worldChunk[i].ChunkID,worldChunk[i].GetCurrentPrice());
             
         }
         

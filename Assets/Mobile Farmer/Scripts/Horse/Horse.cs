@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Horse : MonoBehaviour
 {
+    [SerializeField] ParticleSystem horseDustParticel;
     [SerializeField] AnimationEventHandeler animationEventHandeler;
     [SerializeField] float RandomTimeDiff = 5f;
     void Start()
@@ -12,7 +13,7 @@ public class Horse : MonoBehaviour
     }
     public void OnHorseTouchGround()
     {
-        
+        Instantiate(horseDustParticel,transform.position,transform.rotation);
         AudioManager.instance.PlaySound("Horse Foot");
     }
 
