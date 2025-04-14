@@ -9,6 +9,7 @@ public class HorseModeManager : MonoSingleton<HorseModeManager>
     [Space]
     [SerializeField] GameEvent OnHorseModechanged;
     [SerializeField] bool isTesting = false;
+    [SerializeField] int horsePurchesHour = 5;
     private string dataPath;
     private bool isHorseActive = false;
     private bool ishorsePurchesed = false;
@@ -61,7 +62,7 @@ public class HorseModeManager : MonoSingleton<HorseModeManager>
         if (!string.IsNullOrEmpty(allSave.horsePurchesTime))
         {
             DateTime purchaseTime = DateTime.Parse(allSave.horsePurchesTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-            if ((DateTime.UtcNow - purchaseTime).TotalHours >= 1)
+            if ((DateTime.UtcNow - purchaseTime).TotalHours >= horsePurchesHour)
             {
                 ishorsePurchesed = false;
                 allSave.ishorsePurchesed = false;

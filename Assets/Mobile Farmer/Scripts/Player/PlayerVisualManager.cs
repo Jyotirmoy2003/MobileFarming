@@ -29,6 +29,7 @@ public class PlayerVisualManager : MonoSingleton<PlayerVisualManager>
       if(isActive)
       {
          playerRenderer.transform.position = horseModePlayerPos.position;
+         horseTransform.forward = playerRenderer.transform.forward;
          horseTransform.gameObject.SetActive(true);
          ManagerHorseAnim += ManageHorseMovement;
 
