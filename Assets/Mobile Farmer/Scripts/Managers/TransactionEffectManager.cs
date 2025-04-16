@@ -13,6 +13,7 @@ public class TransactionEffectManager : MonoSingleton<TransactionEffectManager>
    [Space]
    [Header("Gem")]
    [SerializeField] ParticleSystem gemParticel;
+   [SerializeField] ParticleSystem gemParticelPrefab;
    [SerializeField] RectTransform gemRectTransform;
    [SerializeField] int gemParticelAmount=20;
 
@@ -59,7 +60,7 @@ public class TransactionEffectManager : MonoSingleton<TransactionEffectManager>
 
    public void PlayGemParticel(int amount)
    {
-        if(gemParticel.isPlaying) return;
+        //if(gemParticel.isPlaying) return;
        
 
 
@@ -78,7 +79,13 @@ public class TransactionEffectManager : MonoSingleton<TransactionEffectManager>
 
    public void PlayGemParticel(int amount,Vector3 wordPos)
    {
-        if(gemParticel.isPlaying) return;
+        if(gemParticel.isPlaying)
+        {
+            //when cached particel is already playing somewhere create new
+            Instantiate(gemParticelPrefab,wordPos,Quaternion.identity);
+            PlayGemParticel(amount);
+            return;
+        }
 
         gemParticel.transform.position = wordPos;
         PlayGemParticel(amount);

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using jy_util;
 using UnityEngine;
 
@@ -32,6 +31,11 @@ public class CropFieldMerger : MonoBehaviour
         if(myDataHolder.left?.cropField != null) connectedFields.Add(myDataHolder.left)  ;
         if(myDataHolder.above?.cropField != null) connectedFields.Add(myDataHolder.above)  ;
         if(myDataHolder.bottom?.cropField != null) connectedFields.Add(myDataHolder.bottom)  ;
+        //corners
+        if(myDataHolder.left_above?.cropField != null) connectedFields.Add(myDataHolder.left_above)  ;
+        if(myDataHolder.left_bottom?.cropField != null) connectedFields.Add(myDataHolder.left_bottom)  ;
+        if(myDataHolder.right_above?.cropField != null) connectedFields.Add(myDataHolder.right_above)  ;
+        if(myDataHolder.right_bottom?.cropField != null) connectedFields.Add(myDataHolder.right_bottom)  ;
         
         //float delay = Random.Range(0,3f);
         float delay = initateTime;
@@ -62,10 +66,12 @@ public class CropFieldMerger : MonoBehaviour
             Merge(i);
 
         }
+
     }
 
     void Merge(int index)
     {
+      
         //set both merger to connected 
         connectedFields[index].cropFieldMerger.IsConnected = true;
         IsConnected = true;
@@ -75,8 +81,8 @@ public class CropFieldMerger : MonoBehaviour
             //Connect to Right Side
             
             //Setup Collider
-            myDataHolder.cropFieldRangeTrigger.size = new Vector3(9,1,4);
-            myDataHolder.cropFieldRangeTrigger.center = new Vector3(2.5f,0,0);
+            myDataHolder.cropFieldRangeTrigger.size = new Vector3(myDataHolder.cropFieldRangeTrigger.size.x+5,myDataHolder.cropFieldRangeTrigger.size.y,myDataHolder.cropFieldRangeTrigger.size.z);
+            myDataHolder.cropFieldRangeTrigger.center = new Vector3(myDataHolder.cropFieldRangeTrigger.center.x+2.5f,myDataHolder.cropFieldRangeTrigger.center.y,myDataHolder.cropFieldRangeTrigger.center.z);
 
             myDataHolder.infoUI.transform.localPosition = new Vector3(2.5f,2,0);
             
@@ -91,8 +97,8 @@ public class CropFieldMerger : MonoBehaviour
             //Connect Above
 
             //Setup Collider
-            myDataHolder.cropFieldRangeTrigger.size = new Vector3(4,1,9);
-            myDataHolder.cropFieldRangeTrigger.center = new Vector3(0,0,2.5f);
+            myDataHolder.cropFieldRangeTrigger.size = new Vector3(myDataHolder.cropFieldRangeTrigger.size.x,myDataHolder.cropFieldRangeTrigger.size.y,myDataHolder.cropFieldRangeTrigger.size.z+5);
+            myDataHolder.cropFieldRangeTrigger.center = new Vector3(myDataHolder.cropFieldRangeTrigger.center.x,myDataHolder.cropFieldRangeTrigger.center.y,myDataHolder.cropFieldRangeTrigger.center.z+2.5f);
 
             myDataHolder.infoUI.transform.localPosition = new Vector3(0f,2,2.5f);
             StartCoroutine(CreateTileAboveSide(index));
@@ -106,8 +112,11 @@ public class CropFieldMerger : MonoBehaviour
             //Connect Left
 
             //Setup Collider
-            myDataHolder.cropFieldRangeTrigger.size = new Vector3(9,1,4);
-            myDataHolder.cropFieldRangeTrigger.center = new Vector3(-2.5f,0,0);
+            // myDataHolder.cropFieldRangeTrigger.size = new Vector3(9,1,4);
+            // myDataHolder.cropFieldRangeTrigger.center = new Vector3(-2.5f,0,0);
+
+            myDataHolder.cropFieldRangeTrigger.size = new Vector3(myDataHolder.cropFieldRangeTrigger.size.x+5,myDataHolder.cropFieldRangeTrigger.size.y,myDataHolder.cropFieldRangeTrigger.size.z);
+            myDataHolder.cropFieldRangeTrigger.center = new Vector3(myDataHolder.cropFieldRangeTrigger.center.x-2.5f,myDataHolder.cropFieldRangeTrigger.center.y,myDataHolder.cropFieldRangeTrigger.center.z);
 
             myDataHolder.infoUI.transform.localPosition = new Vector3(-2.5f,2,0);
             StartCoroutine(CreateTileLeftSide(index));
@@ -116,12 +125,15 @@ public class CropFieldMerger : MonoBehaviour
             Destroy(connectedFields[index].cropFieldRangeTrigger);
             Destroy(connectedFields[index].infoUI.gameObject);
 
-        }else{
+        }else if (connectedFields[index].chunkTranform.position.x == myDataHolder.chunkTranform.position.x && connectedFields[index].chunkTranform.position.z < myDataHolder.chunkTranform.position.z){
             //Connect Bottom
 
             //Setup Collider
-            myDataHolder.cropFieldRangeTrigger.size = new Vector3(4,1,9);
-            myDataHolder.cropFieldRangeTrigger.center = new Vector3(0f,0,-2.5f);
+            // myDataHolder.cropFieldRangeTrigger.size = new Vector3(4,1,9);
+            // myDataHolder.cropFieldRangeTrigger.center = new Vector3(0f,0,-2.5f);
+
+            myDataHolder.cropFieldRangeTrigger.size = new Vector3(myDataHolder.cropFieldRangeTrigger.size.x,myDataHolder.cropFieldRangeTrigger.size.y,myDataHolder.cropFieldRangeTrigger.size.z+5);
+            myDataHolder.cropFieldRangeTrigger.center = new Vector3(myDataHolder.cropFieldRangeTrigger.center.x,myDataHolder.cropFieldRangeTrigger.center.y,myDataHolder.cropFieldRangeTrigger.center.z-2.5f);
 
             myDataHolder.infoUI.transform.localPosition = new Vector3(0,2,-2.5f);
             StartCoroutine(CreateTileBottomSide(index));
@@ -130,6 +142,16 @@ public class CropFieldMerger : MonoBehaviour
             Destroy(connectedFields[index].cropFieldRangeTrigger);
             Destroy(connectedFields[index].infoUI.gameObject);
 
+        }else if(connectedFields[index].chunkTranform.position.x > myDataHolder.chunkTranform.position.x && connectedFields[index].chunkTranform.position.z > myDataHolder.chunkTranform.position.z)
+        {
+            //right_Above
+
+            myDataHolder.infoUI.transform.localPosition = new Vector3(+2.5f,2,+2.5f);
+            StartCoroutine(CreateTileRightAboveSide(index));
+
+            Destroy(connectedFields[index].cropField);
+            Destroy(connectedFields[index].cropFieldRangeTrigger);
+            Destroy(connectedFields[index].infoUI.gameObject);
         }
     }
 
@@ -228,6 +250,60 @@ public class CropFieldMerger : MonoBehaviour
 
             }
         }
+        
+        
+
+        //Do repranting
+        while(connectedFields[index].tileParent.childCount>0)
+        {
+            connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
+        }
+        myDataHolder.cropField.MergeDone(calledByChunkUnlocking);
+
+        yield return new WaitForSeconds(.2f);
+        switch(myDataHolder.cropField.state)
+        {
+            case E_Crop_State.Sown:
+                myDataHolder.cropField.InstantlySowTile();
+                break;
+            case E_Crop_State.Watered:
+                myDataHolder.cropField.InstantlyWaterTile();
+                break;
+        }
+    }
+
+
+    IEnumerator CreateTileRightAboveSide(int index)
+    {
+        //Create new Tile ans set position
+        for(int i=3; i>1;i--)
+        {
+            for(int j=4;j<7;j++)
+            {
+                CropTile tempCroptile=Instantiate(myDataHolder.cropTile,myDataHolder.tileParent);
+                tempCroptile.transform.localPosition = new Vector3(i,0,j);
+
+                yield return new WaitForSeconds(0.1f);
+                tempCroptile.feedBackManager?.PlayFeedback();
+
+            }
+        }
+
+
+        //Create new Tile ans set position
+        for(int i=2; i<4;i++)
+        {
+            for(int j=2;j<7;j++)
+            {
+                CropTile tempCroptile=Instantiate(myDataHolder.cropTile,myDataHolder.tileParent);
+                tempCroptile.transform.localPosition = new Vector3(j,0,i);
+
+                yield return new WaitForSeconds(0.1f);
+                tempCroptile.feedBackManager?.PlayFeedback();
+
+            }
+        }
+       
         
         
 

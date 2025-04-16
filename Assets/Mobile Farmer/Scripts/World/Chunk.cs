@@ -86,6 +86,8 @@ public class Chunk : MonoBehaviour
         lockedElements.SetActive(false);
         unlocedElements.SetActive(true);
         feedBackManager.PlayFeedback();
+        Vector3 gemPoint = new Vector3(transform.position.x,transform.position.y+1f,transform.position.z);
+        TransactionEffectManager.Instance.PlayGemParticel(UnityEngine.Random.Range(0,3),gemPoint);
         //save data
         currentPrice=0;
         SaveWorldDataEvent.Raise(this,true);

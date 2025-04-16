@@ -14,6 +14,6 @@ public class CropFieldDataHolder : MonoBehaviour
     public InfoUI infoUI;
     public Transform tileParent;
     //[HideInInspector]
-    public CropFieldDataHolder right,bottom,left,above;
+    public CropFieldDataHolder right,bottom,left,above,left_above,right_above,left_bottom,right_bottom;
    
 }

@@ -1,8 +1,8 @@
 {
     "items": [
         {
-            "item_type": 1,
-            "amount": 30
+            "item_type": 0,
+            "amount": 112
         }
     ]
 }

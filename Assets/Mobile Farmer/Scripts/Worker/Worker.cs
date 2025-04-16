@@ -375,11 +375,17 @@ public class SowField : WorkerBase
         //target next undone tile
         int maxTryCount = 10; //to avoid infinte loop
 
+        
         while(dataHolder.cropField.cropTiles[index].IsSown() && (maxTryCount--  > 0))
         {
             index=(index+1)%dataHolder.cropField.cropTiles.Count;
         }
         
+        if(dataHolder.cropField.cropTiles[index].IsSown())
+        {
+            Debug.Log("still its a sown tile getting random and maxtrycout is" +maxTryCount);
+            index = UnityEngine.Random.Range(0,dataHolder.cropField.cropTiles.Count);
+        }
         worker.navMeshAgent.SetDestination(dataHolder.cropField.cropTiles[index].transform.position);
     }
 

@@ -148,6 +148,32 @@ public class WorldManager : MonoBehaviour
                     if(dataHolder.bottom)dataHolder.bottom.above = dataHolder;
                 }
 
+                //corners
+                if(dataHolder.left_above == null)
+                {
+                    dataHolder.left_above = (IsValidGridPosition(j-1,i+1))? grid[j-1,i+1]?.cropFieldDataHolder:null;
+                    if(dataHolder.left_above)dataHolder.left_above.right_bottom = dataHolder;
+                }
+
+                if(dataHolder.left_bottom == null)
+                {
+                    dataHolder.left_bottom = (IsValidGridPosition(j-1,i-1))? grid[j-1,i-1]?.cropFieldDataHolder:null;
+                    if(dataHolder.left_bottom) dataHolder.left_bottom.right_above = dataHolder;
+                }
+
+                if(dataHolder.right_above == null)
+                {
+                    dataHolder.right_above = (IsValidGridPosition(j+1,i+1))? grid[j+1,i+1]?.cropFieldDataHolder:null;
+                    if(dataHolder.right_above) dataHolder.right_above.left_bottom = dataHolder;
+                }
+
+                if(dataHolder.right_bottom == null)
+                {
+                    dataHolder.right_bottom = (IsValidGridPosition(j+1,i-1))? grid[j+1,i-1]?.cropFieldDataHolder:null;
+                    if(dataHolder.right_bottom) dataHolder.right_bottom.left_above = dataHolder;
+                }
+
+
             }
 
         }

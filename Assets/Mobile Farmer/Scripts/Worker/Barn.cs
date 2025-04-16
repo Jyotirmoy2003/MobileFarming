@@ -65,7 +65,7 @@ public class Barn : MonoBehaviour,IInteractable
         
         barnInventory = GetComponent<BarnInventory>();
         LoadWorker();
-        Invoke(nameof(Init),3f);
+        Invoke(nameof(Init),4f);
 
         SetUpDeepCopyWorkerStats();
 
@@ -144,11 +144,11 @@ public class Barn : MonoBehaviour,IInteractable
    {
         for(int i=0 ;i<nearByFields.Count;i++)
         {
-            if(nearByFields[i].cropFieldDataHolder.chunk.IsUnclocked() && nearByFields[i].GetCropData()==cropData )//&& !nearByFields[i].cropFieldDataHolder.cropField.IsOccupied)
-                {
-                    nearByFields[i].IsOccupied = true;
-                    return nearByFields[i];
-                }
+            if(nearByFields[i] != null && nearByFields[i].cropFieldDataHolder.chunk.IsUnclocked() && nearByFields[i].GetCropData()==cropData )//&& !nearByFields[i].cropFieldDataHolder.cropField.IsOccupied)
+            {
+                nearByFields[i].IsOccupied = true;
+                return nearByFields[i];
+            }
         }
         Debug.Log("No Field found to assign");
        return nearByFields[0];
@@ -252,8 +252,12 @@ public class Barn : MonoBehaviour,IInteractable
 
         for(int i=0;i<barnCapableItem.Count;i++)
         {
-            if(temp_Inventory.GetItemAmountInInventory(barnCapableItem[i].item_Type) >0)
+            int amount = temp_Inventory.GetItemAmountInInventory(barnCapableItem[i].item_Type);
+            if(amount >0)
             {
+                ParticleSystem.Burst burst = barnCapableItem[i].loadOutParticel.emission.GetBurst(0);
+                burst.count = amount;
+                barnCapableItem[i].loadOutParticel.emission.SetBurst(0, burst);
                 barnCapableItem[i].loadOutParticel.Play();
             }
 

@@ -153,6 +153,12 @@ public class BarnItem{
 }
 
 [System.Serializable]
+public struct S_PurchessAmount_Pair
+{
+    public int amountToCredit;
+    public int amountToDebit;
+}
+[System.Serializable]
 public struct WorkerContiner
 {
     public Button hireButton;
@@ -206,6 +212,8 @@ public enum E_Inventory_Item_Type{
     Honey,
     Sweater,
     T_Shirt,
+    Coin,
+    Gem,
     None,
     
 }

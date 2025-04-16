@@ -56,15 +56,30 @@ public class CashManager : MonoSingleton<CashManager>
      {
           if(gems>=amount)
           {
-               gems-=amount;
-               SaveCurrency();
-               gemsAmount_text.text = CoinSystem.ConvertCoinToString(gems);
+               // gems-=amount;
+               // SaveCurrency();
+               // gemsAmount_text.text = CoinSystem.ConvertCoinToString(gems);
+               StartCoroutine(DebitGemType(amount));
                AudioManager.instance.PlaySound("Gem");
                return true;  
           }else{
                UIManager.Instance.InsufficientGem();
                return false;
           }
+     }
+
+     IEnumerator DebitGemType(int amountToDebit)
+     {
+          
+          while(amountToDebit > 0)
+          {
+               yield return null;
+               amountToDebit --;
+               gems -=1;
+               gemsAmount_text.text = CoinSystem.ConvertCoinToString(gems);
+          }
+
+          SaveCurrency();
      }
      
      
@@ -110,6 +125,6 @@ public class CashManager : MonoSingleton<CashManager>
      [NaughtyAttributes.Button]
      public void ClearGems()
      {
-          DebitCoin(coins);
+          DebitGems(gems);
      }
 }
