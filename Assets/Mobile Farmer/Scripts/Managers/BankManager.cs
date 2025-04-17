@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using jy_util;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BankManager : MonoBehaviour
 {
 
     [SerializeField] Transform selectItemContainerParent;
-
+    [SerializeField] string fileName;
 
 
     private string lastGeneratedCode;
     private E_Inventory_Item_Type selectedItemTypeToShare;
     private int maxPossibleItemToShare =-1;
     private bool isStillinTrigger = false;
+    private BankSaves bankSaves;
+    private string dataPath;
 
     void OnTriggerEnter(Collider other)
     {
@@ -35,6 +39,46 @@ public class BankManager : MonoBehaviour
         }
     }
 
+
+
+    void LoadCode()
+    {
+        dataPath = Application.persistentDataPath + fileName;
+        #if UNITY_EDITOR
+        dataPath = Application.dataPath + fileName;
+        #endif
+
+        bankSaves = SaveAndLoad.Load<BankSaves>(dataPath);
+
+        if(bankSaves == null)
+        {
+            bankSaves = new BankSaves();
+        }
+    }
+
+
+
+
+
+    void SaveCode(string code)
+    {
+        dataPath = Application.persistentDataPath + fileName;
+        #if UNITY_EDITOR
+        dataPath = Application.dataPath + fileName;
+        #endif
+
+        bankSaves.previousCodes.Add(code);
+
+        //remove extras
+        while(bankSaves.previousCodes.Count > 5)
+        {
+            bankSaves.previousCodes.RemoveAt(0);
+        }
+
+        //save data
+        SaveAndLoad.Save(dataPath,bankSaves);
+    }
+
     void EnterinBank()
     {
         if (!isStillinTrigger) return;
@@ -48,6 +92,9 @@ public class BankManager : MonoBehaviour
 
         // Bank UI activate
         UIManager.Instance.BankUIActivationStatus(true);
+
+        LoadCode();
+        PopulatePrivousCodes();
     }
 
     void ExitfromBank()
@@ -106,6 +153,26 @@ public class BankManager : MonoBehaviour
             case 59:
                 PopulateItemSelectContainer();
                 break;
+            case 60:
+                GUIUtility.systemCopyBuffer = bankSaves.previousCodes[0];
+                UIManager.Instance.SetLoadingPaenlForTime(true,$"Copied to clipboard: {bankSaves.previousCodes[0]}",2f);
+                break;
+            case 61:
+                GUIUtility.systemCopyBuffer = bankSaves.previousCodes[1];
+                UIManager.Instance.SetLoadingPaenlForTime(true,$"Copied to clipboard: {bankSaves.previousCodes[1]}",2f);
+                break;
+            case 62:
+                GUIUtility.systemCopyBuffer = bankSaves.previousCodes[2];
+                UIManager.Instance.SetLoadingPaenlForTime(true,$"Copied to clipboard: {bankSaves.previousCodes[2]}",2f);
+                break;
+            case 63:
+                GUIUtility.systemCopyBuffer = bankSaves.previousCodes[3];
+                UIManager.Instance.SetLoadingPaenlForTime(true,$"Copied to clipboard: {bankSaves.previousCodes[3]}",2f);
+                break;
+            case 64:
+                GUIUtility.systemCopyBuffer = bankSaves.previousCodes[4];
+                UIManager.Instance.SetLoadingPaenlForTime(true,$"Copied to clipboard: {bankSaves.previousCodes[4]}",2f);
+                break;
             
             default:
             break;
@@ -117,7 +184,24 @@ public class BankManager : MonoBehaviour
 
     #region  UI Code
 
-   
+    async void PopulatePrivousCodes()
+    {
+       
+
+        for(int i=0 ; i<UIManager.Instance.bundelButtons.Count; i++)
+        {
+            if(i < bankSaves.previousCodes.Count)
+            {
+                SharedInfo sharedInfo = await DatabaseManager.Instance.ValidateCode(bankSaves.previousCodes[i]);
+                
+                UIManager.Instance.bundelButtons[i].interactable = (sharedInfo != null);
+                
+            }else
+            {
+                UIManager.Instance.bundelButtons[i].interactable = false;
+            }
+        }
+    }
     
 
    
@@ -147,10 +231,16 @@ public class BankManager : MonoBehaviour
 
                         //repopulate the Container as the values should have changed in Inventory
                         PopulateItemSelectContainer();
+
+                        SaveCode(generatedCode);
+                        PopulatePrivousCodes();
                     }
                     else
                     {
-                    
+                        //give back those items which was debited
+                        InventoryManager.Instance.AddItemToInventory(selectedItemTypeToShare,enteredItemAmount);
+
+                        UIManager.Instance.SetLoadingPaenlForTime(true,"Faild",1f);
                     }
                 }
             }
@@ -182,6 +272,8 @@ public class BankManager : MonoBehaviour
                 // Valid code, credit Items
                 InventoryManager.Instance.AddItemToInventory((E_Inventory_Item_Type)sharedInfo.item_type,sharedInfo.itemAmount);
                 UIManager.Instance.ItemCreadited((E_Inventory_Item_Type)sharedInfo.item_type,sharedInfo.itemAmount);
+                //Re popu late bundel button by any chance if player Adds the code in selft bank
+                PopulatePrivousCodes();
             }
             else
             {
@@ -348,4 +440,9 @@ public class BankManager : MonoBehaviour
 
 
     
+}
+
+public class BankSaves
+{
+    public List<string> previousCodes = new List<string>();
 }

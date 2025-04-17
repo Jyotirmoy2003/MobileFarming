@@ -191,6 +191,7 @@ public enum E_Crop_Type{
     Apple,
     Lemon,
     Pumpkin,
+    Wheat,
     None,
 }
 
@@ -214,6 +215,7 @@ public enum E_Inventory_Item_Type{
     T_Shirt,
     Coin,
     Gem,
+    wheat,
     None,
     
 }

@@ -39,9 +39,7 @@ public class UIManager : MonoSingleton<UIManager>
     public Image selectedItemIcon;
     public Button GenerateCodeButton;
     public Button selectedItemButton;
-    private string lastGeneratedCode;
-    private E_Inventory_Item_Type selectedItemTypeToShare;
-    private int maxPossibleItemToShare =-1;
+    public List<Button> bundelButtons = new List<Button>();
 
 
     [Space]
