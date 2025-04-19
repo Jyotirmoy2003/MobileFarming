@@ -8,6 +8,7 @@ public class AnimalBase : MonoBehaviour
     [Header("Elemesnts")]
     [SerializeField] Chunk alocatedChunk;
     [SerializeField] FeedBackManager feedBackManager;
+    [SerializeField] Animator animator;
     private RandomMovement randomMovement;
 
     [Header("Settings")]
@@ -35,6 +36,7 @@ public class AnimalBase : MonoBehaviour
                randomMovement.StopAndStartMovement(false);
                feedBackManager.CompletePlayingFeedback -= Init;
                ActivationStatusChanged?.Invoke(true);
+               animator?.SetFloat("Walk",1);
           }
     }
 
@@ -49,6 +51,7 @@ public class AnimalBase : MonoBehaviour
    {
         if(!isMoveing) return;
         isMoveing = false;
+        animator?.SetFloat("Walk",0);
         randomMovement.StopAndStartMovement(true);
         LeanTween.delayedCall(UnityEngine.Random.Range(idelTimeMin,idelTimeMAX), ()=>StartMovemnt() );
    }
@@ -57,7 +60,7 @@ public class AnimalBase : MonoBehaviour
         if(!shouldStartMovement) return; //dont start  movemnt if its not needed from child class
         randomMovement.StopAndStartMovement(false);
         isMoveing = true;
-        
+        animator?.SetFloat("Walk",1);
    }
 
    protected void StopMovement()
@@ -65,6 +68,7 @@ public class AnimalBase : MonoBehaviour
         LeanTween.cancel(this.gameObject);
         randomMovement.StopAndStartMovement(true);
         shouldStartMovement = false;
+        animator?.SetFloat("Walk",0);
    }
    
 

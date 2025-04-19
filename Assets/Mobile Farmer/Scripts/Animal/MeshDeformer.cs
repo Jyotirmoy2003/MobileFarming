@@ -1,22 +1,24 @@
-
 using System;
 using System.Collections;
 using UnityEngine;
 
 public class MeshDeformer : MonoBehaviour
 {
-   public float deformRadius = 1f;
+    public float deformRadius = 1f;
     public float deformStrength = 0.5f;
-    public float deformationThreshold = 0.8f; // 80% threshold
-    public Action OnThresholdReached; // Event when threshold is met
-    public Action OnMeshRestored; // Event when threshold is met
+    public float deformationThreshold = 0.8f;
+    public Action OnThresholdReached;
+    public Action OnMeshRestored;
 
-    [SerializeField]private Mesh mesh;
+    [SerializeField] private Mesh mesh;
     private Vector3[] originalVertices;
     private Vector3[] modifiedVertices;
     private int deformedCount = 0;
     private bool isRestoring;
     [SerializeField] float restoreSpeed = 1f;
+
+    [Header("Deform Settings")]
+    public Transform shrinkTarget; // NEW: target transform to shrink toward
 
     void Start()
     {
@@ -25,21 +27,24 @@ public class MeshDeformer : MonoBehaviour
         modifiedVertices = mesh.vertices;
     }
 
-    public void DeformMesh(Vector3 hitPoint, Vector3 cameraDirection)
+    public void DeformMesh(Vector3 hitPoint)
     {
+        if (shrinkTarget == null) return;
+
         int affectedCount = 0;
+        Vector3 targetLocal = transform.InverseTransformPoint(shrinkTarget.position); // Convert target to local space
 
         for (int i = 0; i < modifiedVertices.Length; i++)
         {
-            Vector3 worldPos = transform.TransformPoint(originalVertices[i]); // Convert local to world space
+            Vector3 worldPos = transform.TransformPoint(originalVertices[i]);
             float distance = Vector3.Distance(worldPos, hitPoint);
 
             if (distance < deformRadius)
             {
                 float deformation = Mathf.Lerp(deformStrength, 0, distance / deformRadius);
-                Vector3 localDeformation = transform.InverseTransformDirection(cameraDirection.normalized * deformation); // Convert back to local
+                Vector3 directionToTarget = (targetLocal - modifiedVertices[i]).normalized;
 
-                modifiedVertices[i] += localDeformation; // Apply deformation in local space
+                modifiedVertices[i] += directionToTarget * deformation;
                 affectedCount++;
             }
         }
@@ -54,16 +59,15 @@ public class MeshDeformer : MonoBehaviour
         {
             OnThresholdReached?.Invoke();
         }
-        Debug.Log("Deform ratio: "+deformedRatio);
-    }
 
+       
+    }
 
     public void RestoreMesh()
     {
         if (!isRestoring)
         {
             StartCoroutine(RestoreVerticesGradually());
-            
         }
     }
 
@@ -72,22 +76,27 @@ public class MeshDeformer : MonoBehaviour
         isRestoring = true;
         float progress = 0f;
 
+        Vector3[] startVertices = new Vector3[modifiedVertices.Length];
+        Array.Copy(modifiedVertices, startVertices, modifiedVertices.Length);
+
         while (progress < 1f)
         {
             progress += Time.deltaTime * restoreSpeed;
+            progress = Mathf.Clamp01(progress);
 
             for (int i = 0; i < modifiedVertices.Length; i++)
             {
-                modifiedVertices[i] = Vector3.Lerp(modifiedVertices[i], originalVertices[i], progress);
+                modifiedVertices[i] = Vector3.Lerp(startVertices[i], originalVertices[i], progress);
             }
 
             mesh.vertices = modifiedVertices;
             mesh.RecalculateNormals();
-            yield return null; // Wait for next frame
+            yield return null;
         }
 
         isRestoring = false;
         OnMeshRestored?.Invoke();
-        deformedCount=0;
+        deformedCount = 0;
     }
+
 }

@@ -192,6 +192,7 @@ public enum E_Crop_Type{
     Lemon,
     Pumpkin,
     Wheat,
+    Watermelon,
     None,
 }
 
@@ -202,6 +203,8 @@ public enum E_Inventory_Item_Type{
     Apple,
     Lemon,
     Pumpkin,
+    wheat,
+    Watermelon,
     Milk,
     Fish,
     FlameFish,
@@ -215,7 +218,7 @@ public enum E_Inventory_Item_Type{
     T_Shirt,
     Coin,
     Gem,
-    wheat,
+    
     None,
     
 }

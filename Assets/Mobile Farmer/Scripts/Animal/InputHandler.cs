@@ -14,7 +14,7 @@ public class InputHandler : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit,Mathf.Infinity,deformLayer))
             {
                 Vector3 cameraDirection = mainCamera.transform.forward; // Get camera direction
-                meshDeformer.DeformMesh(hit.point, cameraDirection);
+                meshDeformer.DeformMesh(hit.point);
                 //  Debug.Log("Mesh Deforming");
             }
         }

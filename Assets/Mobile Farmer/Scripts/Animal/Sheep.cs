@@ -54,15 +54,8 @@ public class Sheep : AnimalBase,IInteractable
     void OnSuccessfullySearAllWool()
     {
         canInteract = false;
-        StopRotation();
-        BackToGround();
-        
 
-        sheepDeformerMesh.OnThresholdReached -= OnSuccessfullySearAllWool;
-        PlayerVisualManager.Instance.SetPlayerRendererShowStatus(true);
-        _GameAssets.Instance.OnViewChangeEvent.Raise(this,false);
-        CameraManager.Instance.SwitchCamera();
-        _GameAssets.Instance.OnSheepModeChangedEvent.Raise(this,false);
+        ClosebuttonPressed();
         //show particels
         Instantiate(sheepWoolParticel,sheepTargetPos.position,Quaternion.identity);
         InventoryManager.Instance.AddItemToInventory(E_Inventory_Item_Type.Wool,3);
@@ -89,7 +82,7 @@ public class Sheep : AnimalBase,IInteractable
     void StartRotation()
     {
         CameraManager.Instance.SwitchCamera(this.transform,cameraBodyOffset,cameraAimOffset);
-        CameraManager.Instance.StartRotating(this.transform,this.transform.position);
+        CameraManager.Instance.StartRotating(this.transform,this.transform.position,rotationSpeed);
     }
 
     void StopRotation()

@@ -9,7 +9,7 @@ public class CameraManager : MonoSingleton<CameraManager>
     [SerializeField] CinemachineVirtualCamera transitionCamera;
     [SerializeField] Transform transitionCameraRig;
     private bool isRotating;
-    [SerializeField] float rotationSpeed;
+
   
 
     public void SwitchCamera(Transform lookAt,Vector3 bodyOffset)
@@ -56,13 +56,13 @@ public class CameraManager : MonoSingleton<CameraManager>
 
 
     #region Rotate Around object
-    public void StartRotating(Transform target,Vector3 worldPosPivot)
-    {
+    public void StartRotating(Transform target,Vector3 worldPosPivot,float rotationSpeed)
+    {   
         if (!isRotating && transitionCameraRig != null && target != null)
         {
             transitionCamera.Follow = null;
             isRotating = true;
-            StartCoroutine(RotateAroundTarget(target));
+            StartCoroutine(RotateAroundTarget(target,rotationSpeed));
         }
     }
 
@@ -71,7 +71,7 @@ public class CameraManager : MonoSingleton<CameraManager>
         isRotating = false;
     }
 
-    private IEnumerator RotateAroundTarget(Transform target)
+    private IEnumerator RotateAroundTarget(Transform target,float rotationSpeed)
     {
         while (isRotating)
         {
