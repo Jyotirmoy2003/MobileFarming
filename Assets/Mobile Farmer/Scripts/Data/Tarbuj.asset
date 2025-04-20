@@ -18,6 +18,6 @@ MonoBehaviour:
   item_type: 7
   growDuration: 3
   amountinSingleCrop: 1
-  uiIconSprite: {fileID: 21300000, guid: 95641d20f88b08d4db9763cbd68b0d97, type: 3}
-  cropPopUp: {fileID: 21300000, guid: e6ebb2497c11d0e45b4b8b31bba81374, type: 3}
+  uiIconSprite: {fileID: 21300000, guid: 51d25248aa4d311419e8d7bf5dd3d5ff, type: 3}
+  cropPopUp: {fileID: 21300000, guid: af02258dc6858ff46baa59bdc31769ed, type: 3}
   pricePerPice: 20

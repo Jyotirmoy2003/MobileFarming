@@ -1,1 +1,1 @@
-{"items":[{"item_type":4,"amount":19},{"item_type":5,"amount":1800},{"item_type":1,"amount":10},{"item_type":7,"amount":43},{"item_type":15,"amount":57},{"item_type":2,"amount":90}]}
+{"items":[{"item_type":4,"amount":19},{"item_type":5,"amount":1800},{"item_type":1,"amount":10},{"item_type":7,"amount":43},{"item_type":15,"amount":60},{"item_type":2,"amount":90},{"item_type":0,"amount":10}]}

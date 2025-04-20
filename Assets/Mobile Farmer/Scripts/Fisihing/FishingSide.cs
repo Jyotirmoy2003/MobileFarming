@@ -6,6 +6,7 @@ using UnityEngine;
 public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 {
     [Header("Ref")]
+    [SerializeField] GameObject Container;
     [SerializeField] List<Fish> allFishes = new List<Fish>();
     [SerializeField] Transform fishTargetWhenHooked1,fishTargetWhenHooked2;
     [SerializeField] Transform cameraLookAt;
@@ -51,6 +52,7 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     void Activate()
     {
+        Container.SetActive(true);
         foreach(Fish item in allFishes)
         {
             item.gameObject.SetActive(true);
@@ -59,6 +61,7 @@ public class FishingSide : MonoBehaviour, IInteractable,IShakeable
 
     void Deactivate()
     {
+        Container.SetActive(false);
         rope.SetActive(false);
         foreach(Fish item in allFishes)
         {
