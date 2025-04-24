@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lemon
   m_EditorClassIdentifier: 
   cropPrefab: {fileID: 0}
-  cropType: 6
+  cropType: 8
   item_type: 4
   growDuration: 3
   amountinSingleCrop: 1

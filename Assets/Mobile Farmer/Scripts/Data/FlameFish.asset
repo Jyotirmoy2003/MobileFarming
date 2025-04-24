@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FlameFish
   m_EditorClassIdentifier: 
   cropPrefab: {fileID: 0}
-  cropType: 6
-  item_type: 8
+  cropType: 8
+  item_type: 10
   growDuration: 3
   amountinSingleCrop: 1
   uiIconSprite: {fileID: 21300000, guid: 27d009aa8096f8e429d99882edd41e29, type: 3}

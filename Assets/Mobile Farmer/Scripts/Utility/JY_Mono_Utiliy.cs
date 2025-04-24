@@ -156,7 +156,7 @@ public class BarnItem{
 public struct S_PurchessAmount_Pair
 {
     public int amountToCredit;
-    public int amountToDebit;
+    public float amountToDebit;
 }
 [System.Serializable]
 public struct WorkerContiner

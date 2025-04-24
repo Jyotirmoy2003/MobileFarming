@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using jy_util;
+
 using UnityEngine;
+using UnityEngine.Purchasing;
 
 public class ShopManager : MonoSingleton<ShopManager>
 {
@@ -85,9 +87,9 @@ public class ShopManager : MonoSingleton<ShopManager>
             AdsManager.Instance.rewardedAds.ShowRewardedAd();
             return;
         }
-        int priceAmount = coinPurcheses[index].amountToDebit;
+        float priceAmount = coinPurcheses[index].amountToDebit;
 
-        if(CashManager.Instance.DebitGems(priceAmount))
+        if(CashManager.Instance.DebitGems((int)priceAmount))
         {
             //gems debited
             TransactionEffectManager.Instance.PlayCoinParticel(coinPurcheses[index].amountToCredit);
@@ -126,4 +128,40 @@ public class ShopManager : MonoSingleton<ShopManager>
         UIManager.Instance.ItemCreadited(E_Inventory_Item_Type.Gem,800);
         ShopClose();
     }
+
+    #region  IAP
+
+    public void ListenToOnProductPurches(Component sender,object data)
+    {
+        if(data is Product)
+        {
+            Product product = (Product)data;
+        
+            if(product.definition.id.Equals("100_Gems"))
+            {
+                TransactionEffectManager.Instance.PlayGemParticel(100 );
+                UIManager.Instance.ItemCreadited(E_Inventory_Item_Type.Gem,100);
+
+            }else if(product.definition.id.Equals("250_Gems"))
+            {
+                TransactionEffectManager.Instance.PlayGemParticel(250);
+                UIManager.Instance.ItemCreadited(E_Inventory_Item_Type.Gem,250);
+
+            }else if(product.definition.id.Equals("1000_Gems"))
+            {
+                TransactionEffectManager.Instance.PlayGemParticel(1000);
+                UIManager.Instance.ItemCreadited(E_Inventory_Item_Type.Gem,1000);
+
+            }else if (product.definition.id.Equals("2000_Gems"))
+            {
+                TransactionEffectManager.Instance.PlayGemParticel(2000 );
+                UIManager.Instance.ItemCreadited(E_Inventory_Item_Type.Gem,2000);
+            }
+
+            ShopClose();
+        }
+    }
+
+
+    #endregion
 }

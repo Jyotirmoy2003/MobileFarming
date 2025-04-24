@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: KoranFish
   m_EditorClassIdentifier: 
   cropPrefab: {fileID: 0}
-  cropType: 6
-  item_type: 10
+  cropType: 8
+  item_type: 12
   growDuration: 3
   amountinSingleCrop: 1
   uiIconSprite: {fileID: 21300000, guid: 7c337a2765c727848aec31bd63e1906d, type: 3}

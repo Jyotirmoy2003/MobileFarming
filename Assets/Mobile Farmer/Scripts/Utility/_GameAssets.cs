@@ -79,7 +79,7 @@ public class _GameAssets : MonoSingleton<_GameAssets>
 
             }
         }
-            
+        Debug.Log("Returning null icon for : "+item_type );
         return null;
     }
     

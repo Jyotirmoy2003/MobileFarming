@@ -2,7 +2,7 @@
     "items": [
         {
             "item_type": 2,
-            "amount": 30
+            "amount": 120
         }
     ]
 }
