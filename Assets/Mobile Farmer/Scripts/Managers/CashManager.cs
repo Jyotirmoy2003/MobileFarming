@@ -39,7 +39,7 @@ public class CashManager : MonoSingleton<CashManager>
                AudioManager.instance.PlaySound("Coin_Debit");
                return true;  
           }else{
-               UIManager.Instance.InsufficientGold();
+               //UIManager.Instance.InsufficientGold();
                return false;
           }
      }

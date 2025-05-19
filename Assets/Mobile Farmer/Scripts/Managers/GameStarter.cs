@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameStarter : MonoBehaviour
 {
+    [SerializeField] bool startWithMainScene = false;
     void Start()
     {
         LeanTween.delayedCall(1f,()=>LoadScene());
@@ -11,6 +12,11 @@ public class GameStarter : MonoBehaviour
 
     void LoadScene()
     {
+        if(startWithMainScene)
+        {
+             AsyncLoadManager.Instance.LoadSceneAsync("Main");
+            return;
+        }
         //AsyncLoadManager.Instance.LoadSceneAsync("Main");
         if(PlayerPrefs.GetInt("Tutorial")>0)
         {

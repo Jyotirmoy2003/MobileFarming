@@ -207,6 +207,10 @@ MonoBehaviour:
   cointRectTransform: {fileID: 523015329}
   cointParticelAmount: 20
   moveSpeed: 20
+  gemParticel: {fileID: 0}
+  gemParticelPrefab: {fileID: 0}
+  gemRectTransform: {fileID: 0}
+  gemParticelAmount: 20
 --- !u!1 &20234595
 GameObject:
   m_ObjectHideFlags: 0
@@ -6099,6 +6103,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3318266190591336353, guid: 0a00392333fe33f41bc89995b90d15d2,
         type: 3}
+      propertyPath: ChunkID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3318266190591336353, guid: 0a00392333fe33f41bc89995b90d15d2,
+        type: 3}
       propertyPath: initialPrice
       value: 100
       objectReference: {fileID: 0}
@@ -6737,6 +6746,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842643238616928800, guid: 675ad130957ad194384a8c594285fd76,
+        type: 3}
+      propertyPath: ChunkID
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1842643238616928800, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}
@@ -7388,6 +7402,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   unparentGameObject: 0
   coinsAmount_text: {fileID: 1421042610}
+  gemsAmount_text: {fileID: 0}
 --- !u!1 &717503638
 GameObject:
   m_ObjectHideFlags: 0
@@ -12628,6 +12643,7 @@ GameObject:
   - component: {fileID: 913347752}
   - component: {fileID: 913347751}
   - component: {fileID: 913347750}
+  - component: {fileID: 913347761}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -12695,6 +12711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d141eb48f7a94c49b04bd5c1e43b492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canInteract: 1
 --- !u!114 &913347753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12841,8 +12858,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnimator: {fileID: 913347756}
+  playerVisualManager: {fileID: 913347761}
   normalMovespeed: 50
   interactMovespeed: 25
+  horseSpeed: 100
 --- !u!143 &913347760
 CharacterController:
   m_ObjectHideFlags: 0
@@ -12869,6 +12888,26 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &913347761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913347748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ed9c3ac92cfc9459356655e0451eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
+  unparentGameObject: 0
+  playerRenderer: {fileID: 990670515}
+  horseTransform: {fileID: 0}
+  horseModePlayerPos: {fileID: 0}
+  groundPlayerpos: {fileID: 0}
+  spawnParticel: []
+  horseAnimator: {fileID: 0}
 --- !u!1 &918345639
 GameObject:
   m_ObjectHideFlags: 0
@@ -13289,11 +13328,23 @@ MonoBehaviour:
   itemAmountInputField: {fileID: 0}
   generatedCode: {fileID: 0}
   selectItemContainrParent: {fileID: 0}
-  selectItemtoShareGameobject: {fileID: 0}
+  selectItemtoShareScrollview: {fileID: 0}
   selectedItemIcon: {fileID: 0}
   GenerateCodeButton: {fileID: 0}
+  selectedItemButton: {fileID: 0}
+  bundelButtons: []
   loadingPanel: {fileID: 0}
   loadingText: {fileID: 0}
+  creditedImageParent: {fileID: 0}
+  creditedChakra: {fileID: 0}
+  crediItemIcon: {fileID: 0}
+  crediAmoutText: {fileID: 0}
+  horseButton: {fileID: 0}
+  horsePurchesPanel: {fileID: 0}
+  horseBuyWithGem: {fileID: 0}
+  horseBuyWithAd: {fileID: 0}
+  shopPanel: {fileID: 0}
+  shopPanels: []
 --- !u!114 &1063066724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14388,6 +14439,7 @@ MonoBehaviour:
   gridSale: 5
   isTutorial: 1
   fileName: /WorldDataTutorial.txt
+  isGameUpdated: 1
   chunkShapes: []
 --- !u!114 &1403504743
 MonoBehaviour:
@@ -20725,6 +20777,7 @@ MonoBehaviour:
     type: 2}
   OnHervestedEvent: {fileID: 11400000, guid: e333f485717173c41bb9ad202072efea, type: 2}
   OnViewChangeEvent: {fileID: 11400000, guid: 4399a6cc3e4320d42850a7a329e90fce, type: 2}
+  OnSimpleUIButtonPressed: {fileID: 0}
   OnSheepModeChangedEvent: {fileID: 0}
   spawnDustParticel: {fileID: 0}
   seedParticel: {fileID: 1622716399}
@@ -23157,6 +23210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842643238616928800, guid: 675ad130957ad194384a8c594285fd76,
+        type: 3}
+      propertyPath: ChunkID
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1842643238616928800, guid: 675ad130957ad194384a8c594285fd76,
         type: 3}

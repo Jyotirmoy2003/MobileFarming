@@ -152,6 +152,18 @@ public class CropFieldMerger : MonoBehaviour
             Destroy(connectedFields[index].cropField);
             Destroy(connectedFields[index].cropFieldRangeTrigger);
             Destroy(connectedFields[index].infoUI.gameObject);
+
+        }else if (connectedFields[index].chunkTranform.position.x > myDataHolder.chunkTranform.position.x && connectedFields[index].chunkTranform.position.z < myDataHolder.chunkTranform.position.z)
+        {
+            //right Bottom
+
+            myDataHolder.infoUI.transform.localPosition = new Vector3(+2.5f,2,-2.5f);
+            StartCoroutine(CreateTileRightBottomSide(index));
+
+            Destroy(connectedFields[index].cropField);
+            Destroy(connectedFields[index].cropFieldRangeTrigger);
+            Destroy(connectedFields[index].infoUI.gameObject);
+
         }
     }
 
@@ -297,6 +309,61 @@ public class CropFieldMerger : MonoBehaviour
             {
                 CropTile tempCroptile=Instantiate(myDataHolder.cropTile,myDataHolder.tileParent);
                 tempCroptile.transform.localPosition = new Vector3(j,0,i);
+
+                yield return new WaitForSeconds(0.1f);
+                tempCroptile.feedBackManager?.PlayFeedback();
+
+            }
+        }
+       
+        
+        
+
+        //Do repranting
+        while(connectedFields[index].tileParent.childCount>0)
+        {
+            connectedFields[index].tileParent.GetChild(0).transform.SetParent(myDataHolder.tileParent);
+        }
+        myDataHolder.cropField.MergeDone(calledByChunkUnlocking);
+
+        yield return new WaitForSeconds(.2f);
+        switch(myDataHolder.cropField.state)
+        {
+            case E_Crop_State.Sown:
+                myDataHolder.cropField.InstantlySowTile();
+                break;
+            case E_Crop_State.Watered:
+                myDataHolder.cropField.InstantlyWaterTile();
+                break;
+        }
+    }
+
+
+
+    IEnumerator CreateTileRightBottomSide(int index)
+    {
+        //Create new Tile ans set position
+        for(int i=2; i<7;i++)
+        {
+            for(int j=-3;j<-1;j++)
+            {
+                CropTile tempCroptile=Instantiate(myDataHolder.cropTile,myDataHolder.tileParent);
+                tempCroptile.transform.localPosition = new Vector3(i,0,j);
+
+                yield return new WaitForSeconds(0.1f);
+                tempCroptile.feedBackManager?.PlayFeedback();
+
+            }
+        }
+
+
+        //Create new Tile ans set position
+        for(int i=2; i<4;i++)
+        {
+            for(int j=-6;j<-3;j++)
+            {
+                CropTile tempCroptile=Instantiate(myDataHolder.cropTile,myDataHolder.tileParent);
+                tempCroptile.transform.localPosition = new Vector3(i,0,j);
 
                 yield return new WaitForSeconds(0.1f);
                 tempCroptile.feedBackManager?.PlayFeedback();

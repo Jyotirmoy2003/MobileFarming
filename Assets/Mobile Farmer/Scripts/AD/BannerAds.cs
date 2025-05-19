@@ -67,7 +67,7 @@ public class BannerAds : MonoBehaviour
 
     private void BannerLoaded()
     {
-        Debug.Log("Banner Ad Loaded");
+        //Debug.Log("Banner Ad Loaded");
     }
     #endregion
 

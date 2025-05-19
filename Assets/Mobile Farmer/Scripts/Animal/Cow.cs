@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using jy_util;
 using UnityEngine;
-using UnityEngine.Rendering;
+
 
 public class Cow : AnimalBase, IShakeable,IInteractable
 {
@@ -22,13 +22,36 @@ public class Cow : AnimalBase, IShakeable,IInteractable
     private bool IsShaking = false;
     [SerializeField] float shakeIncreament;
 
+
+    [Header("COW")]
+    [SerializeField] GameObject milkParent;
+    [SerializeField] ParticleSystem milkParticel;
+    [SerializeField] List<Transform> milkingPos = new List<Transform>();
+    private int milkIndex = 0;
+    private float milkProgress = 0;
+    private bool listenToShake = true;
+
+    [Header("Camera")]
+    [SerializeField] Vector3 cameraAimOffset;
+    [SerializeField] Vector3 cameraBodyOffSet;
+
+
+
+
+
+
+
+
+
+
     void Initialize()
     {
         StopMovement();
         MobileJoystick.Instance.SetControl(false); //turn off joystick
         SetCameraActivationStatus(true);
-        UIManager.Instance.ShowShakeExit(true);
+        _GameAssets.Instance.OnShakeInitiateEvent.Raise(this,"Milk the Cow!");
         shakeSliderValue = 0;
+        milkParent.SetActive(true);
     }
 
 
@@ -36,31 +59,42 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 
     void SetCameraActivationStatus(bool isActive)
     {
-         if(isActive)CameraManager.Instance.SwitchCamera(cowMesh.transform,new Vector3(0,5,0));
+        if(isActive)CameraManager.Instance.SwitchCamera(cowMesh.transform,cameraBodyOffSet,cameraAimOffset);
         else CameraManager.Instance.SwitchCamera();
-
-        
-        // if(isActive)
-        // {
-        //     UIManager.Instance.OnExitButtonPressed += ExitAnimal;
-        // }else{
-        //     UIManager.Instance.OnExitButtonPressed -= ExitAnimal;
-        // }
     }
 
 
 
-    void StartShake()
+    void StartShake( float shake)
     {
+        Debug.Log("shke amount: "+shake);
         IsShaking = true;
-        //TweenShake(maxShakeMagnitude);
+        TweenShake(shake);
         UpdateShakeSlider();
     }
 
     void TweenShake(float amount)
     {
-        //cowMesh.SetBlendShapeWeight()
+        if(!listenToShake) return;
+
+        listenToShake = false;
+        DOTween.To(() => milkProgress, x => milkProgress = x, 100f, 1f)
+               .OnUpdate(() =>
+               {
+                  cowMesh.SetBlendShapeWeight(milkIndex,milkProgress);
+               })
+               .OnComplete(OnOneMilkDone);
+        
     }
+
+
+    void OnOneMilkDone()
+    {
+        milkParticel.Play();
+        listenToShake = true;
+
+    }
+
     private void UpdateShakeSlider()
     {
         shakeSliderValue += shakeIncreament;
@@ -133,7 +167,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 
     public void Shake(float magnitude)
     {
-        StartShake();
+        StartShake(magnitude);
     }
 
     public void StopShaking()
@@ -148,7 +182,7 @@ public class Cow : AnimalBase, IShakeable,IInteractable
 
     public void ReachedtoTarget()
     {
-        throw new NotImplementedException();
+       PlayerVisualManager.Instance.SetPlayerRendererShowStatus(false);
     }
 
 

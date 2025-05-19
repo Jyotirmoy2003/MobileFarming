@@ -51,7 +51,7 @@ public class DatabaseManager : MonoSingleton<DatabaseManager>
         {
             Debug.LogError($"Firebase dependencies not met: {dependencyStatus} or Database URL is missing.");
         }
-        Debug.Log("Database URL: " + databaseUrl);
+        //Debug.Log("Database URL: " + databaseUrl);
     }
 
 

@@ -345,7 +345,7 @@ GameObject:
   m_Layer: 0
   m_Name: AnimalPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -984,6 +984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf04b65e8d8b9646a0e88258a196eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChunkID: -1
   unlocedElements: {fileID: 8925415818205777349}
   lockedElements: {fileID: 3207088597130116233}
   priceText: {fileID: 5109404204313300187}

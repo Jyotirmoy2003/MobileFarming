@@ -325,18 +325,20 @@ public class WorldManager : MonoBehaviour
 
            
             int index = 0;
-            while(world.childCount > worldData.chunkPrices.Count)
-            {
-                
-                if(!ContainsChunkIdInSaved(worldChunk[index].ChunkID))
+            try{
+                while(world.childCount > worldData.chunkPrices.Count)
                 {
-                    Debug.Log("<color=yellow> Making new Chunk to Save data </color>" +worldChunk[index].ChunkID);
-                    //found a new Chunk add this
-                    worldData.chunkPrices.Add(new ChunkIdPricePair(worldChunk[index].ChunkID,worldChunk[index].GetInitialPrice()));
+                    
+                    if(!ContainsChunkIdInSaved(worldChunk[index].ChunkID))
+                    {
+                        Debug.Log("<color=yellow> Making new Chunk to Save data </color>" +worldChunk[index].ChunkID);
+                        //found a new Chunk add this
+                        worldData.chunkPrices.Add(new ChunkIdPricePair(worldChunk[index].ChunkID,worldChunk[index].GetInitialPrice()));
+                    }
+                    index ++;
+                    
                 }
-                index ++;
-                
-            }
+            }catch{}
 
            
 
