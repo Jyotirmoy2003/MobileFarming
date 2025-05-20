@@ -11,8 +11,12 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     #region Variables
+
     [SerializeField] GameObject gamePanel;
     [SerializeField] GameObject shakeModePanel;
+    [Header("Joystick")]
+    [SerializeField] Image joysticOutline;
+    [SerializeField] Image joysticknob;
     [Header("Universal Buttons")]
     [SerializeField] GameObject closeButton;
     
@@ -82,7 +86,13 @@ public class UIManager : MonoSingleton<UIManager>
     }
 
 
-
+    public void SetJoysticVisibleStatus(bool show)
+    {
+        
+        joysticknob.enabled = show;
+        joysticOutline.enabled = show;
+        
+    }
     
 
    
@@ -152,6 +162,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void UniversalButtonPressed(int index)
     {
+        AudioManager.instance.PlaySound("UI_Button");
         UniversalButtonAction?.Invoke(index);
     }
 

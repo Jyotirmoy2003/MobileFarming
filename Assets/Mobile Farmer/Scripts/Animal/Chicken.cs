@@ -38,6 +38,7 @@ public class Chicken : AnimalBase,IInteractable
     {
         if(isEggReady)
         {
+            PlayRandomAudio();
             isEggReady = false;
             Vector3 particelPos = new Vector3(transform.position.x,transform.position.y+1,transform.position.z);
 

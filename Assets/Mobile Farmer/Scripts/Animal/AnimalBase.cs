@@ -15,6 +15,10 @@ public class AnimalBase : MonoBehaviour
     [SerializeField] protected bool canInteract =false;
     [SerializeField]float idelTimeMin=5f;
     [SerializeField] float idelTimeMAX=5f;
+    [Header("Audio")]
+    [SerializeField] AudioSource animalAudio;
+    [SerializeField] float minAudioInitTime = 10;
+    [SerializeField] float maxAudioInitTime = 30;
     private bool isMoveing=true;
     protected bool shouldStartMovement = true;
     public Action<bool> ActivationStatusChanged;
@@ -25,8 +29,15 @@ public class AnimalBase : MonoBehaviour
         randomMovement.OnReachOnDestination += OnReachToOneDest;
         alocatedChunk.chunkUnlocked += OnUnlockedMyChunk;
         Invoke(nameof(Init),3f);
+     
+        if(animalAudio)InvokeRepeating(nameof(PlayRandomAudio),7,UnityEngine.Random.Range(minAudioInitTime,maxAudioInitTime));
     }
 
+
+     protected void PlayRandomAudio()
+     {
+          animalAudio.Play();
+     }
 
     void Init()
     {

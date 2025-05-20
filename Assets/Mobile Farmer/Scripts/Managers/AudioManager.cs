@@ -33,6 +33,8 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
             s.source.spatialBlend=s.spatialBlend;
+            if(s.outputMixer != null)
+                s.source.outputAudioMixerGroup = s.outputMixer;
             if(s.PlayonAwake) s.source.Play();
 
         }

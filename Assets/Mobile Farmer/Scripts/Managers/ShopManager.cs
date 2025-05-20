@@ -25,32 +25,32 @@ public class ShopManager : MonoSingleton<ShopManager>
 
     void Start()
     {
-        OnGemShopClicked();
+        ActivateGemPanel();
     }
 
     public void ShopButtonPressed()
-    {
-        // UIManager.Instance.OnUniversalCloseButtonPressed += ShopClose;
-        // UIManager.Instance.SetCloseButton(true);
+    { 
+        AudioManager.instance.PlaySound("UI_Button");
         shopPanel.SetActive(true);
     }
 
     void ShopClose()
     {
-        // UIManager.Instance.OnUniversalCloseButtonPressed -= ShopClose;
-        // UIManager.Instance.SetCloseButton(false);
+        AudioManager.instance.PlaySound("UI_Button");
         shopPanel.SetActive(false);
     }
 
 
     public void OnGemShopClicked()
     {
+        AudioManager.instance.PlaySound("Button");
         ActivateGemPanel();
     }
 
 
     public void OnCoinShopClicked()
     {
+        AudioManager.instance.PlaySound("Button");
         ActivateCoinPanel();
     }
 

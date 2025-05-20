@@ -18,6 +18,7 @@ public class Sound
     public bool Is3D;
     public bool Fade=false;
     public bool PlayonAwake=false;
+    public AudioMixerGroup outputMixer;
 
     [HideInInspector]
     public AudioSource source;

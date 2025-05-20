@@ -15,6 +15,7 @@ public class Sheep : AnimalBase,IInteractable
 
 
 
+
     void InitializeSheep()
     {
         _GameAssets.Instance.OnSheepModeChangedEvent.Raise(this,true);
