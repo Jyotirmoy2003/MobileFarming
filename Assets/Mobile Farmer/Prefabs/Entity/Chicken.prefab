@@ -245,7 +245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alocatedChunk: {fileID: 0}
   feedBackManager: {fileID: 3588281772408187522}
-  animator: {fileID: 0}
+  animator: {fileID: 1105479367327887182}
   canInteract: 1
   idelTimeMin: 4
   idelTimeMAX: 7

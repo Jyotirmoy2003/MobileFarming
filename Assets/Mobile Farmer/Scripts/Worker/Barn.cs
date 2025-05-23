@@ -240,6 +240,9 @@ public class Barn : MonoBehaviour,IInteractable
             BarnUImanager.Instance.ShowWorkerData(deepCopyWorkerStats,nearByFields);
             BarnUImanager.Instance.OpenCloseBarnUI(true);
             CameraManager.Instance.SwitchCamera(workerLoadOutPos,new Vector3(0,8,-10),new Vector3(0,0,0));
+
+            //off Info Ui
+            infoUI.SetActivationStatus(false);
             SubcribeToUiButton(true);
             
         }

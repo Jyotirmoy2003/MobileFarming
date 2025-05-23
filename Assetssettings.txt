@@ -1,1 +1,1 @@
-{"isJyositc":true,"isHaptic":true,"isSFX":true,"isMusic":false}
+{"isJyositc":false,"isHaptic":true,"isSFX":true,"isMusic":false}

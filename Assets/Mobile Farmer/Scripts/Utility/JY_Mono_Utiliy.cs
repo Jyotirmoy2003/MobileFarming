@@ -158,18 +158,19 @@ public struct S_PurchessAmount_Pair
     public int amountToCredit;
     public float amountToDebit;
 }
-[System.Serializable]
-public struct WorkerContiner
-{
-    public Button hireButton;
-    public Button clothButton;
-    public Image img_workerImg;
-    public TMP_Text text_workerName;
-    public TMP_Text text_workerDescription;
-    public TMP_Text text_button;
-    public TMP_Text text_amount;
-    public Image img_workingCropImg;
-}
+    [System.Serializable]
+    public struct WorkerContiner
+    {
+        public Button hireButton;
+        public Button clothButton;
+        public Image img_workerImg;
+        public TMP_Text text_workerName;
+        public TMP_Text text_workerDescription;
+        public TMP_Text text_button;
+        public TMP_Text text_amount;
+        public Image img_workingCropImg;
+        public Slider upgradeSlider;
+    }
 #endregion
 
 #region ENUMS
@@ -218,6 +219,7 @@ public enum E_Inventory_Item_Type{
     T_Shirt,
     Coin,
     Gem,
+    cherry,
     
     None,
     

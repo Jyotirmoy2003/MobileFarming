@@ -26,25 +26,29 @@ public class BarnUImanager : MonoSingleton<BarnUImanager>
             workerContiners[i].img_workerImg.sprite=workers[i].workerAvater;
             workerContiners[i].text_workerName.text = "Worker "+(i+1);
             workerContiners[i].img_workingCropImg.sprite=workers[i].workableCorp.uiIconSprite;
-            if(workers[i].price > 0)
+            workerContiners[i].upgradeSlider.value = workers[i].level;
+            if (workers[i].price > 0)
             {
                 workerContiners[i].text_amount.text = CoinSystem.ConvertCoinToString(workers[i].price);
                 workerContiners[i].text_button.text = (workers[i].isPurchased) ? "Upgrade" : "Hire";
 
                 workerContiners[i].hireButton.interactable = false;
-                foreach(CropField item in nearbyFields)
+                foreach (CropField item in nearbyFields)
                 {
-                    if(item.GetCropData() == workers[i].workableCorp && item.cropFieldDataHolder.chunk.IsUnclocked())
+                    if (item.GetCropData() == workers[i].workableCorp && item.cropFieldDataHolder.chunk.IsUnclocked())
                     {
                         workerContiners[i].hireButton.interactable = true;
                         break;
                     }
                 }
-                
 
-            }else{
+
+            }
+            else
+            {
                 workerContiners[i].text_amount.text = "";
                 workerContiners[i].text_button.text = "Max";
+                workerContiners[i].upgradeSlider.value = 10;
             }
         }
     }
