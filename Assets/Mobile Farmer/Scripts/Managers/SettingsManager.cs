@@ -28,7 +28,7 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] AudioMixer audioMixer;
     void Start()
     {
-        settingsPanel.SetActive(false);
+        settingsPanel?.SetActive(false);
 
         dataPath = Application.persistentDataPath + saveFileName;
         #if UNITY_EDITOR
@@ -126,6 +126,10 @@ public class SettingsManager : MonoBehaviour
 
         if(settingsSave != null)
         {
+            audioMixer.SetFloat("Music",(musicToggle.isOn)? 0 : -80);
+            audioMixer.SetFloat("SFX",(sfxToggle.isOn)? 0 : -80);
+            
+            if(!settingsPanel) return;
             HapticManager.Instance.SetHapticStatus(settingsSave.isHaptic);
             UIManager.Instance.SetJoysticVisibleStatus(settingsSave.isJyositc);
 
@@ -134,11 +138,9 @@ public class SettingsManager : MonoBehaviour
 
             musicToggle.isOn = settingsSave.isMusic;
             musicOff.SetActive(!musicToggle.isOn);
-            audioMixer.SetFloat("Music",(musicToggle.isOn)? 0 : -80);
 
             sfxToggle.isOn = settingsSave.isSFX;
             sfxOff.SetActive(!sfxToggle.isOn);
-            audioMixer.SetFloat("SFX",(sfxToggle.isOn)? 0 : -80);
 
         }
     }

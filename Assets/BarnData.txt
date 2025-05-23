@@ -1,1 +1,1 @@
-{"workerStatSaves":[{"isPurchased":true,"level":10,"price":0,"maxLoadCapacity":1912},{"isPurchased":false,"level":2,"price":3450,"maxLoadCapacity":30},{"isPurchased":false,"level":2,"price":3450,"maxLoadCapacity":30}]}
+{"workerStatSaves":[{"isPurchased":true,"level":10,"price":0,"maxLoadCapacity":4302},{"isPurchased":true,"level":10,"price":0,"maxLoadCapacity":1135},{"isPurchased":true,"level":10,"price":0,"maxLoadCapacity":1135}]}

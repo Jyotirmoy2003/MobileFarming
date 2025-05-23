@@ -4964,7 +4964,7 @@ MonoBehaviour:
   wateringCan: {fileID: 7302504578397341758}
   harvestScythe: {fileID: 5540355979412755928}
   fishingRod: {fileID: 0}
-  moveSpeedMultiplier: 0.5
+  moveSpeedMultiplier: 500
 --- !u!114 &8918557354894961872
 MonoBehaviour:
   m_ObjectHideFlags: 0

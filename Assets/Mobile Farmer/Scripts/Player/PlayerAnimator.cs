@@ -35,7 +35,7 @@ public class PlayerAnimator : MonoBehaviour
 
         if(moveVector.magnitude > 0)
         {
-            animator.SetFloat("moveSpeed",moveVector.magnitude * moveSpeedMultiplier);
+            animator.SetFloat("moveSpeed",moveVector.magnitude * moveSpeedMultiplier * Time.deltaTime);
             PlayRunAnimation();
 
             rendererTransform.forward=moveVector.normalized;
@@ -48,7 +48,7 @@ public class PlayerAnimator : MonoBehaviour
     public void ManageAnimation(float speed)
     {
         if(speed>0.2){
-            animator.SetFloat("moveSpeed",speed * moveSpeedMultiplier);
+            animator.SetFloat("moveSpeed",speed * moveSpeedMultiplier * Time.deltaTime);
             PlayRunAnimation();
         }
         else {

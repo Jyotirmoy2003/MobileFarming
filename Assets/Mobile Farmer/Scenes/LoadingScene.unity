@@ -123,152 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &30057318
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 30057320}
-  - component: {fileID: 30057319}
-  m_Layer: 0
-  m_Name: Audio Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &30057319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30057318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ffb95b64fc1fd54497f49cc54530e8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Chunk_Unlocked
-    clip: {fileID: 8300000, guid: 9cb19eb032d304b07acec596ae2ce4a4, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: Coin
-    clip: {fileID: 8300000, guid: d8f6da08a98a436479fe19169e322bdb, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: UI_Close
-    clip: {fileID: 8300000, guid: c6a04d2da9e71479b900f7381b720673, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: UI_Button
-    clip: {fileID: 8300000, guid: 4135eb1fa429c3d4296f9634a45e2d5f, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: Background
-    clip: {fileID: 8300000, guid: f646d488337c94084b47e56752970960, type: 3}
-    volume: 0.3
-    pitch: 1
-    spatialBlend: 0
-    loop: 1
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 1
-    source: {fileID: 0}
-  - name: Coin_Debit
-    clip: {fileID: 8300000, guid: 74def2693d8dfe646b9bbe539f1cabeb, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: Yay
-    clip: {fileID: 8300000, guid: f541ecc68eb3ed94f8948b2a090bf712, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: Win
-    clip: {fileID: 8300000, guid: 9d12098ed55364e7e80e277242e2c77e, type: 3}
-    volume: 1
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: Cut
-    clip: {fileID: 8300000, guid: ce78b669b3cb1754a88e0d16220d9f9a, type: 3}
-    volume: 0.2
-    pitch: 1
-    spatialBlend: 0
-    loop: 0
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  - name: Water
-    clip: {fileID: 8300000, guid: aacd68beebfc8144385093dfda00a4b9, type: 3}
-    volume: 0.5
-    pitch: 1
-    spatialBlend: 0
-    loop: 1
-    Is3D: 0
-    Fade: 0
-    PlayonAwake: 0
-    source: {fileID: 0}
-  audioVolumeFactor: 1
---- !u!4 &30057320
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30057318}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &197308210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1114,317 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   unparentGameObject: 0
   OnIApDoneEvent: {fileID: 11400000, guid: 329ff9caf1a137947850517678406d0f, type: 2}
+--- !u!1 &1110854054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1110854057}
+  - component: {fileID: 1110854056}
+  - component: {fileID: 1110854055}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1110854055
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110854054}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1110854056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110854054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ffb95b64fc1fd54497f49cc54530e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Background
+    clip: {fileID: 8300000, guid: f646d488337c94084b47e56752970960, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 1
+    outputMixer: {fileID: 2670519685263096452, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Chunk_Unlocked
+    clip: {fileID: 8300000, guid: 9cb19eb032d304b07acec596ae2ce4a4, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Coin
+    clip: {fileID: 8300000, guid: d8f6da08a98a436479fe19169e322bdb, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Coin_Debit
+    clip: {fileID: 8300000, guid: 74def2693d8dfe646b9bbe539f1cabeb, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Button
+    clip: {fileID: 8300000, guid: 9cb19eb032d304b07acec596ae2ce4a4, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: UI_Close
+    clip: {fileID: 8300000, guid: c6a04d2da9e71479b900f7381b720673, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: UI_Button
+    clip: {fileID: 8300000, guid: 5aaa4c7d5781546c6a13a9f1eb97b15b, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Yay
+    clip: {fileID: 8300000, guid: f541ecc68eb3ed94f8948b2a090bf712, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: 2670519685263096452, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Win
+    clip: {fileID: 8300000, guid: 9d12098ed55364e7e80e277242e2c77e, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: 2670519685263096452, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Cut
+    clip: {fileID: 8300000, guid: ce78b669b3cb1754a88e0d16220d9f9a, type: 3}
+    volume: 0.1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 1
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Water
+    clip: {fileID: 8300000, guid: aacd68beebfc8144385093dfda00a4b9, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 1
+    Is3D: 1
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Horse Foot
+    clip: {fileID: 8300000, guid: 7e209e56b6d7e084c8c9d594ea948e5f, type: 3}
+    volume: 0.1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Horse_Snort
+    clip: {fileID: 8300000, guid: 6db35f1fa0bc69d4cacae30e856fb428, type: 3}
+    volume: 0.3
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  - name: Sheep
+    clip: {fileID: 8300000, guid: 3d356f09bab76ad45bfce8efa5f04b59, type: 3}
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    loop: 0
+    Is3D: 0
+    Fade: 0
+    PlayonAwake: 0
+    outputMixer: {fileID: -389390120885016770, guid: c4fde07152756f64f92630fdf51512f9,
+      type: 2}
+    source: {fileID: 0}
+  audioVolumeFactor: 1
+--- !u!4 &1110854057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110854054}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191931320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,6 +1739,59 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1560063817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1560063819}
+  - component: {fileID: 1560063818}
+  m_Layer: 0
+  m_Name: SettingsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1560063818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560063817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f6f416114f118f49af28b804380f823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsPanel: {fileID: 0}
+  saveFileName: settings.txt
+  sfxOff: {fileID: 0}
+  musicOff: {fileID: 0}
+  joystickToggle: {fileID: 0}
+  hapticToggle: {fileID: 0}
+  sfxToggle: {fileID: 0}
+  musicToggle: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: c4fde07152756f64f92630fdf51512f9, type: 2}
+--- !u!4 &1560063819
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560063817}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1562830186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,5 +1965,6 @@ SceneRoots:
   - {fileID: 565347779}
   - {fileID: 1543152288}
   - {fileID: 481830410}
-  - {fileID: 30057320}
   - {fileID: 1096488021}
+  - {fileID: 1560063819}
+  - {fileID: 1110854057}

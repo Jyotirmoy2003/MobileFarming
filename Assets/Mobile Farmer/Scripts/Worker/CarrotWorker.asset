@@ -17,7 +17,7 @@ MonoBehaviour:
   workerPrefab: {fileID: 982343761833447866, guid: 68fa0c12749ac5741b6921530c330dbe,
     type: 3}
   currentWorkerInstance: {fileID: 0}
-  level: 2
+  level: 1
   performActionDelay: 2
   walkSpeed: 3
   moveSpeedWhileWorking: 2
