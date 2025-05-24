@@ -30,7 +30,7 @@ public class AnimalBase : MonoBehaviour
         alocatedChunk.chunkUnlocked += OnUnlockedMyChunk;
         Invoke(nameof(Init),3f);
      
-        if(animalAudio)InvokeRepeating(nameof(PlayRandomAudio),7,UnityEngine.Random.Range(minAudioInitTime,maxAudioInitTime));
+        
     }
 
 
@@ -41,13 +41,14 @@ public class AnimalBase : MonoBehaviour
 
     void Init()
     {
-          
-          if(alocatedChunk.IsUnclocked())
+
+          if (alocatedChunk.IsUnclocked())
           {
                randomMovement.StopAndStartMovement(false);
                feedBackManager.CompletePlayingFeedback -= Init;
                ActivationStatusChanged?.Invoke(true);
-               animator?.SetFloat("Walk",1);
+               animator?.SetFloat("Walk", 1);
+               if(animalAudio)InvokeRepeating(nameof(PlayRandomAudio),UnityEngine.Random.Range(7,20),UnityEngine.Random.Range(minAudioInitTime,maxAudioInitTime));
           }
     }
 
@@ -81,15 +82,16 @@ public class AnimalBase : MonoBehaviour
         shouldStartMovement = false;
         animator?.SetFloat("Walk",0);
    }
-   
 
-   void OnUnlockedMyChunk()
-   {
+
+     void OnUnlockedMyChunk()
+     {
           Debug.Log("Chunk unlocaked");
           alocatedChunk.chunkUnlocked -= OnUnlockedMyChunk;
-          Instantiate(_GameAssets.Instance.spawnDustParticel,transform);
+          Instantiate(_GameAssets.Instance.spawnDustParticel, transform);
           feedBackManager.PlayFeedback();
           feedBackManager.CompletePlayingFeedback += Init;
+          
    }
 
 

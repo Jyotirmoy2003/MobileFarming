@@ -189,7 +189,7 @@ MonoBehaviour:
   cameraBodyOffset: {x: 0, y: 1.7, z: -2.5}
   cameraAimOffset: {x: 0, y: 0.8, z: 0}
   sheepRenderer: {fileID: 693295512622140117}
-  rotationSpeed: 30
+  rotationSpeed: 25
 --- !u!114 &2972796464122367339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deformRadius: 0.5
   deformStrength: 0.0002
-  deformationThreshold: 300
+  deformationThreshold: 250
   mesh: {fileID: 0}
   restoreSpeed: 0.05
   shrinkTarget: {fileID: 8233303665751909568}

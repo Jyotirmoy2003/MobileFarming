@@ -48,10 +48,11 @@ public class WorldManager : MonoBehaviour
     }
 
     [NaughtyAttributes.Button]
-    void UnlockAllChunks()
+    public void UnlockAllChunks()
     {
         foreach(Chunk item in worldChunk) item.Initialize(0);
-
+        UpdateGridWall();
+        UpdateGridRenderer();
         SaveData();
     }
 
@@ -272,13 +273,20 @@ public class WorldManager : MonoBehaviour
 
     private void LoadTutroalWord()
     {
-        // worldData = new WorldData();
+        worldData = SaveAndLoad.Load<WorldData>(dataPath);
+        if(worldData == null)
+        {
+            worldData = new WorldData();
 
-        // for(int i=0;i<world.childCount;i++)
-        // {
-        //     if(world.GetChild(i).TryGetComponent<Chunk>(out var chunk))
-        //             worldData.chunkPrices.Add(new ChunkIdPricePair(chunk.GetInitialPrice(),chunk.ChunkID));
-        // }
+            for(int i=0;i<world.childCount;i++)
+            {
+                worldData.chunkPrices.Add(new ChunkIdPricePair(worldChunk[i].ChunkID,worldChunk[i].GetInitialPrice()));
+            }
+
+            SaveAndLoad.Save(dataPath,worldData);
+        }else{
+                UpdateData();
+        }
     }
 
     private void UpdateData()

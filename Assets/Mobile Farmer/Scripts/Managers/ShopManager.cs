@@ -125,7 +125,7 @@ public class ShopManager : MonoSingleton<ShopManager>
     {
         AdsManager.Instance.rewardedAds.OnAddSucessFullyWatched -= AdWatchedForGems;
         TransactionEffectManager.Instance.PlayGemParticel(5 );
-        UIManager.Instance.ItemCreadited(E_Inventory_Item_Type.Gem,800);
+        UIManager.Instance.ItemCreadited(E_Inventory_Item_Type.Gem,5);
         ShopClose();
     }
 

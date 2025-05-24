@@ -15,6 +15,12 @@ public class CashManager : MonoSingleton<CashManager>
 
      void Start()
      {
+          if (PlayerPrefs.GetInt("FirstTime", 0) == 0)
+          {
+               PlayerPrefs.SetInt("FirstTime", 1);
+               Invoke(nameof(Add4000Coin),2f);
+          }
+
           LoadCurrency();
           coinsAmount_text.text = CoinSystem.ConvertCoinToString(coins);
           gemsAmount_text.text = CoinSystem.ConvertCoinToString(gems);
@@ -63,7 +69,7 @@ public class CashManager : MonoSingleton<CashManager>
                AudioManager.instance.PlaySound("Gem");
                return true;  
           }else{
-               UIManager.Instance.InsufficientGem();
+               //UIManager.Instance.InsufficientGem();
                return false;
           }
      }
@@ -103,6 +109,10 @@ public class CashManager : MonoSingleton<CashManager>
      private void Add500Coin()
      {
           CreditCoins(500);
+     }
+     private void Add4000Coin()
+     {
+          CreditCoins(4000);
      }
 
       [NaughtyAttributes.Button]

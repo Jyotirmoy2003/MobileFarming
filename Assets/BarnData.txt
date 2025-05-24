@@ -1,1 +1,0 @@
-{"workerStatSaves":[{"isPurchased":true,"level":10,"price":0,"maxLoadCapacity":4302},{"isPurchased":true,"level":10,"price":0,"maxLoadCapacity":1135},{"isPurchased":true,"level":10,"price":0,"maxLoadCapacity":1135}]}

@@ -460,7 +460,7 @@ public class Barn : MonoBehaviour,IInteractable
         }
         //update UI
         BarnUImanager.Instance.ShowWorkerData(deepCopyWorkerStats,nearByFields);
-        BarnUImanager.Instance.ShowBarnData(nextUpgradePrice);
+        BarnUImanager.Instance.ShowBarnData(nextUpgradePrice,barnCapableItem[0].maxLoadCapacity);
     }
 
     void UpgradeBarn()
